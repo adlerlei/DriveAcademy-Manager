@@ -2,7 +2,6 @@
 
 C 2024 ZHUNG - DriveAcademy Manager v1.0
 
-````markdown
 # 駕駛訓練學校學員管理系統
 
 ## 項目介紹
@@ -31,7 +30,6 @@ C 2024 ZHUNG - DriveAcademy Manager v1.0
 ```bash
 pip install -r requirements.txt
 ```
-````
 
 4. 運行系統：
 
