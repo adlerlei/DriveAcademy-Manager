@@ -27,9 +27,10 @@ C 2024 ZHUNG - DriveAcademy Manager v1.0
 1. 克隆此倉庫到本地機器。
 2. 確保您的機器上已安裝 Python 3。
 3. 安裝項目依賴：
-   ```bash
-   pip install -r requirements.txt
-   ```
+
+```bash
+pip install -r requirements.txt
+```
 ````
 
 4. 運行系統：
