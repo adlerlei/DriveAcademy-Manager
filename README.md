@@ -35,7 +35,7 @@ C 2024 ZHUNG - DriveAcademy Manager v1.0
 4. 運行系統：
 
 ```bash
-   python main.py
+python main.py
 ```
 
 ## 貢獻指南
