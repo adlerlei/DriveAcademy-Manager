@@ -48,7 +48,3 @@ C 2024 ZHUNG - DriveAcademy Manager v1.0
 ## 聯繫方式
 
 如有任何問題，請通過[此處](mailto:Adler.Lei@Gmail.com)聯繫我們。
-
-```
-
-```
