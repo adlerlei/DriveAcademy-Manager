@@ -1,10 +1,10 @@
 # 應用程序入口
 import tkinter as tk
-from ui.login import login_window # 引入登录窗口
+from ui.main_window import MainWindow # 引入主介面
 
 def main():
     root = tk.Tk()
-    login_window(root)
+    MainWindow(root)
     root.mainloop()
     
 if __name__ == '__main__':
