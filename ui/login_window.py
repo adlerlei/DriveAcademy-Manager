@@ -5,6 +5,7 @@ from tkinter import messagebox
 from utils.utility_functions import clear_frame
 from utils.utility_functions import enable_buttons
 from db.database import validate_admin_login
+from ui.stay_window import stay_window
 
 
 def create_login_window(frame_main, buttons):
@@ -39,6 +40,7 @@ def create_login_window(frame_main, buttons):
             messagebox.showinfo("成功", "登入成功！")
             # 顯示 left_frame 按鈕選單
             enable_buttons(buttons)
+            stay_window(frame_main)
         else:
             messagebox.showerror("失敗", "用戶名或密碼錯誤！")
     
