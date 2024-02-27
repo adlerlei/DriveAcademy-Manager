@@ -37,7 +37,7 @@ def create_main_window():
     ("開結訓作業", create_training_window),
     ("筆試 / 路試作業", create_test_window),
     ("M2補訓名冊製作", create_report_window)
-]
+]   
 
     # main_window.py
     for button_text, action in buttons_info:

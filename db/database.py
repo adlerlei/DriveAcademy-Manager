@@ -134,7 +134,7 @@ def register_admin(name, username, password, phone_mobile, email, mailing_addres
 
 
         
-
+# 管理員登入資料寫入邏輯與 ui / login_window.py 連接
 def validate_admin_login(username, password):
     database = 'db/school_database.db'
     try:
