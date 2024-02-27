@@ -99,23 +99,6 @@ def create_connection(db_file):
         print(e)
     return conn
 
-# 在創建資料表跟欄位後，將部分學員資料欄位內容寫著資料欄位中
-def insert_student_data(conn):
-    sql = ''' INSERT INTO student_info(training_type, license_type, source, transmission_type, dropout, retest_type)
-              VALUES(?,?,?,?,?,?) '''
-    values = (
-        '普通小客車', 
-        '自用小客車,職業小客車,自用大貨車,職業大貨車,自用大客車,職業大客車,自用聯結車,職業聯結車',
-        '新考,晉考,換考,吊扣註銷重考,臨時駕駛執照',
-        '手排,自排,特製車',
-        '是,否',
-        '筆試補考,道路補考,新生'
-    )
-    cur = conn.cursor()
-    cur.execute(sql, values)
-    conn.commit()
-    return cur.lastrowid
-
 # 創建一個函數來初始化數據庫
 def create_table(conn, create_table_sql):
     '''創建數據庫表格'''
@@ -137,10 +120,6 @@ def main():
         create_table(conn, create_instructor_info_sql)
         create_table(conn, create_admin_info_sql)
         create_table(conn, create_driving_school_info_sql)
-        
-        # 寫入部分學員資料欄位中的資料內容
-        insert_student_data(conn)
-        print("預設資料已成功寫入學員資料表。")
         conn.close()
     else:
         print('資料庫連線失敗！')
@@ -157,7 +136,7 @@ def register_admin(username, password):
             sql = ''' INSERT INTO adminInfo(username,password) VALUES(?,?) '''
             cur = conn.cursor()
             # cur.execute(sql, (name, username, password, phone_mobile, email, mailing_address))
-            cur.execute(sql, (username, password,))
+            cur.execute(sql, (username, password, phone_mobile, email, mailing_address))
             conn.commit()
             return True  # 返回True表示注册成功
     except Error as e:
