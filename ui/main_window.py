@@ -1,77 +1,72 @@
 import tkinter as tk
-from login import LoginWindow
+from tkinter import ttk
+from .batch_management import create_batch_window # 期別管理
+from .license_management import create_license_window # 學照資料管理
+from .login_window import create_login_window # 登入
+from .register_window import create_register_window # 註冊
+from .report_generation import create_report_window # M2補訓
+from .student_management import create_student_window # 學員資料
+from .test_management import create_test_window # 筆試路試
+from .training_management import create_training_window # 開結訓
+from utils.utility_functions import set_app_icon
 
-class MainWindow:
-    def __init__(self, root):
-        self.root = root
-        self.root.title("主介面 V1.0")
-        # 嘗試跨平台最大化窗口的方法
-        try:
-            self.root.state('zoomed')
-        except Exception:
-            self.root.attributes('-zoomed', True)
 
-        # 側邊欄
-        self.sidebar = tk.Frame(self.root, bg='#dddddd', relief='flat', borderwidth=0)
-        self.sidebar.pack(side='left', fill='y', padx=5, pady=5)
+def create_main_window():
+    root = tk.Tk()
+    root.title("DriveAcademyManager V1.0")
+    try:
+        root.state('zoomed')
+    except Exception:
+        root.attributes('-zoomed', True)
+    # setting app iocn
+    set_app_icon(root)
+    
+    # use 57 code and start this function
+    # maximize_window(root)
+    
+    # left frame button menu
+    frame_left = ttk.Frame(root, relief='flat', borderwidth=0)
+    frame_left.pack(side='left', fill='y', padx=5, pady=5)
 
-        # 主內容區
-        self.main_content = tk.Frame(self.root, bg='#ffffff', relief='flat', borderwidth=0)
-        self.main_content.pack(side='right', fill='both', expand=True)
+    # 初始化按钮并禁用
+    buttons = []  # 存储所有按钮的引用
+    buttons_info = [
+    ("期別新增作業", create_batch_window),
+    ("學員資料作業", create_student_window),
+    ("學照資料作業", create_license_window),
+    ("開結訓作業", create_training_window),
+    ("筆試 / 路試作業", create_test_window),
+    ("M2補訓名冊製作", create_report_window)
+]
 
-        # 按鈕列表和對應功能
-        self.buttons_info = [
-            ("期別新增作業", self.show_batch),
-            ("學員新增作業", self.show_students),
-            ("學照資料", self.show_license),
-            ("開結訓資料", self.show_training),
-            ("筆試 / 路試資料作業", self.show_tests),
-            ("監理資料補登", self.show_supervision),
-        ]
-        self.create_sidebar_buttons()
+    # main_window.py
+    for button_text, action in buttons_info:
+        button = tk.Button(frame_left, text=button_text, anchor='w', padx=20, pady=10, width=18, height=6, state='disabled',
+                            command=lambda a=action: a(frame_main))  # 直接传递frame_main
+        button.pack()
+        buttons.append(button)
+    
+    
+    
+    # right frame
+    frame_main = ttk.Frame(root, relief='flat', borderwidth=0)
+    frame_main.pack(side='right', fill='both', expand=True)
+    
+    # start app display admin login interface
+    create_login_window(frame_main, buttons)
 
-    def create_sidebar_buttons(self):
-        for text, command in self.buttons_info:
-            button = tk.Button(self.sidebar, text=text, command=command, anchor='w', padx=20, pady=10, width=20, height=2)
-            button.pack(fill='x')
+# def maximize_window(root):
+#     # 检查操作系统，为MacOS时使用全屏模式
+#     if root.tk.call('tk', 'windowingsystem') == 'aqua':
+#         root.attributes('-fullscreen', True)  # MacOS全屏模式
+#     else:
+#         # 对于其他系统，尝试使用'-zoomed'属性
+#         try:
+#             root.attributes('-zoomed', True)  # Linux和Windows系统
+#         except tk.TclError:
+#             root.state('zoomed')  # 如果'-zoomed'不可用，回退到这个方法
 
-    def clear_main_content(self):
-        # 清除主內容區的所有元件
-        for widget in self.main_content.winfo_children():
-            widget.destroy()
-            
-    def show_login(self):
-        self.clear_main_content()  # 清除主内容区的现有内容
-        login_frame = LoginWindow(self.main_content)  # 创建LoginFrame的实例
-        login_frame.pack(expand=True, fill='both')  # 将登录界面添加到主内容区
-
-    def show_batch(self):
-        self.clear_main_content()
-        # 顯示期別新增作業相關介面的代碼
-
-    def show_students(self):
-        self.clear_main_content()
-        # 顯示學員新增作業相關介面的代碼
-
-    def show_license(self):
-        self.clear_main_content()
-        # 顯示學照資料相關介面的代碼
-
-    def show_training(self):
-        self.clear_main_content()
-        # 顯示開結訓資料相關介面的代碼
-
-    def show_tests(self):
-        self.clear_main_content()
-        # 顯示筆試/路試資料作業相關介面的代碼
-
-    def show_supervision(self):
-        self.clear_main_content()
-        # 顯示監理資料補登相關介面的代碼
 
 if __name__ == "__main__":
-    root = tk.Tk()
-    app = MainWindow(root)
-    app.show_login() # 顯示登入介面
-    root.mainloop()
-   
+    create_main_window()
+    tk.mainloop()

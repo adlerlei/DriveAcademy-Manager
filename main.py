@@ -1,11 +1,9 @@
-# 應用程序入口
 import tkinter as tk
-from ui.main_window import MainWindow # 引入主介面
+from ui.main_window import create_main_window
 
 def main():
-    root = tk.Tk()
-    MainWindow(root)
-    root.mainloop()
-    
+    create_main_window()
+    tk.mainloop()
+
 if __name__ == '__main__':
     main()
