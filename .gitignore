@@ -3,6 +3,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 開發進度.pdf
+school_database.db
 
 # C extensions
 *.so
