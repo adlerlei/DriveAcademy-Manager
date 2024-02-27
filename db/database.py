@@ -1,81 +1,90 @@
 import sqlite3
 from sqlite3 import Error
-from tkinter import messagebox
 
 
-# 創建資料庫信息表的SQL語句
+# 創建資料庫表以及資料庫欄位的SQL語句
+# 學員資料表 - 欄位
 create_student_info_sql = """
 CREATE TABLE IF NOT EXISTS student_info (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT,
-    identity_number TEXT UNIQUE,
-    birth_date TEXT,
-    gender TEXT,
-    landline TEXT,
-    mobile TEXT,
-    email TEXT,
-    residence_address TEXT,
-    mailing_address TEXT,
-    instructor_id INTEGER,
-    training_type TEXT,
-    license_type TEXT,
-    batch INTEGER,
-    source TEXT,
-    transmission_type TEXT,
-    dropout TEXT,
-    retest_type TEXT,
-    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (instructor_id) REFERENCES instructorInfo(id)
+    id INTEGER PRIMARY KEY AUTOINCREMENT,  -- 主鍵，自增
+    -- instructor_id INTEGER,  -- 指導教練ID
+    student_number TEXT, -- 學員編號
+    name TEXT,  -- 學員姓名
+    identity_number TEXT UNIQUE,  -- 身份證號，唯一
+    birth_date TEXT,  -- 出生日期
+    gender TEXT,  -- 性別
+    landline TEXT,  -- 室內電話
+    mobile TEXT,  -- 手機號碼
+    email TEXT,  -- 電子郵箱
+    residence_address TEXT,  -- 戶籍地址
+    mailing_address TEXT,  -- 通訊地址
+    instructor TEXT,  -- 指導教練
+    training_type TEXT,  -- 訓練班別
+    license_type TEXT,  -- 考照類別
+    batch TEXT,  -- 期別
+    class TEXT,  -- 梯次
+    source TEXT,  -- 來源
+    transmission_type TEXT,  -- 手自排
+    dropout TEXT,  -- 退訓
+    retest_type TEXT,  -- 補考類別
+    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP  -- 記錄創建時間
+    -- FOREIGN KEY (instructor_id) REFERENCES instructorInfo(id)
 )
 """
 
+# 教練資料表 - 欄位
 create_instructor_info_sql = """
 CREATE TABLE IF NOT EXISTS instructorInfo (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT,
-    identity_number TEXT UNIQUE,
-    birth_date TEXT,
-    gender TEXT,
-    instructor_license_number TEXT,
-    license_category TEXT,
-    license_number TEXT,
-    landline TEXT,
-    mobile TEXT,
-    email TEXT,
-    residence_address TEXT,
-    mailing_address TEXT,
-    base_salary REAL,
-    employment_date TEXT,
-    resignation_date TEXT,
-    remarks TEXT,
-    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    id INTEGER PRIMARY KEY AUTOINCREMENT,  -- 主鍵，自增
+    instructor_number TEXT, -- 教練編號
+    name TEXT,  -- 教練姓名
+    identity_number TEXT UNIQUE,  -- 身份證號，唯一
+    birth_date TEXT,  -- 出生日期
+    gender TEXT,  -- 性別
+    instructor_license_number TEXT,  -- 教練證號
+    license_category TEXT,  -- 駕照類別
+    license_number TEXT,  -- 駕照號碼
+    landline TEXT,  -- 室內電話
+    mobile TEXT,  -- 手機號碼
+    email TEXT,  -- 電子郵箱
+    residence_address TEXT,  -- 戶籍地址
+    mailing_address TEXT,  -- 通訊地址
+    base_salary REAL,  -- 基本工資
+    employment_date TEXT,  -- 雇用日期
+    resignation_date TEXT,  -- 辭職日期
+    remarks TEXT,  -- 備註
+    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP  -- 記錄創建時間
 )
 """
 
+# 管理員資料表 - 欄位
 create_admin_info_sql = """
 CREATE TABLE IF NOT EXISTS adminInfo (
-    id INTEGER PRIMARY KEY,
-    name TEXT,
-    username TEXT UNIQUE NOT NULL,
-    password TEXT NOT NULL,
-    phone_mobile TEXT,
-    email TEXT,
-    mailing_address TEXT,
-    created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    id INTEGER PRIMARY KEY,  -- 主鍵，唯一標識一個管理員
+    username TEXT UNIQUE NOT NULL,  -- 管理員用戶名，唯一且不可為空
+    password TEXT NOT NULL,  -- 管理員密碼，不可為空
+    phone_mobile TEXT,  -- 手機號碼
+    -- 以下欄位暫時不需要 -----------------------------
+    -- name TEXT,  -- 管理員姓名
+    -- email TEXT,  -- 電子郵箱
+    -- mailing_address TEXT,  -- 通訊地址
+    -----------------------------------------------------------------
+    created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP  -- 記錄創建時間
 )
 """
 
+# 駕校資料表 - 欄位
 create_driving_school_info_sql = """
 CREATE TABLE IF NOT EXISTS drivingSchoolInfo (
-    id INTEGER PRIMARY KEY,
-    name TEXT,
-    abbreviation TEXT,
-    supervisor_station_code TEXT,
-    principal TEXT,
-    phone TEXT,
-    fax TEXT,
-    address TEXT,
-    created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    id INTEGER PRIMARY KEY,  -- 主鍵，唯一標識一個駕校
+    name TEXT,  -- 駕校名稱
+    abbreviation TEXT,  -- 駕校縮寫
+    supervisor_station_code TEXT,  -- 監理站代號
+    principal TEXT,  -- 駕訓班主任
+    phone TEXT,  -- 駕校電話
+    fax TEXT,  -- 駕校傳真
+    address TEXT,  -- 駕校地址
+    created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP  -- 記錄創建時間
 )
 """
 
@@ -90,6 +99,23 @@ def create_connection(db_file):
         print(e)
     return conn
 
+# 在創建資料表跟欄位後，將部分學員資料欄位內容寫著資料欄位中
+def insert_student_data(conn):
+    sql = ''' INSERT INTO student_info(training_type, license_type, source, transmission_type, dropout, retest_type)
+              VALUES(?,?,?,?,?,?) '''
+    values = (
+        '普通小客車', 
+        '自用小客車,職業小客車,自用大貨車,職業大貨車,自用大客車,職業大客車,自用聯結車,職業聯結車',
+        '新考,晉考,換考,吊扣註銷重考,臨時駕駛執照',
+        '手排,自排,特製車',
+        '是,否',
+        '筆試補考,道路補考,新生'
+    )
+    cur = conn.cursor()
+    cur.execute(sql, values)
+    conn.commit()
+    return cur.lastrowid
+
 # 創建一個函數來初始化數據庫
 def create_table(conn, create_table_sql):
     '''創建數據庫表格'''
@@ -103,27 +129,35 @@ def create_table(conn, create_table_sql):
 def main():
     database = 'db/school_database.db'
     
-    # 創建學員信息表
+    # 創建資料庫表及欄位信息
     conn = create_connection(database)
+        
     if conn is not None:
         create_table(conn, create_student_info_sql)
         create_table(conn, create_instructor_info_sql)
         create_table(conn, create_admin_info_sql)
         create_table(conn, create_driving_school_info_sql)
+        
+        # 寫入部分學員資料欄位中的資料內容
+        insert_student_data(conn)
+        print("預設資料已成功寫入學員資料表。")
         conn.close()
     else:
         print('資料庫連線失敗！')
         
 
 # 管理員註冊資料寫入邏輯與 ui / register_window.py 連接
-def register_admin(name, username, password, phone_mobile, email, mailing_address):
+# def register_admin(name, username, password, phone_mobile, email, mailing_address):
+def register_admin(username, password):
     database = 'db/school_database.db'
     try:
         conn = create_connection(database)
         if conn is not None:
-            sql = ''' INSERT INTO adminInfo(name,username,password,phone_mobile,email,mailing_address) VALUES(?,?,?,?,?,?) '''
+            # sql = ''' INSERT INTO adminInfo(name,username,password,phone_mobile,email,mailing_address) VALUES(?,?,?,?,?,?) '''
+            sql = ''' INSERT INTO adminInfo(username,password) VALUES(?,?) '''
             cur = conn.cursor()
-            cur.execute(sql, (name, username, password, phone_mobile, email, mailing_address))
+            # cur.execute(sql, (name, username, password, phone_mobile, email, mailing_address))
+            cur.execute(sql, (username, password,))
             conn.commit()
             return True  # 返回True表示注册成功
     except Error as e:

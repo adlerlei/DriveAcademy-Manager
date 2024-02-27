@@ -3,7 +3,7 @@ from tkinter import ttk
 from utils.utility_functions import clear_frame
 
 
-def stay_window(frame_main):
+def start_window(frame_main):
     clear_frame(frame_main)
 
     # 這裡將圖片引用存储在 frame_main 的一個屬性中以保持引用

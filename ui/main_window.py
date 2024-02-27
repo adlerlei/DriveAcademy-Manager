@@ -21,9 +21,6 @@ def create_main_window():
     # setting app iocn
     set_app_icon(root)
     
-    # use 57 code and start this function
-    # maximize_window(root)
-    
     # left frame button menu
     frame_left = ttk.Frame(root, relief='flat', borderwidth=0)
     frame_left.pack(side='left', fill='y', padx=5, pady=5)
@@ -54,17 +51,6 @@ def create_main_window():
     
     # start app display admin login interface
     create_login_window(frame_main, buttons)
-
-# def maximize_window(root):
-#     # 检查操作系统，为MacOS时使用全屏模式
-#     if root.tk.call('tk', 'windowingsystem') == 'aqua':
-#         root.attributes('-fullscreen', True)  # MacOS全屏模式
-#     else:
-#         # 对于其他系统，尝试使用'-zoomed'属性
-#         try:
-#             root.attributes('-zoomed', True)  # Linux和Windows系统
-#         except tk.TclError:
-#             root.state('zoomed')  # 如果'-zoomed'不可用，回退到这个方法
 
 
 if __name__ == "__main__":
