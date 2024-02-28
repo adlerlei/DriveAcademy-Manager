@@ -11,20 +11,19 @@ from ui.start_window import start_window
 def create_login_window(frame_main, buttons):
     clear_frame(frame_main)
     from .register_window import create_register_window
-    label_username = ttk.Label(frame_main, text="管理員帳號：")
-    label_username.place(x=500, y=150)
-    entry_username = ttk.Entry(frame_main, width=30)
-    entry_username.place(x=600, y=150)
+    ttk.Label(frame_main, text="管理員帳號：").place(x=500, y=150)
+    admin_username = ttk.Entry(frame_main, width=30)
+    admin_username.place(x=600, y=150)
+    admin_username.focus()  # 設定 entry_username 的焦點位置
 
-    label_password = ttk.Label(frame_main, text="管理員密碼：")
-    label_password.place(x=500, y=200)
-    entry_password = ttk.Entry(frame_main, width=30, show="*")
-    entry_password.place(x=600, y=200)
+    ttk.Label(frame_main, text="管理員密碼：").place(x=500, y=200)
+    admin_password = ttk.Entry(frame_main, width=30, show="*")
+    admin_password.place(x=600, y=200)
     
     # 處理登入驗證邏輯
     def on_login_clicked():
-        username = entry_username.get()
-        password = entry_password.get()
+        username = admin_username.get()
+        password = admin_password.get()
         
         # 檢查帳號密碼是否已輸入
         if not username or not password:
@@ -32,17 +31,19 @@ def create_login_window(frame_main, buttons):
             return
         
         # 檢查用戶登入的帳號密碼是否正確
-        if not validate_admin_login(username, password):
-            messagebox.showerror("錯誤", "用戶名或密碼錯誤！")
-            return
-        
-        if validate_admin_login(username, password):
+        validation_result = validate_admin_login(username, password)
+        if validation_result == "success":
             messagebox.showinfo("成功", "登入成功！")
             # 顯示 left_frame 按鈕選單
             enable_buttons(buttons)
             start_window(frame_main)
+        elif validation_result == "username_error":
+            messagebox.showerror("失敗", "用戶名不存在！")
+        elif validation_result == "password_error":
+            messagebox.showerror("失敗", "密碼錯誤！")
         else:
-            messagebox.showerror("失敗", "用戶名或密碼錯誤！")
+            messagebox.showerror("錯誤", "無此帳號及密碼！")
+
     
     button_login = ttk.Button(frame_main, text="登入", width=15, command=on_login_clicked)
     button_login.place(x=600, y=250)

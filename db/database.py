@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS adminInfo (
     id INTEGER PRIMARY KEY,  -- 主鍵，唯一標識一個管理員
     username TEXT UNIQUE NOT NULL,  -- 管理員用戶名，唯一且不可為空
     password TEXT NOT NULL,  -- 管理員密碼，不可為空
-    phone_mobile TEXT,  -- 手機號碼
+    -- phone_mobile TEXT,  -- 手機號碼
     -- 以下欄位暫時不需要 -----------------------------
     -- name TEXT,  -- 管理員姓名
     -- email TEXT,  -- 電子郵箱
@@ -136,7 +136,7 @@ def register_admin(username, password):
             sql = ''' INSERT INTO adminInfo(username,password) VALUES(?,?) '''
             cur = conn.cursor()
             # cur.execute(sql, (name, username, password, phone_mobile, email, mailing_address))
-            cur.execute(sql, (username, password, phone_mobile, email, mailing_address))
+            cur.execute(sql, (username, password))
             conn.commit()
             return True  # 返回True表示注册成功
     except Error as e:
@@ -153,19 +153,27 @@ def validate_admin_login(username, password):
     try:
         conn = create_connection(database)
         if conn is not None:
-            sql = ''' SELECT * FROM adminInfo WHERE username=? AND password=? '''
+            # 先檢查用戶名是否存在
+            sql_username = ''' SELECT * FROM adminInfo WHERE username=? '''
             cur = conn.cursor()
-            cur.execute(sql, (username, password))
-            account = cur.fetchone()
-            if account:
-                return True  # 返回True表示登录成功
-            else:
-                return False  # 返回False表示登录失败
+            cur.execute(sql_username, (username,))
+            if not cur.fetchone():
+                return "username_error"  # 用戶名不存在
+
+            # 用戶名存在，檢查密碼是否正確
+            sql_password = ''' SELECT * FROM adminInfo WHERE username=? AND password=? '''
+            cur.execute(sql_password, (username, password))
+            if not cur.fetchone():
+                return "password_error"  # 密碼錯誤
+
+            return "success"  # 用戶名和密碼都正確
     except Error as e:
-        return str(e)  # 返回错误信息
+        print(e)  # 或者將錯誤記錄到日誌中
+        return "error"  # 發生錯誤
     finally:
         if conn:
             conn.close()
+
         
 if __name__ == '__main__':
     main()

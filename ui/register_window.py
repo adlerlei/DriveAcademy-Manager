@@ -14,16 +14,17 @@ def create_register_window(frame_main, buttons):
     # ttk.Entry(frame_main, textvariable=admin_name_var, width=30).place(x=600, y=200)
     
     ttk.Label(frame_main, text="登入帳號：").place(x=500, y=250)
-    admin_username_var = tk.StringVar()
-    ttk.Entry(frame_main, textvariable=admin_username_var, width=30).place(x=600, y=250)
+    admin_username = ttk.Entry(frame_main, width=30)
+    admin_username.place(x=600, y=250)
+    admin_username.focus()  # 設定預設焦點在帳號欄位上
     
     ttk.Label(frame_main, text="密碼：").place(x=500, y=300)
-    admin_password_var = tk.StringVar()
-    ttk.Entry(frame_main, textvariable=admin_password_var, width=30, show="*").place(x=600, y=300)
+    admin_password = ttk.Entry(frame_main, width=30, show="*")
+    admin_password.place(x=600, y=300)
     
     ttk.Label(frame_main, text="確認密碼：").place(x=500, y=350)
-    admin_repassword_var = tk.StringVar()
-    ttk.Entry(frame_main, textvariable=admin_repassword_var, width=30, show="*").place(x=600, y=350)
+    admin_repassword = ttk.Entry(frame_main,  width=30, show="*")
+    admin_repassword.place(x=600, y=350)
     
     # ttk.Label(frame_main, text="手機號碼：").place(x=500, y=400)
     # admin_phone_var = tk.StringVar()
@@ -40,9 +41,9 @@ def create_register_window(frame_main, buttons):
     # 驗證管理員註冊信息以及處理邏輯
     def on_register_clicked():
         # name = admin_name_var.get()
-        username = admin_username_var.get()
-        password = admin_password_var.get()
-        repassword = admin_repassword_var.get()
+        username = admin_username.get()
+        password = admin_password.get()
+        repassword = admin_repassword.get()
         # phone_mobile = admin_phone_var.get()
         # email = admin_mail_var.get()
         # mailing_address = admin_address_var.get()
