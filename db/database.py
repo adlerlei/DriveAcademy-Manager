@@ -2,69 +2,152 @@ import sqlite3
 from sqlite3 import Error
 
 
-# 創建資料庫表以及資料庫欄位的SQL語句
+# 訓練班別 ( 1 自用小客車班 )
+create_training = """
+CREATE TABLE IF NOT EXISTS training_info (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,  -- 主鍵，自增
+    code TEXT UNIQUE NOT NULL, -- 訓練班別代號
+    training TEXT UNIQUE NOT NULL,  -- 訓練班別
+    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP  -- 記錄創建時間
+
+)
+"""
+
+# 考照類別 ( 0 自用小客車 / 1 職業小客車 )
+create_license = """
+CREATE TABLE IF NOT EXISTS license_info (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,  -- 主鍵，自增
+    code TEXT UNIQUE NOT NULL, -- 考照類別代號
+    license TEXT UNIQUE NOT NULL,  -- 考照類別
+    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP  -- 記錄創建時間
+)
+"""
+
+# 梯次 ( A , B )
+create_class = """
+CREATE TABLE IF NOT EXISTS class_info (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,  -- 主鍵，自增
+    class TEXT UNIQUE NOT NULL,  -- 梯次
+    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP  -- 記錄創建時間
+)
+"""
+
+# 來源 ( 新考，晉考，換考 .. 與開訓名冊關聯)
+create_source = """
+CREATE TABLE IF NOT EXISTS source_info (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,  -- 主鍵，自增
+    code TEXT UNIQUE NOT NULL, -- 來源代號
+    source TEXT UNIQUE NOT NULL,  -- 來源
+    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP  -- 記錄創建時間
+)
+"""
+
+# 手自排
+create_manual_automatic = """
+CREATE TABLE IF NOT EXISTS manual_automatic_info (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,  -- 主鍵，自增
+    code TEXT UNIQUE NOT NULL, -- 手自排代號
+    manual_automatic TEXT UNIQUE NOT NULL,  -- 手自排
+    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP  -- 記錄創建時間
+)
+"""
+
+# 退訓
+create_dropout = """
+CREATE TABLE IF NOT EXISTS dropout_info (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,  -- 主鍵，自增
+    dropout TEXT UNIQUE NOT NULL, -- 退訓
+    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP  -- 記錄創建時間
+)
+"""
+
+# 補考類別(筆試補考，道路補考，新生)
+create_resit = """
+CREATE TABLE IF NOT EXISTS resit_info (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,  -- 主鍵，自增
+    code TEXT UNIQUE NOT NULL, -- 補考類別代號
+    resit TEXT UNIQUE NOT NULL,  -- 補考類別
+    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP  -- 記錄創建時間
+)
+"""
+
+# 期別
+create_term = """
+CREATE TABLE IF NOT EXISTS term_info (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,  -- 主鍵，自增
+    term TEXT UNIQUE NOT NULL, -- 期別
+    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP  -- 記錄創建時間
+)
+"""
+
 # 學員資料表 - 欄位
-create_student_info_sql = """
+create_student = """
 CREATE TABLE IF NOT EXISTS student_info (
     id INTEGER PRIMARY KEY AUTOINCREMENT,  -- 主鍵，自增
-    -- instructor_id INTEGER,  -- 指導教練ID
-    student_number TEXT, -- 學員編號
-    name TEXT,  -- 學員姓名
-    identity_number TEXT UNIQUE,  -- 身份證號，唯一
-    birth_date TEXT,  -- 出生日期
-    gender TEXT,  -- 性別
-    landline TEXT,  -- 室內電話
-    mobile TEXT,  -- 手機號碼
-    email TEXT,  -- 電子郵箱
-    residence_address TEXT,  -- 戶籍地址
+    code TEXT UNIQUE NOT NULL, -- 學員編號
+    name TEXT NOT NULL,  -- 學員姓名
+    id_number TEXT UNIQUE NOT NULL,  -- 身份證號，唯一
+    date_birth TEXT NOT NULL,  -- 出生日期
+    gender TEXT NOT NULL,  -- 性別
+    local_phone TEXT,  -- 室內電話
+    mobile_phone TEXT,  -- 手機號碼
+    email TEXT UNIQUE NOT NULL,  -- 電子郵箱
+    registered_address TEXT NOT NULL,  -- 戶籍地址
     mailing_address TEXT,  -- 通訊地址
-    instructor TEXT,  -- 指導教練
-    training_type TEXT,  -- 訓練班別
-    license_type TEXT,  -- 考照類別
-    batch TEXT,  -- 期別
-    class TEXT,  -- 梯次
-    source TEXT,  -- 來源
-    transmission_type TEXT,  -- 手自排
-    dropout TEXT,  -- 退訓
-    retest_type TEXT,  -- 補考類別
+    training INTEGER,  -- 訓練班別(關聯訓練班別資料)
+    instructor INTEGER,  -- 指導教練(關聯教練資料)
+    license INTEGER,  -- 考照類別(關聯考照類別資料)
+    class INTEGER,  -- 梯次(關聯梯次資料)
     creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP  -- 記錄創建時間
-    -- FOREIGN KEY (instructor_id) REFERENCES instructorInfo(id)
+    
+    -- 建立外鍵關聯
+    -- 將 training 欄位設為外鍵，參照 training_info 表的 id 欄位
+    FOREIGN KEY(training) REFERENCES training_info(id)
+    
+    -- 將 instructor 欄位設為外鍵，參照 instructor_Info 表的 id 欄位
+    FOREIGN KEY(instructor) REFERENCES instructor_Info(id)
+    
+    -- 將 license 欄位設為外鍵，參照 license_Info 表的 id 欄位
+    FOREIGN KEY(license) REFERENCES license_Info(id)
+    
+    -- 將 class 欄位設為外鍵，參照 class_Info 表的 id 欄位
+    FOREIGN KEY(class) REFERENCES class_Info(id)
 )
 """
 
 # 教練資料表 - 欄位
-create_instructor_info_sql = """
-CREATE TABLE IF NOT EXISTS instructorInfo (
+create_instructor = """
+CREATE TABLE IF NOT EXISTS instructor_Info (
     id INTEGER PRIMARY KEY AUTOINCREMENT,  -- 主鍵，自增
-    instructor_number TEXT, -- 教練編號
-    name TEXT,  -- 教練姓名
-    identity_number TEXT UNIQUE,  -- 身份證號，唯一
-    birth_date TEXT,  -- 出生日期
+    code TEXT UNIQUE NOT NULL, -- 教練編號
+    name TEXT NOT NULL,  -- 教練姓名
+    id_number TEXT UNIQUE NOT NULL,  -- 身份證號，唯一
+    date_birth TEXT,  -- 出生日期
     gender TEXT,  -- 性別
-    instructor_license_number TEXT,  -- 教練證號
-    license_category TEXT,  -- 駕照類別
-    license_number TEXT,  -- 駕照號碼
-    landline TEXT,  -- 室內電話
-    mobile TEXT,  -- 手機號碼
+    instructor_number TEXT,  -- 教練證號
+    driving_license TEXT,  -- 駕照類別
+    driving_number TEXT,  -- 駕照號碼
+    local_phone TEXT,  -- 室內電話
+    mobile_phone TEXT,  -- 手機號碼
     email TEXT,  -- 電子郵箱
-    residence_address TEXT,  -- 戶籍地址
+    registered_address TEXT,  -- 戶籍地址
     mailing_address TEXT,  -- 通訊地址
-    base_salary REAL,  -- 基本工資
-    employment_date TEXT,  -- 雇用日期
-    resignation_date TEXT,  -- 辭職日期
+    minimum_wage REAL,  -- 基本工資
+    hire_date TEXT,  -- 雇用日期
+    firing_date TEXT,  -- 辭職日期
     remarks TEXT,  -- 備註
     creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP  -- 記錄創建時間
 )
 """
 
 # 管理員資料表 - 欄位
-create_admin_info_sql = """
-CREATE TABLE IF NOT EXISTS adminInfo (
+create_admin = """
+CREATE TABLE IF NOT EXISTS admin_Info (
     id INTEGER PRIMARY KEY,  -- 主鍵，唯一標識一個管理員
     username TEXT UNIQUE NOT NULL,  -- 管理員用戶名，唯一且不可為空
     password TEXT NOT NULL,  -- 管理員密碼，不可為空
-    -- phone_mobile TEXT,  -- 手機號碼
     -- 以下欄位暫時不需要 -----------------------------
+    -- phone_mobile TEXT,  -- 手機號碼
     -- name TEXT,  -- 管理員姓名
     -- email TEXT,  -- 電子郵箱
     -- mailing_address TEXT,  -- 通訊地址
@@ -74,11 +157,11 @@ CREATE TABLE IF NOT EXISTS adminInfo (
 """
 
 # 駕校資料表 - 欄位
-create_driving_school_info_sql = """
-CREATE TABLE IF NOT EXISTS drivingSchoolInfo (
+create_school = """
+CREATE TABLE IF NOT EXISTS school_Info (
     id INTEGER PRIMARY KEY,  -- 主鍵，唯一標識一個駕校
     name TEXT,  -- 駕校名稱
-    abbreviation TEXT,  -- 駕校縮寫
+    -- abbreviation TEXT,  -- 駕校縮寫
     supervisor_station_code TEXT,  -- 監理站代號
     principal TEXT,  -- 駕訓班主任
     phone TEXT,  -- 駕校電話
@@ -116,10 +199,18 @@ def main():
     conn = create_connection(database)
         
     if conn is not None:
-        create_table(conn, create_student_info_sql)
-        create_table(conn, create_instructor_info_sql)
-        create_table(conn, create_admin_info_sql)
-        create_table(conn, create_driving_school_info_sql)
+        create_table(conn, create_training) # 訓練班別
+        create_table(conn,create_license) # 考照類別
+        create_table(conn, create_class) # 梯次
+        create_table(conn, create_source) # 來源
+        create_table(conn, create_manual_automatic) # 手自排
+        create_table(conn, create_term) # 期別
+        create_table(conn, create_dropout) # 退訓
+        create_table(conn, create_resit) # 補考類別
+        create_table(conn, create_student) # 學員資料
+        create_table(conn, create_instructor) # 教練資料
+        create_table(conn, create_admin) # 管理員資料
+        create_table(conn, create_school) # 駕訓班資料
         conn.close()
     else:
         print('資料庫連線失敗！')

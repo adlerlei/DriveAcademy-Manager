@@ -1,5 +1,4 @@
 import tkinter as tk
-from tkinter import ttk
 from .batch_management import create_batch_window # 期別管理
 from .license_management import create_license_window # 學照資料管理
 from .login_window import create_login_window # 登入
@@ -22,7 +21,7 @@ def create_main_window():
     set_app_icon(root)
     
     # left frame button menu
-    frame_left = ttk.Frame(root, relief='flat', borderwidth=0)
+    frame_left = tk.Frame(root, relief='flat', borderwidth=0)
     frame_left.pack(side='left', fill='y', padx=5, pady=5)
 
     # 初始化按钮并禁用
@@ -46,7 +45,7 @@ def create_main_window():
     
     
     # right frame
-    frame_main = ttk.Frame(root, relief='flat', borderwidth=0)
+    frame_main = tk.Frame(root, relief='flat', borderwidth=0)
     frame_main.pack(side='right', fill='both', expand=True)
     
     # start app display admin login interface

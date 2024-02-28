@@ -1,6 +1,5 @@
 # 筆試和路試作業界面
 import tkinter as tk
-from tkinter import ttk
 from utils.utility_functions import clear_frame
 
 
