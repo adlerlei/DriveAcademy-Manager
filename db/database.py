@@ -83,35 +83,31 @@ CREATE TABLE IF NOT EXISTS term_info (
 # 學員資料表 - 欄位
 create_student = """
 CREATE TABLE IF NOT EXISTS student_info (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,  -- 主鍵，自增
-    code TEXT UNIQUE NOT NULL, -- 學員編號
-    name TEXT NOT NULL,  -- 學員姓名
-    id_number TEXT UNIQUE NOT NULL,  -- 身份證號，唯一
-    date_birth TEXT NOT NULL,  -- 出生日期
-    gender TEXT NOT NULL,  -- 性別
+    id INTEGER PRIMARY KEY AUTOINCREMENT,  -- 主鍵，自動增長的整數型
+    code TEXT UNIQUE NOT NULL,  -- 學員編號，唯一且不為空
+    name TEXT NOT NULL,  -- 學員姓名，不為空
+    id_number TEXT UNIQUE NOT NULL,  -- 身份證號，唯一且不為空
+    date_birth TEXT NOT NULL,  -- 出生日期，不為空
+    gender TEXT NOT NULL,  -- 性別，不為空
     local_phone TEXT,  -- 室內電話
     mobile_phone TEXT,  -- 手機號碼
-    email TEXT UNIQUE NOT NULL,  -- 電子郵箱
-    registered_address TEXT NOT NULL,  -- 戶籍地址
+    email TEXT UNIQUE NOT NULL,  -- 電子郵箱，唯一且不為空
+    registered_address TEXT NOT NULL,  -- 戶籍地址，不為空
     mailing_address TEXT,  -- 通訊地址
-    training INTEGER,  -- 訓練班別(關聯訓練班別資料)
-    instructor INTEGER,  -- 指導教練(關聯教練資料)
-    license INTEGER,  -- 考照類別(關聯考照類別資料)
-    class INTEGER,  -- 梯次(關聯梯次資料)
-    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP  -- 記錄創建時間
-    
-    -- 建立外鍵關聯
-    -- 將 training 欄位設為外鍵，參照 training_info 表的 id 欄位
-    FOREIGN KEY(training) REFERENCES training_info(id)
-    
-    -- 將 instructor 欄位設為外鍵，參照 instructor_Info 表的 id 欄位
-    FOREIGN KEY(instructor) REFERENCES instructor_Info(id)
-    
-    -- 將 license 欄位設為外鍵，參照 license_Info 表的 id 欄位
-    FOREIGN KEY(license) REFERENCES license_Info(id)
-    
-    -- 將 class 欄位設為外鍵，參照 class_Info 表的 id 欄位
-    FOREIGN KEY(class) REFERENCES class_Info(id)
+    training INTEGER,  -- 訓練班別ID，外鍵關聯到training_info表
+    instructor INTEGER,  -- 指導教練ID，外鍵關聯到instructor_Info表
+    license INTEGER,  -- 考照類別ID，外鍵關聯到license_info表
+    class INTEGER,  -- 梯次ID，外鍵關聯到class_info表
+    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- 記錄創建時間
+    ---------------------- 外鍵定義部分
+    -- 定義training欄位為外鍵，參照training_info表的id欄位
+    FOREIGN KEY(training) REFERENCES training_info(id),
+    -- 定義instructor欄位為外鍵，參照instructor_Info表的id欄位
+    FOREIGN KEY(instructor) REFERENCES instructor_Info(id),
+    -- 定義license欄位為外鍵，參照license_info表的id欄位
+    FOREIGN KEY(license) REFERENCES license_info(id),
+    -- 定義class欄位為外鍵，參照class_info表的id欄位
+    FOREIGN KEY(class) REFERENCES class_info(id)
 )
 """
 
