@@ -7,7 +7,7 @@ from .report_generation import create_report_window # M2補訓
 from .student_management import create_student_window # 學員資料
 from .test_management import create_test_window # 筆試路試
 from .training_management import create_training_window # 開結訓
-from utils.utility_functions import set_app_icon
+from utils.utility_functions import set_app_icon, ui_font
 
 
 def create_main_window():
@@ -37,10 +37,15 @@ def create_main_window():
 
     # main_window.py
     for button_text, action in buttons_info:
-        button = tk.Button(frame_left, text=button_text, anchor='w', padx=20, pady=10, width=18, height=6, state='disabled',
+        button = tk.Button(frame_left, font=ui_font(), text=button_text, anchor='w', padx=20, pady=10, width=18, height=6,
                             command=lambda a=action: a(frame_main))  # 直接传递frame_main
         button.pack()
         buttons.append(button)
+        # for button_text, action in buttons_info:
+        # button = tk.Button(frame_left, text=button_text, anchor='w', padx=20, pady=10, width=18, height=6, state='disabled',
+        #                     command=lambda a=action: a(frame_main))  # 直接传递frame_main
+        # button.pack()
+        # buttons.append(button)
     
     
     

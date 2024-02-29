@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import PhotoImage
 import os
+from tkinter import font
 
 
 # clear frame content
@@ -23,5 +24,20 @@ def set_app_icon(root):
     # set app window icon
     root.iconphoto(False, img_icon)
     
+# ui font
+def ui_font():
+    return font.Font(family='PingFang', size=13)
 
-    
+# # title font
+# def title_font():
+#     return font.Font(family='burnfont-1.1', size=40)
+# # button font
+# def button_font():
+#     return font.Font(family='PingFang', size=15)
+
+
+# # option menu font
+# def option_menu_font(option_menu_var_name, menu):
+#     xx = font.Font(family='PingFang', size=20)
+#     option_menu_var_name.config(font=xx)
+#     option_menu_var_name[menu].config(font=xx)

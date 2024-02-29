@@ -1,29 +1,29 @@
 # 管理員註冊
 import tkinter as tk
 from tkinter import messagebox
-from utils.utility_functions import clear_frame
+from utils.utility_functions import clear_frame, ui_font
 from db.database import register_admin
 
 def create_register_window(frame_main, buttons):
     clear_frame(frame_main)
     from .login_window import create_login_window
     
-    tk.Label(frame_main, text="註冊新管理員").place(x=500, y=150)
+    tk.Label(frame_main,font=ui_font(), text="註冊新管理員").place(x=500, y=150)
     # ttk.Label(frame_main, text="管理者名稱：").place(x=500, y=200)
     # admin_name_var = tk.StringVar()
     # ttk.Entry(frame_main, textvariable=admin_name_var, width=30).place(x=600, y=200)
     
-    tk.Label(frame_main, text="登入帳號：").place(x=500, y=250)
-    admin_username = tk.Entry(frame_main, width=30)
+    tk.Label(frame_main,font=ui_font(), text="登入帳號：").place(x=500, y=250)
+    admin_username = tk.Entry(frame_main,font=ui_font(), width=30)
     admin_username.place(x=600, y=250)
     admin_username.focus()  # 設定預設焦點在帳號欄位上
     
-    tk.Label(frame_main, text="密碼：").place(x=500, y=300)
-    admin_password = tk.Entry(frame_main, width=30, show="*")
+    tk.Label(frame_main,font=ui_font(), text="密碼：").place(x=500, y=300)
+    admin_password = tk.Entry(frame_main,font=ui_font(), width=30, show="*")
     admin_password.place(x=600, y=300)
     
-    tk.Label(frame_main, text="確認密碼：").place(x=500, y=350)
-    admin_repassword = tk.Entry(frame_main,  width=30, show="*")
+    tk.Label(frame_main,font=ui_font(), text="確認密碼：").place(x=500, y=350)
+    admin_repassword = tk.Entry(frame_main,font=ui_font(),  width=30, show="*")
     admin_repassword.place(x=600, y=350)
     
     # ttk.Label(frame_main, text="手機號碼：").place(x=500, y=400)
@@ -70,7 +70,7 @@ def create_register_window(frame_main, buttons):
 
 
     # 修改注册按钮，设置其command属性
-    tk.Button(frame_main, text="註冊", width=15, command=on_register_clicked).place(x=600, y=550)
+    tk.Button(frame_main,font=ui_font(), text="註冊", width=15, command=on_register_clicked).place(x=600, y=550)
 
 
-    tk.Button(frame_main, text="返回登入", width=15, command=lambda: create_login_window(frame_main, buttons)).place(x=600, y=600)
+    tk.Button(frame_main,font=ui_font(), text="返回登入", width=15, command=lambda: create_login_window(frame_main, buttons)).place(x=600, y=600)

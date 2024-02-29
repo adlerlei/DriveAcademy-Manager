@@ -9,7 +9,6 @@ CREATE TABLE IF NOT EXISTS training_info (
     code TEXT UNIQUE NOT NULL, -- 訓練班別代號
     training TEXT UNIQUE NOT NULL,  -- 訓練班別
     creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP  -- 記錄創建時間
-
 )
 """
 
@@ -71,7 +70,7 @@ CREATE TABLE IF NOT EXISTS resit_info (
 )
 """
 
-# 期別
+# 期別 (開訓名冊/結訓會用上，輸入期別自動帶出)
 create_term = """
 CREATE TABLE IF NOT EXISTS term_info (
     id INTEGER PRIMARY KEY AUTOINCREMENT,  -- 主鍵，自增
