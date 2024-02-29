@@ -26,7 +26,7 @@ def set_app_icon(root):
     
 # ui font
 def ui_font():
-    return font.Font(family='PingFang', size=13)
+    return font.Font(family='.AppleSystemUIFont', size=13)
 
 # # title font
 # def title_font():

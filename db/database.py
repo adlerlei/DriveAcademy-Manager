@@ -131,7 +131,7 @@ CREATE TABLE IF NOT EXISTS instructor_Info (
     hire_date TEXT,  -- 雇用日期
     firing_date TEXT,  -- 辭職日期
     remarks TEXT,  -- 備註
-    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP  -- 記錄創建時間
+    created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP  -- 記錄創建時間
 )
 """
 
