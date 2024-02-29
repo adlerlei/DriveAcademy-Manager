@@ -82,5 +82,28 @@ def create_batch_window(frame_main):
     display_data.pack( fill="x")
     
     # 年度計畫編排 - Treeview資料顯示列表
-    tree_view = ttk.Treeview(display_data, columns=("1", "2", "3", "4", "5", "6", "7", "8"), show="headings")
+    tree_view = ttk.Treeview(display_data, columns=("training_name", "yearly", "term_num ", "training_start", "training_end", "class_term_num"), show="headings")
+   
+    tree_view.heading("training_name", text="訓練班別名稱")
+    tree_view.heading("yearly", text="年度")
+    tree_view.heading("term_num ", text="期別編號")
+    tree_view.heading("training_start", text="開訓日期")
+    tree_view.heading("training_end", text="結訓日期")
+    tree_view.heading("class_term_num", text="上課期別代碼")
+    
+    tree_view.column("training_name", width=100, anchor='w')
+    tree_view.column("yearly", width=20, anchor='w')
+    tree_view.column("term_num ", width=100, anchor='w')
+    tree_view.column("training_start", width=100, anchor='w')
+    tree_view.column("training_end", width=100, anchor='w')
+    tree_view.column("class_term_num", width=100, anchor='w')
+    
+    # tree_view.pack(side="left", padx=(20, 0), pady=7)
+    tree_view.pack(fill="both", expand=True, padx=(20,20), pady=20)
+    
+    # 在 treeview 右邊垂直顯示Scrollbar滾動條
+    tree_view_scroll = tk.Scrollbar(display_data, command=tree_view.yview)
+    tree_view_scroll.pack(side="right", fill="y")
+    tree_view.configure(yscrollcommand=tree_view_scroll.set)
+    
     
