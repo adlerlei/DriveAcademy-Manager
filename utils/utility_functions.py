@@ -30,9 +30,9 @@ def ui_font():
     return font.Font(family='.AppleSystemUIFont', size=13)
 
 # frmae 容器
-def frame_function(frame, fill_var, padx=None , pady=None, side=None, expand=None, bg=None):
-    frame = tk.Frame(frame, bg=bg)
-    frame.pack( fill=fill_var, expand=expand, padx=padx, pady=pady, side=side)
+def frame_function(frame, fill, padx=None , pady=None, side=None, expand=None, bg=None, height=None):
+    frame = tk.Frame(frame, bg=bg, height=height)
+    frame.pack( fill=fill, expand=expand, padx=padx, pady=pady, side=side)
     return frame
 
 # Label 文字顯示
@@ -60,6 +60,11 @@ def entry_function(frame, width, side, padx, pady):
     entry = tk.Entry(frame, width=width, font=ui_font())
     entry.pack(side=side, padx=padx, pady=pady)
     
+# frame hr 水平分隔線
+def hr_function(frame, height, bd, fill, padx, pady, side=None, relief=None):
+    hr = tk.Frame(frame, height=height, bd=bd, relief=relief)
+    hr.pack(side=side, fill=fill, padx=padx, pady=pady)
+    # return hr
 
 # # title font
 # def title_font():

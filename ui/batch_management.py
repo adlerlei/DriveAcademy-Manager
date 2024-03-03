@@ -57,7 +57,7 @@ def create_batch_window(frame_main):
     # 年度計畫編排 - Treeview資料顯示列表
     style = ttk.Style()
     style.configure("Custom.Treeview", foreground="#626262", background="#F9F9F9")
-    yearly_plans_list = ttk.Treeview(frame_yearly_plans, columns=("training_name", "yearly", "term_num", "training_start", "training_end", "class_term_num"), show="headings", style="Custom.Treeview")
+    yearly_plans_list = ttk.Treeview(frame_yearly_plans, columns=("id","training_name", "yearly", "term_num", "training_start", "training_end", "class_term_num"), show="headings", style="Custom.Treeview")
    
     yearly_plans_list.heading("training_name", text="訓練班別名稱")
     yearly_plans_list.heading("yearly", text="年度")
