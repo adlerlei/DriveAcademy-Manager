@@ -1,0 +1,179 @@
+# Query: tk.Label(
+# Flags: CaseSensitive WordMatch
+# ContextLines: 1
+
+41 個結果 - 10 個檔案
+
+ui/batch_management.py:
+  13      frame_title.pack( fill="x")
+  14:     tk.Label(frame_title, text="期別新增作業 / 年度計畫編排", font=ui_font())
+  15      frame_title_label.pack(side="left", padx=20, pady=7)
+
+  34      
+  35:     tk.Label(frame_form, text="訓練班別：", font=ui_font()).pack(side="left", padx=(20, 0), pady=7)
+  36  
+
+  51      # 年度輸入欄位
+  52:     tk.Label(frame_form, font=ui_font(), text="年度：").pack(side="left", padx=(20, 0), pady=7)
+  53      year = tk.Entry(frame_form, width=7, font=ui_font())
+
+  56      # 期別
+  57:     tk.Label(frame_form, font=ui_font(), text="期別：").pack(side="left", padx=(20, 0), pady=7)
+  58      term = tk.Entry(frame_form, font=ui_font(), width=7)
+
+  70      # 開訓日期
+  71:     tk.Label(frame_form, font=ui_font(), text="開訓日期：").pack(side="left", padx=(20, 0), pady=7)
+  72      training_date = tk.Entry(frame_form, font=ui_font(),  width=10)
+
+  75      # 結訓日期
+  76:     tk.Label(frame_form, font=ui_font(), text="結訓日期：").pack(side="left", padx=(20, 0), pady=7)
+  77      training_date_end = tk.Entry(frame_form, font=ui_font(), width=10)
+
+ui/license_management.py:
+   9      clear_frame(frame_main)
+  10:     label = tk.Label(frame_main, text="這是學照資料界面",bg="#60C1FF")
+  11      label.place(x=130, y=420)
+
+ui/login_window.py:
+  11      from .register_window import create_register_window
+  12:     tk.Label(frame_main, font=ui_font(), text="管理員帳號：").place(x=500, y=150)
+  13      admin_username = tk.Entry(frame_main,font=ui_font(), width=30)
+
+  16  
+  17:     tk.Label(frame_main,font=ui_font(), text="管理員密碼：").place(x=500, y=200)
+  18      admin_password = tk.Entry(frame_main,font=ui_font(), width=30, show="*")
+
+  48  
+  49:     label_register = tk.Label(frame_main,font=ui_font(), text="如果沒有管理員帳號，請先點擊下方按鈕註冊帳號")
+  50      label_register.place(x=600, y=320)
+
+ui/register_window.py:
+  10      
+  11:     tk.Label(frame_main,font=ui_font(), text="註冊新管理員").place(x=500, y=150)
+  12      # ttk.Label(frame_main, text="管理者名稱：").place(x=500, y=200)
+
+  15      
+  16:     tk.Label(frame_main,font=ui_font(), text="登入帳號：").place(x=500, y=250)
+  17      admin_username = tk.Entry(frame_main,font=ui_font(), width=30)
+
+  20      
+  21:     tk.Label(frame_main,font=ui_font(), text="密碼：").place(x=500, y=300)
+  22      admin_password = tk.Entry(frame_main,font=ui_font(), width=30, show="*")
+
+  24      
+  25:     tk.Label(frame_main,font=ui_font(), text="確認密碼：").place(x=500, y=350)
+  26      admin_repassword = tk.Entry(frame_main,font=ui_font(),  width=30, show="*")
+
+ui/report_generation.py:
+  8      clear_frame(frame_main)
+  9:     label = tk.Label(frame_main, text="這是M2補訓名冊界面",bg="#60C1FF")
+  10      label.place(x=130, y=420)
+
+ui/start_window.py:
+   9      frame_main.img = tk.PhotoImage(file="img/stay.png")
+  10:     img_label = tk.Label(frame_main, image=frame_main.img)
+  11      img_label.place(x=300, y=200)
+
+ui/student_management.py:
+   13      frame_title.pack( fill="x")
+   14:     frame_title_label = tk.Label(frame_title, text="學員資料作業 / 新增 - 修改 - 刪除 - 查找", font=ui_font())
+   15      frame_title_label.pack(side="left", padx=20, pady=7)
+
+   36      
+   37:     tk.Label(frame_form, text="✸ 訓練班別：", font=ui_font()).pack(side="left", padx=(20, 0), pady=7)
+   38      
+
+   53      # 考照類別 label
+   54:     tk.Label(frame_form, text="✸ 考照類別：", font=ui_font()).pack(side="left", padx=(20, 0), pady=7)
+   55      
+
+   66      # label 學員編號
+   67:     tk.Label(frame_form, text="✸ 學員編號：", font=ui_font()).pack(side="left", padx=(20, 0), pady=7)
+   68      student_id = tk.Entry(frame_form, width=5, font=ui_font())
+
+   70      # 學員編號兩個輸入欄位中間多一個字串 -
+   71:     tk.Label(frame_form, text="-", font=ui_font()).pack(side="left", pady=7)
+   72      student_id2 = tk.Entry(frame_form, width=5, font=ui_font())
+
+   75      # label 梯次
+   76:     tk.Label(frame_form, text="✸ 梯次：", font=ui_font()).pack(side="left", padx=(20, 0), pady=7)
+   77      
+
+   88      # 學員姓名
+   89:     tk.Label(frame_form, text="✸ 學員姓名：", font=ui_font()).pack(side="left", padx=(20, 0), pady=7)
+   90      student_name = tk.Entry(frame_form, width=10, font=ui_font())
+
+   97      # 身分證字號
+   98:     tk.Label(frame_form1, text="✸ 身分證字號：", font=ui_font()).pack(side="left", padx=(20, 0), pady=7)
+   99      student_id_card = tk.Entry(frame_form1, width=15, font=ui_font())
+
+  103      # 出生日期
+  104:     tk.Label(frame_form1, text="✸ 出生日期：", font=ui_font()).pack(side="left", padx=(20, 0), pady=7)
+  105      student_birthday = tk.Entry(frame_form1, width=10, font=ui_font())
+
+  108      # email
+  109:     tk.Label(frame_form1, text="✸ 信箱：", font=ui_font()).pack(side="left", padx=(20, 0), pady=7)
+  110      student_email = tk.Entry(frame_form1, width=15, font=ui_font())
+
+  113      # 性別
+  114:     tk.Label(frame_form1, text="✸ 性別：", font=ui_font()).pack(side="left", padx=(20, 0), pady=7)
+  115      #性別下拉選單
+
+  125      # 指導教練
+  126:     tk.Label(frame_form1, text="指導教練：", font=ui_font()).pack(side="left", padx=(20, 0), pady=7)
+  127      # 指導教練下拉選單
+
+  141      # 戶籍地址
+  142:     tk.Label(frame_form2, text="✸ 戶籍地址：", font=ui_font()).pack(side="left", padx=(20, 0), pady=7)
+  143      # 戶籍地址縣市下拉選單
+
+  156      # 通訊地址
+  157:     tk.Label(frame_form2, text="通訊地址：", font=ui_font()).pack(side="left", padx=(20, 0), pady=7)
+  158      # 通訊地址縣市下拉選單
+
+  175      # 室內電話
+  176:     tk.Label(frame_form3, text="室內電話：", font=ui_font()).pack(side="left", padx=(20, 0), pady=7)
+  177      local_phone = tk.Entry(frame_form3, width=10, font=ui_font())
+
+  180      # 行動電話
+  181:     tk.Label(frame_form3, text="行動電話：", font=ui_font()).pack(side="left", padx=(20, 0), pady=7)
+  182      moblie_phone = tk.Entry(frame_form3, width=10, font=ui_font())
+
+  185      # 學歷文憑
+  186:     tk.Label(frame_form3, text="學歷：", font=ui_font()).pack(side="left", padx=(20, 0), pady=7)
+  187      #學歷下拉選單
+
+  197      # 欠資料
+  198:     tk.Label(frame_form3, text="欠資料：", font=ui_font()).pack(side="left", padx=(20, 0), pady=7)
+  199      missing_document = tk.Entry(frame_form3, width=47, font=ui_font())
+
+  208      frame_search_explain.pack(fill="x")
+  209:     tk.Label(frame_search_explain, text='🔎 學員查詢專區，請依照以下三個欄位選擇一樣查詢即可。', fg='#737373', font=ui_font()).pack(side="left", padx=(20, 0), pady=7)
+  210      
+
+  215      # 使用學員姓名，手機，學員編號，身分證號來查詢學員
+  216:     tk.Label(frame_search, text='學員姓名查詢：', font=ui_font()).pack(side="left", padx=(20, 0), pady=7)
+  217      
+
+  220      
+  221:     tk.Label(frame_search, text='學員手機查詢：', font=ui_font()).pack(side='left', padx=(20,0), pady=7)
+  222      
+
+  225      
+  226:     tk.Label(frame_search, text='學員身分證號查詢：', font=ui_font()).pack(side='left', padx=(20,0), pady=7)
+  227      
+
+ui/test_management.py:
+  8      clear_frame(frame_main)
+  9:     label = tk.Label(frame_main, text="這是筆試路試界面",bg="#60C1FF")
+  10      label.place(x=130, y=420)
+
+ui/training_management.py:
+   9      clear_frame(frame_main)
+  10:     label = tk.Label(frame_main, text="這是開結訓界面",bg="#60C1FF")
+  11      label.place(x=130, y=420)
+
+utils/utility_functions.py:
+  32  def label_font(frame, text, side, padx, pady, fg='#626262'):  # 添加了 fg 参数，默认值为 '#626262'
+  33:     def_label = tk.Label(frame, text=text, font=ui_font(), fg=fg)  # 使用 ui_font() 设置字体，并设置文字颜色
+  34      def_label.pack(side=side, padx=padx, pady=pady)

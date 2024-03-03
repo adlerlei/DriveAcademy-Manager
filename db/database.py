@@ -23,8 +23,8 @@ CREATE TABLE IF NOT EXISTS license_info (
 """
 
 # 梯次 ( A , B )
-create_class = """
-CREATE TABLE IF NOT EXISTS class_info (
+create_echelones = """
+CREATE TABLE IF NOT EXISTS echelones_info (
     id INTEGER PRIMARY KEY AUTOINCREMENT,  -- 主鍵，自增
     class TEXT UNIQUE NOT NULL,  -- 梯次
     creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP  -- 記錄創建時間

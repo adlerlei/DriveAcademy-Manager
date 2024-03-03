@@ -2,6 +2,7 @@ import tkinter as tk
 from ui.main_window import create_main_window
 from tkinter import font
 
+
 def main():
     create_main_window()
     
