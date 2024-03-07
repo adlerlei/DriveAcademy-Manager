@@ -25,46 +25,61 @@ def set_app_icon(root):
     # set app window icon
     root.iconphoto(False, img_icon)
     
-# ui font 自定義字體
-def ui_font():
+# custom font 自定義字體
+def custom_font():
     return font.Font(family='.AppleSystemUIFont', size=13)
 
 # frmae 容器
-def frame_function(frame, fill, padx=None , pady=None, side=None, expand=None, bg=None, height=None):
-    frame = tk.Frame(frame, bg=bg, height=height)
-    frame.pack( fill=fill, expand=expand, padx=padx, pady=pady, side=side)
-    return frame
+def frame_fun(frame, **kwargs):
+    return tk.Frame(frame, **kwargs) 
+    # 禁止Frame根据里面放置的控件的大小自动调整其大小
+    # frame.pack_propagate(False)
+    
+# label frame 標題容器
+def label_frame_fun(frame, text, fg='#626262', **kwargs):
+    # 設定標題字體
+    # label_frame.config(font=custom_font())
+    # 設定標題背景色
+    # label_frame.config(bg='#f8f8f8')
+    # 設定標題圓角
+    # label_frame.config(relief='groove')
+    # 設定標題圓角距離
+    # label_frame.config(bd=5)
+    # 設定標題圓角距離
+    # label_frame.config(padx=10, pady=10)
+    # 設定標題圓角距離
+    # label_frame.config(borderwidth=5)
+    return tk.LabelFrame(frame, text=text, fg=fg , font=custom_font(), **kwargs)
 
 # Label 文字顯示
-def label_function(frame, text, side, padx, pady, fg='#626262'):
-    label = tk.Label(frame, text=text, font=ui_font(), fg=fg)
-    label.pack(side=side, padx=padx, pady=pady)
+def label_fun(frame, text, fg='#626262', **kwargs):
+    return tk.Label(frame, text=text, fg=fg, font=custom_font(), **kwargs)
 
 # button 按鈕
-def button_function(frame, text, width, height, side, padx, pady, fg='#626262', command=None):
-    button = tk.Button(frame, text=text, font=ui_font(), fg=fg, width=width, height=height)
-    button.pack(side=side, padx=padx, pady=pady)
+def button_fun(frame, text, fg='#626262',  **kwargs):
+    return tk.Button(frame, text=text, fg=fg, font=custom_font(), **kwargs)
+
 
 # Combobox 下拉選單
-def combobox_function(frame, width, values, side, padx, pady):
-    combobox = ttk.Combobox(
-        frame,
-        width = width,
-        font = ui_font(),
-        values = values
-    )
-    combobox.pack(side=side, padx=padx, pady=pady)
+def combobox_fun(frame, **kwargs):
+    return ttk.Combobox(frame, font=custom_font(), **kwargs)
+# def combobox_fun(frame, width=None, values=None, side=None, padx=None, pady=None):
+#     combobox = ttk.Combobox(
+#         frame,
+#         width = width,
+#         font = custom_font(),
+#         values = values
+#     )
+#     combobox.pack(side=side, padx=padx, pady=pady)
+#     return combobox
     
 # entry 用戶輸入欄位
-def entry_function(frame, width, side, padx, pady):
-    entry = tk.Entry(frame, width=width, font=ui_font())
-    entry.pack(side=side, padx=padx, pady=pady)
+def entry_fun(frame, **kwargs):
+    return tk.Entry(frame,  font=custom_font(), **kwargs)
     
 # frame hr 水平分隔線
-def hr_function(frame, height, bd, fill, padx, pady, side=None, relief=None):
-    hr = tk.Frame(frame, height=height, bd=bd, relief=relief)
-    hr.pack(side=side, fill=fill, padx=padx, pady=pady)
-    # return hr
+def hr_fun(frame, relief=None, **kwargs):
+    return tk.Frame(frame, relief=relief, **kwargs)
 
 # # title font
 # def title_font():

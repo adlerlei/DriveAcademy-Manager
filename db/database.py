@@ -196,7 +196,7 @@ def main():
     if conn is not None:
         create_table(conn, create_training) # 訓練班別
         create_table(conn,create_license) # 考照類別
-        create_table(conn, create_class) # 梯次
+        create_table(conn, create_echelones) # 梯次
         create_table(conn, create_source) # 來源
         create_table(conn, create_manual_automatic) # 手自排
         create_table(conn, create_term) # 期別

@@ -1,29 +1,29 @@
-# 管理員註冊
+# 管理員註冊介面 AdminRegistrationInterface
 import tkinter as tk
 from tkinter import messagebox
-from utils.utility_functions import clear_frame, ui_font
+from utils.utility_functions import *
 from db.database import register_admin
 
-def create_register_window(frame_main, buttons):
+def AdminRegistrationInterface(frame_main, buttons):
     clear_frame(frame_main)
-    from .login_window import create_login_window
+    from .AdminLoginInterface import AdminLoginInterface
     
-    tk.Label(frame_main,font=ui_font(), text="註冊新管理員").place(x=500, y=150)
-    # ttk.Label(frame_main, text="管理者名稱：").place(x=500, y=200)
-    # admin_name_var = tk.StringVar()
-    # ttk.Entry(frame_main, textvariable=admin_name_var, width=30).place(x=600, y=200)
+    # frmae title
+    frame_title = frame_fun(frame_main)
+    frame_title.pack(fill='x')
+    label_fun(frame_title, '駕訓班管理員註冊').pack(side='left', padx=20, pady=7)
     
-    tk.Label(frame_main,font=ui_font(), text="登入帳號：").place(x=500, y=250)
-    admin_username = tk.Entry(frame_main,font=ui_font(), width=30)
+    tk.Label(frame_main,font=custom_font(), fg='#626262', text="登入帳號：").place(x=500, y=250)
+    admin_username = tk.Entry(frame_main,font=custom_font(), width=30)
     admin_username.place(x=600, y=250)
     admin_username.focus()  # 設定預設焦點在帳號欄位上
     
-    tk.Label(frame_main,font=ui_font(), text="密碼：").place(x=500, y=300)
-    admin_password = tk.Entry(frame_main,font=ui_font(), width=30, show="*")
+    tk.Label(frame_main,font=custom_font(), fg='#626262', text="密碼：").place(x=500, y=300)
+    admin_password = tk.Entry(frame_main,font=custom_font(), width=30, show="*")
     admin_password.place(x=600, y=300)
     
-    tk.Label(frame_main,font=ui_font(), text="確認密碼：").place(x=500, y=350)
-    admin_repassword = tk.Entry(frame_main,font=ui_font(),  width=30, show="*")
+    tk.Label(frame_main,font=custom_font(), fg='#626262', text="確認密碼：").place(x=500, y=350)
+    admin_repassword = tk.Entry(frame_main,font=custom_font(),  width=30, show="*")
     admin_repassword.place(x=600, y=350)
     
     # ttk.Label(frame_main, text="手機號碼：").place(x=500, y=400)
@@ -63,14 +63,14 @@ def create_register_window(frame_main, buttons):
             registration_success = register_admin(username, password)
             if registration_success is True:
                 messagebox.showinfo("提示", "註冊成功！")
-                create_login_window(frame_main, buttons)
+                AdminLoginInterface(frame_main, buttons)
             else:
                 # 如果注册失败，registration_success将包含错误信息
                 messagebox.showerror("錯誤", "註冊失敗！" if registration_success is False else registration_success)
 
 
     # 修改注册按钮，设置其command属性
-    tk.Button(frame_main,font=ui_font(), text="註冊", width=15, command=on_register_clicked).place(x=600, y=550)
+    tk.Button(frame_main,font=custom_font(), fg='#626262', text="註冊", width=15, command=on_register_clicked).place(x=600, y=550)
 
 
-    tk.Button(frame_main,font=ui_font(), text="返回登入", width=15, command=lambda: create_login_window(frame_main, buttons)).place(x=600, y=600)
+    tk.Button(frame_main,font=custom_font(), fg='#626262', text="返回登入", width=15, command=lambda: AdminLoginInterface(frame_main, buttons)).place(x=600, y=600)
