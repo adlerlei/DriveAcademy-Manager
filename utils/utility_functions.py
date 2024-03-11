@@ -55,6 +55,10 @@ def label_frame_fun(frame, text, fg='#626262', **kwargs):
 def label_fun(frame, text, fg='#626262', **kwargs):
     return tk.Label(frame, text=text, fg=fg, font=custom_font(), **kwargs)
 
+# 必填小圖示
+def required(frame, text='㊒', side='left', fg='#eb9f9f', padx=(20,0)):
+    return tk.Label(frame, text=text, fg=fg).pack(side=side, padx=padx)
+
 # button 按鈕
 def button_fun(frame, text, fg='#626262',  **kwargs):
     return tk.Button(frame, text=text, fg=fg, font=custom_font(), **kwargs)
@@ -80,6 +84,8 @@ def entry_fun(frame, **kwargs):
 # frame hr 水平分隔線
 def hr_fun(frame, relief=None, **kwargs):
     return tk.Frame(frame, relief=relief, **kwargs)
+
+# hr_fun(display_students_data_row2, height=2, bd=1, relief='sunken').pack(fill='x', padx=(20, 20), pady=(0,10))
 
 # # title font
 # def title_font():
