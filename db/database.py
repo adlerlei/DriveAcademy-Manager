@@ -41,9 +41,11 @@ CREATE TABLE IF NOT EXISTS students (
   gender_id INTEGER NOT NULL, -- 性別
   education_level_id INTEGER, -- 學歷
   instructor_id INTEGER, -- 指導教練
+  opening_closing_register_id INTERGER -- 開訓名冊
   training_type_id INTEGER NOT NULL, -- 訓練班別
   license_type_id INTEGER NOT NULL, -- 考照類別
   batch_id INTEGER NOT NULL, -- 梯次
+  FOREIGN KEY (opening_closing_register_id) REFERENCES opening_closing_register(id),
   FOREIGN KEY (address_data_id) REFERENCES address_data(id),
   FOREIGN KEY (gender_id) REFERENCES gender(id),
   FOREIGN KEY (education_level_id) REFERENCES education_level(id),

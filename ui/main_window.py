@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, font
 from utils.config import app_icon
 from utils.widget import *
 from ui.admin_login import admin_login
@@ -10,6 +10,11 @@ from tkinter import PhotoImage
 def main_window():
     root = tk.Tk()
     root.title("DriveAcademyManager V1.0")
+    
+    # 主題
+    root.tk.call("source", "Azure/azure.tcl")  # 確保這裡的路徑是正確的
+    root.tk.call("set_theme", "light")
+    
     #更改背景顏色
     # root.configure(bg='#000000')
     
@@ -24,7 +29,7 @@ def main_window():
     
     # 變更系統 icon
     app_icon(root)
-    
+    # print(font.families())
     # 加载背景图片
     # 持久的引用是将图片保存为 root 的属性
     # bg_image = PhotoImage(file='resources/img/bg.png')  # 替换为你的图片路径

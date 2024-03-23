@@ -1,6 +1,6 @@
 # 學習駕照日期登錄
 from utils.widget import *
-from utils.config import *
+from utils.config import * 
 
 def learner_license_date_registration(content):
     clear_frame(content)

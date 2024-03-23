@@ -33,7 +33,7 @@ def app_icon(root):
     
 # custom font 自定義字體
 def custom_font():
-    return font.Font(family='PingFang Regular', size=20)
+    return font.Font(family='HanyiSentyCrayon', size=30)
     # return font.Font(family='.AppleSystemUIFont', size=14)
     
 

@@ -4,8 +4,8 @@ from utils.config import custom_font, font_color
 from tkinter import PhotoImage
 
 # 設定按鈕的大小
-btnx = 10
-btny = 10
+# btnx = 10
+# btny = 10
 # 新增按鈕
 def add_btn(frame, text, compound='left', fg=font_color['button_font'], **kwargs):
     add_icon = PhotoImage(file='resources/img/add.png') # 載入圖片
