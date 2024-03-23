@@ -1,22 +1,14 @@
+import customtkinter as ctk
 import tkinter as tk
-from tkinter import ttk, font
 from utils.config import app_icon
 from utils.widget import *
 from ui.admin_login import admin_login
 from .menu_list import menu_list
-from tkinter import PhotoImage
 
 
 def main_window():
-    root = tk.Tk()
+    root = ctk.CTk()
     root.title("DriveAcademyManager V1.0")
-    
-    # 主題
-    root.tk.call("source", "Azure/azure.tcl")  # 確保這裡的路徑是正確的
-    root.tk.call("set_theme", "light")
-    
-    #更改背景顏色
-    # root.configure(bg='#000000')
     
     # tk視窗針對用戶視窗縮放至最大
     try:
@@ -27,19 +19,13 @@ def main_window():
     # 禁止視窗拖曳
     root.resizable(False, False)
     
+    button = ctk.CTkButton(root, text="my button")
+    button.pack(padx=20, pady=20)
+    
     # 變更系統 icon
     app_icon(root)
     # print(font.families())
-    # 加载背景图片
-    # 持久的引用是将图片保存为 root 的属性
-    # bg_image = PhotoImage(file='resources/img/bg.png')  # 替换为你的图片路径
-    # # 设置背景图片
-    # bg_label = tk.Label(root, image=bg_image)
-    # bg_label.place(x=0, y=0, relwidth=1, relheight=1)
-    
-    # 更改 tkinter 主題樣式
-    # style = ttk.Style(root)
-    # style.theme_use('clam')
+
     
     # 左方選單導覽列
     menu = frame(root, relief='flat', borderwidth=0)
