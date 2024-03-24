@@ -1,7 +1,6 @@
 import customtkinter as ctk
-import tkinter as tk
 from utils.config import app_icon
-from utils.widget import *
+from utils.widget import frame
 from ui.admin_login import admin_login
 from .menu_list import menu_list
 
@@ -19,21 +18,18 @@ def main_window():
     # 禁止視窗拖曳
     root.resizable(False, False)
     
-    button = ctk.CTkButton(root, text="my button")
-    button.pack(padx=20, pady=20)
-    
     # 變更系統 icon
     app_icon(root)
-    # print(font.families())
+    root.configure(bg_color="#000000")
 
     
     # 左方選單導覽列
-    menu = frame(root, relief='flat', borderwidth=0)
+    menu = frame(root)
     menu.pack(side='left', fill='y', padx=5, pady=5)
     
     # 右方主要畫面
-    content = frame(root, relief='flat', borderwidth=0)
-    content.pack(side='right', fill='both', padx=5, pady=5, expand=True)
+    content = frame(root)
+    content.pack(side='right', fill='both', padx=15, pady=15, expand=True)
     
     # 載入 ui/menu_list.py 中的 menu_list() 函式，並將其傳入 content_frame 中
     menu_list(menu, content)
@@ -44,7 +40,8 @@ def main_window():
     # 載入 ui/admin_login.py 中的 admin_login() 以便使其可以被優先觸發登入介面
     admin_login(menu, content)
 
+    return root
     
-if __name__ == "__main__":
-    main_window()
-    tk.mainloop()
+# if __name__ == "__main__":
+#     main_window()
+#     ctk.mainloop()

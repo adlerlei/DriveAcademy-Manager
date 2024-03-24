@@ -4,34 +4,30 @@ from tkinter import ttk
 from utils.config import custom_font, font_color
 from tkinter import PhotoImage
 
-# 設定按鈕的大小
-# btnx = 10
-# btny = 10
-# 新增按鈕
-def add_btn(frame, text, compound='left', fg=font_color['button_font'], **kwargs):
-    add_icon = PhotoImage(file='resources/img/add.png') # 載入圖片
-    button = tk.Button(frame, text=text, fg=fg, padx=btnx, pady=btny, font=custom_font(), image=add_icon, compound=compound, **kwargs)
-    button.add_icon = add_icon  # 保持對圖像的引用
+
+# 新增按鈕 
+def add_btn(frame, text, **kwargs):
+    button = ctk.CTkButton(frame, text=text, **kwargs)
     return button
 
 # 修改按鈕
 def edit_btn(frame, text, compound='left', fg=font_color['button_font'], **kwargs):
     edit_icon = PhotoImage(file='resources/img/edit.png') # 載入圖片
-    button = tk.Button(frame, text=text, fg=fg, padx=btnx, pady=btny, font=custom_font(), image=edit_icon, compound=compound, **kwargs)
+    button = tk.Button(frame, text=text, fg=fg, font=custom_font(), image=edit_icon, compound=compound, **kwargs)
     button.edit_icon = edit_icon  # 保持對圖像的引用
     return button
 
 # 查詢按鈕
 def search_btn(frame, text, compound='left', fg=font_color['button_font'], **kwargs):
     search_icon = PhotoImage(file='resources/img/search.png') # 載入圖片
-    button = tk.Button(frame, text=text, fg=fg, padx=btnx, pady=btny, font=custom_font(), image=search_icon, compound=compound, **kwargs)
+    button = tk.Button(frame, text=text, fg=fg,  font=custom_font(), image=search_icon, compound=compound, **kwargs)
     button.search_icon = search_icon  # 保持對圖像的引用
     return button
 
 # 刪除按鈕
 def delete_btn(frame, text, compound='left', fg=font_color['button_font'], **kwargs):
     delete_icon = PhotoImage(file='resources/img/delete.png') # 載入圖片
-    button = tk.Button(frame, text=text, fg=fg, padx=btnx, pady=btny, font=custom_font(), image=delete_icon, compound=compound, **kwargs)
+    button = tk.Button(frame, text=text, fg=fg, font=custom_font(), image=delete_icon, compound=compound, **kwargs)
     button.delete_icon = delete_icon  # 保持對圖像的引用
     return button
 
@@ -67,7 +63,7 @@ def label_frame(frame, text, fg=font_color['button_font'], **kwargs):
 
 # frmae 容器
 def frame(frame, **kwargs):
-    return tk.Frame(frame, **kwargs) 
+    return ctk.CTkFrame(frame, **kwargs) 
 
 
 # Label 文字顯示
