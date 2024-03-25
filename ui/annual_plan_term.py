@@ -5,7 +5,7 @@ from utils.config import *
 def annual_plan_term(content):
     clear_frame(content)
     
-    window_tiitle = label_frame(content, '  年度計畫表與期別新增  ', fg=font_color['期別新增'])
+    window_tiitle = label_frame(content, '  年度計畫表與期別新增  ')
     window_tiitle.pack(fill='x', padx=(20,20), pady=(10,0))
     
     row1 = frame(window_tiitle)

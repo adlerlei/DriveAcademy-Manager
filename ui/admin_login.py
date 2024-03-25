@@ -11,7 +11,7 @@ from ui.start import start
 def admin_login(menu, content):
     clear_frame(content)
     
-    window_title = label_frame(content, ' 管理員登入 ', fg='#627254')
+    window_title = label_frame(content, ' 管理員登入 ')
     window_title.pack(fill='x', padx=(20,20), pady=(10,0))
     
     username_frame = frame(window_title)

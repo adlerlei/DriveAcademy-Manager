@@ -1,101 +1,86 @@
-import customtkinter as ctk
-import tkinter as tk
-from tkinter import ttk
-from utils.config import custom_font, font_color
-from tkinter import PhotoImage
+# 導入 ttkbootstrap 模組
+import ttkbootstrap as ttk
 
 
 # 新增按鈕 
 def add_btn(frame, text, **kwargs):
-    button = ctk.CTkButton(frame, text=text, **kwargs)
+    button = ttk.Button(frame, text=text, **kwargs)
     return button
 
 # 修改按鈕
-def edit_btn(frame, text, compound='left', fg=font_color['button_font'], **kwargs):
-    edit_icon = PhotoImage(file='resources/img/edit.png') # 載入圖片
-    button = tk.Button(frame, text=text, fg=fg, font=custom_font(), image=edit_icon, compound=compound, **kwargs)
-    button.edit_icon = edit_icon  # 保持對圖像的引用
+def edit_btn(frame, text, **kwargs):
+    button = ttk.Button(frame, text=text, **kwargs)
     return button
 
 # 查詢按鈕
-def search_btn(frame, text, compound='left', fg=font_color['button_font'], **kwargs):
-    search_icon = PhotoImage(file='resources/img/search.png') # 載入圖片
-    button = tk.Button(frame, text=text, fg=fg,  font=custom_font(), image=search_icon, compound=compound, **kwargs)
-    button.search_icon = search_icon  # 保持對圖像的引用
+def search_btn(frame, text, **kwargs):
+    button = ttk.Button(frame, text=text, **kwargs)
     return button
 
 # 刪除按鈕
-def delete_btn(frame, text, compound='left', fg=font_color['button_font'], **kwargs):
-    delete_icon = PhotoImage(file='resources/img/delete.png') # 載入圖片
-    button = tk.Button(frame, text=text, fg=fg, font=custom_font(), image=delete_icon, compound=compound, **kwargs)
-    button.delete_icon = delete_icon  # 保持對圖像的引用
+def delete_btn(frame, text, **kwargs):
+    button = ttk.Button(frame, text=text, **kwargs)
     return button
 
 
 # 選單按鈕
-def menu_btn(frame, text, compound='left', fg=font_color['button_font'], **kwargs):
-    muen_icon = PhotoImage(file='resources/img/menu.png') # 載入圖片
-    button = tk.Button(frame, text=text, padx=7, pady=7, fg=fg, font=custom_font(), image=muen_icon, compound=compound, **kwargs)
-    button.muen_icon = muen_icon  # 保持對圖像的引用
+def menu_btn(frame, text, **kwargs):
+    button = ttk.Button(frame, text=text, **kwargs)
     return button
 
 
 # 登入按鈕
-def login_btn(frame, text, compound='left', fg=font_color['button_font'], **kwargs):
-    login_icon = PhotoImage(file='resources/img/login.png') # 載入圖片
-    button = tk.Button(frame, text=text, fg=fg, padx=10, pady=10, font=custom_font(), image=login_icon, compound=compound, **kwargs)
-    button.login_icon = login_icon  # 保持對圖像的引用
+def login_btn(frame, text, **kwargs):
+    button = ttk.Button(frame, text=text, **kwargs)
     return button
 
 
 # 註冊按鈕
-def register_btn(frame, text, compound='left', fg=font_color['button_font'], **kwargs):
-    register_icon = PhotoImage(file='resources/img/register.png') # 載入圖片
-    button = tk.Button(frame, text=text, fg=fg, padx=10, pady=10, font=custom_font(), image=register_icon, compound=compound, **kwargs)
-    button.register_icon = register_icon  # 保持對圖像的引用
+def register_btn(frame, text, **kwargs):
+    button = ttk.Button(frame, text=text, **kwargs)
     return button
 
 
 # label frame 標題容器
-def label_frame(frame, text, fg=font_color['button_font'], **kwargs):
-    return tk.LabelFrame(frame, text=text, fg=fg, font=custom_font(), **kwargs)
+def label_frame(frame, text, bootstyle="info", **kwargs):
+    return ttk.LabelFrame(frame, text=text, bootstyle=bootstyle, **kwargs)
 
 
 # frmae 容器
 def frame(frame, **kwargs):
-    return ctk.CTkFrame(frame, **kwargs) 
+    return ttk.Frame(frame, **kwargs) 
 
 
 # Label 文字顯示
-def label(frame, text, fg=font_color['label_font'], **kwargs):
-    return tk.Label(frame, text=text, fg=fg, font=custom_font(), **kwargs)
+def label(frame, text, **kwargs):
+    return ttk.Label(frame, text=text, **kwargs)
 
-# display info title 說明文字
-def display_info_label(frame, text, fg=font_color['display_info_label'], **kwargs):
-    return tk.Label(frame, text=text, fg=fg, font=custom_font(), **kwargs)
+# # display info title 說明文字
+# def display_info_label(frame, text, fg=font_color['display_info_label'], **kwargs):
+#     return tk.Label(frame, text=text, fg=fg, font=custom_font(), **kwargs)
 
 
 # Combobox 下拉選單
 def combobox(frame, **kwargs):
-    style = ttk.Style()
-    style.theme_use('default')  # 使用預設主題
-    style.configure('TCombobox', foreground=font_color['entry_font'])
-    return ttk.Combobox(frame, style='TCombobox', font=custom_font(), **kwargs)
+    # style = ttk.Style()
+    # style.theme_use('default')  # 使用預設主題
+    # style.configure('TCombobox')
+    return ttk.Combobox(frame, **kwargs)
 
 
 # entry 用戶輸入欄位
-def entry(frame, fg=font_color['entry_font'], **kwargs):
-    return tk.Entry(frame, fg=fg, font=custom_font(), **kwargs)
+def entry(frame,**kwargs):
+    return ttk.Entry(frame,**kwargs)
 
 
 # entry 顯示值禁止用戶輸入
-def display_entry_value(frame, state="readonly", fg=font_color['entry_display_value'], **kwargs):
-    return tk.Entry(frame, fg=fg, state=state, font=custom_font(), **kwargs)
+def display_entry_value(frame, state="readonly", **kwargs):
+    return ttk.Entry(frame, state=state, **kwargs)
 
 
-# frame hr 水平分隔線
-def hr(frame, height=2, bd=1, relief='sunken'):
-    return tk.Frame(frame, height=height, bd=bd, relief=relief)
+# # frame hr 水平分隔線
+# def hr(frame, height=2, bd=1, relief='sunken'):
+#     return tk.Frame(frame, height=height, bd=bd, relief=relief)
 
 # hr_fun(display_students_data_row2, height=2, bd=1, relief='sunken').pack(fill='x', padx=(20, 20), pady=(0,10))
 

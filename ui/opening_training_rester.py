@@ -8,7 +8,7 @@ from utils.config import *
 def opening_training_roster(content):
     clear_frame(content)
     
-    window_title = label_frame(content, '  開訓名冊資料作業  ', fg=font_color['開結訓名冊'])
+    window_title = label_frame(content, '  開訓名冊資料作業  ')
     window_title.pack(fill='x', padx=(20,20), pady=(10,0))
     
 

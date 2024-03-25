@@ -8,7 +8,7 @@ from models.admin import register_insert_data
 def admin_register(content_frame):
     clear_frame(content_frame)
     
-    window_title = label_frame(content_frame, ' 管理員註冊 ', fg='#F6995C')
+    window_title = label_frame(content_frame, ' 管理員註冊 ')
     window_title.pack(fill='x', padx=(20,20), pady=(15,0))
     
     username_frame = frame(window_title)

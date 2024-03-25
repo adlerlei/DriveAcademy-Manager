@@ -5,21 +5,17 @@ from utils.config import *
 def learner_license_date_registration(content):
     clear_frame(content)
     
-    window_title = label_frame(content, "  𐜀學習駕照日期登錄  ", fg=font_color['學習駕照'])
+    window_title = label_frame(content, "  𐜀學習駕照日期登錄  ")
     window_title.pack(fill='x', padx=(20,20), pady=(10,0))
     
     row1 = frame(window_title)
     row1.pack(fill='x', padx=(30, 0), pady=(30, 0))
     # 輸入學號
-    label(row1, text='輸入學號：', fg=font_color['label_font']).pack(side='left', padx=(20, 0))
+    label(row1, text='輸入學號：', ).pack(side='left', padx=(20, 0))
     entry(row1, width=10).pack(side='left')
     # 搜尋按鈕
     search_btn(row1, text='搜尋學員信息').pack(side='left', padx=(20, 0))
-    
-    # 顯示學員資料說明文字
-    # display_student_info_title= frame(window_title)
-    # display_student_info_title.pack(fill='x', padx=(30, 20), pady=(40, 0))
-    # display_info_label(display_student_info_title, text='學員資料顯示區').pack(side='left', padx=(20, 0))
+
     
     row2 = frame(window_title)
     row2.pack(fill='x', padx=(30, 0), pady=(30, 0))

@@ -9,22 +9,22 @@ def student_all(content):
     clear_frame(content)
     checkbox_added = False
     
-    window_title = label_frame(content, '  學員資料 - 新增 - 修改 - 查詢 - 刪除  ', fg=font_color['學員管理'])
+    window_title = label_frame(content, '  學員資料 - 新增 - 修改 - 查詢 - 刪除  ')
     window_title.pack(fill='x', padx=(20,20), pady=(10,0))
     
     
     row1 = frame(window_title)
     row1.pack(fill='x', padx=(30, 0), pady=(30, 0))
     # 訓練班別（抓取資料庫呈現）
-    label(row1, text='訓練班別：', fg=font_color['required_font']).pack(side='left', padx=(20,0))
+    label(row1, text='訓練班別：').pack(side='left', padx=(20,0))
     combobox(row1, width=3, values=['1','2','3']).pack(side='left')
     entry(row1, width=13).pack(side='left')
     # 考照類別（抓取資料庫呈現）
-    label(row1, text='考照類別：', fg=font_color['required_font']).pack(side='left', padx=(20,0))
+    label(row1, text='考照類別：').pack(side='left', padx=(20,0))
     combobox(row1, width=3, values=['1','2','3']).pack(side='left')
     entry(row1, width=13).pack(side='left')
     #學員編號
-    label(row1, text='學員編號：', fg=font_color['required_font']).pack(side='left', padx=(20, 0))
+    label(row1, text='學員編號：').pack(side='left', padx=(20, 0))
     number = entry(row1, width=10)
     number.pack(side='left')
     
@@ -32,18 +32,18 @@ def student_all(content):
     row2 = frame(window_title)
     row2.pack(fill='x', padx=(30, 0), pady=(20, 0))
     # 梯次（抓取資料庫呈現）
-    label(row2, text='梯次：', fg=font_color['required_font']).pack(side='left', padx=(20, 0))
+    label(row2, text='梯次：').pack(side='left', padx=(20, 0))
     combobox(row2, width=3, values=['A','B']).pack(side='left')
     # 學員姓名
-    label(row2, text='學員姓名：', fg=font_color['required_font']).pack(side='left', padx=(20, 0))
+    label(row2, text='學員姓名：').pack(side='left', padx=(20, 0))
     name = entry(row2, width=8)
     name.pack(side='left')
     # 身分證號碼
-    label(row2, text='身分證號碼：', fg=font_color['required_font']).pack(side='left', padx=(20, 0))
+    label(row2, text='身分證號碼：').pack(side='left', padx=(20, 0))
     national_id_no = entry(row2, width=14)
     national_id_no.pack(side='left')
     # 出生日期
-    label(row2, text='出生日期：', fg=font_color['required_font']).pack(side='left', padx=(20, 0))
+    label(row2, text='出生日期：').pack(side='left', padx=(20, 0))
     birth_date = entry(row2, width=10)
     birth_date.pack(side='left')
     
@@ -51,13 +51,13 @@ def student_all(content):
     row3 = frame(window_title)
     row3.pack(fill='x', padx=(30, 0), pady=(20, 0))
     # 戶籍地址
-    label(row3, text='戶籍地址：', fg=font_color['required_font']).pack(side='left', padx=(20, 0))
+    label(row3, text='戶籍地址：').pack(side='left', padx=(20, 0))
     combobox(row3, width=3, values=['231', '116']).pack(side='left') # 郵遞區號
     combobox(row3, width=10, values=['台北市中山區', '新北市新店區']).pack(side='left') # 區域別
     r_address = entry(row3, width=25)
     r_address.pack(side='left') # 地址
     # 信箱
-    label(row3, text='信箱：', fg=font_color['required_font']).pack(side='left', padx=(20, 0))
+    label(row3, text='信箱：').pack(side='left', padx=(20, 0))
     email = entry(row3, width=18)
     email.pack(side='left')
     

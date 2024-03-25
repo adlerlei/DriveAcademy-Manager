@@ -7,13 +7,13 @@ def learner_license_submission(content):
     
     clear_frame(content)
     
-    window_title = label_frame(content, "  學習駕照統一送件  ", fg=font_color['學習駕照'])
+    window_title = label_frame(content, "  學習駕照統一送件  ")
     window_title.pack(fill='x', padx=(20,20), pady=(10,0))
     
     row1 = frame(window_title)
     row1.pack(fill='x', padx=(30, 0), pady=(30, 0))
     # 輸入學號
-    label(row1, text='輸入學號：', fg=font_color['label_font']).pack(side='left', padx=(20, 0))
+    label(row1, text='輸入學號：').pack(side='left', padx=(20, 0))
     entry(row1, width=10).pack(side='left')
     # 搜尋按鈕
     search_btn(row1, text='搜尋學員信息').pack(side='left', padx=(20, 0))
