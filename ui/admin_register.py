@@ -8,9 +8,6 @@ from models.admin import register_insert_data
 def admin_register(content):
     clear_frame(content)
     
-    # window_title = label_frame(content_frame, ' 管理員註冊 ')
-    # window_title.pack(fill='x', padx=(20,20), pady=(15,0))
-    
     window_title = label_frame(content, '  管理員登入  ')
     window_title.grid(row=0, column=0, sticky='nsew', padx=20, pady=10)
     
