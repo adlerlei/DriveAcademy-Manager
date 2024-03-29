@@ -5,10 +5,13 @@ from utils.config import *
 def annual_plan_term(content):
     clear_frame(content)
     
-    window_tiitle = label_frame(content, '  年度計畫表與期別新增  ')
-    window_tiitle.pack(fill='x', padx=(20,20), pady=(10,0))
+    # window_title = label_frame(content, '  年度計畫表與期別新增  ')
+    # window_title.pack(fill='x', padx=(20,20), pady=(10,0))
     
-    row1 = frame(window_tiitle)
+    window_title = label_frame(content, '  年度計畫表與期別新增  ')
+    window_title.grid(row=0, column=0, sticky='nsew', padx=20, pady=10)
+    
+    row1 = frame(window_title)
     row1.pack(fill='x',padx=(30,0), pady=(30, 0))
     # 訓練班別（抓取資料庫呈現）
     label(row1, text='訓練班別：').pack(side='left', padx=(20,0))
@@ -20,7 +23,7 @@ def annual_plan_term(content):
     year = entry(row1, width=8)
     year.pack(side='left')
     
-    row2 = frame(window_tiitle)
+    row2 = frame(window_title)
     row2.pack(fill='x', padx=(30, 0), pady=(20, 0))
     # 期別
     label(row2, text='期別：').pack(side='left', padx=(20, 0))
@@ -42,7 +45,7 @@ def annual_plan_term(content):
     end_date.pack(side='left')
     
     # 新增，修改，刪除 按鈕
-    row3 = frame(window_tiitle)
+    row3 = frame(window_title)
     row3.pack(fill='x', padx=(30, 0), pady=(20, 0))
     add_btn(row3, text='新增', command=None).pack(side='left', padx=(20, 0))
     edit_btn(row3, text='修改', command=None).pack(side='left', padx=(10, 0))
@@ -50,7 +53,7 @@ def annual_plan_term(content):
     
     
     # 列表框 - 期別新增 - 年度計畫表與期別新增
-    row4 = frame(window_tiitle)
+    row4 = frame(window_title)
     row4.pack(fill='both', expand=True, padx=(30,0), pady=(20,0))
     data_list = ttk.Treeview(row4, show='headings', columns=('id', 'class_name', 'year', 'class_num', 'start_date', 'end_date', 'class_code'))
     

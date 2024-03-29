@@ -29,7 +29,7 @@ def delete_btn( frame , text , **kwargs ):
 def menu_btn( frame , text , **kwargs ):
     style = tb.Style()
     style.configure( 'TButton' , font = ( 'default' , 17 ) )
-    button = tb.Button( frame , text = text , **kwargs )
+    button = tb.Button( frame , text = text , bootstyle="" , **kwargs )
     return button
 
 
@@ -37,13 +37,13 @@ def menu_btn( frame , text , **kwargs ):
 def login_btn( frame , text  , **kwargs ):
     style = tb.Style()
     style.configure( 'TButton' , font = ( 'default' , 17 ) )
-    button = tb.Button( frame , text = text , **kwargs )
+    button = tb.Button( frame , text = text , bootstyle = '' , **kwargs )
     return button
 
 
 # 註冊按鈕
 def register_btn( frame , text , **kwargs ):
-    button = tb.Button( frame , text = text , **kwargs )
+    button = tb.Button( frame , text = text , bootstyle = 'warning' , **kwargs )
     return button
 
 
