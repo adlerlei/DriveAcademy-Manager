@@ -25,9 +25,9 @@ def main_window():
     app_icon(root)
     
     # 左方選單導覽列
-    menu = frame( root )
+    menu = frame( root , fg_color = "#669bbc" )
     menu.columnconfigure((0), weight=1, uniform='a')
-    menu.rowconfigure((0,1,2,3,4,5), weight=1 , uniform='a')
+    # menu.rowconfigure((0,1,2,3,4,5), weight=1 , uniform='a')
     # 固定分配空間比例
     menu.place(x=0, y=0, relwidth=0.2, relheight=1)
     

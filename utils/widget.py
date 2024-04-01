@@ -1,46 +1,45 @@
 # 導入 ck.CTkbootstrap 模組
-from tkinter import *
-from tkinter import *
 from tkinter import ttk
 import customtkinter as ck
+from utils.config import create_font
 
 
 # 新增按鈕 
-def add_btn( frame , text , **kwargs ):
-    button = ck.CTkButton( frame , text = text , **kwargs )
+def add_btn( frame , text , font = create_font() ,**kwargs ):
+    button = ck.CTkButton( frame , text = text , font = font ,**kwargs )
     return button
 
 # 修改按鈕
-def edit_btn( frame , text , **kwargs ):
-    button = ck.CTkButton( frame , text = text , **kwargs )
+def edit_btn( frame , text , font = create_font() , **kwargs ):
+    button = ck.CTkButton( frame , text = text , font = font , **kwargs )
     return button
 
 # 查詢按鈕
-def search_btn( frame , text , **kwargs ):
-    button = ck.CTkButton( frame , text = text , **kwargs )
+def search_btn( frame , text , font = create_font() , **kwargs ):
+    button = ck.CTkButton( frame , text = text , font = font , **kwargs )
     return button
 
 # 刪除按鈕
-def delete_btn( frame , text , **kwargs ):
-    button = ck.CTkButton( frame , text = text , **kwargs )
+def delete_btn( frame , text , font = create_font() , **kwargs ):
+    button = ck.CTkButton( frame , text = text , font = font , **kwargs )
     return button
 
 
 # 選單按鈕
-def menu_btn( frame , text , **kwargs ):
-    button = ck.CTkButton( frame , text = text ,**kwargs )
+def menu_btn( frame , text , font = create_font() , **kwargs ):
+    button = ck.CTkButton( frame , text = text , font = font ,**kwargs )
     return button
 
 
 # 登入按鈕
-def login_btn( frame , text  , **kwargs ):
-    button = ck.CTkButton( frame , text = text , **kwargs )
+def login_btn( frame , text  , font = create_font() , **kwargs ):
+    button = ck.CTkButton( frame , text = text , font = font , **kwargs )
     return button
 
 
 # 註冊按鈕
-def register_btn( frame , text , **kwargs ):
-    button = ck.CTkButton( frame , text = text , **kwargs )
+def register_btn( frame , text , font = create_font() , **kwargs ):
+    button = ck.CTkButton( frame , text = text , font = font , **kwargs )
     return button
 
 
