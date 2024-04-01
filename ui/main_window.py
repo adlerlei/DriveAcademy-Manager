@@ -1,6 +1,7 @@
 from tkinter import *
-import ttkbootstrap as tb
-from ttkbootstrap.constants import *
+from tkinter import ttk
+import customtkinter as ck
+
 from utils.config import app_icon
 from utils.widget import frame
 from ui.admin_login import admin_login
@@ -8,9 +9,8 @@ from .menu_list import menu_list
 
 
 def main_window():
-    root = tb.Window(themename="minty")
+    root = ck.CTk()
     root.title("DriveAcademyManager V1.0")
-
     
     # tk視窗針對用戶視窗縮放至最大
     try:
@@ -25,14 +25,14 @@ def main_window():
     app_icon(root)
     
     # 左方選單導覽列
-    menu = frame( root , bootstyle = '' )
+    menu = frame( root )
     menu.columnconfigure((0), weight=1, uniform='a')
     menu.rowconfigure((0,1,2,3,4,5), weight=1 , uniform='a')
     # 固定分配空間比例
     menu.place(x=0, y=0, relwidth=0.2, relheight=1)
     
     # 右方主要畫面
-    content = frame( root , bootstyle = '' )
+    content = frame( root )
     content.columnconfigure( ( 0 ) , weight = 1 , uniform = 'a')
     content.rowconfigure( ( 0 ) , weight = 1 , uniform = 'a' )
     content.place(relx=0.2, y=0, relwidth=0.8, relheight=1)
