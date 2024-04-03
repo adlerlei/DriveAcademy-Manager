@@ -14,12 +14,8 @@ from .written_exam_roster import written_exam_roster
 
 
 def menu_list(menu , content):
-    
-    # logo ###########
-    # logo_image = load_image("resources/img/logo.png")
-    # logo_img = ck.CTkImage(light_image=logo_image, size=(500, 250))
-    # label(menu , "" , image = logo_img , compound = 'top').pack(side = "top" , fill='x', pady = (50,0) , expand=False)
-    #################
+    row = 0
+
     menu_logo(menu, load_image)
 
     # 年度期別新增

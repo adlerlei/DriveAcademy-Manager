@@ -1,7 +1,6 @@
 from tkinter import *
 from tkinter import ttk
 import customtkinter as ck
-
 from utils.config import app_icon
 from utils.widget import frame
 from ui.admin_login import admin_login
@@ -17,7 +16,7 @@ def main_window():
         root.state('zoomed')
     except Exception:
         root.attributes('-fullscreen', True)
-        
+
     # 禁止視窗拖曳
     # root.resizable(False, False)
     

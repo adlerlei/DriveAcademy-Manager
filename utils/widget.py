@@ -8,6 +8,7 @@ def menu_logo(menu, load_image, text=""):
     logo_image = load_image("resources/img/logo.png")
     logo_img = ck.CTkImage(light_image=logo_image, size=(500, 250))
     ck.CTkLabel(menu , text=text , image = logo_img , compound = 'top').pack(side = "top" , fill='x', pady = (50,0) , expand=False)
+    
 # 新增按鈕
 def add_btn( frame , text , font = create_font() ,**kwargs ):
     button = ck.CTkButton( frame , text = text , font = font ,**kwargs )
@@ -34,7 +35,7 @@ def menu_btn(frame, text, menu_icon_path, height=40, fg_color="#669bbc", font=cr
     menu_icon = Image.open(f"resources/img/menu/{menu_icon_path}")
     menu_icon_ctk = ck.CTkImage(light_image=menu_icon)
     button = ck.CTkButton(frame, text=text, height=height, fg_color=fg_color, font=font, image=menu_icon_ctk, command=command)
-    button.pack(fill='x', pady=(25, 0))
+    button.pack(fill='x' , expand=True , pady=(25, 0))
     return button
 
 
