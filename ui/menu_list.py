@@ -1,4 +1,4 @@
-from utils.widget import *
+from utils.widget import menu_btn, menu_logo
 from utils.config import *
 from .annual_plan_term import annual_plan_term
 from .closing_training_roster import closing_training_roster
@@ -16,27 +16,80 @@ from .written_exam_roster import written_exam_roster
 def menu_list(menu , content):
     
     # logo ###########
-    logo_image = load_image("resources/img/logo.png")
-    logo_img = ck.CTkImage(light_image=logo_image, size=(500, 250))
-    label(menu , "" , image = logo_img , compound = 'top').pack(side = "top" , fill='x', pady = (100,0) , expand=False)
+    # logo_image = load_image("resources/img/logo.png")
+    # logo_img = ck.CTkImage(light_image=logo_image, size=(500, 250))
+    # label(menu , "" , image = logo_img , compound = 'top').pack(side = "top" , fill='x', pady = (50,0) , expand=False)
     #################
+    menu_logo(menu, load_image)
+
+    # 年度期別新增
+    menu_btn(
+        menu, 
+        '年度期別新增', 
+        menu_icon_path = "annual_plan_term.png",
+        command = lambda: annual_plan_term(content))
+
+    # 學員資料作業
+    menu_btn(
+        menu,
+        '學員資料作業',
+        menu_icon_path = "student_all.png",
+        command = lambda: student_all(content))
     
-    menu_btn( menu , text = '年度期別新增' , height = 40 , fg_color = "#669bbc" , command = lambda: annual_plan_term(content)).pack(fill = 'x')
 
-    menu_btn(menu, text='學員資料作業' , command = lambda: student_all(content)).pack()
+    # 學照日期登錄
+    menu_btn(
+        menu,
+        '學照日期登錄',
+        menu_icon_path = "learner_license_date_registration.png",
+        command = lambda: learner_license_date_registration(content))
+    
 
-    menu_btn(menu, text='學照日期登錄' , command =  lambda: learner_license_date_registration(content)).pack()
+    # 學照統一送件
+    menu_btn(
+        menu,
+        '學照統一送件',
+        menu_icon_path = "learner_license_submission.png",
+        command = lambda: learner_license_submission(content))
 
-    menu_btn(menu, text='學照統一送件' , command = lambda: learner_license_submission(content)).pack()
+    # 開訓名冊作業
+    menu_btn(
+        menu,
+        '開訓名冊作業',
+        menu_icon_path = "opening_training_roster.png",
+        command = lambda: opening_training_roster(content))
 
-    menu_btn(menu, text='開訓名冊作業' , command = lambda: opening_training_roster(content)).pack()
+    # 結訓名冊作業
+    menu_btn(
+        menu,
+        '結訓名冊作業',
+        menu_icon_path = "closing_training_roster.png",
+        command = lambda: closing_training_roster(content))
 
-    menu_btn(menu, text='結訓名冊作業' , command = lambda: closing_training_roster(content)).pack()
+    # 筆試清冊作業
+    menu_btn(
+        menu,
+        '筆試清冊作業',
+        menu_icon_path = "written_exam_roster.png",
+        command = lambda: written_exam_roster(content))
 
-    menu_btn(menu, text='筆試清冊作業' , command = lambda: written_exam_roster(content)).pack()
+    # 路試清冊作業
+    menu_btn(
+        menu,
+        '路試清冊作業',
+        menu_icon_path = "road_test_roster.png",
+        command = lambda: road_test_roster(content))
 
-    menu_btn(menu, text='路試清冊作業' , command = lambda: road_test_roster(content)).pack()
+    # 場考清冊作業
+    menu_btn(
+        menu,
+        '場考清冊作業',
+        menu_icon_path = "driving_test_roster.png",
+        command = lambda: driving_test_roster(content))
 
-    menu_btn(menu, text='場考清冊作業' , command = lambda: driving_test_roster(content)).pack()
-
-    menu_btn(menu, text='M2  補訓名冊' , command = lambda: m2_retraining_roster_creation(content)).pack()
+    # M2  補訓名冊
+    menu_btn(
+        menu,
+        'M2  補訓名冊',
+        menu_icon_path = "m2_retraining_roster_creation.png",
+        command = lambda: m2_retraining_roster_creation(content))
