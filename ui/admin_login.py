@@ -19,7 +19,6 @@ def admin_login(menu, content):
     
     username = entry(admin_login , placeholder_text='輸入帳號')
     username.grid(row = 0 , column = 1 , stick = 'ns' , pady = (200,0) )
-    # username.focus_set()
 
     password = entry(admin_login, placeholder_text='輸入密碼' , show='*')
     password.grid(row = 1 , column = 1 , stick = 'ns' , pady = 10)
