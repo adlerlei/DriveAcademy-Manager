@@ -9,7 +9,8 @@ from PIL import Image
 def menu_logo(menu, load_image, text=""):
     logo_image = load_image("resources/img/logo.png")
     logo_img = ck.CTkImage(light_image=logo_image, size=(500, 250))
-    ck.CTkLabel(menu , text=text , image = logo_img , compound = 'top').pack(side = "top" , fill='x', pady = (50,0) , expand=False)
+    return ck.CTkLabel(menu , text=text , image = logo_img , compound = 'top')
+    #.pack(side = "top" , fill='x', pady = (50,0) , expand=False)
     
 # 新增按鈕
 def add_btn( frame , text , font = create_font() ,**kwargs ):
