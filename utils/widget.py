@@ -37,11 +37,7 @@ def menu_btn(frame, text, menu_icon_path, height=40, fg_color="#669bbc", font=cr
     menu_icon = Image.open(f"resources/img/menu/{menu_icon_path}")
     menu_icon_ctk = ck.CTkImage(light_image=menu_icon)
     button = ck.CTkButton(frame, text=text, height=height, fg_color=fg_color, font=font, image=menu_icon_ctk, command=command)
-<<<<<<< HEAD
-    button.pack(fill='x' , expand=True , pady=(25, 0))
-=======
     button.grid(sticky='nsew')
->>>>>>> fc8a974 (admin_login update)
     return button
 
 
