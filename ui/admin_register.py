@@ -8,29 +8,21 @@ from models.admin import register_insert_data
 def admin_register(content):
     clear_frame(content)
     
-    window_title = label_frame(content, '  管理員登入  ')
-    window_title.grid(row=0, column=0, sticky='nsew', padx=20, pady=10)
-    
-    username_frame = frame(window_title)
-    username_frame.pack(pady=(300,0))
+    admin_register = frame(content)
+    admin_register.columnconfigure(0, weight=1)
+    admin_register.columnconfigure(1, weight=2)
+    admin_register.columnconfigure(2, weight=1)
+    admin_register.place(relwidth=1, relheight=1)
 
-    label(username_frame, '登入帳號：').pack(side='left')
-    username = entry(username_frame, width=20)
-    username.pack(side='left')
-    username.focus_set()
+    username = entry(admin_register , placeholder_text='登入帳號')
+    username.grid(row = 0 , column = 1 , stick = 'ns' , pady = (200,0) )
     
-    password_frame = frame(window_title)
-    password_frame.pack(pady=(20,0))
-    label(password_frame, '登入密碼：').pack(side='left')
-    password = entry(password_frame, width=20, show='*')
-    password.pack(side='left')
+    password = entry(admin_register , placeholder_text='登入密碼' ,  show='*')
+    password.grid(row = 1, column = 1, stick = 'ns', pady = 10)
     
     # 重複密碼欄位
-    repassword_frame = frame(window_title)
-    repassword_frame.pack(pady=(20, 0))
-    label(repassword_frame, '密碼確認：').pack(side='left')
-    repassword = entry(repassword_frame, width=20, show='*')
-    repassword.pack(side='left')
+    repassword = entry(admin_register , placeholder_text='確認密碼' , show='*')
+    repassword.grid(row = 2, column = 1, stick = 'ns', pady = 10)
     
     
     #  admin 註冊驗證
@@ -52,6 +44,5 @@ def admin_register(content):
             # 檢查通過調用函式寫入資料庫
             register_insert_data(content, username_value, password_value)
     
-    register_frame = frame(window_title)
-    register_frame.pack(pady=(30, 0))
-    register_btn(register_frame, '註冊', width=27 ,  command=register_validation).pack()
+
+    btn(admin_register, '註冊' , command=register_validation).grid(row = 3, column = 1, stick = 'ns', pady = 50)
