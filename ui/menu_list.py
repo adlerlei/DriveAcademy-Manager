@@ -14,23 +14,23 @@ from .written_exam_roster import written_exam_roster
 
 
 def menu_list(menu , content):
-    row = 0
-
-    menu_logo(menu, load_image)
+    
+    logo_label = menu_logo(menu, load_image)
+    logo_label.grid(row=0, column=0, sticky='nsew', padx=20 , pady=(50,0))
 
     # 年度期別新增
     menu_btn(
         menu, 
         '年度期別新增', 
         menu_icon_path = "annual_plan_term.png",
-        command = lambda: annual_plan_term(content))
+        command = lambda: annual_plan_term(content)).grid(row=1, column=0)
 
     # 學員資料作業
     menu_btn(
         menu,
         '學員資料作業',
         menu_icon_path = "student_all.png",
-        command = lambda: student_all(content))
+        command = lambda: student_all(content)).grid(row=2, column=0)
     
 
     # 學照日期登錄
@@ -38,7 +38,7 @@ def menu_list(menu , content):
         menu,
         '學照日期登錄',
         menu_icon_path = "learner_license_date_registration.png",
-        command = lambda: learner_license_date_registration(content))
+        command = lambda: learner_license_date_registration(content)).grid(row=3, column=0)
     
 
     # 學照統一送件
@@ -46,46 +46,46 @@ def menu_list(menu , content):
         menu,
         '學照統一送件',
         menu_icon_path = "learner_license_submission.png",
-        command = lambda: learner_license_submission(content))
+        command = lambda: learner_license_submission(content)).grid(row=4, column=0)
 
     # 開訓名冊作業
     menu_btn(
         menu,
         '開訓名冊作業',
         menu_icon_path = "opening_training_roster.png",
-        command = lambda: opening_training_roster(content))
+        command = lambda: opening_training_roster(content)).grid(row=5, column=0)
 
     # 結訓名冊作業
     menu_btn(
         menu,
         '結訓名冊作業',
         menu_icon_path = "closing_training_roster.png",
-        command = lambda: closing_training_roster(content))
+        command = lambda: closing_training_roster(content)).grid(row=6, column=0)
 
     # 筆試清冊作業
     menu_btn(
         menu,
         '筆試清冊作業',
         menu_icon_path = "written_exam_roster.png",
-        command = lambda: written_exam_roster(content))
+        command = lambda: written_exam_roster(content)).grid(row=7, column=0)
 
     # 路試清冊作業
     menu_btn(
         menu,
         '路試清冊作業',
         menu_icon_path = "road_test_roster.png",
-        command = lambda: road_test_roster(content))
+        command = lambda: road_test_roster(content)).grid(row=8, column=0)
 
     # 場考清冊作業
     menu_btn(
         menu,
         '場考清冊作業',
         menu_icon_path = "driving_test_roster.png",
-        command = lambda: driving_test_roster(content))
+        command = lambda: driving_test_roster(content)).grid(row=9, column=0)
 
     # M2  補訓名冊
     menu_btn(
         menu,
         'M2  補訓名冊',
         menu_icon_path = "m2_retraining_roster_creation.png",
-        command = lambda: m2_retraining_roster_creation(content))
+        command = lambda: m2_retraining_roster_creation(content)).grid(row=10, column=0)

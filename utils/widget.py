@@ -4,6 +4,8 @@ import customtkinter as ck
 from utils.config import create_font
 from PIL import Image
 
+
+# 選單logo
 def menu_logo(menu, load_image, text=""):
     logo_image = load_image("resources/img/logo.png")
     logo_img = ck.CTkImage(light_image=logo_image, size=(500, 250))
@@ -35,19 +37,33 @@ def menu_btn(frame, text, menu_icon_path, height=40, fg_color="#669bbc", font=cr
     menu_icon = Image.open(f"resources/img/menu/{menu_icon_path}")
     menu_icon_ctk = ck.CTkImage(light_image=menu_icon)
     button = ck.CTkButton(frame, text=text, height=height, fg_color=fg_color, font=font, image=menu_icon_ctk, command=command)
+<<<<<<< HEAD
     button.pack(fill='x' , expand=True , pady=(25, 0))
+=======
+    button.grid(sticky='nsew')
+>>>>>>> fc8a974 (admin_login update)
     return button
 
 
-# 登入按鈕
-def login_btn( frame , text  , font = create_font() , **kwargs ):
-    button = ck.CTkButton( frame , text = text , font = font , **kwargs )
-    return button
-
-
-# 註冊按鈕
-def register_btn( frame , text , font = create_font() , **kwargs ):
-    button = ck.CTkButton( frame , text = text , font = font , **kwargs )
+# 按鈕
+def btn(
+    frame, 
+    text,
+    width = 200,
+    height = 40,
+    fg_color = '#669bbc', 
+    font = create_font(), 
+    **kwargs
+    ):
+    button = ck.CTkButton( 
+        frame, 
+        text = text,
+        width = width,
+        height = height,
+        fg_color = fg_color, 
+        font = font, 
+        **kwargs
+        )
     return button
 
 
@@ -57,8 +73,8 @@ def label_frame( frame , text , **kwargs ):
 
 
 # frmae 容器
-def frame( frame , **kwargs ):
-    return ck.CTkFrame( frame , **kwargs ) 
+def frame( frame , fg_color = '#fdfdff' , **kwargs ):
+    return ck.CTkFrame( frame , fg_color = fg_color , **kwargs ) 
 
 
 # Label 文字顯示
@@ -75,8 +91,22 @@ def combobox( frame , **kwargs ):
 
 
 # entry 用戶輸入欄位
-def entry( frame , font = ( 'default' , 17 ) , **kwargs ):
-    return ck.CTkEntry( frame , font = font , **kwargs )
+def entry(
+    frame , 
+    placeholder_text = '',
+    width = 200,
+    height = 40,
+    font = ( 'default' , 17 ) , 
+    **kwargs
+    ):
+    return ck.CTkEntry(
+        frame , 
+        placeholder_text = placeholder_text ,
+        width = width ,
+        height = height ,
+        font = font , 
+        **kwargs 
+        )
 
 
 # entry 顯示值禁止用戶輸入

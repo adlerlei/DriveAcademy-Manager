@@ -10,22 +10,19 @@ from ui.start import start
 # 管理員登入介面
 def admin_login(menu, content):
     clear_frame(content)
+    
+    admin_login = frame(content)
+    admin_login.columnconfigure(0, weight=1)
+    admin_login.columnconfigure(1, weight=2)
+    admin_login.columnconfigure(2, weight=1)
+    admin_login.place(relwidth=1, relheight=1)
+    
+    username = entry(admin_login , placeholder_text='輸入帳號')
+    username.grid(row = 0 , column = 1 , stick = 'ns' , pady = (200,0) )
+    # username.focus_set()
 
-    window_title = label_frame(content, '  管理員登入  ')
-    window_title.grid(row=0, column=0, sticky='nsew', padx=20, pady=10)
-
-    row1 = frame(window_title)
-    row1.pack(pady=(300,0))
-    label(row1, '管理員帳號：').pack(side='left')
-    username = entry(row1)
-    username.pack(side='left' , padx = (20,0))
-    username.focus_set()
-
-    row2 = frame(window_title)
-    row2.pack(pady=(20,0))
-    label(row2, '管理員密碼：').pack(side='left')
-    password = entry(row2, show='*')
-    password.pack(side='left' , padx = (20,0))
+    password = entry(admin_login, placeholder_text='輸入密碼' , show='*')
+    password.grid(row = 1 , column = 1 , stick = 'ns' , pady = 10)
 
     # 驗證登入
     def login_check():
@@ -42,8 +39,5 @@ def admin_login(menu, content):
         else:
             messagebox.showerror('錯誤', '帳號或密碼錯誤')
 
-    row3 = frame(window_title)
-    row3.pack(pady = (20,0))
-    login_btn(row3, text='登入', width=19 , command=login_check).pack(side='left')
-
-    register_btn(row3, text='註冊', width=8 , command=lambda: admin_register(content)).pack(side='left' , padx=(18,0))
+    btn(admin_login, text='登入', command=login_check).grid(row = 2 , column = 1 , stick = 'ns' , pady = 10)
+    btn(admin_login, text='註冊', command=lambda: admin_register(content)).grid(row = 3 , column = 1 , stick = 'ns' , pady = 50)
