@@ -1,5 +1,5 @@
-# 導入 ck.CTkbootstrap 模組
 from tkinter import ttk
+from tkinter import *
 import customtkinter as ck
 from utils.config import create_font
 from PIL import Image
@@ -34,7 +34,7 @@ def delete_btn( frame , text , font = create_font() , **kwargs ):
 
 
 # 選單按鈕
-def menu_btn(frame, text, menu_icon_path, height=40, fg_color="#669bbc", font=create_font(), command=None):
+def menu_btn(frame, text, menu_icon_path, height=40, fg_color="#669bbc", font = create_font(), command=None):
     menu_icon = Image.open(f"resources/img/menu/{menu_icon_path}")
     menu_icon_ctk = ck.CTkImage(light_image=menu_icon)
     button = ck.CTkButton(frame, text=text, height=height, fg_color=fg_color, font=font, image=menu_icon_ctk, command=command)
@@ -46,8 +46,8 @@ def menu_btn(frame, text, menu_icon_path, height=40, fg_color="#669bbc", font=cr
 def btn(
     frame, 
     text,
-    width = 200,
-    height = 40,
+    # width = 200,
+    # height = 40,
     fg_color = '#669bbc', 
     font = create_font(), 
     **kwargs
@@ -55,8 +55,8 @@ def btn(
     button = ck.CTkButton( 
         frame, 
         text = text,
-        width = width,
-        height = height,
+        # width = width,
+        # height = height,
         fg_color = fg_color, 
         font = font, 
         **kwargs
@@ -75,39 +75,44 @@ def frame( frame , fg_color = '#fdfdff' , **kwargs ):
 
 
 # Label 文字顯示
-def label( frame , text , font = ('defoult' , 17) , **kwargs ):
-    return ck.CTkLabel( frame , text=text , font = font , **kwargs )
+def label( frame , text , text_color = '#669bbc' , font = create_font() , **kwargs ):
+    return ck.CTkLabel( frame , text=text , text_color = text_color , font = font , **kwargs )
 
 
-# Combobox 下拉選單
-def combobox( frame , **kwargs ):
+# Combobox 下拉選單 
+def combobox( frame , text_color = '#8b8c89' , width = 200 , fg_color = '#d9d9d9' , button_color = '#bcb8b1' , font = create_font() , dropdown_fg_color = '#d9d9d9' , **kwargs ):
     # style = ck.CTkStyle()
     # style.theme_use('default')  # 使用預設主題
     # style.configure('TCombobox')
-    return ck.CTkComboBox( frame , **kwargs )
+    return ck.CTkComboBox( frame , text_color = text_color , width = width , border_color = '#fdfdff' , font = font , button_color = button_color , dropdown_fg_color = dropdown_fg_color , fg_color = fg_color , **kwargs )
 
 
 # entry 用戶輸入欄位
 def entry(
     frame , 
     placeholder_text = '',
-    width = 200,
-    height = 40,
-    font = ( 'default' , 17 ) , 
+    # width = 200,
+    # height = 40,
+    font = create_font() , 
+    fg_color = '#d9d9d9',
+    text_color = '#8b8c89',
     **kwargs
     ):
     return ck.CTkEntry(
         frame , 
         placeholder_text = placeholder_text ,
-        width = width ,
-        height = height ,
+        border_color = '#fdfdff',
+        # width = width ,
+        # height = height ,
         font = font , 
+        fg_color = fg_color,
+        text_color = text_color ,
         **kwargs 
         )
 
 
 # entry 顯示值禁止用戶輸入
-def display_entry_value( frame , font = ( 'default' , 17 ) , state = "readonly" , **kwargs ):
+def display_entry_value( frame , font = create_font() , state = "readonly" , **kwargs ):
     return ck.CTkEntry( frame , font = font , state = state , **kwargs )
 
 
