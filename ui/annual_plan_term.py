@@ -1,4 +1,5 @@
 # 期別新增 - 年度計畫表與期別新增
+import tkinter as tk
 from utils.widget import *
 from utils.config import *
 
@@ -7,7 +8,8 @@ def annual_plan_term(content):
     
     
     annual_plan_term = frame(content)
-    annual_plan_term.grid(row=0, column=0, sticky='nsew', padx=20, pady=10)
+    # annual_plan_term.grid(row=0, column=0, sticky='nsew', padx=20, pady=10)
+    annual_plan_term.pack(fill=tk.BOTH, expand=True)
     
     row1 = frame(annual_plan_term)
     row1.pack(fill='x',padx=(30,0), pady=(30, 0))
