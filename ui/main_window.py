@@ -11,9 +11,9 @@ def main_window():
     root = tk.Tk()
     root.title("DriveAcademyManager V1.0")
     
-    # 主題
-    root.tk.call("source", "Azure/azure.tcl")  # 確保這裡的路徑是正確的
-    root.tk.call("set_theme", "light")
+    # # 主題
+    # root.tk.call("source", "Azure/azure.tcl")  # 確保這裡的路徑是正確的
+    # root.tk.call("set_theme", "light")
     
     #更改背景顏色
     # root.configure(bg='#000000')
@@ -23,9 +23,11 @@ def main_window():
         root.state('zoomed')
     except Exception:
         root.attributes('-fullscreen', True)
+    #設定視窗大小
+    # root.geometry("1920x1080")
         
     # 禁止視窗拖曳
-    root.resizable(False, False)
+    #root.resizable(False, False)
     
     # 變更系統 icon
     app_icon(root)

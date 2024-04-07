@@ -14,11 +14,11 @@ def admin_login(menu, content):
     window_title = label_frame(content, ' 管理員登入 ', fg='#627254')
     window_title.pack(fill='x', padx=(20,20), pady=(10,0))
     
-    username_frame = frame(window_title)
-    username_frame.pack(fill='x', pady=(50, 15))
-    label(username_frame, '管理員帳號：').pack(side='left', padx=(500,0))
-    username = entry(username_frame, width=20)
-    username.pack(side='left')
+    # username_frame = frame(window_title)
+    # username_frame.pack(fill='x', pady=(50, 15))
+    label(window_title, '管理員帳號：').pack(side='left')
+    username = entry(window_title, width=20)
+    username.pack()
     username.focus_set()
     
     password_frame = frame(window_title)
