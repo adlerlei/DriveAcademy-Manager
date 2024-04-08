@@ -3,8 +3,6 @@ from utils.config import *
 from utils.widget import *
 from ui.admin_register import admin_register
 from models.admin import login_validation
-from ui.annual_plan_term import annual_plan_term
-from ui.start import start
 
 
 # 管理員登入介面
@@ -39,9 +37,8 @@ def admin_login(menu, content):
             messagebox.showinfo('成功', '登入成功')
             clear_frame(content)
             enable_frame_widgets(menu)
-            start(content)
         else:
             messagebox.showerror('錯誤', '帳號或密碼錯誤')
 
-    btn(admin_login, text='登入', command=login_check).grid(row=7, column=2, sticky='wen', pady=20)
-    btn(admin_login, text='註冊管理員', command=lambda: admin_register(content)).grid(row=8, column=2, sticky='wen', pady=20)
+    btn(admin_login, text='登入', command=login_check).grid(row=7, column=2, sticky='wen', pady=(40,0))
+    btn(admin_login, text='註冊管理員', command=lambda: admin_register(content)).grid(row=8, column=2, sticky='wen', pady=(40,0))

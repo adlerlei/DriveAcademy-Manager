@@ -10,19 +10,24 @@ def admin_register(content):
     
     admin_register = frame(content)
     admin_register.columnconfigure(0, weight=1)
-    admin_register.columnconfigure(1, weight=2)
-    admin_register.columnconfigure(2, weight=1)
+    admin_register.columnconfigure(1, weight=1)
+    admin_register.columnconfigure(2, weight=2)
+    admin_register.columnconfigure(3, weight=1)
+    admin_register.columnconfigure(4, weight=1)
     admin_register.place(relwidth=1, relheight=1)
 
-    username = entry(admin_register , placeholder_text='登入帳號')
-    username.grid(row = 0 , column = 1 , stick = 'ns' , pady = (200,0) )
+    label(admin_register, text='管理員帳號').grid(row=3, column=2, sticky='ws', pady=(200,0))
+    username = entry(admin_register )
+    username.grid(row=4, column=2, stick='wen')
     
-    password = entry(admin_register , placeholder_text='登入密碼' ,  show='*')
-    password.grid(row = 1, column = 1, stick = 'ns', pady = 10)
+    label(admin_register, text='管理員密碼').grid(row=5, column=2, sticky='ws', pady=(20,0))
+    password = entry(admin_register, show='*')
+    password.grid(row=6, column=2, stick='wen')
     
     # 重複密碼欄位
-    repassword = entry(admin_register , placeholder_text='確認密碼' , show='*')
-    repassword.grid(row = 2, column = 1, stick = 'ns', pady = 10)
+    label(admin_register, text='密碼確認').grid(row=7, column=2, sticky='ws', pady=(20,0))
+    repassword = entry(admin_register, show='*')
+    repassword.grid(row=8, column=2, stick='wen')
     
     
     #  admin 註冊驗證
@@ -45,4 +50,4 @@ def admin_register(content):
             register_insert_data(content, username_value, password_value)
     
 
-    btn(admin_register, '註冊' , command=register_validation).grid(row = 3, column = 1, stick = 'ns', pady = 50)
+    btn(admin_register, '註冊' , command=register_validation).grid(row=9, column=2, sticky='wen', pady=(40,0))
