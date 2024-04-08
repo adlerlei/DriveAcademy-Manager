@@ -3,7 +3,7 @@ import os
 from PIL import Image
 
 
-def load_image(path, size=(500, 250)):
+def load_image(path, size=(250, 250)):
     # 使用 Pillow 加載圖像
     pil_image = Image.open(path)
     # 調整圖像大小

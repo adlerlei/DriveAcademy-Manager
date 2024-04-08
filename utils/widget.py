@@ -8,7 +8,7 @@ from PIL import Image
 # 選單logo
 def menu_logo(menu, load_image, text=""):
     logo_image = load_image("resources/img/logo.png")
-    logo_img = ck.CTkImage(light_image=logo_image, size=(500, 250))
+    logo_img = ck.CTkImage(light_image=logo_image, size=(250, 250))
     return ck.CTkLabel(menu , text=text , image = logo_img , compound = 'top')
     #.pack(side = "top" , fill='x', pady = (50,0) , expand=False)
     
@@ -47,7 +47,7 @@ def btn(
     frame, 
     text,
     # width = 200,
-    # height = 40,
+    height = 40,
     fg_color = '#669bbc', 
     font = create_font(), 
     **kwargs
@@ -56,7 +56,7 @@ def btn(
         frame, 
         text = text,
         # width = width,
-        # height = height,
+        height = height,
         fg_color = fg_color, 
         font = font, 
         **kwargs
@@ -92,7 +92,7 @@ def entry(
     frame , 
     placeholder_text = '',
     # width = 200,
-    # height = 40,
+    height = 40,
     font = create_font() , 
     fg_color = '#d9d9d9',
     text_color = '#8b8c89',
@@ -103,7 +103,7 @@ def entry(
         placeholder_text = placeholder_text ,
         border_color = '#fdfdff',
         # width = width ,
-        # height = height ,
+        height = height ,
         font = font , 
         fg_color = fg_color,
         text_color = text_color ,

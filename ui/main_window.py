@@ -11,12 +11,16 @@ def main_window():
     root.title("DriveAcademyManager V1.0")
     ck.set_appearance_mode("Light")
 
+    root.geometry("1024x768")
+    root.minsize(1024, 768)
+    root.maxsize(1920, 1080)
+    root.resizable(True, True)
     
     # tk視窗針對用戶視窗縮放至最大
-    try:
-        root.state('zoomed')
-    except Exception:
-        root.attributes('-fullscreen', True)
+    # try:
+    #     root.state('zoomed')
+    # except Exception:
+    #     root.attributes('-fullscreen', True)
 
     # 禁止視窗拖曳
     # root.resizable(False, False)
