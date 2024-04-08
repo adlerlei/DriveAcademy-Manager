@@ -11,7 +11,7 @@ def main_window():
     root.title("DriveAcademyManager V1.0")
     ck.set_appearance_mode("Light")
 
-    root.geometry("1024x768")
+    root.geometry("1920x1080")
     root.minsize(1024, 768)
     root.maxsize(1920, 1080)
     root.resizable(True, True)

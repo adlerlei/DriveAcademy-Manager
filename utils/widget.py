@@ -8,29 +8,8 @@ from PIL import Image
 # 選單logo
 def menu_logo(menu, load_image, text=""):
     logo_image = load_image("resources/img/logo.png")
-    logo_img = ck.CTkImage(light_image=logo_image, size=(250, 250))
-    return ck.CTkLabel(menu , text=text , image = logo_img , compound = 'top')
-    #.pack(side = "top" , fill='x', pady = (50,0) , expand=False)
-    
-# 新增按鈕
-def add_btn( frame , text , font = create_font() ,**kwargs ):
-    button = ck.CTkButton( frame , text = text , font = font ,**kwargs )
-    return button
-
-# 修改按鈕
-def edit_btn( frame , text , font = create_font() , **kwargs ):
-    button = ck.CTkButton( frame , text = text , font = font , **kwargs )
-    return button
-
-# 查詢按鈕
-def search_btn( frame , text , font = create_font() , **kwargs ):
-    button = ck.CTkButton( frame , text = text , font = font , **kwargs )
-    return button
-
-# 刪除按鈕
-def delete_btn( frame , text , font = create_font() , **kwargs ):
-    button = ck.CTkButton( frame , text = text , font = font , **kwargs )
-    return button
+    logo_img = ck.CTkImage(light_image=logo_image, size=(250,250))
+    return ck.CTkLabel(menu, text=text, image=logo_img, compound='top')
 
 
 # 選單按鈕
@@ -43,48 +22,37 @@ def menu_btn(frame, text, menu_icon_path, height=40, fg_color="#669bbc", font = 
 
 
 # 按鈕
-def btn(
-    frame, 
-    text,
-    # width = 200,
-    height = 40,
-    fg_color = '#669bbc', 
-    font = create_font(), 
-    **kwargs
-    ):
+def btn(frame, text, command):
     button = ck.CTkButton( 
         frame, 
         text = text,
         # width = width,
-        height = height,
-        fg_color = fg_color, 
-        font = font, 
-        **kwargs
+        height = 40,
+        fg_color = '#669bbc', 
+        font = create_font(), 
+        command = command
         )
     return button
 
 
 # label frame 標題容器
-def label_frame( frame , text , **kwargs ):
-    return ttk.LabelFrame( frame , text = text , **kwargs )
+def label_frame(frame, text):
+    return ttk.LabelFrame(frame, text=text)
 
 
 # frmae 容器
-def frame( frame , fg_color = '#fdfdff' , **kwargs ):
-    return ck.CTkFrame( frame , fg_color = fg_color , **kwargs ) 
+def frame(frame, fg_color='#fdfdff'):
+    return ck.CTkFrame(frame, fg_color=fg_color) 
 
 
 # Label 文字顯示
-def label( frame , text , text_color = '#669bbc' , font = create_font() , **kwargs ):
-    return ck.CTkLabel( frame , text=text , text_color = text_color , font = font , **kwargs )
+def label(frame, text, text_color='#669bbc', font=create_font()):
+    return ck.CTkLabel(frame, text=text, text_color=text_color, font=font)
 
 
 # Combobox 下拉選單 
-def combobox( frame , text_color = '#8b8c89' , width = 200 , fg_color = '#d9d9d9' , button_color = '#bcb8b1' , font = create_font() , dropdown_fg_color = '#d9d9d9' , **kwargs ):
-    # style = ck.CTkStyle()
-    # style.theme_use('default')  # 使用預設主題
-    # style.configure('TCombobox')
-    return ck.CTkComboBox( frame , text_color = text_color , width = width , border_color = '#fdfdff' , font = font , button_color = button_color , dropdown_fg_color = dropdown_fg_color , fg_color = fg_color , **kwargs )
+def combobox(frame, height=40, text_color='#8b8c89', fg_color='#d9d9d9', button_color='#bcb8b1', font = create_font(), dropdown_fg_color='#d9d9d9', **kwargs ):
+    return ck.CTkComboBox(frame, height=height, text_color=text_color, border_color='#fdfdff', font=font, button_color=button_color, dropdown_fg_color=dropdown_fg_color, fg_color=fg_color, **kwargs )
 
 
 # entry 用戶輸入欄位

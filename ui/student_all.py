@@ -9,8 +9,12 @@ def student_all(content):
     clear_frame(content)
     checkbox_added = False 
     
-    student_all = frame(content,)
-    student_all.pack(fill='x', padx=(20,20), pady=(10,0))
+    student_all = frame(content)
+    student_all.columnconfigure(0, weight=1)
+    student_all.columnconfigure(1, weight=1)
+    student_all.columnconfigure(2, weight=1)
+    student_all.columnconfigure(3, weight=1)
+    student_all.place(relwidth=1, relheight=1)
     
     
     row1 = frame(student_all)
