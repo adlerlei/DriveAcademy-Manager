@@ -22,11 +22,11 @@ def admin_login(menu, content):
     
     label(admin_login, text='登入帳號').grid(row=3, column=2, sticky='ws', pady=(200,0))
     username = entry(admin_login)
-    username.grid(row = 4, column = 2, sticky='wen')
+    username.grid(row=4, column=2, sticky='wen')
 
     label(admin_login, text='登入密碼').grid(row=5, column=2, sticky='ws', pady=(20,0))
     password = entry(admin_login, show='*')
-    password.grid(row = 6, column = 2, sticky = 'wen')
+    password.grid(row=6, column=2, sticky='wen')
 
     # 驗證登入
     def login_check():
