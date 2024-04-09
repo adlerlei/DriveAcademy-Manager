@@ -20,7 +20,7 @@ def student_all(content):
     # 訓練班別（抓取資料庫呈現）
     label(student_all, text='訓練班別').grid(row=0, column=0, sticky='ws', padx=(10,0), pady=(10,0))
     combobox(student_all,  values=['1','2','3']).grid(row=1, column=0, sticky='wen', padx=(10,0))
-    entry(student_all).grid(row=1, column=1, sticky='wen', padx=(10,0))
+    entry(student_all).grid(row=1, column=1, sticky='wen', padx=(0,10))
 
     # 考照類別（抓取資料庫呈現）
     label(student_all, text='考照類別').grid(row=2, column=0, sticky='ws', padx=(10,0), pady=(20,0))
@@ -91,7 +91,7 @@ def student_all(content):
     entry(student_all).grid(row=11, column=3, sticky='wen', padx=(10,0))
     
     
-    # 通訊地址
+    # 通訊地址 ####
     label(student_all, text='通訊地址').grid(row=12, column=2, sticky='ws', padx=(10,0), pady=(10,0))
     # 郵遞區號
     combobox(student_all,  values=['231', '116']).gird(row=13, column=2, sticky='wen', padx=(10,0))
