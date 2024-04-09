@@ -17,86 +17,87 @@ def student_all(content):
     student_all.place(relwidth=1, relheight=1)
     
     
-    row1 = frame(student_all)
-    row1.pack(fill='x', padx=(30, 0), pady=(30, 0))
     # 訓練班別（抓取資料庫呈現）
-    label(row1, text='訓練班別：').pack(side='left', padx=(20,0))
-    combobox(row1,  values=['1','2','3']).pack(side='left')
-    entry(row1).pack(side='left')
+    label(student_all, text='訓練班別').grid(row=0, column=0, sticky='ws', padx=(10,0), pady=(10,0))
+    combobox(student_all,  values=['1','2','3']).grid(row=1, column=0, sticky='wen', padx=(10,0))
+    entry(student_all).grid(row=1, column=1, sticky='wen', padx=(10,0))
+
     # 考照類別（抓取資料庫呈現）
-    label(row1, text='考照類別：').pack(side='left', padx=(20,0))
-    combobox(row1,  values=['1','2','3']).pack(side='left')
-    entry(row1).pack(side='left')
+    label(student_all, text='考照類別').grid(row=2, column=0, sticky='ws', padx=(10,0), pady=(20,0))
+    combobox(student_all,  values=['1','2','3']).grid(row=3, column=0, sticky='wen', padx=(10,0))
+    entry(student_all).grid(row=3, column=1, sticky='wen', padx=(10,0))
+
     #學員編號
-    label(row1, text='學員編號：').pack(side='left', padx=(20, 0))
-    number = entry(row1)
-    number.pack(side='left')
+    label(student_all, text='學員編號').grid(row=4, column=0, sticky='ws', padx=(10,0), pady=(20,0))
+    number = entry(student_all)
+    number.grid(row=5, column=0, columnspan=2, sticky='wen', padx=10)
     
     
-    row2 = frame(student_all)
-    row2.pack(fill='x', padx=(30, 0), pady=(20, 0))
     # 梯次（抓取資料庫呈現）
-    label(row2, text='梯次：').pack(side='left', padx=(20, 0))
-    combobox(row2,  values=['A','B']).pack(side='left')
+    label(student_all, text='梯次').grid(row=6, column=0, sticky='ws', padx=(10,0), pady=(20,0))
+    combobox(student_all, values=['A','B']).grid(row=7, column=0, columnspan=2, padx=10)
+
     # 學員姓名
-    label(row2, text='學員姓名：').pack(side='left', padx=(20, 0))
-    name = entry(row2)
-    name.pack(side='left')
+    label(student_all, text='學員姓名').grid(row=8, column=0, sticky='ws', padx=(10,0), pady=(20,0 ))
+    name = entry(student_all)
+    name.grid(row=9, column=0, sticky='wen', padx=10)
+
     # 身分證號碼
-    label(row2, text='身分證號碼：').pack(side='left', padx=(20, 0))
-    national_id_no = entry(row2)
-    national_id_no.pack(side='left')
+    label(student_all, text='身分證號碼').grid(row=10, column=0, sticky='ws', padx=(10,0), pady=(20,0))
+    national_id_no = entry(student_all)
+    national_id_no.grid(row=11, column=0, columnspan=2, sticky='wen', padx=10)
+
     # 出生日期
-    label(row2, text='出生日期：').pack(side='left', padx=(20, 0))
-    birth_date = entry(row2)
-    birth_date.pack(side='left')
+    label(student_all, text='出生日期').grid(row=12, column=0, sticky='ws', padx=(10,0), pady=(20,0))
+    birth_date = entry(student_all)
+    birth_date.grid(row=13, column=0, columnspan=2, sticky='wen', padx=10)
     
-    
-    row3 = frame(student_all)
-    row3.pack(fill='x', padx=(30, 0), pady=(20, 0))
-    # 戶籍地址
-    label(row3, text='戶籍地址：').pack(side='left', padx=(20, 0))
-    combobox(row3,  values=['231', '116']).pack(side='left') # 郵遞區號
-    combobox(row3, values=['台北市中山區', '新北市新店區']).pack(side='left') # 區域別
-    r_address = entry(row3)
-    r_address.pack(side='left') # 地址
-    # 信箱
-    label(row3, text='信箱：').pack(side='left', padx=(20, 0))
-    email = entry(row3)
-    email.pack(side='left')
-    
-    
-    row4 = frame(student_all)
-    row4.pack(fill='x', padx=(30, 0), pady=(20, 0))
-    # 家用電話
-    label(row4, text='手機：').pack(side='left', padx=(20, 0))
-    entry(row4).pack(side='left')
+    # 戶籍地址 ######
+    label(student_all, text='戶籍地址').grid(row=14, column=0, sticky='ws', padx=(10,0), pady=(20,0))
+    # 郵遞區號
+    combobox(student_all, values=['231', '116']).grid(row=15, column=0, sticky='wen', padx=10)
+    # 區域別
+    combobox(student_all, values=['台北市中山區', '新北市新店區']).grid(row=15, column=1, sticky='wen', padx=(0,10))
+    # 地址
+    r_address = entry(student_all)
+    r_address.grid(row=16, column=0, columnspan=2, sticky='wen', padx=10)
+
+
     # 行動電話
-    label(row4, text='市話：').pack(side='left', padx=(20, 0))
-    entry(row4).pack(side='left')
+    label(student_all, text='市話').grid(row=0, column=2, sticky='ws', padx=(10,0), pady=(10,0))
+    entry(student_all).grid(row=0, column=2, columnspan=2, sticky='wen',padx=(10,0))
+
+    # 家用電話
+    label(student_all, text='手機').grid(row=0, column=2, sticky='ws', padx=(10,0))
+    entry(student_all).grid(row=0, column=2, columnspan=2, sticky='wen', padx=10)
+
+    # 信箱
+    label(student_all, text='信箱').grid(row=0, column=2, sticky='ws', padx=(10,0))
+    email = entry(student_all)
+    email.grid(row=0, column=2, columnspan=2, sticky='wen', padx=10)
+    
+
     # 性別
-    label(row4, text='性別：').pack(side='left', padx=(20, 0))
-    combobox(row4, values=['男', '女']).pack(side='left')
+    label(student_all, text='性別').pack(side='left', padx=(20, 0))
+    combobox(student_all, values=['男', '女']).pack(side='left')
     # 學歷
-    label(row4, text='學歷：').pack(side='left', padx=(20, 0))
-    combobox(row4,  values=['國中', '高中', '大學']).pack(side='left')
+    label(student_all, text='學歷').pack(side='left', padx=(20, 0))
+    combobox(student_all,  values=['國中', '高中', '大學']).pack(side='left')
     #指導教練
-    label(row4, text='指導教練：').pack(side='left', padx=(20, 0))
-    combobox(row4,  values=['000', '001', '002']).pack(side='left')
-    entry(row4).pack(side='left')
+    label(student_all, text='指導教練').pack(side='left', padx=(20, 0))
+    combobox(student_all,  values=['000', '001', '002']).pack(side='left')
+    entry(student_all).pack(side='left')
     
     
-    row5 = frame(student_all)
-    row5.pack(fill='x', padx=(30, 0), pady=(20, 0))
     # 通訊地址
-    label(row5, text='通訊地址：').pack(side='left', padx=(20, 0))
-    combobox(row5,  values=['231', '116']).pack(side='left') # 郵遞區號
-    combobox(row5, values=['台北市中山區', '新北市新店區']).pack(side='left') # 縣市區域
-    m_address = entry(row5)
+    label(student_all, text='通訊地址').pack(side='left', padx=(20, 0))
+    combobox(student_all,  values=['231', '116']).pack(side='left') # 郵遞區號
+    combobox(student_all, values=['台北市中山區', '新北市新店區']).pack(side='left') # 縣市區域
+    m_address = entry(student_all)
     m_address.pack(side='left') # 地址
     # 備註
-    label(row5, text='備註：').pack(side='left', padx=(20, 0))
-    remarks = entry(row5)
+    label(student_all, text='備註').pack(side='left', padx=(20, 0))
+    remarks = entry(student_all)
     remarks.pack(side='left')
     
 
@@ -106,77 +107,33 @@ def student_all(content):
         if not checkbox_added:
         # 讀取資料（暫時留空）
 
-            # 水平線
-            row_hr = frame(student_all)
-            row_hr.pack(fill='x', padx=(30, 0), pady=(0, 10))
-            hr(row_hr, height=2, bd=1, relief='sunken').pack(fill='x', padx=(20, 30), pady=(0,10))
             
-            row7 = frame(student_all)
-            row7.pack(fill='x', padx=(30, 0), pady=(20, 10))
             # 顯示是否退訓
-            label(row7, text='該學員是否退訓：').pack(side='left', padx=(20, 0))
-            display_entry_value(row7, width=5).pack(side='left')
+            label(student_all, text='該學員是否退訓').pack(side='left', padx=(20, 0))
+            display_entry_value(student_all, width=5).pack(side='left')
             
-            row8 = frame(student_all)
-            row8.pack(fill='x', padx=(30, 0), pady=(0, 10))
             # 顯示名冊號碼 opening_closing_register 關聯資料庫欄位
-            label(row8, text='名冊號碼：').pack(side='left', padx=(20, 0))
-            display_entry_value(row8, width=7).pack(side='left')
+            label(student_all, text='名冊號碼').pack(side='left', padx=(20, 0))
+            display_entry_value(student_all, width=7).pack(side='left')
             # 顯示學照日期
-            label(row8, text='學照日期：').pack(side='left', padx=(20, 0))
-            display_entry_value(row8, width=7).pack(side='left')
+            label(student_all, text='學照日期').pack(side='left', padx=(20, 0))
+            display_entry_value(student_all, width=7).pack(side='left')
             # 顯示學照號碼
-            label(row8, text='學照號碼：').pack(side='left', padx=(20, 0))
-            display_entry_value(row8, width=7).pack(side='left')
+            label(student_all, text='學照號碼').pack(side='left', padx=(20, 0))
+            display_entry_value(student_all, width=7).pack(side='left')
             # 顯示路試日期
-            label(row8, text='路試日期：').pack(side='left', padx=(20, 0))
-            display_entry_value(row8, width=7).pack(side='left')
+            label(student_all, text='路試日期').pack(side='left', padx=(20, 0))
+            display_entry_value(student_all, width=7).pack(side='left')
             # 顯示建檔日期
-            label(row8, text='建檔日期：').pack(side='left', padx=(20, 0))
-            display_entry_value(row8, width=7).pack(side='left')
+            label(student_all, text='建檔日期').pack(side='left', padx=(20, 0))
+            display_entry_value(student_all, width=7).pack(side='left')
 
             checkbox_added = True 
 
 
-    row6 = frame(student_all)
-    row6.pack(fill='x', padx=(30, 0), pady=(20, 40))
     # 新增，修改，刪除，查詢 按鈕
-    add_btn(row6, text='新增', command=lambda: None).pack(side='left', padx=(20,0))
-    search_btn(row6, text='查詢', command=click_btn).pack(side='left', padx=(10,0))
-    edit_btn(row6, text='修改', command=lambda: None).pack(side='left', padx=(10,0))
-    delete_btn(row6, text='刪除', command=lambda: None).pack(side='left', padx=(10,0))
-
-    
-    # row_hr = frame(student_all)
-    # row_hr.pack(fill='x', padx=(30, 0), pady=(0, 10))
-    # hr(row_hr, height=2, bd=1, relief='sunken').pack(fill='x', padx=(20, 30), pady=(0,10))
-    
-    
-    # row7 = frame(student_all)
-    # row7.pack(fill='x', padx=(30, 0), pady=(20, 10))
-    # # 顯示是否退訓
-    # label(row7, text='該學員是否退訓：').pack(side='left', padx=(20, 0))
-    # # dropout = combobox(row_dropout, width=5, values=['無', '退訓'])
-    # # dropout.pack(side='left')
-    # # # 設定下拉選單的預設值
-    # # dropout.set('無')  # 這裡將 '無' 設為預設值
-    # display_entry_value(row7, width=5).pack(side='left')
-    
-    # row8 = frame(student_all)
-    # row8.pack(fill='x', padx=(30, 0), pady=(0, 10))
-    # # 顯示名冊號碼 opening_closing_register 關聯資料庫欄位
-    # label(row8, text='名冊號碼：').pack(side='left', padx=(20, 0))
-    # display_entry_value(row8, width=7).pack(side='left')
-    # # 顯示學照日期
-    # label(row8, text='學照日期：').pack(side='left', padx=(20, 0))
-    # display_entry_value(row8, width=7).pack(side='left')
-    # # 顯示學照號碼
-    # label(row8, text='學照號碼：').pack(side='left', padx=(20, 0))
-    # display_entry_value(row8, width=7).pack(side='left')
-    # # 顯示路試日期
-    # label(row8, text='路試日期：').pack(side='left', padx=(20, 0))
-    # display_entry_value(row8, width=7).pack(side='left')
-    # # 顯示建檔日期
-    # label(row8, text='建檔日期：').pack(side='left', padx=(20, 0))
-    # display_entry_value(row8, width=7).pack(side='left')
+    add_btn(student_all, text='新增', command=lambda: None).pack(side='left', padx=(20,0))
+    search_btn(student_all, text='查詢', command=click_btn).pack(side='left', padx=(10,0))
+    edit_btn(student_all, text='修改', command=lambda: None).pack(side='left', padx=(10,0))
+    delete_btn(student_all, text='刪除', command=lambda: None).pack(side='left', padx=(10,0))
     

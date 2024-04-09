@@ -40,7 +40,7 @@ def annual_plan_term(content):
     start_date.grid(row=3, column=2, columnspan=2, sticky='wen', padx=(0,10))
     
     # 結訓日期
-    label(annual_plan_term, text='結訓日期：').grid(row=4, column=2, sticky='ws', pady=(20,0))
+    label(annual_plan_term, text='結訓日期').grid(row=4, column=2, sticky='ws', pady=(20,0))
     end_date = entry(annual_plan_term)
     end_date.grid(row=5, column=2, columnspan=2, sticky='wen', padx=(0,10))
     
