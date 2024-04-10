@@ -31,22 +31,22 @@ def annual_plan_term(content):
     term.grid(row=5, column=0, columnspan=2, sticky='wen', padx=10)
     
     # 梯次（抓取資料庫呈現）
-    label(annual_plan_term, text='梯次').grid(row=0, column=2, sticky='ws')
-    combobox(annual_plan_term, values=['A', 'B']).grid(row=1, column=2, columnspan=2, sticky='wen', padx=(0,10))
+    label(annual_plan_term, text='梯次').grid(row=0, column=2, sticky='ws', padx=(10,0))
+    combobox(annual_plan_term, values=['A', 'B']).grid(row=1, column=2, columnspan=2, sticky='wen', padx=10)
     
     # 開訓日期
-    label(annual_plan_term, text='開訓日期').grid(row=2, column=2, sticky='ws', pady=(20,0))
+    label(annual_plan_term, text='開訓日期').grid(row=2, column=2, sticky='ws',padx=(10,0), pady=(20,0))
     start_date = entry(annual_plan_term)
-    start_date.grid(row=3, column=2, columnspan=2, sticky='wen', padx=(0,10))
+    start_date.grid(row=3, column=2, columnspan=2, sticky='wen', padx=10)
     
     # 結訓日期
-    label(annual_plan_term, text='結訓日期').grid(row=4, column=2, sticky='ws', pady=(20,0))
+    label(annual_plan_term, text='結訓日期').grid(row=4, column=2, sticky='ws',padx=(10,0), pady=(20,0))
     end_date = entry(annual_plan_term)
-    end_date.grid(row=5, column=2, columnspan=2, sticky='wen', padx=(0,10))
+    end_date.grid(row=5, column=2, columnspan=2, sticky='wen', padx=10)
     
     # 新增，修改，刪除 按鈕
     btn(annual_plan_term, text='新增', command=None).grid(row=6, column=0, sticky='wen', padx=10, pady=20)
-    btn(annual_plan_term, text='修改', command=None).grid(row=6, column=2, sticky='wen', padx=(0,10), pady=20)
+    btn(annual_plan_term, text='修改', command=None).grid(row=6, column=2, sticky='wen', padx=10, pady=20)
     btn(annual_plan_term, text='刪除', command=None).grid(row=6, column=3, sticky='wen', padx=10, pady=20)
     
     # 列表框 - 期別新增 - 年度計畫表與期別新增

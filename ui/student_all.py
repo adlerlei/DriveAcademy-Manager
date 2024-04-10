@@ -25,7 +25,7 @@ def student_all(content):
     # 考照類別（抓取資料庫呈現）
     label(student_all, text='考照類別').grid(row=2, column=0, sticky='ws', padx=(10,0), pady=(20,0))
     combobox(student_all,  values=['1','2','3']).grid(row=3, column=0, sticky='wen', padx=(10,0))
-    entry(student_all).grid(row=3, column=1, sticky='wen', padx=(10,0))
+    entry(student_all).grid(row=3, column=1, sticky='wen', padx=(0,10))
 
     #學員編號
     label(student_all, text='學員編號').grid(row=4, column=0, sticky='ws', padx=(10,0), pady=(20,0))
@@ -35,12 +35,12 @@ def student_all(content):
     
     # 梯次（抓取資料庫呈現）
     label(student_all, text='梯次').grid(row=6, column=0, sticky='ws', padx=(10,0), pady=(20,0))
-    combobox(student_all, values=['A','B']).grid(row=7, column=0, columnspan=2, padx=10)
+    combobox(student_all, values=['A','B']).grid(row=7, column=0, sticky='wen', columnspan=2, padx=10)
 
     # 學員姓名
     label(student_all, text='學員姓名').grid(row=8, column=0, sticky='ws', padx=(10,0), pady=(20,0 ))
     name = entry(student_all)
-    name.grid(row=9, column=0, sticky='wen', padx=10)
+    name.grid(row=9, column=0, columnspan=2, sticky='wen', padx=10)
 
     # 身分證號碼
     label(student_all, text='身分證號碼').grid(row=10, column=0, sticky='ws', padx=(10,0), pady=(20,0))
@@ -55,7 +55,7 @@ def student_all(content):
     # 戶籍地址 ######
     label(student_all, text='戶籍地址').grid(row=14, column=0, sticky='ws', padx=(10,0), pady=(20,0))
     # 郵遞區號
-    combobox(student_all, values=['231', '116']).grid(row=15, column=0, sticky='wen', padx=10)
+    combobox(student_all, values=['231', '116']).grid(row=15, column=0, sticky='wen', padx=(10,0))
     # 區域別
     combobox(student_all, values=['台北市中山區', '新北市新店區']).grid(row=15, column=1, sticky='wen', padx=(0,10))
     # 地址
@@ -64,11 +64,11 @@ def student_all(content):
 
 
     # 行動電話
-    label(student_all, text='市話').grid(row=0, column=2, sticky='ws', padx=(10,0), pady=(10,0))
-    entry(student_all).grid(row=1, column=2, columnspan=2, sticky='wen',padx=(10,0))
+    label(student_all, text='手機').grid(row=0, column=2, sticky='ws', padx=(10,0), pady=(10,0))
+    entry(student_all).grid(row=1, column=2, columnspan=2, sticky='wen',padx=(10,10))
 
     # 家用電話
-    label(student_all, text='手機').grid(row=2, column=2, sticky='ws', padx=(10,0))
+    label(student_all, text='市話').grid(row=2, column=2, sticky='ws', padx=(10,0))
     entry(student_all).grid(row=3, column=2, columnspan=2, sticky='wen', padx=10)
 
     # 信箱
@@ -77,7 +77,7 @@ def student_all(content):
     email.grid(row=5, column=2, columnspan=2, sticky='wen', padx=10)
     
 
-    # 性別
+    # 性別 
     label(student_all, text='性別').grid(row=6, column=2, sticky='ws', padx=(10,0), pady=(10,0))
     combobox(student_all, values=['男', '女']).grid(row=7, column=2, columnspan=2, sticky='wen', padx=10)
 
@@ -88,23 +88,22 @@ def student_all(content):
     #指導教練
     label(student_all, text='指導教練').grid(row=10, column=2, sticky='ws', padx=(10,0), pady=(10,0))
     combobox(student_all, values=['000', '001', '002']).grid(row=11, column=2, sticky='wen', padx=(10,0))
-    entry(student_all).grid(row=11, column=3, sticky='wen', padx=(10,0))
+    entry(student_all).grid(row=11, column=3, sticky='wen', padx=(0,10))
     
-    
+    # 備註
+    label(student_all, text='備註').grid(row=12, column=2, sticky='ws', padx=(10,0), pady=(10,0))
+    remarks = entry(student_all)
+    remarks.grid(row=13, column=2, columnspan=2, sticky='wen', padx=10)
+
     # 通訊地址 ####
-    label(student_all, text='通訊地址').grid(row=12, column=2, sticky='ws', padx=(10,0), pady=(10,0))
+    label(student_all, text='通訊地址').grid(row=14, column=2, sticky='ws', padx=(10,0), pady=(10,0))
     # 郵遞區號
-    combobox(student_all,  values=['231', '116']).gird(row=13, column=2, sticky='wen', padx=(10,0))
+    combobox(student_all,  values=['231', '116']).grid(row=15, column=2, sticky='wen', padx=(10,0))
     # 縣市區域
-    combobox(student_all, values=['台北市中山區', '新北市新店區']).grid(row=13, column=3, sticky='wen', padx=(10,0))
+    combobox(student_all, values=['台北市中山區', '新北市新店區']).grid(row=15, column=3, sticky='wen', padx=(0,10))
     # 地址
     m_address = entry(student_all)
-    m_address.grid(row=14, column=2, columnspan=2, sticky='wen', padx=10)
-
-    # 備註
-    label(student_all, text='備註').grid(row=15, column=2, sticky='ws', padx=(10,0), pady=(10,0))
-    remarks = entry(student_all)
-    remarks.grid(row=16, column=2, columnspan=2, sticky='wen', padx=10)
+    m_address.grid(row=16, column=2, columnspan=2, sticky='wen', padx=10)
     
 
     # 點擊按鈕觸發事件，並顯示隱藏的控件顯示學員資料
