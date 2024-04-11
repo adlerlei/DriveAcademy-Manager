@@ -19,53 +19,54 @@ def student_all(content):
     
     # 訓練班別（抓取資料庫呈現）
     label(student_all, text='訓練班別').grid(row=0, column=0, sticky='ws', padx=(10,0), pady=(10,0))
-    combobox(student_all,  values=['1','2','3']).grid(row=1, column=0, sticky='wen', padx=(10,0))
+    combobox(student_all,  values=['1','2','3']).grid(row=1, column=0, sticky='wen', padx=10)
     entry(student_all).grid(row=1, column=1, sticky='wen', padx=(0,10))
 
     # 考照類別（抓取資料庫呈現）
     label(student_all, text='考照類別').grid(row=2, column=0, sticky='ws', padx=(10,0), pady=(20,0))
-    combobox(student_all,  values=['1','2','3']).grid(row=3, column=0, sticky='wen', padx=(10,0))
+    combobox(student_all,  values=['1','2','3']).grid(row=3, column=0, sticky='wen', padx=10)
     entry(student_all).grid(row=3, column=1, sticky='wen', padx=(0,10))
 
     #學員編號
     label(student_all, text='學員編號').grid(row=4, column=0, sticky='ws', padx=(10,0), pady=(20,0))
     number = entry(student_all)
-    number.grid(row=5, column=0, columnspan=2, sticky='wen', padx=10)
+    number.grid(row=5, column=0, sticky='wen', padx=10)
     
     
     # 梯次（抓取資料庫呈現）
-    label(student_all, text='梯次').grid(row=6, column=0, sticky='ws', padx=(10,0), pady=(20,0))
-    combobox(student_all, values=['A','B']).grid(row=7, column=0, sticky='wen', columnspan=2, padx=10)
+    label(student_all, text='梯次').grid(row=4, column=1, sticky='ws', pady=(20,0))
+    combobox(student_all, values=['A','B']).grid(row=5, column=1, sticky='wen', padx=(0,10))
 
     # 學員姓名
-    label(student_all, text='學員姓名').grid(row=8, column=0, sticky='ws', padx=(10,0), pady=(20,0 ))
+    label(student_all, text='學員姓名').grid(row=6, column=0, sticky='ws', padx=(10,0), pady=(20,0 ))
     name = entry(student_all)
-    name.grid(row=9, column=0, columnspan=2, sticky='wen', padx=10)
+    name.grid(row=7, column=0, sticky='wen', padx=10)
 
     # 身分證號碼
-    label(student_all, text='身分證號碼').grid(row=10, column=0, sticky='ws', padx=(10,0), pady=(20,0))
+    label(student_all, text='身分證號碼').grid(row=6, column=1, sticky='ws', pady=(20,0))
     national_id_no = entry(student_all)
-    national_id_no.grid(row=11, column=0, columnspan=2, sticky='wen', padx=10)
+    national_id_no.grid(row=7, column=1, sticky='wen', padx=(0,10))
 
     # 出生日期
-    label(student_all, text='出生日期').grid(row=12, column=0, sticky='ws', padx=(10,0), pady=(20,0))
+    label(student_all, text='出生日期').grid(row=8, column=0, sticky='ws', padx=(10,0), pady=(20,0))
     birth_date = entry(student_all)
-    birth_date.grid(row=13, column=0, columnspan=2, sticky='wen', padx=10)
-    
-    # 戶籍地址 ######
-    label(student_all, text='戶籍地址').grid(row=14, column=0, sticky='ws', padx=(10,0), pady=(20,0))
-    # 郵遞區號
-    combobox(student_all, values=['231', '116']).grid(row=15, column=0, sticky='wen', padx=(10,0))
-    # 區域別
-    combobox(student_all, values=['台北市中山區', '新北市新店區']).grid(row=15, column=1, sticky='wen', padx=(0,10))
-    # 地址
-    r_address = entry(student_all)
-    r_address.grid(row=16, column=0, columnspan=2, sticky='wen', padx=10)
-
+    birth_date.grid(row=9, column=0, sticky='wen', padx=10)
 
     # 行動電話
-    label(student_all, text='手機').grid(row=0, column=2, sticky='ws', padx=(10,0), pady=(10,0))
-    entry(student_all).grid(row=1, column=2, columnspan=2, sticky='wen',padx=(10,10))
+    label(student_all, text='手機').grid(row=8, column=1, sticky='ws', pady=(20,0))
+    entry(student_all).grid(row=9, column=1, sticky='wen',padx=(0,10))
+    
+    # 戶籍地址 ######
+    label(student_all, text='戶籍地址').grid(row=10, column=0, sticky='ws', padx=(10,0), pady=(20,0))
+    # 郵遞區號
+    combobox(student_all, values=['231', '116']).grid(row=11, column=0, sticky='wen', padx=10)
+    # 區域別
+    combobox(student_all, values=['台北市中山區', '新北市新店區']).grid(row=11, column=1, sticky='wen', padx=(0,10))
+    # 地址
+    r_address = entry(student_all)
+    r_address.grid(row=12, column=0, columnspan=2, sticky='wen', padx=10)
+
+
 
     # 家用電話
     label(student_all, text='市話').grid(row=2, column=2, sticky='ws', padx=(10,0))
