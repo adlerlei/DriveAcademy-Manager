@@ -12,7 +12,7 @@ def main_window():
     ck.set_appearance_mode("Light")
 
     root.geometry("1600x900")
-    root.minsize(1024, 768)
+    root.minsize(1024, 800)
     root.maxsize(1920, 1080)
     root.resizable(True, True)
     

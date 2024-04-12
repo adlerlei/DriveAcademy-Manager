@@ -78,10 +78,34 @@ def entry(
         **kwargs 
         )
 
+# entry 用戶輸入欄位
+def display_entry_value(
+    frame, 
+    placeholder_text = '',
+    # width = 200,
+    height = 40,
+    font = create_font(),
+    state = "readonly",
+    fg_color = '#d9d9d9',
+    text_color = '#8b8c89',
+    **kwargs
+    ):
+    return ck.CTkEntry(
+        frame,
+        placeholder_text = placeholder_text,
+        border_color = '#fdfdff',
+        # width = width,
+        height = height,
+        font = font,
+        state = state,
+        fg_color = fg_color,
+        text_color = text_color ,
+        **kwargs 
+        )
 
-# entry 顯示值禁止用戶輸入
-def display_entry_value( frame , font = create_font() , state = "readonly" , **kwargs ):
-    return ck.CTkEntry( frame , font = font , state = state , **kwargs )
+# # entry 顯示值禁止用戶輸入
+# def display_entry_value( frame , font = create_font() , state = "readonly" , **kwargs ):
+#     return ck.CTkEntry( frame , font = font , state = state , **kwargs )
 
 
 # 查看 frame 中的所有控件，并禁用它们

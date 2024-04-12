@@ -118,23 +118,23 @@ def student_all(content):
             display_entry_value(student_all, width=5).grid(row=15, column=0, sticky='wen', padx=10)
             
             # 顯示名冊號碼 opening_closing_register 關聯資料庫欄位
-            label(student_all, text='名冊號碼').grid(row=14, column=1, sticky='ws', padx=(10,0))
-            display_entry_value(student_all, width=7).grid(row=15, column=1, sticky='wen', padx=(10,0))
+            label(student_all, text='名冊號碼').grid(row=14, column=1, sticky='ws')
+            display_entry_value(student_all, width=7).grid(row=15, column=1, sticky='wen', padx=(0,10))
 
             # 顯示學照日期
             label(student_all, text='學照日期').grid(row=14, column=2, sticky='ws', padx=(10,0))
-            display_entry_value(student_all, width=7).grid(row=15, column=2, sticky='wen', padx=(10,0))
+            display_entry_value(student_all, width=7).grid(row=15, column=2, sticky='wen', padx=10)
 
             # 顯示學照號碼
-            label(student_all, text='學照號碼').grid(row=14, column=3, sticky='ws', padx=(10,0))
-            display_entry_value(student_all, width=7).grid(row=15, column=3, sticky='wen', padx=(10,0))
+            label(student_all, text='學照號碼').grid(row=14, column=3, sticky='ws')
+            display_entry_value(student_all, width=7).grid(row=15, column=3, sticky='wen', padx=(0,10))
 
             # 顯示路試日期
             label(student_all, text='路試日期').grid(row=16, column=0, sticky='ws', padx=(10,0))
-            display_entry_value(student_all, width=7).grid(row=17, column=0, sticky='wen')
+            display_entry_value(student_all, width=7).grid(row=17, column=0, sticky='wen', padx=10)
             # 顯示建檔日期
-            label(student_all, text='建檔日期').grid(row=16, column=1, sticky='ws', padx=(10,0))
-            display_entry_value(student_all, width=7).grid(row=17, column=1, sticky='wen', padx=(10,0))
+            label(student_all, text='建檔日期').grid(row=16, column=1, sticky='ws')
+            display_entry_value(student_all, width=7).grid(row=17, column=1, sticky='wen')
 
             checkbox_added = True
 
