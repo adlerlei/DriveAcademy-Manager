@@ -18,7 +18,7 @@ def opening_training_roster(content):
     label(row1, text='學員編號：').pack(side='left', padx=(20, 0))
     entry(row1, width=10).pack(side='left')
     # 搜尋按鈕
-    search_btn(row1, text='搜尋學員信息').pack(side='left', padx=(20, 0))
+    btn(row1, text='搜尋學員信息', command=lambda: None).pack(side='left', padx=(20, 0))
     
     
     # 學員信息資料顯示
@@ -89,7 +89,7 @@ def opening_training_roster(content):
     
     
     # 加入開訓名冊按鈕
-    add_btn(row6, text='將該學員加入開訓名冊', command=lambda: None).pack(side='left', padx=(20, 0))
+    btn(row6, text='將該學員加入開訓名冊', command=lambda: None).pack(side='left', padx=(20, 0))
     
     
     # 第4行 frame 所有欄位顯示 treeview

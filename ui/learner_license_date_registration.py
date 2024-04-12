@@ -4,83 +4,79 @@ from utils.config import *
 
 def learner_license_date_registration(content):
     clear_frame(content)
-    
-    window_title = label_frame(content, "  𐜀學習駕照日期登錄  ")
-    window_title.pack(fill='x', padx=(20,20), pady=(10,0))
-    
-    row1 = frame(window_title)
-    row1.pack(fill='x', padx=(30, 0), pady=(30, 0))
-    # 輸入學號
-    label(row1, text='輸入學號：', ).pack(side='left', padx=(20, 0))
-    entry(row1, width=10).pack(side='left')
+        
+    learner_license_date_registration = frame(content)
+    learner_license_date_registration.columnconfigure(0, weight=1)
+    learner_license_date_registration.columnconfigure(1, weight=1)
+    learner_license_date_registration.columnconfigure(2, weight=1)
+    learner_license_date_registration.columnconfigure(3, weight=1)
+    learner_license_date_registration.place(relwidth=1, relheight=1)
+
+    # # 輸入學號
+    # label(learner_license_date_registration, text='輸入學號').grid(row=0, column=0, sticky='ws', padx=(10,0), pady=(10,0))
+    entry(learner_license_date_registration, placeholder_text = "輸入學號").grid(row=0, column=0, columnspan=3, sticky='wen', padx=10, pady=(10,0))
+
     # 搜尋按鈕
-    search_btn(row1, text='搜尋學員信息').pack(side='left', padx=(20, 0))
-
+    btn(learner_license_date_registration, text='搜尋學員信息', command=lambda: None).grid(row=0, column=3, sticky='wen', padx=(0,10), pady=(10,0))
     
-    row2 = frame(window_title)
-    row2.pack(fill='x', padx=(30, 0), pady=(30, 0))
     # 顯示學員編號
-    label(row2, text='學員編號：').pack(side='left', padx=(20, 0))
-    display_entry_value(row2, width=10).pack(side='left')
-    # 顯示學員姓名
-    label(row2, text='學員姓名：').pack(side='left', padx=(20, 0))
-    display_entry_value(row2, width=10).pack(side='left')
-    # 顯示學員出生日期
-    label(row2, text='出生日期：').pack(side='left', padx=(20, 0))
-    display_entry_value(row2, width=10).pack(side='left')
-    
-    row3 = frame(window_title)
-    row3.pack(fill='x', padx=(30, 0), pady=(20, 0))
-    # 顯示考照類別
-    label(row3, text='考照類別：').pack(side='left', padx=(20, 0))
-    display_entry_value(row3, width=10).pack(side='left')
-    # 顯示學員身分證號碼
-    label(row3, text='身分證號：').pack(side='left', padx=(20, 0))
-    display_entry_value(row3, width=10).pack(side='left')
-    # 顯示學員電話
-    label(row3, text='聯絡電話：').pack(side='left', padx=(20, 0))
-    display_entry_value(row3, width=10).pack(side='left')
-    
-    row4 = frame(window_title)
-    row4.pack(fill='x', padx=(30, 0), pady=(20, 0))
-    # 顯示學員戶籍地址
-    label(row4, text='戶籍地址：').pack(side='left', padx=(20, 0))
-    display_entry_value(row4, width=3).pack(side='left')
-    display_entry_value(row4, width=15).pack(side='left')
-    display_entry_value(row4, width=32).pack(side='left')
-    
+    label(learner_license_date_registration, text='學員編號').grid(row=1, column=0, sticky='ws', padx=(10,0), pady=(50,0))
+    display_entry_value(learner_license_date_registration, width=10).grid(row=2, column=0, sticky='wen', padx=10)
 
-    row5= frame(window_title)
-    row5.pack(fill='x', padx=(30, 20), pady=(20, 0))
+    # 顯示學員姓名
+    label(learner_license_date_registration, text='學員姓名').grid(row=1, column=1, sticky='ws', pady=(10,0))
+    display_entry_value(learner_license_date_registration, width=10).grid(row=2, column=1, sticky='wen', padx=(0,10))
+
+    # 顯示學員身分證號碼
+    label(learner_license_date_registration, text='身分證號').grid(row=1, column=2, sticky='ws',pady=(10,0))
+    display_entry_value(learner_license_date_registration).grid(row=2, column=2, sticky='wen', padx=(0,10))
+
+    # 顯示學員電話
+    label(learner_license_date_registration, text='聯絡電話').grid(row=1, column=3, sticky='ws', pady=(10,0))
+    display_entry_value(learner_license_date_registration).grid(row=2, column=3, sticky='wen', padx=(0,10))
+
+    # 顯示學員出生日期
+    label(learner_license_date_registration, text='出生日期').grid(row=3, column=0, sticky='ws', padx=(10,0), pady=(10,0))
+    display_entry_value(learner_license_date_registration, width=10).grid(row=4, column=0, sticky='wen', padx=10)
+
+    # 顯示考照類別
+    label(learner_license_date_registration, text='考照類別').grid(row=3, column=1, sticky='ws', pady=(10,0))
+    display_entry_value(learner_license_date_registration).grid(row=4, column=1, sticky='wen', padx=(0,10))
+
     # 備註
-    label(row5, text='備註：').pack(side='left', padx=(20, 0))
-    display_entry_value(row5, width=55).pack(side='left')
+    label(learner_license_date_registration, text='備註').grid(row=3, column=2, sticky='ws',pady=(10,0))
+    display_entry_value(learner_license_date_registration, width=55).grid(row=4, column=2, columnspan=2, sticky='wen', padx=(0,10))
+
+    # 顯示學員戶籍地址
+    label(learner_license_date_registration, text='戶籍地址').grid(row=5, column=0, sticky='ws', padx=(10,0), pady=(10,0))
+    display_entry_value(learner_license_date_registration).grid(row=6, column=0, columnspan=2, sticky='wen', padx=10)
+    display_entry_value(learner_license_date_registration).grid(row=6, column=2, columnspan=2, sticky='wen', padx=(0,10))
+    display_entry_value(learner_license_date_registration).grid(row=7, column=0, columnspan=4, sticky='wen', padx=10)
     
     # 說明文字
     # display_input_info_title= frame(window_title)
     # display_input_info_title.pack(fill='x', padx=(30, 20), pady=(40, 0))
     # display_info_label(display_input_info_title, text='輸入資料區').pack(side='left', padx=(20, 0))
     
-    
-    row6 = frame(window_title)
-    row6.pack(fill='x', padx=(30,0), pady=(30,0))
     # 登入日期
-    label(row6, text='登入日期：').pack(side='left', padx=(20, 0))
-    entry(row6, width=10).pack(side='left')
+    label(learner_license_date_registration, text='登入日期：').grid(row=8, column=0, sticky='ws', padx=(10,0), pady=(50,0))
+    entry(learner_license_date_registration).grid(row=9, column=0, sticky='wen', padx=10)
+
     # 學照日期
-    label(row6, text='學照日期：').pack(side='left', padx=(20,0))
-    entry(row6, width=10).pack(side='left')
+    label(learner_license_date_registration, text='學照日期：').grid(row=8, column=1, sticky='ws', pady=(10,0))
+    entry(learner_license_date_registration).grid(row=9, column=1, sticky='wen', padx=(0,10))
+
     # 學照號碼
-    label(row6, text='學照號碼：').pack(side='left', padx=(20, 0))
-    entry(row6, width=10).pack(side='left')
+    label(learner_license_date_registration, text='學照號碼：').grid(row=8, column=2, sticky='ws', pady=(10,0))
+    entry(learner_license_date_registration).grid(row=9, column=2, sticky='wen', padx=(0,10))
+
     # 學照資料登錄
-    add_btn(row6, text='學照日期登錄', command=lambda: None).pack(side='left', padx=(20, 0))
+    btn(learner_license_date_registration, text='學照日期登錄', command=lambda: None).grid(row=9, column=3, sticky='wen', padx=(0,10))
     
     
-    row7 = frame(window_title)
-    row7.pack(fill='x', padx=(30, 0), pady=(20, 0))
+
     # 登錄後顯示信息列表
-    data_list = ttk.Treeview(row7, show='headings', columns=('id', 'learner_license_date', 'learner_license_number', 'learner_license_type', 'students_number', 'students_name','birth_date', 'national_id_no', 'phone','address'))
+    data_list = ttk.Treeview(learner_license_date_registration, show='headings', columns=('id', 'learner_license_date', 'learner_license_number', 'learner_license_type', 'students_number', 'students_name','birth_date', 'national_id_no', 'phone','address'))
     
     data_list.column('id', width=50, anchor='w')
     data_list.column('learner_license_date', width=50, anchor='w')
@@ -104,7 +100,7 @@ def learner_license_date_registration(content):
     data_list.heading('phone', text='聯絡電話')
     data_list.heading('address', text='戶籍地址')
     
-    data_list.pack(side="left", fill="both", expand=True, padx=(20,30), pady=(20,50))
+    data_list.grid(row=10, column=0, columnspan=4, sticky='wen', padx=10, pady=(20,0))
     
     for i in range(100):  # 生成100行数据来测试滚动条
         data_list.insert("", "end", values=(f"202{i % 10}", f"張{i}", f"A{i}", f"202{i % 10}-01-01", f"男", f"02{i % 10}", f"09{i % 10}", f"test{i}@gmail.com", f"台北市", f"台北市"))

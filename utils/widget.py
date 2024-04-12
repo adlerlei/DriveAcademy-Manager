@@ -78,7 +78,8 @@ def entry(
         **kwargs 
         )
 
-# entry 用戶輸入欄位
+# entry 用戶資料顯示欄位，禁止用戶輸入
+
 def display_entry_value(
     frame, 
     placeholder_text = '',
@@ -102,10 +103,6 @@ def display_entry_value(
         text_color = text_color ,
         **kwargs 
         )
-
-# # entry 顯示值禁止用戶輸入
-# def display_entry_value( frame , font = create_font() , state = "readonly" , **kwargs ):
-#     return ck.CTkEntry( frame , font = font , state = state , **kwargs )
 
 
 # 查看 frame 中的所有控件，并禁用它们
