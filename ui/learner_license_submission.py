@@ -50,29 +50,16 @@ def learner_license_submission(content):
 
     # 顯示學員戶籍地址
     label(learner_license_submission, text='戶籍地址').grid(row=5, column=0, sticky='ws', padx=(10,0), pady=(10,0))
-    display_entry_value(learner_license_submission).grid(row=6, column=0, columnspan=2, sticky='wen', padx=10)
+    display_entry_value(learner_license_submission).grid(row=6, column=0, sticky='wen', padx=10)
+    display_entry_value(learner_license_submission).grid(row=6, column=1, sticky='wen', padx=(0,10))
     display_entry_value(learner_license_submission).grid(row=6, column=2, columnspan=2, sticky='wen', padx=(0,10))
-    display_entry_value(learner_license_submission).grid(row=7, column=0, columnspan=4, sticky='wen', padx=10)
-    
-    # 說明文字
-    # display_input_info_title= frame(window_title)
-    # display_input_info_title.pack(fill='x', padx=(30, 20), pady=(40, 0))
-    # display_info_label(display_input_info_title, text='輸入資料區').pack(side='left', padx=(20, 0))
     
     # 登入日期
-    label(learner_license_submission, text='登入日期：').grid(row=8, column=0, sticky='ws', padx=(10,0), pady=(50,0))
-    entry(learner_license_submission).grid(row=9, column=0, columnspan=2, sticky='wen', padx=10)
-
-    # # 學照日期
-    # label(learner_license_submission, text='學照日期：').grid(row=8, column=1, sticky='ws', pady=(10,0))
-    # entry(learner_license_submission).grid(row=9, column=1, sticky='wen', padx=(0,10))
-
-    # # 學照號碼
-    # label(learner_license_submission, text='學照號碼：').grid(row=8, column=2, sticky='ws', pady=(10,0))
-    # entry(learner_license_submission).grid(row=9, column=2, sticky='wen', padx=(0,10))
+    label(learner_license_submission, text='登入日期：').grid(row=7, column=0, sticky='ws', padx=(10,0), pady=(50,0))
+    entry(learner_license_submission).grid(row=8, column=0, columnspan=2, sticky='wen', padx=10)
 
     # 學照資料登錄
-    btn(learner_license_submission, text='學照日期登錄', command=lambda: None).grid(row=9, column=2, columnspan=2, sticky='wen', padx=(0,10))
+    btn(learner_license_submission, text='學照日期登錄', command=lambda: None).grid(row=8, column=2, columnspan=2, sticky='wen', padx=(0,10))
     
     
 
@@ -101,7 +88,7 @@ def learner_license_submission(content):
     data_list.heading('phone', text='聯絡電話')
     data_list.heading('address', text='戶籍地址')
     
-    data_list.grid(row=10, column=0, columnspan=4, sticky='wen', padx=10, pady=(20,0))
+    data_list.grid(row=9, column=0, columnspan=4, sticky='wen', padx=10, pady=(20,0))
     
     for i in range(100):  # 生成100行数据来测试滚动条
         data_list.insert("", "end", values=(f"202{i % 10}", f"張{i}", f"A{i}", f"202{i % 10}-01-01", f"男", f"02{i % 10}", f"09{i % 10}", f"test{i}@gmail.com", f"台北市", f"台北市"))
