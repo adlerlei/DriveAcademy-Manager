@@ -15,7 +15,7 @@ def opening_training_roster(content):
     opening_training_roster.columnconfigure(3, weight=1)
     opening_training_roster.place(relwidth=1, relheight=1)
 
-    entry(opening_training_roster,  placeholder_text = "輸入學號").grid(row=0, column=0, columnspan=3, sticky='wen', padx=10, pady=(10,0))
+    entry(opening_training_roster,  placeholder_text = "輸入學員編號").grid(row=0, column=0, columnspan=3, sticky='wen', padx=10, pady=(10,0))
     # 搜尋按鈕
     btn(opening_training_roster, text='搜尋學員信息', command=lambda: None).grid(row=0, column=3, sticky='wen', padx=(0,10), pady=(10,0))
     
@@ -53,7 +53,7 @@ def opening_training_roster(content):
     display_entry_value(opening_training_roster).grid(row=6, column=1, sticky='wen',padx=(10,0))
     display_entry_value(opening_training_roster).grid(row=6, column=2, columnspan=2, sticky='wen',padx=10)
     
-    # 訓練班別（抓取資料庫呈現）
+    # 訓練班別
     label(opening_training_roster, text='訓練班別').grid(row=7, column=0, sticky='ws', padx=(10,0), pady=(50,0))
     combobox(opening_training_roster, values=['1','2','3']).grid(row=8, column=0, sticky='wen',padx=(10,0))
     entry(opening_training_roster).grid(row=8, column=1, sticky='wen',padx=(10,0))
@@ -116,5 +116,5 @@ def opening_training_roster(content):
     
     data_list.grid(row=11, column=0, columnspan=4, sticky='wen', padx=10, pady=(20,0))
     
-    for i in range(100):  # 生成100行数据来测试滚动条
+    for i in range(100):
         data_list.insert("", "end", values=(f"202{i % 10}", f"張{i}", f"A{i}", f"202{i % 10}-01-01", f"男", f"02{i % 10}", f"09{i % 10}", f"test{i}@gmail.com", f"台北市", f"台北市"))
