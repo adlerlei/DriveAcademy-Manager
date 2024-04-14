@@ -72,7 +72,7 @@ def menu_list(menu , content):
     # 路試清冊作業
     menu_btn(
         menu,
-        '路試清冊作業',
+        '道考清冊作業',
         menu_icon_path = "road_test_roster.png",
         command = lambda: road_test_roster(content)).grid(row=8, column=0)
 

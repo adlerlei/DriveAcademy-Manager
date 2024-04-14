@@ -10,6 +10,7 @@ def opening_training_roster(content):
     
 
     opening_training_roster = frame(content)
+    opening_training_roster.columnconfigure(0, weight=1)
     opening_training_roster.columnconfigure(1, weight=1)
     opening_training_roster.columnconfigure(2, weight=1)
     opening_training_roster.columnconfigure(3, weight=1)
@@ -77,9 +78,10 @@ def opening_training_roster(content):
     # 教練 下拉選單
     label(opening_training_roster, text='教練：').grid(row=9, column=2, sticky='ws', padx=(10,0))
     combobox(opening_training_roster, values=['A', 'B']).grid(row=10, column=2, sticky='wen',padx=(10,0))
+    entry(opening_training_roster).grid(row=10, column=3, sticky='wen',padx=10)
 
     # 按鈕
-    btn(opening_training_roster, text='加入開訓名冊', command=lambda: None).grid(row=10, column=3, sticky='wen',padx=10)
+    btn(opening_training_roster, text='加入開訓名冊', command=lambda: None).grid(row=11, column=0,  columnspan=4,sticky='wen',padx=10, pady=20)
 
     # treeview
     data_list = ttk.Treeview(opening_training_roster, show='headings', column=['id', 'roster_number', 'batch', 'student_number', 'student_name', 'exam_source_type', 'transmission_type', 'instructor', 'gender', 'birth_date', 'national_id_no', 'zip_code', 'city_r_address', 'training_type'])
@@ -114,7 +116,7 @@ def opening_training_roster(content):
     data_list.heading('zip_code', text='區號')
     data_list.heading('city_r_address', text='戶籍地址')
     
-    data_list.grid(row=11, column=0, columnspan=4, sticky='wen', padx=10, pady=(20,0))
+    data_list.grid(row=12, column=0, columnspan=4, sticky='wen', padx=10)
     
     for i in range(100):
         data_list.insert("", "end", values=(f"202{i % 10}", f"張{i}", f"A{i}", f"202{i % 10}-01-01", f"男", f"02{i % 10}", f"09{i % 10}", f"test{i}@gmail.com", f"台北市", f"台北市"))
