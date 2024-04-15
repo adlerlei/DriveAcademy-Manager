@@ -5,6 +5,7 @@ __pycache__/
 開發進度.pdf
 school_database.db
 駕訓班介面相關資料文件圖片/
+.DS_Store
 
 # C extensions
 *.so
