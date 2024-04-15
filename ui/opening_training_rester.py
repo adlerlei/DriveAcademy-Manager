@@ -63,19 +63,19 @@ def opening_training_roster(content):
     entry(opening_training_roster).grid(row=8, column=2, sticky='wen',padx=(10,0))
 
     # 梯次
-    label(opening_training_roster, text='梯次：').grid(row=7, column=3, sticky='ws', padx=(10,0))
+    label(opening_training_roster, text='梯次').grid(row=7, column=3, sticky='ws', padx=(10,0))
     combobox(opening_training_roster, values=['A', 'B']).grid(row=8, column=3, sticky='wen',padx=10)
     
     # 來源 下拉選單
-    label(opening_training_roster, text='來源：').grid(row=9, column=0, sticky='ws', padx=(10,0), pady=(10,0))
+    label(opening_training_roster, text='來源').grid(row=9, column=0, sticky='ws', padx=(10,0), pady=(10,0))
     combobox(opening_training_roster, values=['A', 'B']).grid(row=10, column=0, sticky='wen',padx=(10,0))
 
     # 手自排 下拉選單
-    label(opening_training_roster, text='手自排：').grid(row=9, column=1, sticky='ws', padx=(10,0))
+    label(opening_training_roster, text='手自排').grid(row=9, column=1, sticky='ws', padx=(10,0))
     combobox(opening_training_roster, values=['A', 'B']).grid(row=10, column=1, sticky='wen',padx=(10,0))
 
     # 教練 下拉選單
-    label(opening_training_roster, text='教練：').grid(row=9, column=2, sticky='ws', padx=(10,0))
+    label(opening_training_roster, text='教練').grid(row=9, column=2, sticky='ws', padx=(10,0))
     combobox(opening_training_roster, values=['A', 'B']).grid(row=10, column=2, sticky='wen',padx=(10,0))
     entry(opening_training_roster).grid(row=10, column=3, sticky='wen',padx=10)
 

@@ -61,24 +61,32 @@ def  m2_retraining_roster_creation(content):
     entry(m2_retraining_roster_creation).grid(row=8, column=2, sticky='wen',padx=(10,0))
 
     # 梯次
-    label(m2_retraining_roster_creation, text='梯次：').grid(row=7, column=3, sticky='ws', padx=(10,0))
+    label(m2_retraining_roster_creation, text='梯次').grid(row=7, column=3, sticky='ws', padx=(10,0))
     combobox(m2_retraining_roster_creation, values=['A', 'B']).grid(row=8, column=3, sticky='wen',padx=10)
     
     # 來源 下拉選單
-    label(m2_retraining_roster_creation, text='來源：').grid(row=9, column=0, sticky='ws', padx=(10,0), pady=(10,0))
+    label(m2_retraining_roster_creation, text='來源').grid(row=9, column=0, sticky='ws', padx=(10,0), pady=(10,0))
     combobox(m2_retraining_roster_creation, values=['A', 'B']).grid(row=10, column=0, sticky='wen',padx=(10,0))
 
     # 手自排 下拉選單
-    label(m2_retraining_roster_creation, text='手自排：').grid(row=9, column=1, sticky='ws', padx=(10,0))
+    label(m2_retraining_roster_creation, text='手自排').grid(row=9, column=1, sticky='ws', padx=(10,0))
     combobox(m2_retraining_roster_creation, values=['A', 'B']).grid(row=10, column=1, sticky='wen',padx=(10,0))
 
     # 教練 下拉選單
-    label(m2_retraining_roster_creation, text='教練：').grid(row=9, column=2, sticky='ws', padx=(10,0))
+    label(m2_retraining_roster_creation, text='教練').grid(row=9, column=2, sticky='ws', padx=(10,0))
     combobox(m2_retraining_roster_creation, values=['A', 'B']).grid(row=10, column=2, sticky='wen',padx=(10,0))
     entry(m2_retraining_roster_creation).grid(row=10, column=3, sticky='wen',padx=10)
 
+    # 筆試路試
+    label(m2_retraining_roster_creation, text='筆路').grid(row=11, column=0, sticky='ws', padx=(10,0), pady=(10,0))
+    combobox(m2_retraining_roster_creation, values=['補筆', '補路']).grid(row=12, column=0, columnspan=2, sticky='wen',padx=(10,0))
+
+    # 資料選擇
+    label(m2_retraining_roster_creation, text='資料選擇').grid(row=11, column=2, sticky='ws', padx=(10,0), pady=(10,0))
+    combobox(m2_retraining_roster_creation, values=['1.全部', '2.補筆', '3.補路']).grid(row=12, column=2, columnspan=2, sticky='wen', padx=10)
+
     # 按鈕
-    btn(m2_retraining_roster_creation, text='加入開訓名冊oo', command=lambda: None).grid(row=11, column=0,  columnspan=4,sticky='wen',padx=10, pady=20)
+    btn(m2_retraining_roster_creation, text='加入開訓名冊oo', command=lambda: None).grid(row=13, column=0, columnspan=4, sticky='wen', padx=10, pady=20)
 
     # treeview
     data_list = ttk.Treeview(m2_retraining_roster_creation, show='headings', column=['id', 'roster_number', 'batch', 'student_number', 'student_name', 'exam_source_type', 'transmission_type', 'instructor', 'gender', 'birth_date', 'national_id_no', 'zip_code', 'city_r_address', 'training_type'])
@@ -113,7 +121,7 @@ def  m2_retraining_roster_creation(content):
     data_list.heading('zip_code', text='區號')
     data_list.heading('city_r_address', text='戶籍地址')
     
-    data_list.grid(row=12, column=0, columnspan=4, sticky='wen', padx=10)
+    data_list.grid(row=14, column=0, columnspan=4, sticky='wen', padx=10)
     
     for i in range(100):
         data_list.insert("", "end", values=(f"202{i % 10}", f"張{i}", f"A{i}", f"202{i % 10}-01-01", f"男", f"02{i % 10}", f"09{i % 10}", f"test{i}@gmail.com", f"台北市", f"台北市"))
