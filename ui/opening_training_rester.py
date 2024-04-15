@@ -8,7 +8,6 @@ from utils.config import *
 def opening_training_roster(content):
     clear_frame(content)
     
-
     opening_training_roster = frame(content)
     opening_training_roster.columnconfigure(0, weight=1)
     opening_training_roster.columnconfigure(1, weight=1)

@@ -26,7 +26,6 @@ def btn(frame, text, command):
     button = ck.CTkButton( 
         frame, 
         text = text,
-        # width = width,
         height = 40,
         fg_color = '#669bbc', 
         font = create_font(), 
@@ -51,8 +50,26 @@ def label(frame, text, text_color='#669bbc', font=create_font()):
 
 
 # Combobox 下拉選單 
-def combobox(frame, height=40, text_color='#8b8c89', fg_color='#d9d9d9', button_color='#bcb8b1', font = create_font(), dropdown_fg_color='#d9d9d9', **kwargs ):
-    return ck.CTkComboBox(frame, height=height, text_color=text_color, border_color='#fdfdff', font=font, button_color=button_color, dropdown_fg_color=dropdown_fg_color, fg_color=fg_color, **kwargs )
+def combobox(
+    frame, 
+    height=40, 
+    text_color='#8b8c89', 
+    fg_color='#d9d9d9', 
+    button_color='#bcb8b1', 
+    font = create_font(), 
+    dropdown_fg_color='#d9d9d9', 
+    **kwargs
+    ):
+    return ck.CTkComboBox(
+        frame, 
+        height=height, 
+        text_color=text_color, 
+        border_color='#fdfdff', 
+        font=font, 
+        button_color=button_color, 
+        dropdown_fg_color=dropdown_fg_color, 
+        fg_color=fg_color, **kwargs
+        )
 
 
 # entry 用戶輸入欄位
@@ -67,7 +84,7 @@ def entry(
     **kwargs
     ):
     return ck.CTkEntry(
-        frame , 
+        frame, 
         placeholder_text = placeholder_text ,
         border_color = '#fdfdff',
         # width = width ,
@@ -78,8 +95,8 @@ def entry(
         **kwargs 
         )
 
-# entry 用戶資料顯示欄位，禁止用戶輸入
 
+# entry 用戶資料顯示欄位，禁止用戶輸入
 def display_entry_value(
     frame, 
     placeholder_text = '',
