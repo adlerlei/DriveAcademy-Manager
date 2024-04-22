@@ -15,10 +15,8 @@ def annual_plan_term(content):
     
     # 訓練班別（抓取資料庫呈現）
     label(annual_plan_term, text='訓練班別').grid(row=0, column=0, sticky='ws', padx=(10,0), pady=(10,0))
-    combobox_var = combobox(annual_plan_term, values=['1'])
-    combobox_var.grid(row=1, column=0, sticky='wen', padx=(10,0))
-    combobox_var.set('1')
-    entry(annual_plan_term).grid(row=1, column=1, sticky='wen', padx=(0,10))
+    combobox(annual_plan_term, values=['1']).grid(row=1, column=0, sticky='wen', padx=(10,0))
+    entry(annual_plan_term).grid(row=1, column=1, sticky='wen', padx=10)
     
     # 年度
     label(annual_plan_term, text='年度').grid(row=2, column=0, sticky='ws',padx=(10,0), pady=(20,0))

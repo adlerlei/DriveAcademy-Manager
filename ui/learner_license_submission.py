@@ -54,12 +54,12 @@ def learner_license_submission(content):
     display_entry_value(learner_license_submission).grid(row=6, column=1, sticky='wen', padx=(0,10))
     display_entry_value(learner_license_submission).grid(row=6, column=2, columnspan=2, sticky='wen', padx=(0,10))
     
-    # 登入日期
-    label(learner_license_submission, text='登入日期：').grid(row=7, column=0, sticky='ws', padx=(10,0), pady=(50,0))
+    # 送件日期
+    label(learner_license_submission, text='送件日期').grid(row=7, column=0, sticky='ws', padx=(10,0), pady=(50,0))
     entry(learner_license_submission).grid(row=8, column=0, columnspan=2, sticky='wen', padx=10)
 
     # 學照資料登錄
-    btn(learner_license_submission, text='學照日期登錄', command=lambda: None).grid(row=8, column=2, columnspan=2, sticky='wen', padx=(0,10))
+    btn(learner_license_submission, text='送件', command=lambda: None).grid(row=8, column=2, columnspan=2, sticky='wen', padx=(0,10))
     
     
 

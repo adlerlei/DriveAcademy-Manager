@@ -77,7 +77,7 @@ def closing_training_roster(content):
     entry(closing_training_roster).grid(row=10, column=3, sticky='wen',padx=10)
 
     # 按鈕
-    btn(closing_training_roster, text='加入開訓名冊', command=lambda: None).grid(row=11, column=0,  columnspan=4, sticky='wen',padx=10, pady=20)
+    btn(closing_training_roster, text='加入結訓名冊', command=lambda: None).grid(row=11, column=0,  columnspan=4, sticky='wen',padx=10, pady=20)
 
     # treeview
     data_list = ttk.Treeview(closing_training_roster, show='headings', column=['id', 'roster_number', 'batch', 'student_number', 'student_name', 'exam_source_type', 'transmission_type', 'instructor', 'gender', 'birth_date', 'national_id_no', 'zip_code', 'city_r_address', 'training_type'])

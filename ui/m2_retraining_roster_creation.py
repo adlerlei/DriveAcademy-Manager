@@ -86,7 +86,7 @@ def  m2_retraining_roster_creation(content):
     combobox(m2_retraining_roster_creation, values=['1.全部', '2.補筆', '3.補路']).grid(row=12, column=2, columnspan=2, sticky='wen', padx=10)
 
     # 按鈕
-    btn(m2_retraining_roster_creation, text='加入開訓名冊oo', command=lambda: None).grid(row=13, column=0, columnspan=4, sticky='wen', padx=10, pady=20)
+    btn(m2_retraining_roster_creation, text='加入補訓名冊', command=lambda: None).grid(row=13, column=0, columnspan=4, sticky='wen', padx=10, pady=20)
 
     # treeview
     data_list = ttk.Treeview(m2_retraining_roster_creation, show='headings', column=['id', 'roster_number', 'batch', 'student_number', 'student_name', 'exam_source_type', 'transmission_type', 'instructor', 'gender', 'birth_date', 'national_id_no', 'zip_code', 'city_r_address', 'training_type'])

@@ -40,11 +40,12 @@ def learner_license_date_registration(content):
 
     # 顯示考照類別
     label(learner_license_date_registration, text='考照類別').grid(row=3, column=1, sticky='ws', pady=(10,0))
-    display_entry_value(learner_license_date_registration).grid(row=4, column=1, sticky='wen', padx=(0,10))
+    combobox(learner_license_date_registration, values=['0','1','2']).grid(row=4, column=1, sticky='wen', padx=(0,10))
+    display_entry_value(learner_license_date_registration).grid(row=4, column=2, sticky='wen', padx=(0,10))
 
     # 備註
-    label(learner_license_date_registration, text='備註').grid(row=3, column=2, sticky='ws',pady=(10,0))
-    display_entry_value(learner_license_date_registration, width=55).grid(row=4, column=2, columnspan=2, sticky='wen', padx=(0,10))
+    label(learner_license_date_registration, text='備註').grid(row=3, column=3, sticky='ws',pady=(10,0))
+    display_entry_value(learner_license_date_registration, width=55).grid(row=4, column=3, sticky='wen', padx=(0,10))
 
     # 戶籍地址
     label(learner_license_date_registration, text='戶籍地址').grid(row=5, column=0, sticky='ws', padx=(10,0), pady=(10,0))
@@ -52,8 +53,8 @@ def learner_license_date_registration(content):
     display_entry_value(learner_license_date_registration).grid(row=6, column=1, sticky='wen', padx=(0,10))
     display_entry_value(learner_license_date_registration).grid(row=6, column=2, columnspan=2, sticky='wen', padx=(0,10))
     
-    # 登入日期
-    label(learner_license_date_registration, text='登入日期：').grid(row=7, column=0, sticky='ws', padx=(10,0), pady=(50,0))
+    # 登錄日期
+    label(learner_license_date_registration, text='登錄日期：').grid(row=7, column=0, sticky='ws', padx=(10,0), pady=(50,0))
     entry(learner_license_date_registration).grid(row=8, column=0, sticky='wen', padx=10)
 
     # 學照日期
@@ -65,7 +66,7 @@ def learner_license_date_registration(content):
     entry(learner_license_date_registration).grid(row=8, column=2, sticky='wen', padx=(0,10))
 
     # 學照資料登錄
-    btn(learner_license_date_registration, text='學照日期登錄', command=lambda: None).grid(row=8, column=3, sticky='wen', padx=(0,10))
+    btn(learner_license_date_registration, text='登錄', command=lambda: None).grid(row=8, column=3, sticky='wen', padx=(0,10))
     
     
 
