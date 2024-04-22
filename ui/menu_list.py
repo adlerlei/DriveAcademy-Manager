@@ -10,6 +10,7 @@ from .m2_retraining_roster_creation import m2_retraining_roster_creation
 from .opening_training_rester import opening_training_roster
 from .road_test_roster import road_test_roster
 from .student_all import student_all
+from .instructor_all import instructor_all
 from .written_exam_roster import written_exam_roster
 
 
@@ -87,3 +88,10 @@ def menu_list(menu , content):
         '筆試清冊作業',
         menu_icon_path = "written_exam_roster.png",
         command = lambda: written_exam_roster(content)).grid(row=10, column=0)
+    
+    # 教練資料作業
+    menu_btn(
+        menu,
+        '教練資料作業',
+        menu_icon_path = "instructor.png",
+        command = lambda: instructor_all(content)).grid(row=11, column=0)

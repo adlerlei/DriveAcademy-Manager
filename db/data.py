@@ -15,7 +15,7 @@ CREATE TABLE annual_plan (
     start_date varchar, -- 開訓日期
     end_date varchar, -- 結訓日期
     creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- 建檔時間
-)
+);
 
 -- 創建學員資料表
 CREATE TABLE student (
@@ -47,8 +47,11 @@ CREATE TABLE student (
     session_number VARCHAR, -- 場次
     road_test_date VARCHAR, -- 路試日期
     group_number VARCHAR, -- 組別
+    road_test_items_type VARCHAR, -- 路考項目
+    exam_type_code VARCHAR, -- 筆路編號
+    exam_type_name VARCHAR, -- 筆路名稱
     creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 建檔時間
-)
+);
 
 -- 教練資料表
 CREATE TABLE IF NOT EXISTS instructor (
@@ -70,5 +73,13 @@ CREATE TABLE IF NOT EXISTS instructor (
     end_date VARCHAR, -- 離職日期
     remarks TEXT, -- 備註
     creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- 建檔時間
-)
+);
+
+-- 管理員註冊資料表
+CREATE TABLE IF NOT EXISTS admin (
+	id INTEGER PRIMARY KEY,
+	name VARCHAR NOT NULL,
+	password VARCHAR NOT NULL,
+	creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- 建檔時間
+);
 """
