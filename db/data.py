@@ -112,7 +112,7 @@ with open('addcsv.csv', 'r') as csvfile:
         zip_code = row[1]
         
         # 插入資料到address_data資料表
-        c.execute("INSERT INTO address_data (zip_code, city) VALUES (?, ?)", (zip_code, city))
+        c.execute("INSERT INTO address_data (city, zip_code) VALUES (?, ?)", (city, zip_code))
 
 
 # 提交資料庫
