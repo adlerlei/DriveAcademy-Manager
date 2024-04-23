@@ -108,8 +108,8 @@ with open('addcsv.csv', 'r') as csvfile:
     
     # 逐行處理資料
     for row in reader:
-        zip_code = row[0]
-        city = row[1]
+        city = row[0]
+        zip_code = row[1]
         
         # 插入資料到address_data資料表
         c.execute("INSERT INTO address_data (zip_code, city) VALUES (?, ?)", (zip_code, city))
