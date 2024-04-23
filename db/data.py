@@ -1,4 +1,5 @@
 import sqlite3
+import csv
 
 conn = sqlite3.connect('driving_school.db')
 c = conn.cursor()
@@ -41,7 +42,7 @@ CREATE TABLE student (
     exam_name VARCHAR, -- 來源名稱
     transmission_type_code VARCHAR, -- 手自排類別編號
     transmission_type_name VARCHAR, -- 手自排類別名稱
-    dropout VARCHAR, - 是否退訓
+    dropout VARCHAR, -- 是否退訓
     register_number VARCHAR, -- 名冊號碼（期別增加修改為名冊號碼）
     written_exam_date VARCHAR, -- 筆試日期
     session_number VARCHAR, -- 場次
@@ -50,7 +51,7 @@ CREATE TABLE student (
     road_test_items_type VARCHAR, -- 路考項目
     exam_type_code VARCHAR, -- 筆路編號
     exam_type_name VARCHAR, -- 筆路名稱
-    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 建檔時間
+    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- 建檔時間
 );
 
 -- 教練資料表
@@ -64,7 +65,7 @@ CREATE TABLE IF NOT EXISTS instructor (
     mobile_phone VARCHAR, -- 手機號碼
     email VARCHAR, -- 電子郵箱
     r_address VARCHAR, -- 戶籍地址
-    m_address VARCHAR -- 通訊地址
+    m_address VARCHAR, -- 通訊地址
     instructor_license_number VARCHAR, -- 教練證號碼
     driving_license_category VARCHAR, -- 駕照類別
     driving_license_number VARCHAR, -- 駕照號碼
@@ -82,4 +83,40 @@ CREATE TABLE IF NOT EXISTS admin (
 	password VARCHAR NOT NULL,
 	creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- 建檔時間
 );
+
+-- 郵局地址信息資料表
+CREATE TABLE IF NOT EXISTS address_data (
+    id INTEGER PRIMARY KEY,
+    zip_code VARCHAR, -- 郵遞區號
+    city VARCHAR, -- 城市
+    address VARCHAR, -- 地址
+    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- 建檔時間
+);
 """
+
+# 拆分SQL腳本為單條語句並執行
+for statement in sql_script.split(';'):
+    if statement.strip():
+        c.execute(statement)
+
+# 寫入資料庫
+# 開啟CSV檔案並讀取內容
+with open('addcsv.csv', 'r') as csvfile:
+    reader = csv.reader(csvfile)
+    # 跳過第一行標題
+    next(reader)
+    
+    # 逐行處理資料
+    for row in reader:
+        zip_code = row[0]
+        city = row[1]
+        
+        # 插入資料到address_data資料表
+        c.execute("INSERT INTO address_data (zip_code, city) VALUES (?, ?)", (zip_code, city))
+
+
+# 提交資料庫
+conn.commit()
+
+# 關閉資料庫連線
+conn.close()
