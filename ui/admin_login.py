@@ -15,7 +15,6 @@ def admin_login(menu, content):
     admin_login.columnconfigure(2, weight=2)
     admin_login.columnconfigure(3, weight=1)
     admin_login.columnconfigure(4, weight=1)
-    # admin_login.rowconfigure(0, weight=1)
     admin_login.place(relwidth=1, relheight=1)
     
     label(admin_login, text='登入帳號').grid(row=3, column=2, sticky='ws', pady=(200,0))

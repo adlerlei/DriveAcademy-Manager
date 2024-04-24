@@ -18,7 +18,7 @@ def menu_list(menu , content):
     
     logo_label = menu_logo(menu, load_image)
     logo_label.grid(row=0, column=0, sticky='nsew', pady=(30,0))
-
+    
     # 年度期別新增
     menu_btn(
         menu,

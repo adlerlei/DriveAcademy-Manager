@@ -123,22 +123,22 @@ def display_entry_value(
 
 
 # 查看 frame 中的所有控件，并禁用它们
-def disable_frame_widgets( frame ):
+def disable_frame_widgets(frame):
+    print('hhhhh')
     for widget in frame.winfo_children():
         try:
             if 'state' in widget.configure():
-                widget.configure( state = 'disabled' )
-            disable_frame_widgets( widget )  # 递归调用以禁用嵌套子控件
+                widget.configure(state='disabled')
         except Exception as e:
-            print( f"Error disabling widget { widget } : { e }")
+            print(f"Error disabling widget {widget} : {e}")
 
 
 # 查看 frame 中的所有控件，并启用它们
-def enable_frame_widgets( frame ):
+def enable_frame_widgets(frame):
+    print('hhhhh')
     for widget in frame.winfo_children():
         try:
             if 'state' in widget.configure():
-                widget.configure( state = 'normal' )
-            enable_frame_widgets( widget )  # 递归调用以启用嵌套子控件
+                widget.configure(state='normal')
         except Exception as e:
-            print( f"Error enabling widget { widget } : { e }" )
+            print(f"Error enabling widget {widget} : {e}")

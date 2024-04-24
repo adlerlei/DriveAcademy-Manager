@@ -1,3 +1,4 @@
+# 管理員註冊 / 登錄
 import sqlite3
 import os
 from tkinter import messagebox
