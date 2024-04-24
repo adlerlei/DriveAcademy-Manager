@@ -34,7 +34,9 @@ def  driving_test_roster(content):
 
     # 訓練班別
     label(driving_test_roster, text='訓練班別').grid(row=5, column=0, sticky='ws', padx=(10,0), pady=(50,0))
-    display_entry_value(driving_test_roster).grid(row=6, column=0, columnspan=2, sticky='wen',padx=(10,0))
+    # display_entry_value(driving_test_roster).grid(row=6, column=0, columnspan=2, sticky='wen',padx=(10,0))
+    combobox(driving_test_roster, values=['1']).grid(row=6, column=0, sticky='wen',padx=10)
+    combobox(driving_test_roster, values=['普通小型車班']).grid(row=6, column=1, sticky='wen',padx=10)
     
     # 期別
     label(driving_test_roster, text='期別').grid(row=5, column=2, sticky='ws', padx=(10,0), pady=(10,0))
