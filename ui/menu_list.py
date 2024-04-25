@@ -1,4 +1,4 @@
-from utils.widget import menu_btn, menu_logo
+from utils.widget import menu_btn, menu_logo, disable_all_menu_buttons
 from utils.config import *
 from .annual_plan_term import annual_plan_term
 from .closing_training_roster import closing_training_roster
@@ -119,3 +119,8 @@ def menu_list(menu , content):
         command = lambda: instructor_all(content))
     btn11.grid(row=11, column=0)
     buttons.append(btn11)
+
+
+    disable_all_menu_buttons(buttons) # 將所有按鈕設為不可用狀態
+
+    return buttons

@@ -12,6 +12,7 @@ def menu_logo(menu, load_image, text=""):
     return ck.CTkLabel(menu, text=text, image=logo_img, compound='top')
 
 
+# 選單按鈕
 def menu_btn(frame, text, menu_icon_path, height=40, fg_color="#669bbc", font = create_font(), command=None):
     menu_icon = Image.open(f"resources/img/menu/{menu_icon_path}")
     menu_icon_ctk = ck.CTkImage(light_image=menu_icon)
@@ -19,11 +20,19 @@ def menu_btn(frame, text, menu_icon_path, height=40, fg_color="#669bbc", font = 
     button.grid(sticky='nsew')
     return button
 
-def enable_menu_btn(button):
-    button.config(state='normal')
-
+# 禁用選單按鈕
 def disable_menu_btn(button):
-    button.config(state='disabled')
+    button.configure(state='disabled')
+
+# 啟用選單按鈕
+def enable_menu_btn(button):
+    button.configure(state='normal')
+
+# 禁用所有選單按鈕
+def disable_all_menu_buttons(buttons):
+    for button in buttons:
+        if button is not None:
+            disable_menu_btn(button)
 
 
 # 按鈕
@@ -125,25 +134,3 @@ def display_entry_value(
         text_color = text_color ,
         **kwargs 
         )
-
-
-# # 查看 frame 中的所有控件，并禁用它们
-# def disable_frame_widgets(frame):
-#     print('hhhhh')
-#     for widget in frame.winfo_children():
-#         try:
-#             if 'state' in widget.configure():
-#                 widget.configure(state='disabled')
-#         except Exception as e:
-#             print(f"Error disabling widget {widget} : {e}")
-
-
-# # 查看 frame 中的所有控件，并启用它们
-# def enable_frame_widgets(frame):
-#     print('hhhhh')
-#     for widget in frame.winfo_children():
-#         try:
-#             if 'state' in widget.configure():
-#                 widget.configure(state='normal')
-#         except Exception as e:
-#             print(f"Error enabling widget {widget} : {e}")

@@ -4,6 +4,7 @@ from utils.widget import *
 from .menu_list import menu_list
 from ui.admin_register import admin_register
 from models.admin import login_validation
+from .menu_list import menu_list
 
 
 # 管理員登入介面
@@ -37,11 +38,11 @@ def admin_login(menu,content):
             messagebox.showinfo('成功', '登入成功')
             clear_frame(content)
             
-            # 登入後 menu_btn 顯示啟用狀態
             buttons = menu_list(menu, content)
-            enable_menu_btn(buttons)
+            for button in buttons:
+                enable_menu_btn(button)
         else:
             messagebox.showerror('錯誤', '帳號或密碼錯誤')
 
     btn(admin_login, text='登入', command=login_check).grid(row=7, column=2, sticky='wen', pady=(40,0))
-    btn(admin_login, text='註冊管理員', command=lambda: admin_register(content)).grid(row=8, column=2, sticky='wen', pady=(40,0))
+    btn(admin_login, text='註冊管理員', command=lambda: admin_register(menu, content)).grid(row=8, column=2, sticky='wen', pady=(40,0))

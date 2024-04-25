@@ -5,7 +5,7 @@ from models.admin import register_insert_data
 
 
 #  admin 註冊介面
-def admin_register(content):
+def admin_register(menu, content):
     clear_frame(content)
     
     admin_register = frame(content)
@@ -47,7 +47,8 @@ def admin_register(content):
             return
         else:
             # 檢查通過調用函式寫入資料庫
-            register_insert_data(content, username_value, password_value)
+            # register_insert_data(content, username_value, password_value)
+            register_insert_data(menu, content, username_value, password_value)
     
 
     btn(admin_register, '註冊' , command=register_validation).grid(row=9, column=2, sticky='wen', pady=(40,0))
