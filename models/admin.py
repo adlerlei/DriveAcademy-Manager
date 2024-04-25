@@ -8,7 +8,7 @@ from tkinter import messagebox
 database_path = os.path.join(os.path.dirname(__file__), '..', 'db', 'driving_school.db')
 
 # 用戶註冊信息寫入資料庫
-def register_insert_data(frame_main, name, password):
+def register_insert_data(content, name, password):
     # 載入登入介面，註冊完成返回登錄界面
     from ui.admin_login import admin_login
     # 連接到 sqlite3 資料庫
@@ -28,7 +28,7 @@ def register_insert_data(frame_main, name, password):
     # 檢查寫入資料是否成功
     if c.rowcount == 1:
         messagebox.showinfo('成功', '註冊成功！')
-        admin_login(frame_main)  # 返回登入頁面
+        admin_login(content)  # 返回登入頁面
     else:
         messagebox.showerror('錯誤', '註冊失敗！')
 

@@ -1,12 +1,13 @@
 from tkinter import messagebox
 from utils.config import *
 from utils.widget import *
+from .menu_list import menu_list
 from ui.admin_register import admin_register
 from models.admin import login_validation
 
 
 # 管理員登入介面
-def admin_login(menu, content):
+def admin_login(menu,content):
     clear_frame(content)
     
     admin_login = frame(content)
@@ -35,7 +36,10 @@ def admin_login(menu, content):
         elif login_validation(username_value, password_value):
             messagebox.showinfo('成功', '登入成功')
             clear_frame(content)
-            enable_frame_widgets(menu)
+            
+            # 登入後 menu_btn 顯示啟用狀態
+            buttons = menu_list(menu, content)
+            enable_menu_btn(buttons)
         else:
             messagebox.showerror('錯誤', '帳號或密碼錯誤')
 

@@ -4,7 +4,7 @@ import customtkinter as ck
 from utils.config import create_font
 from PIL import Image
 
-
+menu_buttons = []  # 創建一個全局列表來存儲按鈕實例
 # 選單logo
 def menu_logo(menu, load_image, text=""):
     logo_image = load_image("resources/img/logo.png")
@@ -12,13 +12,18 @@ def menu_logo(menu, load_image, text=""):
     return ck.CTkLabel(menu, text=text, image=logo_img, compound='top')
 
 
-# 選單按鈕
 def menu_btn(frame, text, menu_icon_path, height=40, fg_color="#669bbc", font = create_font(), command=None):
     menu_icon = Image.open(f"resources/img/menu/{menu_icon_path}")
     menu_icon_ctk = ck.CTkImage(light_image=menu_icon)
-    button = ck.CTkButton(frame, text=text, height=height, fg_color=fg_color, font=font, image=menu_icon_ctk, command=command)
+    button = ck.CTkButton(frame, text=text, height=height, fg_color=fg_color, font=font, image=menu_icon_ctk, command=command, state='disabled')
     button.grid(sticky='nsew')
     return button
+
+def enable_menu_btn(button):
+    button.config(state='normal')
+
+def disable_menu_btn(button):
+    button.config(state='disabled')
 
 
 # 按鈕
@@ -122,23 +127,23 @@ def display_entry_value(
         )
 
 
-# 查看 frame 中的所有控件，并禁用它们
-def disable_frame_widgets(frame):
-    print('hhhhh')
-    for widget in frame.winfo_children():
-        try:
-            if 'state' in widget.configure():
-                widget.configure(state='disabled')
-        except Exception as e:
-            print(f"Error disabling widget {widget} : {e}")
+# # 查看 frame 中的所有控件，并禁用它们
+# def disable_frame_widgets(frame):
+#     print('hhhhh')
+#     for widget in frame.winfo_children():
+#         try:
+#             if 'state' in widget.configure():
+#                 widget.configure(state='disabled')
+#         except Exception as e:
+#             print(f"Error disabling widget {widget} : {e}")
 
 
-# 查看 frame 中的所有控件，并启用它们
-def enable_frame_widgets(frame):
-    print('hhhhh')
-    for widget in frame.winfo_children():
-        try:
-            if 'state' in widget.configure():
-                widget.configure(state='normal')
-        except Exception as e:
-            print(f"Error enabling widget {widget} : {e}")
+# # 查看 frame 中的所有控件，并启用它们
+# def enable_frame_widgets(frame):
+#     print('hhhhh')
+#     for widget in frame.winfo_children():
+#         try:
+#             if 'state' in widget.configure():
+#                 widget.configure(state='normal')
+#         except Exception as e:
+#             print(f"Error enabling widget {widget} : {e}")

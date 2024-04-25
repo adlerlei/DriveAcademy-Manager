@@ -1,7 +1,7 @@
 from tkinter import *
 import customtkinter as ck
 from utils.config import app_icon
-from utils.widget import disable_frame_widgets, enable_frame_widgets, frame
+from utils.widget import frame, disable_menu_btn
 from ui.admin_login import admin_login
 from .menu_list import menu_list
 
@@ -48,7 +48,7 @@ def main_window():
     menu_list(menu , content)
     
     # 禁用左側導覽列
-    disable_frame_widgets(menu)
+    # disable_frame_widgets(menu)
     
     # 載入 ui/admin_login.py 中的 admin_login() 以便使其可以被優先觸發登入介面
     admin_login(menu, content)
