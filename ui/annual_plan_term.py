@@ -13,10 +13,12 @@ def annual_plan_term(content):
     annual_plan_term.columnconfigure(3, weight=1)
     annual_plan_term.place(relwidth=1, relheight=1)
     
-    # 訓練班別（抓取資料庫呈現）
+    # 訓練班別
     label(annual_plan_term, text='訓練班別').grid(row=0, column=0, sticky='ws', padx=(10,0), pady=(10,0))
-    combobox(annual_plan_term, values=['1']).grid(row=1, column=0, sticky='wen', padx=(10,0))
-    combobox(annual_plan_term, values=['普通小型車班']).grid(row=1, column=1, sticky='wen', padx=10)
+    training_type_code = combobox(annual_plan_term, values=['1'])
+    training_type_code.grid(row=1, column=0, sticky='wen', padx=(10,0))
+    training_type_name = combobox(annual_plan_term, values=['普通小型車班'])
+    training_type_name.grid(row=1, column=1, sticky='wen', padx=10)
 
     # 年度
     label(annual_plan_term, text='年度').grid(row=2, column=0, sticky='ws',padx=(10,0), pady=(20,0))
@@ -30,7 +32,8 @@ def annual_plan_term(content):
     
     # 梯次（抓取資料庫呈現）
     label(annual_plan_term, text='梯次').grid(row=0, column=2, sticky='ws', padx=(10,0))
-    combobox(annual_plan_term, values=['A', 'B']).grid(row=1, column=2, columnspan=2, sticky='wen', padx=10)
+    batch = combobox(annual_plan_term, values=['A', 'B'])
+    batch.grid(row=1, column=2, columnspan=2, sticky='wen', padx=10)
     
     # 開訓日期
     label(annual_plan_term, text='開訓日期').grid(row=2, column=2, sticky='ws',padx=(10,0), pady=(20,0))
@@ -41,6 +44,10 @@ def annual_plan_term(content):
     label(annual_plan_term, text='結訓日期').grid(row=4, column=2, sticky='ws',padx=(10,0), pady=(20,0))
     end_date = entry(annual_plan_term)
     end_date.grid(row=5, column=2, columnspan=2, sticky='wen', padx=10)
+
+    # 新增按鈕觸發
+
+    def add_btn_click():
     
     # 新增，修改，刪除 按鈕
     btn(annual_plan_term, text='新增', command=None).grid(row=6, column=0, sticky='wen', padx=10, pady=20)

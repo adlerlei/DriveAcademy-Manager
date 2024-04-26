@@ -7,19 +7,20 @@ c = conn.cursor()
 # Create table
 sql_script = """
 -- 創建期別新增資料表
-CREATE TABLE annual_plan (
+CREATE TABLE IF NOT EXISTS annual_plan (
     id INTEGER PRIMARY KEY AUTOINCREMENT, -- id主鍵自增
-    year varchar, -- 年度
-    term varchar, -- 期別
-    batch varchar, -- 梯次
-    training_type varchar, -- 訓練班別
-    start_date varchar, -- 開訓日期
-    end_date varchar, -- 結訓日期
+    year VARCHAR, -- 年度
+    term VARCHAR, -- 期別
+    batch VARCHAR, -- 梯次
+    training_type_code VARCHAR, -- 訓練班別代號
+    training_type_name VARCHAR, -- 訓練班別名稱
+    start_date VARCHAR, -- 開訓日期
+    end_date VARCHAR, -- 結訓日期
     creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- 建檔時間
 );
 
 -- 創建學員資料表
-CREATE TABLE student (
+CREATE TABLE IF NOT EXISTS student (
     id INTEGER PRIMARY KEY AUTOINCREMENT, -- id主鍵自增
     license_type_code VARCHAR, -- 考照類別編號
     license_type_name VARCHAR, -- 考照類別名稱
@@ -51,7 +52,11 @@ CREATE TABLE student (
     road_test_items_type VARCHAR, -- 路考項目
     exam_type_code VARCHAR, -- 筆路編號
     exam_type_name VARCHAR, -- 筆路名稱
-    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- 建檔時間
+    annual_plan_id INTEGER, -- 外鍵關聯期別資料表
+    instructor_id INTEGER, -- 外鍵關聯教練資料表
+    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 建檔時間
+    FOREIGN KEY (annual_plan_id) REFERENCES annual_plan(id),
+    FOREIGN KEY (instructor_id) REFERENCES instructor(id)
 );
 
 -- 教練資料表
