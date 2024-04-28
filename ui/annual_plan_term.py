@@ -2,6 +2,7 @@
 import tkinter as tk
 from utils.widget import *
 from utils.config import *
+from models.annual_plan import insert_annual_plan_data
 
 def annual_plan_term(content):
     clear_frame(content)
@@ -48,6 +49,22 @@ def annual_plan_term(content):
     # 新增按鈕觸發
 
     def add_btn_click():
+        training_type_code_value = training_type_code.get()
+        training_type_name_value = training_type_name.get()
+        year_value = year.get()
+        term_value = term.get()
+        batch_value = batch.get()
+        start_date_value = start_date.get()
+        end_date_value = end_date.get()
+
+        insert_annual_plan_data(training_type_code_value, training_type_name_value, year_value, term_value, batch_value, start_date_value, end_date_value)
+        # 新增成功後，清空輸入欄位
+        year.delete(0, 'end')
+        term.delete(0, 'end')
+        batch.set('')
+        start_date.delete(0, 'end')
+        end_date.delete(0, 'end')
+
     
     # 新增，修改，刪除 按鈕
     btn(annual_plan_term, text='新增', command=None).grid(row=6, column=0, sticky='wen', padx=10, pady=20)

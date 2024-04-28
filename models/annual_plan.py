@@ -11,7 +11,7 @@ def insert_annual_plan_data(year, term, batch, training_type_code, training_type
     
     # 連接資料庫
     conn = sqlite3.connect(database_path)
-    c = conn.cursor()
+    c = conn.cursor() 
 
     # 新增期別新增資料
     c.execute("INSERT INTO term (year, term, batch, training_type_code, training_type_name, start_date, end_date) VALUES (?,?,?,?,?,?,?)", (year, term, batch, training_type_code, training_type_name, start_date, end_date))
