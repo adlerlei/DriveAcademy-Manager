@@ -2,7 +2,7 @@
 import tkinter as tk
 from utils.widget import *
 from utils.config import *
-from models.annual_plan import insert_annual_plan_data
+from models.annual_plan import insert_annual_plan_data, fetch_and_populate_treeview
 
 def annual_plan_term(content):
     clear_frame(content)
@@ -34,7 +34,12 @@ def annual_plan_term(content):
     # 梯次（抓取資料庫呈現）
     label(annual_plan_term, text='梯次').grid(row=0, column=2, sticky='ws', padx=(10,0))
     batch = combobox(annual_plan_term, values=['A', 'B'])
-    batch.grid(row=1, column=2, columnspan=2, sticky='wen', padx=10)
+    batch.grid(row=1, column=2, sticky='wen', padx=10)
+
+    # 上課期別代碼
+    label(annual_plan_term, text='上課期別代碼').grid(row=0, column=3, sticky='ws', padx=(10,0))
+    term_class_code = entry(annual_plan_term)
+    term_class_code.grid(row=1, column=3, sticky='wen', padx=(0,10))
     
     # 開訓日期
     label(annual_plan_term, text='開訓日期').grid(row=2, column=2, sticky='ws',padx=(10,0), pady=(20,0))
@@ -47,7 +52,6 @@ def annual_plan_term(content):
     end_date.grid(row=5, column=2, columnspan=2, sticky='wen', padx=10)
 
     # 新增按鈕觸發
-
     def add_btn_click():
         training_type_code_value = training_type_code.get()
         training_type_name_value = training_type_name.get()
@@ -56,7 +60,7 @@ def annual_plan_term(content):
         batch_value = batch.get()
         start_date_value = start_date.get()
         end_date_value = end_date.get()
-
+        # 新增資料到資料庫
         insert_annual_plan_data(training_type_code_value, training_type_name_value, year_value, term_value, batch_value, start_date_value, end_date_value)
         # 新增成功後，清空輸入欄位
         year.delete(0, 'end')
@@ -67,30 +71,29 @@ def annual_plan_term(content):
 
     
     # 新增，修改，刪除 按鈕
-    btn(annual_plan_term, text='新增', command=None).grid(row=6, column=0, sticky='wen', padx=10, pady=20)
+    btn(annual_plan_term, text='新增', command=add_btn_click).grid(row=6, column=0, sticky='wen', padx=10, pady=20)
     btn(annual_plan_term, text='修改', command=None).grid(row=6, column=2, sticky='wen', padx=10, pady=20)
     btn(annual_plan_term, text='刪除', command=None).grid(row=6, column=3, sticky='wen', padx=10, pady=20)
     
     # 列表框 - 期別新增 - 年度計畫表與期別新增
-    data_list = ttk.Treeview(annual_plan_term, show='headings', columns=('id', 'class_name', 'year', 'class_num', 'start_date', 'end_date', 'class_code'))
+    data_list = ttk.Treeview(annual_plan_term, show='headings', columns=('訓練班別名稱', '年度', '期別編號', '開訓日期', '結訓日期', '上課期別代碼'))
     
-    data_list.column("id", width=20, anchor='w')
-    data_list.column("class_name", width=300, anchor='w')
-    data_list.column("year", width=50, anchor='w')
-    data_list.column("class_num", width=150, anchor='w')
-    data_list.column("start_date", width=150, anchor='w')
-    data_list.column("end_date", width=150, anchor='w')
-    data_list.column("class_code", width=200, anchor='w')
+    data_list.column("訓練班別名稱", width=300, anchor='w')
+    data_list.column("年度", width=50, anchor='w')
+    data_list.column("期別編號", width=150, anchor='w')
+    data_list.column("開訓日期", width=150, anchor='w')
+    data_list.column("結訓日期", width=150, anchor='w')
+    data_list.column("上課期別代碼", width=200, anchor='w')
     
-    data_list.heading("id", text="ID")
-    data_list.heading("class_name", text="訓練班別名稱")
-    data_list.heading("year", text="年度")
-    data_list.heading("class_num", text="期別編號")
-    data_list.heading("start_date", text="開訓日期")
-    data_list.heading("end_date", text="結訓日期")
-    data_list.heading("class_code", text="上課期別代碼")
+
+    data_list.heading("訓練班別名稱", text="訓練班別名稱")
+    data_list.heading("年度", text="年度")
+    data_list.heading("期別編號", text="期別編號")
+    data_list.heading("開訓日期", text="開訓日期")
+    data_list.heading("結訓日期", text="結訓日期")
+    data_list.heading("上課期別代碼", text="上課期別代碼")
     
     data_list.grid(row=8, column=0, columnspan=4, sticky='wens', padx=10)
     
-    for i in range(100):
-        data_list.insert("", "end", values=(f"202{i % 10}", f"張{i}", f"A{i}", f"202{i % 10}-01-01", f"男", f"02{i % 10}", f"09{i % 10}", f"test{i}@gmail.com", f"台北市", f"台北市"))
+    # 調用函數填充 Treeview
+    fetch_and_populate_treeview(data_list)

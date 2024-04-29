@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS annual_plan (
     id INTEGER PRIMARY KEY AUTOINCREMENT, -- id主鍵自增
     year VARCHAR, -- 年度
     term VARCHAR, -- 期別
+    term_class_code VARCHAR, -- 上課期別代碼
     batch VARCHAR, -- 梯次
     training_type_code VARCHAR, -- 訓練班別代號
     training_type_name VARCHAR, -- 訓練班別名稱

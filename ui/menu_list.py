@@ -24,7 +24,7 @@ def menu_list(menu , content):
     # 年度期別新增
     btn1 = menu_btn(
         menu,
-        '年度期別新增',
+        '年度期別計畫',
         menu_icon_path = "annual_plan_term.png",
         command = lambda: annual_plan_term(content))
     btn1.grid(row=1, column=0)
