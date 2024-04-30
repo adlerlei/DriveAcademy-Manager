@@ -6,7 +6,7 @@ from tkinter import messagebox
 # 資料庫路徑
 database_path = os.path.join(os.path.dirname(__file__), '..', 'db', 'driving_school.db')
 
-# 將年度計畫表與期別新增資料庫中
+# 將年度計畫表寫入資料庫中
 def insert_annual_plan_data(year, term, term_class_code, batch, training_type_code, training_type_name, start_date, end_date):
     
     # 連接資料庫
@@ -23,7 +23,7 @@ def insert_annual_plan_data(year, term, term_class_code, batch, training_type_co
     messagebox.showinfo("成功", "新增期別資料成功！")
 
 
-# 取得年度計畫表與期別新增資料
+# 讀取年度計畫表資料
 def fetch_and_populate_treeview(treeview):
     # 連接到資料庫
     conn = sqlite3.connect(database_path)
