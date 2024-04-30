@@ -13,6 +13,12 @@ def annual_plan_term(content):
     annual_plan_term.columnconfigure(2, weight=1)
     annual_plan_term.columnconfigure(3, weight=1)
     annual_plan_term.place(relwidth=1, relheight=1)
+
+    # 監聽 term 輸入值，並且再次設定 term_class_code 值
+    def on_value_changed(event):
+        value = '10' + term.get() # 前面 + 10 字串
+        term_class_code.delete(0, 'end')
+        term_class_code.insert(0, value)
     
     # 訓練班別
     label(annual_plan_term, text='訓練班別').grid(row=0, column=0, sticky='ws', padx=(10,0), pady=(10,0))
@@ -40,6 +46,9 @@ def annual_plan_term(content):
     label(annual_plan_term, text='上課期別代碼').grid(row=0, column=3, sticky='ws', padx=(10,0))
     term_class_code = entry(annual_plan_term)
     term_class_code.grid(row=1, column=3, sticky='wen', padx=(0,10))
+
+    # 監聽 term 輸入值，並且再次設定 term_class_code 值
+    term.bind("<KeyRelease>", on_value_changed)
     
     # 開訓日期
     label(annual_plan_term, text='開訓日期').grid(row=2, column=2, sticky='ws',padx=(10,0), pady=(20,0))
@@ -53,21 +62,25 @@ def annual_plan_term(content):
 
     # 新增按鈕觸發
     def add_btn_click():
-        training_type_code_value = training_type_code.get()
-        training_type_name_value = training_type_name.get()
         year_value = year.get()
         term_value = term.get()
+        term_class_code_value = term_class_code.get()
         batch_value = batch.get()
+        training_type_code_value = training_type_code.get()
+        training_type_name_value = training_type_name.get()
         start_date_value = start_date.get()
         end_date_value = end_date.get()
         # 新增資料到資料庫
-        insert_annual_plan_data(training_type_code_value, training_type_name_value, year_value, term_value, batch_value, start_date_value, end_date_value)
+        insert_annual_plan_data(year_value, term_value, term_class_code_value, batch_value, training_type_code_value, training_type_name_value, start_date_value, end_date_value)
         # 新增成功後，清空輸入欄位
         year.delete(0, 'end')
         term.delete(0, 'end')
+        term_class_code.delete(0, 'end')
         batch.set('')
         start_date.delete(0, 'end')
         end_date.delete(0, 'end')
+        # 即時更新 Treeview
+        fetch_and_populate_treeview(data_list)
 
     
     # 新增，修改，刪除 按鈕
@@ -78,12 +91,12 @@ def annual_plan_term(content):
     # 列表框 - 期別新增 - 年度計畫表與期別新增
     data_list = ttk.Treeview(annual_plan_term, show='headings', columns=('訓練班別名稱', '年度', '期別編號', '開訓日期', '結訓日期', '上課期別代碼'))
     
-    data_list.column("訓練班別名稱", width=300, anchor='w')
+    data_list.column("訓練班別名稱", width=150, anchor='w')
     data_list.column("年度", width=50, anchor='w')
-    data_list.column("期別編號", width=150, anchor='w')
-    data_list.column("開訓日期", width=150, anchor='w')
-    data_list.column("結訓日期", width=150, anchor='w')
-    data_list.column("上課期別代碼", width=200, anchor='w')
+    data_list.column("期別編號", width=50, anchor='w')
+    data_list.column("開訓日期", width=50, anchor='w')
+    data_list.column("結訓日期", width=50, anchor='w')
+    data_list.column("上課期別代碼", width=50, anchor='w')
     
 
     data_list.heading("訓練班別名稱", text="訓練班別名稱")
@@ -95,5 +108,5 @@ def annual_plan_term(content):
     
     data_list.grid(row=8, column=0, columnspan=4, sticky='wens', padx=10)
     
-    # 調用函數填充 Treeview
+    # 調用函數填充 Treeview（進入介面時會直接抓取資料庫呈現資料列表）
     fetch_and_populate_treeview(data_list)
