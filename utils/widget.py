@@ -47,6 +47,30 @@ def btn(frame, text, command):
         )
     return button
 
+# 刪除按鈕
+def delete_btn(frame, text, command):
+    button = ck.CTkButton( 
+        frame, 
+        text = text,
+        height = 40,
+        fg_color = '#E0645D', 
+        font = create_font(), 
+        command = command
+        )
+    return button
+
+# 匯出按鈕
+def export_btn(frame, text, command):
+    button = ck.CTkButton( 
+        frame, 
+        text = text,
+        height = 40,
+        fg_color = '#a3b18a', 
+        font = create_font(), 
+        command = command
+        )
+    return button
+
 
 # label frame 標題容器
 def label_frame(frame, text):

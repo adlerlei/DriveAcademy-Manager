@@ -2,7 +2,10 @@
 import tkinter as tk
 from utils.widget import *
 from utils.config import *
-from models.annual_plan import insert_annual_plan_data, fetch_and_populate_treeview
+from tkinter import messagebox
+from models.annual_plan import insert_annual_plan_data, fetch_and_populate_treeview, delete_btn_click
+# from models.annual_plan import update_record_in_db
+selected_record_id = None
 
 def annual_plan_term(content):
     clear_frame(content)
@@ -70,23 +73,74 @@ def annual_plan_term(content):
         training_type_name_value = training_type_name.get()
         start_date_value = start_date.get()
         end_date_value = end_date.get()
-        # 新增資料到資料庫
-        insert_annual_plan_data(year_value, term_value, term_class_code_value, batch_value, training_type_code_value, training_type_name_value, start_date_value, end_date_value)
-        # 新增成功後，清空輸入欄位
-        year.delete(0, 'end')
-        term.delete(0, 'end')
-        term_class_code.delete(0, 'end')
-        batch.set('')
-        start_date.delete(0, 'end')
-        end_date.delete(0, 'end')
+
+        # 驗證輸入欄位
+        if not all([year_value, term_value, term_class_code_value, batch_value, training_type_code_value, training_type_name_value, start_date_value, end_date_value]):
+            messagebox.showerror('錯誤', '所有欄位不可為空')
+            return
+        elif  insert_annual_plan_data(year_value, term_value, term_class_code_value, batch_value, training_type_code_value, training_type_name_value, start_date_value, end_date_value):
+            # 新增資料到資料庫
+            # insert_annual_plan_data(year_value, term_value, term_class_code_value, batch_value, training_type_code_value, training_type_name_value, start_date_value, end_date_value)
+            # 新增成功後，清空輸入欄位
+            year.delete(0, 'end')
+            term.delete(0, 'end')
+            term_class_code.delete(0, 'end')
+            batch.set('')
+            start_date.delete(0, 'end')
+            end_date.delete(0, 'end')
         # 即時更新 Treeview
         fetch_and_populate_treeview(data_list)
 
     
-    # 新增，修改，刪除 按鈕
-    btn(annual_plan_term, text='新增', command=add_btn_click).grid(row=6, column=0, sticky='wen', padx=10, pady=20)
-    btn(annual_plan_term, text='修改', command=None).grid(row=6, column=2, sticky='wen', padx=10, pady=20)
-    btn(annual_plan_term, text='刪除', command=None).grid(row=6, column=3, sticky='wen', padx=10, pady=20)
+    # 當選中 Treeview 中的一行時,將數據填充到輸入欄位中
+    # def on_treeview_select(event):
+    #     selected_item = data_list.selection()
+    #     global selected_record_id
+    #     if selected_item:
+    #         item_values = data_list.item(selected_item)["values"]
+    #         training_type_name.set(item_values[0])
+    #         year.delete(0, tk.END)
+    #         year.insert(0, item_values[1])
+    #         term.delete(0, tk.END)
+    #         term.insert(0, item_values[2])
+    #         start_date.delete(0, tk.END)
+    #         start_date.insert(0, item_values[3])
+    #         end_date.delete(0, tk.END)
+    #         end_date.insert(0, item_values[4])
+    #         term_class_code.delete(0, tk.END)
+    #         term_class_code.insert(0, item_values[5])
+    #         selected_record_id = data_list.item(selected_item)["text"]
+
+    # 修改按鈕觸發
+    # def modify_btn_click():
+    #     # 獲取選中行
+    #     selected_item = data_list.selection()
+    #     if not selected_item:
+    #         messagebox.showwarning("警告", "請先選擇要修改的行!")
+    #         return
+
+        # 獲取新的數據
+        # new_training_type_name = training_type_name.get()
+        # new_year = year.get()
+        # new_term = term.get()
+        # new_start_date = start_date.get()
+        # new_end_date = end_date.get()
+        # new_term_class_code = term_class_code.get()
+        # new_batch = batch.get()
+        # new_training_type_code = training_type_code.get()
+
+        # 更新資料庫
+        # update_record_in_db(selected_record_id, new_training_type_name, new_year, new_term, new_start_date, new_end_date, new_term_class_code, new_batch, new_training_type_code)
+
+        # 刷新 Treeview
+        # fetch_and_populate_treeview(data_list)
+
+    
+    # 新增，刪除，匯出文件 按鈕
+    btn(annual_plan_term, text='新增', command=add_btn_click).grid(row=6, column=0, columnspan=2, sticky='wen', padx=10, pady=20)
+    # btn(annual_plan_term, text='修改', command=modify_btn_click).grid(row=6, column=2, sticky='wen', padx=10, pady=20)
+    delete_btn(annual_plan_term, text='刪除', command=lambda: delete_btn_click(data_list)).grid(row=6, column=2, sticky='wen', padx=10, pady=20)
+    export_btn(annual_plan_term, text='匯出文件', command=None).grid(row=6, column=3, sticky='wen', padx=10, pady=20)
     
     # 列表框 - 期別新增 - 年度計畫表與期別新增
     data_list = ttk.Treeview(annual_plan_term, show='headings', columns=('訓練班別名稱', '年度', '期別編號', '開訓日期', '結訓日期', '上課期別代碼'))
@@ -107,6 +161,9 @@ def annual_plan_term(content):
     data_list.heading("上課期別代碼", text="上課期別代碼")
     
     data_list.grid(row=8, column=0, columnspan=4, sticky='wens', padx=10)
+
+    # 綁定 Treeview 的選擇事件
+    # data_list.bind("<<TreeviewSelect>>", on_treeview_select)
     
     # 調用函數填充 Treeview（進入介面時會直接抓取資料庫呈現資料列表）
     fetch_and_populate_treeview(data_list)
