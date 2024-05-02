@@ -2,6 +2,7 @@
 import sqlite3
 import os
 from tkinter import messagebox
+from tkinter import filedialog
 
 # 資料庫路徑
 database_path = os.path.join(os.path.dirname(__file__), '..', 'db', 'driving_school.db')
@@ -20,7 +21,7 @@ def insert_annual_plan_data(year, term, term_class_code, batch, training_type_co
     conn.commit()
     conn.close()
 
-    messagebox.showinfo("成功", "已新增期別資料！")
+    messagebox.showinfo("成功", "已新增期別資料！") 
 
 
 # 讀取年度計畫表資料
@@ -72,6 +73,33 @@ def delete_from_db(training_type_name, year, term, start_date, end_date, term_cl
     conn.commit()
     conn.close()
     messagebox.showinfo("成功", "刪除記錄成功!")
+
+
+# 匯出文件按鈕觸發
+def export_selected_data(treeview):
+    # 获取选中的行
+    selected_items = treeview.selection()
+    if not selected_items:
+        messagebox.showwarning("警告", "請先選擇要匯出的資料列表!")
+        return
+
+    # 获取选中行的数据
+    data = []
+    for item in selected_items:
+        item_values = treeview.item(item)["values"]
+        data.append(item_values)
+
+    # 创建一个文件对话框,让用户选择保存路径
+    file_path = filedialog.asksaveasfilename(defaultextension=".txt")
+    if file_path:
+        try:
+            # 写入数据到文件
+            with open(file_path, "w", encoding="utf-8") as f:
+                for row in data:
+                    f.write("\t".join(str(value) for value in row) + "\n")
+            messagebox.showinfo("成功", "匯出文件成功!")
+        except Exception as e:
+            messagebox.showerror("錯誤", f"匯出文件失敗: {str(e)}")
 
 
 # 更新資料庫記錄

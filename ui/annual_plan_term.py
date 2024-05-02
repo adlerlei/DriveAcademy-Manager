@@ -3,7 +3,8 @@ import tkinter as tk
 from utils.widget import *
 from utils.config import *
 from tkinter import messagebox
-from models.annual_plan import insert_annual_plan_data, fetch_and_populate_treeview, delete_btn_click
+from models.annual_plan import insert_annual_plan_data, fetch_and_populate_treeview, delete_btn_click, export_selected_data
+# from tkinter import filedialog
 # from models.annual_plan import update_record_in_db
 selected_record_id = None
 
@@ -134,13 +135,40 @@ def annual_plan_term(content):
 
         # 刷新 Treeview
         # fetch_and_populate_treeview(data_list)
+        
+
+    # # 匯出文件按鈕觸發
+    # def export_selected_data(treeview):
+    #     # 获取选中的行
+    #     selected_items = treeview.selection()
+    #     if not selected_items:
+    #         messagebox.showwarning("警告", "請先選擇要匯出的資料列表!")
+    #         return
+
+    #     # 获取选中行的数据
+    #     data = []
+    #     for item in selected_items:
+    #         item_values = treeview.item(item)["values"]
+    #         data.append(item_values)
+
+    #     # 创建一个文件对话框,让用户选择保存路径
+    #     file_path = filedialog.asksaveasfilename(defaultextension=".txt")
+    #     if file_path:
+    #         try:
+    #             # 写入数据到文件
+    #             with open(file_path, "w", encoding="utf-8") as f:
+    #                 for row in data:
+    #                     f.write("\t".join(str(value) for value in row) + "\n")
+    #             messagebox.showinfo("成功", "匯出文件成功!")
+    #         except Exception as e:
+    #             messagebox.showerror("錯誤", f"匯出文件失敗: {str(e)}")
 
     
     # 新增，刪除，匯出文件 按鈕
     btn(annual_plan_term, text='新增', command=add_btn_click).grid(row=6, column=0, columnspan=2, sticky='wen', padx=10, pady=20)
     # btn(annual_plan_term, text='修改', command=modify_btn_click).grid(row=6, column=2, sticky='wen', padx=10, pady=20)
     delete_btn(annual_plan_term, text='刪除', command=lambda: delete_btn_click(data_list)).grid(row=6, column=2, sticky='wen', padx=10, pady=20)
-    export_btn(annual_plan_term, text='匯出文件', command=None).grid(row=6, column=3, sticky='wen', padx=10, pady=20)
+    export_btn(annual_plan_term, text='匯出文件', command=lambda: export_selected_data(data_list)).grid(row=6, column=3, sticky='wen', padx=10, pady=20)
     
     # 列表框 - 期別新增 - 年度計畫表與期別新增
     data_list = ttk.Treeview(annual_plan_term, show='headings', columns=('訓練班別名稱', '年度', '期別編號', '開訓日期', '結訓日期', '上課期別代碼'))
