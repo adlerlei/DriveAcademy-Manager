@@ -62,6 +62,7 @@ def delete_btn_click(treeview):
     # 更新 Treeview
     fetch_and_populate_treeview(treeview)
 
+
 # 從資料庫中刪除記錄
 def delete_from_db(training_type_name, year, term, start_date, end_date, term_class_code):
     conn = sqlite3.connect(database_path)
