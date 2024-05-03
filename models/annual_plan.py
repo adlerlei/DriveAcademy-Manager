@@ -3,6 +3,7 @@ import sqlite3
 import os
 from tkinter import messagebox
 from tkinter import filedialog
+import re
 
 # 資料庫路徑
 database_path = os.path.join(os.path.dirname(__file__), '..', 'db', 'driving_school.db')
@@ -80,14 +81,17 @@ def export_selected_data(treeview):
     # 获取选中的行
     selected_items = treeview.selection()
     if not selected_items:
-        messagebox.showwarning("警告", "請先選擇要匯出的資料列表!")
+        messagebox.showwarning("警告", "請先選擇要匯出的行!")
         return
 
-    # 获取选中行的数据
+    # 获取选中行的指定数据
     data = []
     for item in selected_items:
         item_values = treeview.item(item)["values"]
-        data.append(item_values)
+        start_date = re.sub(r'/', '', item_values[3])  # 去除开训日期中的 /
+        end_date = re.sub(r'/', '', item_values[4])  # 去除结训日期中的 /
+        term_class_code = item_values[5]
+        data.append(f"{start_date},{end_date},{term_class_code}")
 
     # 创建一个文件对话框,让用户选择保存路径
     file_path = filedialog.asksaveasfilename(defaultextension=".txt")
@@ -95,8 +99,7 @@ def export_selected_data(treeview):
         try:
             # 写入数据到文件
             with open(file_path, "w", encoding="utf-8") as f:
-                for row in data:
-                    f.write("\t".join(str(value) for value in row) + "\n")
+                f.write("\n".join(data))
             messagebox.showinfo("成功", "匯出文件成功!")
         except Exception as e:
             messagebox.showerror("錯誤", f"匯出文件失敗: {str(e)}")
