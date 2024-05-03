@@ -3,6 +3,7 @@ import sqlite3
 import os
 from tkinter import messagebox
 from tkinter import filedialog
+# 導入 re 模組,用於處理字符串的正則表達式操作
 import re
 
 # 資料庫路徑
@@ -78,26 +79,28 @@ def delete_from_db(training_type_name, year, term, start_date, end_date, term_cl
 
 # 匯出文件按鈕觸發
 def export_selected_data(treeview):
-    # 获取选中的行
+    # 獲取所選行
     selected_items = treeview.selection()
     if not selected_items:
         messagebox.showwarning("警告", "請先選擇要匯出的行!")
         return
 
-    # 获取选中行的指定数据
+    # 獲取所選行的數據
     data = []
     for item in selected_items:
         item_values = treeview.item(item)["values"]
-        start_date = re.sub(r'/', '', item_values[3])  # 去除开训日期中的 /
-        end_date = re.sub(r'/', '', item_values[4])  # 去除结训日期中的 /
+        start_date = str(item_values[3])  # 確保開訓日期為字符串
+        end_date = str(item_values[4])  # 確保結訓日期為字符串
         term_class_code = item_values[5]
+        start_date = re.sub(r'/', '', start_date)  # 去除開訓日期中的 /
+        end_date = re.sub(r'/', '', end_date)  # 去除结訓日期中的 /
         data.append(f"{start_date},{end_date},{term_class_code}")
 
-    # 创建一个文件对话框,让用户选择保存路径
+    # 創建文件保存對話框
     file_path = filedialog.asksaveasfilename(defaultextension=".txt")
     if file_path:
         try:
-            # 写入数据到文件
+            # 將數據寫入文件
             with open(file_path, "w", encoding="utf-8") as f:
                 f.write("\n".join(data))
             messagebox.showinfo("成功", "匯出文件成功!")

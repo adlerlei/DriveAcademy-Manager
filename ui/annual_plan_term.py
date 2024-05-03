@@ -26,10 +26,11 @@ def annual_plan_term(content):
     
     # 訓練班別
     label(annual_plan_term, text='訓練班別').grid(row=0, column=0, sticky='ws', padx=(10,0), pady=(10,0))
-    training_type_code = combobox(annual_plan_term, values=['1'])
+    training_type_code = combobox(annual_plan_term, values='1')
     training_type_code.grid(row=1, column=0, sticky='wen', padx=(10,0))
-    training_type_name = combobox(annual_plan_term, values=['普通小型車班'])
+    training_type_name = combobox(annual_plan_term, values='普通小型車班')
     training_type_name.grid(row=1, column=1, sticky='wen', padx=10)
+
 
     # 年度
     label(annual_plan_term, text='年度').grid(row=2, column=0, sticky='ws',padx=(10,0), pady=(20,0))
