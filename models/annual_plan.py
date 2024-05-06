@@ -76,6 +76,7 @@ def delete_from_db(training_type_name, year, term, start_date, end_date, term_cl
     conn.close()
     messagebox.showinfo("成功", "刪除記錄成功!")
 
+# 創建 CSV 文件名稱
 def generate_csv_filename(year):
     # 根據你的固定格式生成文件名稱
     return f"400032{year}1_A.csv"
