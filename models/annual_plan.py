@@ -76,6 +76,10 @@ def delete_from_db(training_type_name, year, term, start_date, end_date, term_cl
     conn.close()
     messagebox.showinfo("成功", "刪除記錄成功!")
 
+def generate_csv_filename(year):
+    # 根據你的固定格式生成文件名稱
+    return f"400032{year}1_A.csv"
+
 # 匯出 csv 文件按鈕觸發
 def export_selected_data(treeview):
     # 獲取所選行
@@ -95,8 +99,13 @@ def export_selected_data(treeview):
         end_date = re.sub(r'/', '', end_date)  # 去除結訓日期中的 /
         data.append(f"{start_date},{end_date},{term_class_code}")
 
+    
+    year_from_data = str(item_values[1])
+    # 生成文件名稱
+    file_name = generate_csv_filename(year_from_data)
+
     # 創建文件保存對話框
-    file_path = filedialog.asksaveasfilename(defaultextension=".csv")
+    file_path = filedialog.asksaveasfilename(defaultextension=".csv", initialfile=file_name)
     if file_path:
         try:
             # 將數據寫入文件
