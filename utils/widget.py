@@ -96,6 +96,7 @@ def combobox(
     button_color='#bcb8b1', 
     font = create_font(), 
     dropdown_fg_color='#d9d9d9', 
+    command=None, 
     **kwargs
     ):
     return ck.CTkComboBox(
@@ -105,7 +106,8 @@ def combobox(
         border_color='#fdfdff', 
         font=font, 
         button_color=button_color, 
-        dropdown_fg_color=dropdown_fg_color, 
+        dropdown_fg_color=dropdown_fg_color,
+        command=command, 
         fg_color=fg_color, **kwargs
         )
 

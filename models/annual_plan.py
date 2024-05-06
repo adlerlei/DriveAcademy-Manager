@@ -76,8 +76,7 @@ def delete_from_db(training_type_name, year, term, start_date, end_date, term_cl
     conn.close()
     messagebox.showinfo("成功", "刪除記錄成功!")
 
-
-# 匯出文件按鈕觸發
+# 匯出 csv 文件按鈕觸發
 def export_selected_data(treeview):
     # 獲取所選行
     selected_items = treeview.selection()
@@ -93,19 +92,50 @@ def export_selected_data(treeview):
         end_date = str(item_values[4])  # 確保結訓日期為字符串
         term_class_code = item_values[5]
         start_date = re.sub(r'/', '', start_date)  # 去除開訓日期中的 /
-        end_date = re.sub(r'/', '', end_date)  # 去除结訓日期中的 /
+        end_date = re.sub(r'/', '', end_date)  # 去除結訓日期中的 /
         data.append(f"{start_date},{end_date},{term_class_code}")
 
     # 創建文件保存對話框
-    file_path = filedialog.asksaveasfilename(defaultextension=".txt")
+    file_path = filedialog.asksaveasfilename(defaultextension=".csv")
     if file_path:
         try:
             # 將數據寫入文件
-            with open(file_path, "w", encoding="utf-8") as f:
+            with open(file_path, "w", newline='', encoding="utf-8") as f:
                 f.write("\n".join(data))
             messagebox.showinfo("成功", "匯出文件成功!")
         except Exception as e:
             messagebox.showerror("錯誤", f"匯出文件失敗: {str(e)}")
+
+
+# 匯出 txt 文件按鈕觸發
+# def export_selected_data(treeview):
+#     # 獲取所選行
+#     selected_items = treeview.selection()
+#     if not selected_items:
+#         messagebox.showwarning("警告", "請先選擇要匯出的行!")
+#         return
+
+#     # 獲取所選行的數據
+#     data = []
+#     for item in selected_items:
+#         item_values = treeview.item(item)["values"]
+#         start_date = str(item_values[3])  # 確保開訓日期為字符串
+#         end_date = str(item_values[4])  # 確保結訓日期為字符串
+#         term_class_code = item_values[5]
+#         start_date = re.sub(r'/', '', start_date)  # 去除開訓日期中的 /
+#         end_date = re.sub(r'/', '', end_date)  # 去除结訓日期中的 /
+#         data.append(f"{start_date},{end_date},{term_class_code}")
+
+#     # 創建文件保存對話框
+#     file_path = filedialog.asksaveasfilename(defaultextension=".txt")
+#     if file_path:
+#         try:
+#             # 將數據寫入文件
+#             with open(file_path, "w", encoding="utf-8") as f:
+#                 f.write("\n".join(data))
+#             messagebox.showinfo("成功", "匯出文件成功!")
+#         except Exception as e:
+#             messagebox.showerror("錯誤", f"匯出文件失敗: {str(e)}")
 
 
 # 更新資料庫記錄

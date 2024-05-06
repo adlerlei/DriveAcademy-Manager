@@ -1,10 +1,9 @@
-# 學習駕照統一送件
+# 學習駕照統一送件（匯出 txt 文件）其餘皆為 csv 文件
 from utils.widget import *
 from utils.config import *
 
 def learner_license_submission(content):
     clear_frame(content)
-    
     
     learner_license_submission = frame(content)
     learner_license_submission.columnconfigure(0, weight=1)

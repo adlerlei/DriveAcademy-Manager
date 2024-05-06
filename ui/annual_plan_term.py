@@ -6,7 +6,7 @@ from tkinter import messagebox
 from models.annual_plan import insert_annual_plan_data, fetch_and_populate_treeview, delete_btn_click, export_selected_data
 # from tkinter import filedialog
 # from models.annual_plan import update_record_in_db
-selected_record_id = None
+# selected_record_id = None
 
 def annual_plan_term(content):
     clear_frame(content)
@@ -23,13 +23,39 @@ def annual_plan_term(content):
         value = '10' + term.get() # 前面 + 10 字串
         term_class_code.delete(0, 'end')
         term_class_code.insert(0, value)
+
+    # 處理訓練班別第一個下拉選單training_type_code的選擇變化
+    def on_combobox_changed(event):
+        # 獲取第一個下拉選單的當前選擇
+        selected_code = training_type_code.get()
+
+        # 根據選擇更新第二個下拉選單的值
+        if selected_code == '1':
+            training_type_name.set('普通小型車班')
+        elif selected_code == '2':
+            training_type_name.set('普通大型車班')
+        elif selected_code == '3':
+            training_type_name.set('大貨車班')
+        elif selected_code == '4':
+            training_type_name.set('大客車班')
+        elif selected_code == '5':
+            training_type_name.set('聯結車班')
+        elif selected_code == '6':
+            training_type_name.set('職業小型車班')
+        elif selected_code == '7':
+            training_type_name.set('普通重機車班')
+        elif selected_code == '8':
+            training_type_name.set('大型重機車班')
     
     # 訓練班別
     label(annual_plan_term, text='訓練班別').grid(row=0, column=0, sticky='ws', padx=(10,0), pady=(10,0))
-    training_type_code = combobox(annual_plan_term, values=['1','2'])
+    training_type_code = combobox(annual_plan_term, values=['1','2','3','4','5','6','7','8'], command=on_combobox_changed)
     training_type_code.grid(row=1, column=0, sticky='wen', padx=(10,0))
-    training_type_name = combobox(annual_plan_term, values=['普通小型車班','普通大型車班'])
+    training_type_name = combobox(annual_plan_term, values=['普通小型車班','大貨車班','大客車班','聯結車班','職業小型車班','普通重機車班','大型重機車班','小型車逕升大客車班'])
     training_type_name.grid(row=1, column=1, sticky='wen', padx=10)
+
+    # 綁定函數到第一個下拉選單的選擇變化事件
+    training_type_code.bind("<<ComboboxSelected>>", on_combobox_changed)
 
 
     # 年度
