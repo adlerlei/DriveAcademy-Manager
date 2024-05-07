@@ -1,10 +1,9 @@
 # 期別新增 - 年度計畫表與期別新增
-import tkinter as tk
 from utils.widget import *
 from utils.config import *
 from tkinter import messagebox
+import customtkinter as ctk
 from models.annual_plan import insert_annual_plan_data, fetch_and_populate_treeview, delete_btn_click, export_selected_data
-# from tkinter import filedialog
 # from models.annual_plan import update_record_in_db
 # selected_record_id = None
 
@@ -25,28 +24,28 @@ def annual_plan_term(content):
         term_class_code.insert(0, value)
 
     # 處理訓練班別第一個下拉選單training_type_code的選擇變化
-    def on_combobox_changed(event):
+    def on_combobox_changed(event): 
         # 獲取第一個下拉選單的當前選擇
         selected_code = training_type_code.get()
-
         # 根據選擇更新第二個下拉選單的值
-        if selected_code == '1':
-            training_type_name.set('普通小型車班')
-        elif selected_code == '2':
-            training_type_name.set('普通大型車班')
-        elif selected_code == '3':
-            training_type_name.set('大貨車班')
-        elif selected_code == '4':
-            training_type_name.set('大客車班')
-        elif selected_code == '5':
-            training_type_name.set('聯結車班')
-        elif selected_code == '6':
-            training_type_name.set('職業小型車班')
-        elif selected_code == '7':
-            training_type_name.set('普通重機車班')
-        elif selected_code == '8':
-            training_type_name.set('大型重機車班')
-    
+        match selected_code:
+            case '1':
+                training_type_name.set('普通小型車班')
+            case '2':
+                training_type_name.set('普通大型車班')
+            case '3':
+                training_type_name.set('大貨車班')
+            case '4':
+                training_type_name.set('大客車班')
+            case '5':
+                training_type_name.set('聯結車班')
+            case '6':
+                training_type_name.set('職業小型車班')
+            case '7':
+                training_type_name.set('普通重機車班')
+            case '8':
+                training_type_name.set('大型重機車班')
+
     # 訓練班別
     label(annual_plan_term, text='訓練班別').grid(row=0, column=0, sticky='ws', padx=(10,0), pady=(10,0))
     training_type_code = combobox(annual_plan_term, values=['1','2','3','4','5','6','7','8'], command=on_combobox_changed)
@@ -106,18 +105,20 @@ def annual_plan_term(content):
         if not all([year_value, term_value, term_class_code_value, batch_value, training_type_code_value, training_type_name_value, start_date_value, end_date_value]):
             messagebox.showerror('錯誤', '所有欄位不可為空')
             return
-        elif  insert_annual_plan_data(year_value, term_value, term_class_code_value, batch_value, training_type_code_value, training_type_name_value, start_date_value, end_date_value):
-            # 新增資料到資料庫
-            # insert_annual_plan_data(year_value, term_value, term_class_code_value, batch_value, training_type_code_value, training_type_name_value, start_date_value, end_date_value)
+
+        # 新增資料到資料庫
+        else:
+            insert_annual_plan_data(year_value, term_value, term_class_code_value, batch_value, training_type_code_value, training_type_name_value, start_date_value, end_date_value)
             # 新增成功後，清空輸入欄位
-            year.delete(0, 'end')
-            term.delete(0, 'end')
-            term_class_code.delete(0, 'end')
+            year.delete(0, ctk.END)
+            term.delete(0, ctk.END)
+            term_class_code.delete(0, ctk.END)
             batch.set('')
-            start_date.delete(0, 'end')
-            end_date.delete(0, 'end')
-        # 即時更新 Treeview
-        fetch_and_populate_treeview(data_list)
+            start_date.delete(0, ctk.END)
+            end_date.delete(0, ctk.END)
+
+            # 即時更新 Treeview
+            fetch_and_populate_treeview(data_list)
 
     
     # 當選中 Treeview 中的一行時,將數據填充到輸入欄位中
@@ -198,7 +199,8 @@ def annual_plan_term(content):
     export_btn(annual_plan_term, text='匯出文件', command=lambda: export_selected_data(data_list)).grid(row=6, column=3, sticky='wen', padx=10, pady=20)
     
     # 列表框 - 期別新增 - 年度計畫表與期別新增
-    data_list = ttk.Treeview(annual_plan_term, show='headings', columns=('訓練班別名稱', '年度', '期別編號', '開訓日期', '結訓日期', '上課期別代碼'))
+    data_list = ttk.Treeview(annual_plan_term, show='headings', 
+                             columns=('訓練班別名稱', '年度', '期別編號', '開訓日期', '結訓日期', '上課期別代碼'), height=25)
     
     data_list.column("訓練班別名稱", width=150, anchor='w')
     data_list.column("年度", width=50, anchor='w')

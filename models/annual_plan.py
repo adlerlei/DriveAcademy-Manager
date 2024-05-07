@@ -49,21 +49,26 @@ def fetch_and_populate_treeview(treeview):
 
 # 刪除按鈕觸發
 def delete_btn_click(treeview):
-    # 獲取所選擇的行
-    selected_item = treeview.selection()
-    if not selected_item:
-        messagebox.showwarning("警告", "請先選擇要刪除的行!")
-        return
+    try:
+        # 獲取所選擇的行
+        selected_items = treeview.selection()
+        if len(selected_items) != 1:
+            raise ValueError("請只選擇一條數據進行刪除!")
+        
+        # 獲取所選行的數據
+        selected_item = selected_items[0]
+        item_values = treeview.item(selected_item)["values"]
+        training_type_name, year, term, start_date, end_date, term_class_code = item_values
 
-    # 獲取所選行的數據
-    item_values = treeview.item(selected_item)["values"]
-    training_type_name, year, term, start_date, end_date, term_class_code = item_values
+        # 從資料庫中刪除對應記錄
+        delete_from_db(training_type_name, year, term, start_date, end_date, term_class_code)
 
-    # 從資料庫中刪除對應記錄
-    delete_from_db(training_type_name, year, term, start_date, end_date, term_class_code)
+        # 更新 Treeview
+        fetch_and_populate_treeview(treeview)
+    except Exception as e:
+        messagebox.showerror("錯誤", str(e))
 
-    # 更新 Treeview
-    fetch_and_populate_treeview(treeview)
+
 
 
 # 從資料庫中刪除記錄
