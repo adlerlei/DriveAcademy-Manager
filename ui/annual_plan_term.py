@@ -32,19 +32,19 @@ def annual_plan_term(content):
             case '1':
                 training_type_name.set('普通小型車班')
             case '2':
-                training_type_name.set('普通大型車班')
-            case '3':
                 training_type_name.set('大貨車班')
-            case '4':
+            case '3':
                 training_type_name.set('大客車班')
-            case '5':
+            case '4':
                 training_type_name.set('聯結車班')
-            case '6':
+            case '5':
                 training_type_name.set('職業小型車班')
-            case '7':
+            case '6':
                 training_type_name.set('普通重機車班')
-            case '8':
+            case '7':
                 training_type_name.set('大型重機車班')
+            case '8':
+                training_type_name.set('小型車逕升大客車班')
 
     # 訓練班別
     label(annual_plan_term, text='訓練班別').grid(row=0, column=0, sticky='ws', padx=(10,0), pady=(10,0))
