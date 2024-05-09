@@ -24,8 +24,8 @@ def get_instructors():
 
     return instructor_numbers, instructor_names
 
-def on_instructor_selected(instructor_number, instructor_names, instructor_name, event):
-    selected_number = instructor_number.get()
+def on_instructor_selected(event, instructor_number, instructor_names, instructor_name):
+    selected_number = event.widget.get()
     index = instructor_numbers.index(selected_number)
     instructor_name.delete(0, ctk.END)
     instructor_name.insert(0, instructor_names[index])

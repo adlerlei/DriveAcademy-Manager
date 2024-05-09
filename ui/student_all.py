@@ -141,14 +141,16 @@ def student_all(content):
     combobox(student_all, values=['國中', '高中', '大學']).grid(row=3, column=3, sticky='wen', padx=(0,10))
 
     instructor_numbers, instructor_names = get_instructors()
-    #指導教練
+
+    # 指導教練
     label(student_all, text='指導教練').grid(row=4, column=2, sticky='ws', padx=(10,0), pady=(20,0))
     instructor_number = combobox(student_all, values=instructor_numbers)
     instructor_number.grid(row=5, column=2, sticky='wen', padx=10)
     instructor_name = entry(student_all)
     instructor_name.grid(row=5, column=3, sticky='wen', padx=(0,10))
-    instructor_number.bind("<<ComboboxSelected>>", lambda event: on_instructor_selected(instructor_number, instructor_names, instructor_name, event))
 
+    instructor_number.bind("<<ComboboxSelected>>", lambda event: on_instructor_selected(event, instructor_number, instructor_names, instructor_name))
+    
     # 信箱
     label(student_all, text='信箱').grid(row=6, column=2, sticky='ws', padx=(10,0), pady=(20,0))
     email = entry(student_all)
