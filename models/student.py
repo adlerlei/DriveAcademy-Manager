@@ -2,6 +2,7 @@
 import sqlite3
 import os
 import customtkinter as ctk
+from tkinter import messagebox
 
 # 資料庫路徑
 database_path = os.path.join(os.path.dirname(__file__), '..', 'db', 'driving_school.db')
@@ -20,12 +21,15 @@ def get_instructors():
     conn.close()
 
     instructor_numbers = [instructor[0] for instructor in instructors]
-    instructor_names = [instructor[1] for instructor in instructors]
+    instructor_names = [instructor[1].strip() for instructor in instructors]  # 去除名稱中的空白字符
 
     return instructor_numbers, instructor_names
 
-def on_instructor_selected(event, instructor_number, instructor_names, instructor_name):
+def on_instructor_selected(event, instructor_number, instructor_numbers, instructor_names, instructor_name):
     selected_number = event.widget.get()
     index = instructor_numbers.index(selected_number)
+
+    # Clear the entry before inserting the new name
     instructor_name.delete(0, ctk.END)
+
     instructor_name.insert(0, instructor_names[index])
