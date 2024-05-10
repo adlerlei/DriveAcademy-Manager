@@ -1,7 +1,7 @@
 # 學員新增 - 修改 - 刪除 - 查詢
 from utils.widget import *
 from utils.config import *
-from models.student import get_instructors, on_instructor_selected
+from models.student import get_instructor_data, get_annual_plan_batch_data
 from tkinter import messagebox
 import customtkinter as ctk
 
@@ -93,9 +93,13 @@ def student_all(content):
     number.grid(row=5, column=0, sticky='wen', padx=10)
     
     
+    # 獲取梯次資料
+    annual_plan_batchs = get_annual_plan_batch_data()
+
     # 梯次（抓取資料庫呈現）
     label(student_all, text='梯次').grid(row=4, column=1, sticky='ws', pady=(20,0))
-    combobox(student_all, values=['A','B']).grid(row=5, column=1, sticky='wen', padx=(0,10))
+    annual_plan_batch = combobox(student_all, values=annual_plan_batchs)
+    annual_plan_batch.grid(row=5, column=1, sticky='wen', padx=(0,10))
 
     # 學員姓名
     label(student_all, text='學員姓名').grid(row=6, column=0, sticky='ws', padx=(10,0), pady=(20,0 ))
@@ -140,17 +144,24 @@ def student_all(content):
     label(student_all, text='學歷').grid(row=2, column=3, sticky='ws', pady=(20,0))
     combobox(student_all, values=['國中', '高中', '大學']).grid(row=3, column=3, sticky='wen', padx=(0,10))
 
-    instructor_numbers, instructor_names = get_instructors()
+    ######
+    # 獲取教練資料
+    instructor_numbers, instructor_names, instructor_dict = get_instructor_data()
 
-    # 指导教练
-    label(student_all, text='指导教练').grid(row=4, column=2, sticky='ws', padx=(10,0), pady=(20,0))
-    instructor_number = combobox(student_all, values=instructor_numbers)
+    # 指導教練
+    label(student_all, text='指導教練').grid(row=4, column=2, sticky='ws', padx=(10,0), pady=(20,0))
+    instructor_number = combobox(student_all, values=instructor_numbers, command=lambda x: on_instructor_number_changed(x, instructor_name, instructor_dict))
     instructor_number.grid(row=5, column=2, sticky='wen', padx=10)
-    instructor_name = entry(student_all)
+    instructor_name = combobox(student_all, values=instructor_names)
     instructor_name.grid(row=5, column=3, sticky='wen', padx=(0,10))
 
-    instructor_number.bind("<<ComboboxSelected>>", lambda event: on_instructor_selected(event, instructor_number, instructor_numbers, instructor_names, instructor_name))
-
+    # 監聽第一個下拉選單的變化
+    def on_instructor_number_changed(selected_number, instructor_name, instructor_dict):
+        # 根據教練編號獲取教練名稱
+        selected_name = instructor_dict.get(selected_number, "")
+        # 設置第二個下拉選單的值
+        instructor_name.set(selected_name)
+    ######
     
     # 信箱
     label(student_all, text='信箱').grid(row=6, column=2, sticky='ws', padx=(10,0), pady=(20,0))
