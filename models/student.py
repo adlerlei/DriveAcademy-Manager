@@ -7,26 +7,30 @@ from tkinter import messagebox
 # 資料庫路徑
 database_path = os.path.join(os.path.dirname(__file__), '..', 'db', 'driving_school.db')
 
-# 抓取期別資料表（梯次）下拉選單 ######
-def get_annual_plan_batch_data():
+# 抓取郵局地址信息資料表
+def r_address_data():
     conn = sqlite3.connect(database_path)
     cursor = conn.cursor()
 
-    # 查詢期別資料表中的梯次
-    cursor.execute("SELECT batch FROM annual_plan")
-    batch_data = cursor.fetchall()
+    # 查詢郵遞區號 zip_code 資料表
+    cursor.execute("SELECT zip_code FROM address_data")
+    zip_code_data = cursor.fetchall()
 
     # 關閉資料庫連接
     conn.close()
 
-    # 創建一個空列表存儲梯次
-    batch_data_list = []
+    # 創建一個空列表存儲郵遞區號
+    zip_code_list = []
+    # 創建一個空字典存儲區域
+    address_city_list = []
+    # 創建一個空字典存儲郵遞區號和區域的對應關係
+    address_dict = {}
 
-    # 遍歷查詢結果，將梯次添加到列表中
-    for item in batch_data:
-        batch_data_list.append(item[0])
+    # 遍歷查詢結果，將郵遞區號添加到列表中
+    for r_address_zip_code in zip_code_data:
+        zip_code_list.append(r_address_zip_code[0])
 
-    return batch_data_list
+    return zip_code_list, address_city_list, address_dict
 
 
 # 抓取教練資料表（編號，名稱）下拉選單監聽 ######

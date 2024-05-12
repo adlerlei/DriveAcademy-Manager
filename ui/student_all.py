@@ -1,7 +1,8 @@
 # 學員新增 - 修改 - 刪除 - 查詢
 from utils.widget import *
 from utils.config import *
-from models.student import get_instructor_data, get_annual_plan_batch_data
+# from models.student import get_instructor_data, get_annual_plan_batch_data
+from models.student import get_instructor_data, r_address_data
 from tkinter import messagebox
 import customtkinter as ctk
 
@@ -20,7 +21,7 @@ def student_all(content):
     student_all.place(relwidth=1, relheight=1)
 
 
-    # 訓練班別下拉選單training_type_code監聽變化
+    # 訓練班別下拉選單training_type_code監聽變化 ######
     def training_type_combobox(event): 
         # 獲取第一個下拉選單的當前選擇
         selected_training_code = training_type_code.get()
@@ -43,7 +44,7 @@ def student_all(content):
             case '8':
                 training_type_name.set('小型車逕升大客車班')
 
-    # 訓練班別下拉選單training_type_code監聽變化
+    # 訓練班別下拉選單training_type_code監聽變化 ######
     def license_type_combobox(event): 
         # 獲取第一個下拉選單的當前選擇
         selected_license_code = license_type_code.get()
@@ -67,7 +68,7 @@ def student_all(content):
                 license_type_name.set('職業聯結車')
     
     
-    # 訓練班別
+    # 訓練班別 ######
     label(student_all, text='訓練班別').grid(row=0, column=0, sticky='ws', padx=(10,0), pady=(10,0))
     training_type_code = combobox(student_all,  values=['1','2','3','4','5','6','7','8'], command=training_type_combobox)
     training_type_code.grid(row=1, column=0, sticky='wen', padx=10)
@@ -89,22 +90,19 @@ def student_all(content):
 
     #學員編號
     label(student_all, text='學員編號').grid(row=4, column=0, sticky='ws', padx=(10,0), pady=(20,0))
-    number = entry(student_all)
-    number.grid(row=5, column=0, sticky='wen', padx=10)
+    student_number = entry(student_all)
+    student_number.grid(row=5, column=0, sticky='wen', padx=10)
     
     
-    # 獲取梯次資料
-    annual_plan_batchs = get_annual_plan_batch_data()
-
     # 梯次（抓取資料庫呈現）
     label(student_all, text='梯次').grid(row=4, column=1, sticky='ws', pady=(20,0))
-    annual_plan_batch = combobox(student_all, values=annual_plan_batchs)
+    annual_plan_batch = combobox(student_all, values = ['A', 'B'])
     annual_plan_batch.grid(row=5, column=1, sticky='wen', padx=(0,10))
 
     # 學員姓名
     label(student_all, text='學員姓名').grid(row=6, column=0, sticky='ws', padx=(10,0), pady=(20,0 ))
-    name = entry(student_all)
-    name.grid(row=7, column=0, sticky='wen', padx=10)
+    student_name = entry(student_all)
+    student_name.grid(row=7, column=0, sticky='wen', padx=10)
 
     # 身分證號碼
     label(student_all, text='身分證號碼').grid(row=6, column=1, sticky='ws', pady=(20,0))
@@ -118,14 +116,21 @@ def student_all(content):
 
     # 行動電話
     label(student_all, text='手機').grid(row=8, column=1, sticky='ws', pady=(20,0))
-    entry(student_all).grid(row=9, column=1, sticky='wen',padx=(0,10))
+    mobile_phone = entry(student_all)
+    mobile_phone.grid(row=9, column=1, sticky='wen',padx=(0,10))
     
+
+    #抓取郵遞區號資料（缺少三個變數) #########
+
+    address_zip_codes = r_address_data()
     # 戶籍地址 ######
     label(student_all, text='戶籍地址').grid(row=10, column=0, sticky='ws', padx=(10,0), pady=(20,0))
     # 郵遞區號
-    combobox(student_all, values=['231', '116']).grid(row=11, column=0, sticky='wen', padx=10)
+    r_address_zip_code = combobox(student_all, values = address_zip_codes)
+    r_address_zip_code.grid(row=11, column=0, sticky='wen', padx=10)
     # 區域別
-    combobox(student_all, values=['台北市中山區', '新北市新店區']).grid(row=11, column=1, sticky='wen', padx=(0,10))
+    r_address_city = combobox(student_all, values=['台北市中山區', '新北市新店區'])
+    r_address_city.grid(row=11, column=1, sticky='wen', padx=(0,10))
     # 地址
     r_address = entry(student_all)
     r_address.grid(row=12, column=0, columnspan=2, sticky='wen', padx=10)
