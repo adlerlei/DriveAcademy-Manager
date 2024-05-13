@@ -1,10 +1,10 @@
 # 學員新增 - 修改 - 刪除 - 查詢
 from utils.widget import *
 from utils.config import *
-# from models.student import get_instructor_data, get_annual_plan_batch_data
-from models.student import get_instructor_data, r_address_data
+from models.student import get_instructor_data, address_data
 from tkinter import messagebox
 import customtkinter as ctk
+
 
 
 def student_all(content):
@@ -19,90 +19,61 @@ def student_all(content):
     student_all.columnconfigure(2, weight=1)
     student_all.columnconfigure(3, weight=1)
     student_all.place(relwidth=1, relheight=1)
-
-
-    # 訓練班別下拉選單training_type_code監聽變化 ######
-    def training_type_combobox(event): 
-        # 獲取第一個下拉選單的當前選擇
-        selected_training_code = training_type_code.get()
-        # 根據選擇更新第二個下拉選單的值
-        match selected_training_code:
-            case '1':
-                training_type_name.set('普通小型車班')
-            case '2':
-                training_type_name.set('大貨車班')
-            case '3':
-                training_type_name.set('大客車班')
-            case '4':
-                training_type_name.set('聯結車班')
-            case '5':
-                training_type_name.set('職業小型車班')
-            case '6':
-                training_type_name.set('普通重機車班')
-            case '7':
-                training_type_name.set('大型重機車班')
-            case '8':
-                training_type_name.set('小型車逕升大客車班')
-
-    # 訓練班別下拉選單training_type_code監聽變化 ######
-    def license_type_combobox(event): 
-        # 獲取第一個下拉選單的當前選擇
-        selected_license_code = license_type_code.get()
-        # 根據選擇更新第二個下拉選單的值
-        match selected_license_code:
-            case '0':
-                license_type_name.set('自用小客車')
-            case '1':
-                license_type_name.set('職業小客車')
-            case '2':
-                license_type_name.set('自用大貨車')
-            case '3':
-                license_type_name.set('職業大貨車')
-            case '4':
-                license_type_name.set('自用大客車')
-            case '5':
-                license_type_name.set('職業大客車')
-            case '6':
-                license_type_name.set('自用聯結車')
-            case '7':
-                license_type_name.set('職業聯結車')
     
     
     # 訓練班別 ######
+    training_type_codes = ['1', '2', '3', '4', '5', '6', '7', '8']
+    training_type_names = ['普通小型車班', '大貨車班', '大客車班', '聯結車班', '職業小型車班', '普通重機車班', '大型重機車班', '小型車逕升大客車班']
+    training_type_dict = dict(zip(training_type_codes, training_type_names))
     label(student_all, text='訓練班別').grid(row=0, column=0, sticky='ws', padx=(10,0), pady=(10,0))
-    training_type_code = combobox(student_all,  values=['1','2','3','4','5','6','7','8'], command=training_type_combobox)
+    training_type_code = combobox(student_all,  values=['1','2','3','4','5','6','7','8'], command=lambda x: on_training_type_code_changed(x, training_type_name, training_type_dict))
     training_type_code.grid(row=1, column=0, sticky='wen', padx=10)
     training_type_name = combobox(student_all, values=['普通小型車班','大貨車班','大客車班','聯結車班','職業小型車班','普通重機車班','大型重機車班','小型車逕升大客車班'])
     training_type_name.grid(row=1, column=1, sticky='wen', padx=10)
 
-    # 綁定函數到第一個下拉選單的選擇變化事件
-    training_type_code.bind("<<ComboboxSelected>>", training_type_combobox)
+    # 監聽訓練班別第一個下拉選單的變化
+    def on_training_type_code_changed(selected_code, training_type_name, training_type_dict):
+        # 根據訓練班別代碼獲取訓練班別名稱
+        selected_name = training_type_dict.get(selected_code, "")
+        # 設置第二個下拉選單的值
+        training_type_name.set(selected_name)
+    #################
 
-    # 考照類別
+    # 考照類別 ######
+    license_type_codes = ['0', '1', '2', '3', '4', '5', '6', '7']
+    license_type_names = ['自用小客車', '職業小客車', '自用大貨車', '職業大貨車', '自用大客車', '職業大客車', '自用聯結車', '職業聯結車']
+    license_type_dict = dict(zip(license_type_codes, license_type_names))
     label(student_all, text='考照類別').grid(row=2, column=0, sticky='ws', padx=(10,0), pady=(20,0))
-    license_type_code = combobox(student_all,  values=['0','1','2','3','4','5','6','7'], command=license_type_combobox)
+    license_type_code = combobox(student_all,  values=['0','1','2','3','4','5','6','7'], command=lambda x: on_license_type_code_changed(x, license_type_name, license_type_dict))
     license_type_code.grid(row=3, column=0, sticky='wen', padx=10)
     license_type_name = combobox(student_all, values=['自用小客車','職業小客車','自用大貨車','職業大貨車','自用大客車','職業大客車','自用聯結車','職業聯結車'])
     license_type_name.grid(row=3, column=1, sticky='wen', padx=(0,10))
 
-    # 綁定函數到第二個下拉選單的選擇變化事件
-    license_type_code.bind("<<ComboboxSelected>>", license_type_combobox)
+    # 監聽考照類別第一個下拉選單的變化
+    def on_license_type_code_changed(selected_code, license_type_name, license_type_dict):
+        # 根據訓練班別代碼獲取訓練班別名稱
+        selected_name = license_type_dict.get(selected_code, "")
+        # 設置第二個下拉選單的值
+        license_type_name.set(selected_name)
+    #################
 
-    #學員編號
+
+    # 學員編號
     label(student_all, text='學員編號').grid(row=4, column=0, sticky='ws', padx=(10,0), pady=(20,0))
     student_number = entry(student_all)
     student_number.grid(row=5, column=0, sticky='wen', padx=10)
     
     
-    # 梯次（抓取資料庫呈現）
+    # 梯次
     label(student_all, text='梯次').grid(row=4, column=1, sticky='ws', pady=(20,0))
-    annual_plan_batch = combobox(student_all, values = ['A', 'B'])
-    annual_plan_batch.grid(row=5, column=1, sticky='wen', padx=(0,10))
+    batch = combobox(student_all, values = ['A', 'B'])
+    batch.grid(row=5, column=1, sticky='wen', padx=(0,10))
+    batch.set('')
 
     # 學員姓名
     label(student_all, text='學員姓名').grid(row=6, column=0, sticky='ws', padx=(10,0), pady=(20,0 ))
-    student_name = entry(student_all)
-    student_name.grid(row=7, column=0, sticky='wen', padx=10)
+    name = entry(student_all)
+    name.grid(row=7, column=0, sticky='wen', padx=10)
 
     # 身分證號碼
     label(student_all, text='身分證號碼').grid(row=6, column=1, sticky='ws', pady=(20,0))
@@ -120,45 +91,58 @@ def student_all(content):
     mobile_phone.grid(row=9, column=1, sticky='wen',padx=(0,10))
     
 
-    #抓取郵遞區號資料（缺少三個變數) #########
-
-    address_zip_codes = r_address_data()
+    # 抓取郵遞區號資料 #########
+    r_address_zip_code_lists, r_address_city_lists, r_address_dict = address_data()
     # 戶籍地址 ######
     label(student_all, text='戶籍地址').grid(row=10, column=0, sticky='ws', padx=(10,0), pady=(20,0))
     # 郵遞區號
-    r_address_zip_code = combobox(student_all, values = address_zip_codes)
-    r_address_zip_code.grid(row=11, column=0, sticky='wen', padx=10)
-    # 區域別
-    r_address_city = combobox(student_all, values=['台北市中山區', '新北市新店區'])
-    r_address_city.grid(row=11, column=1, sticky='wen', padx=(0,10))
+    r_address_zip_code_list = combobox(student_all, values = r_address_zip_code_lists, command=lambda x: auto_event_r_address(x, r_address_city_list, r_address_dict))
+    r_address_zip_code_list.grid(row=11, column=0, sticky='wen', padx=10)
+    # 縣市區域
+    r_address_city_list = combobox(student_all, values = r_address_city_lists)
+    r_address_city_list.grid(row=11, column=1, sticky='wen', padx=(0,10))
     # 地址
     r_address = entry(student_all)
     r_address.grid(row=12, column=0, columnspan=2, sticky='wen', padx=10)
+    r_address_zip_code_list.set('')
+    r_address_city_list.set('')
 
+    # 監聽第一個下拉選單的變化
+    def auto_event_r_address(zip_code_list, r_address_city, address_dict):
+        # 根據郵遞區號獲取城市
+        selected_zip_code = address_dict.get(zip_code_list, "")
+        # 設置第二個下拉選單的值
+        r_address_city.set(selected_zip_code)
+    #################
 
 
     # 家用電話
     label(student_all, text='市話').grid(row=0, column=2, sticky='ws', padx=(10,0))
-    entry(student_all).grid(row=1, column=2, columnspan=2, sticky='wen', padx=10)
+    home_phone = entry(student_all)
+    home_phone.grid(row=1, column=2, columnspan=2, sticky='wen', padx=10)
 
     # 性別
     label(student_all, text='性別').grid(row=2, column=2, sticky='ws', padx=(10,0), pady=(20,0))
-    combobox(student_all, values=['男', '女']).grid(row=3, column=2, sticky='wen', padx=10)
+    gender = combobox(student_all, values=['男', '女'])
+    gender.grid(row=3, column=2, sticky='wen', padx=10)
+    gender.set('')
 
     # 學歷 
     label(student_all, text='學歷').grid(row=2, column=3, sticky='ws', pady=(20,0))
-    combobox(student_all, values=['國中', '高中', '大學']).grid(row=3, column=3, sticky='wen', padx=(0,10))
+    education = combobox(student_all, values=['學前教育','國小','國中','高中','專科','大學','碩士','博士'])
+    education.grid(row=3, column=3, sticky='wen', padx=(0,10))
+    education.set('')
 
-    ######
-    # 獲取教練資料
+    # 獲取教練資料 ####
     instructor_numbers, instructor_names, instructor_dict = get_instructor_data()
-
     # 指導教練
     label(student_all, text='指導教練').grid(row=4, column=2, sticky='ws', padx=(10,0), pady=(20,0))
     instructor_number = combobox(student_all, values=instructor_numbers, command=lambda x: on_instructor_number_changed(x, instructor_name, instructor_dict))
     instructor_number.grid(row=5, column=2, sticky='wen', padx=10)
     instructor_name = combobox(student_all, values=instructor_names)
     instructor_name.grid(row=5, column=3, sticky='wen', padx=(0,10))
+    instructor_number.set('')
+    instructor_name.set('')
 
     # 監聽第一個下拉選單的變化
     def on_instructor_number_changed(selected_number, instructor_name, instructor_dict):
@@ -166,7 +150,7 @@ def student_all(content):
         selected_name = instructor_dict.get(selected_number, "")
         # 設置第二個下拉選單的值
         instructor_name.set(selected_name)
-    ######
+    #################
     
     # 信箱
     label(student_all, text='信箱').grid(row=6, column=2, sticky='ws', padx=(10,0), pady=(20,0))
@@ -178,15 +162,29 @@ def student_all(content):
     remarks = entry(student_all)
     remarks.grid(row=9, column=2, columnspan=2, sticky='wen', padx=10)
 
-    # 通訊地址 ####
+    # 抓取郵遞區號資料 #########
+    m_address_zip_code_lists, m_address_city_lists, m_address_dict = address_data()
+    # 通訊地址 ######
     label(student_all, text='通訊地址').grid(row=10, column=2, sticky='ws', padx=(10,0), pady=(20,0))
     # 郵遞區號
-    combobox(student_all,  values=['231', '116']).grid(row=11, column=2, sticky='wen', padx=10)
+    m_address_zip_code_list = combobox(student_all,  values = m_address_zip_code_lists, command=lambda x: auto_event_m_address(x, m_address_city_list, m_address_dict))
+    m_address_zip_code_list.grid(row=11, column=2, sticky='wen', padx=10)
     # 縣市區域
-    combobox(student_all, values=['台北市中山區', '新北市新店區']).grid(row=11, column=3, sticky='wen', padx=(0,10))
+    m_address_city_list = combobox(student_all, values = m_address_city_lists)
+    m_address_city_list.grid(row=11, column=3, sticky='wen', padx=(0,10))
     # 地址
     m_address = entry(student_all)
     m_address.grid(row=12, column=2, columnspan=2, sticky='wen', padx=10)
+    m_address_zip_code_list.set('')
+    m_address_city_list.set('')
+
+    # 監聽第一個下拉選單的變化
+    def auto_event_m_address(zip_code_list, m_address_city, address_dict):
+        # 根據郵遞區號獲取城市
+        selected_zip_code = address_dict.get(zip_code_list, "")
+        # 設置第二個下拉選單的值
+        m_address_city.set(selected_zip_code)
+    #################
     
 
     # 點擊按鈕觸發事件，並顯示隱藏的控件顯示學員資料
@@ -223,7 +221,11 @@ def student_all(content):
 
 
     # 新增，修改，刪除，查詢 -- 按鈕
-    btn(student_all, text='新增', command=lambda: None).grid(row=13, column=0, sticky='wen', padx=10, pady=20)
-    btn(student_all, text='查詢', command=click_btn).grid(row=13, column=1, sticky='wen', padx=(0,10), pady=20)
-    btn(student_all, text='修改', command=lambda: None).grid(row=13, column=2, sticky='wen', padx=10, pady=20)
-    btn(student_all, text='刪除', command=lambda: None).grid(row=13, column=3, sticky='wen', padx=(0,10), pady=20)
+    add_btn(student_all, text='新增', command=lambda: None).grid(row=13, column=0, sticky='wen', padx=10, pady=20)
+    search_btn(student_all, text='查詢', command=click_btn).grid(row=13, column=1, sticky='wen', padx=(0,10), pady=20)
+    modify_btn(student_all, text='修改', command=lambda: None).grid(row=13, column=2, sticky='wen', padx=10, pady=20)
+    delete_btn(student_all, text='刪除', command=lambda: None).grid(row=13, column=3, sticky='wen', padx=(0,10), pady=20)
+
+    student_data_value = {
+    'training_type_code': training_type_code.get(),
+}

@@ -59,7 +59,7 @@ def  driving_test_roster(content):
     combobox(driving_test_roster, values=['1', '2', '3']).grid(row=10, column=2, columnspan=2, sticky='wen',padx=10)
 
     # 新增按鈕
-    btn(driving_test_roster, text='新增', command=lambda: None).grid(row=11, column=0, columnspan=2, sticky='wen', padx=(10,0), pady=(20,0))
+    add_btn(driving_test_roster, text='新增', command=lambda: None).grid(row=11, column=0, columnspan=2, sticky='wen', padx=(10,0), pady=(20,0))
 
     # 修改按鈕
     btn(driving_test_roster, text='修改', command=lambda: None).grid(row=11, column=2, columnspan=2, sticky='wen', padx=10, pady=(20,0))

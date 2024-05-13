@@ -67,7 +67,7 @@ def annual_plan_term(content):
     term = entry(annual_plan_term)
     term.grid(row=5, column=0, columnspan=2, sticky='wen', padx=10)
     
-    # 梯次（抓取資料庫呈現）
+    # 梯次
     label(annual_plan_term, text='梯次').grid(row=0, column=2, sticky='ws', padx=(10,0))
     batch = combobox(annual_plan_term, values=['A', 'B'])
     batch.grid(row=1, column=2, sticky='wen', padx=10)
@@ -193,7 +193,7 @@ def annual_plan_term(content):
 
     
     # 新增，刪除，匯出文件 按鈕
-    btn(annual_plan_term, text='新增', command=add_btn_click).grid(row=6, column=0, columnspan=2, sticky='wen', padx=10, pady=20)
+    add_btn(annual_plan_term, text='新增', command=add_btn_click).grid(row=6, column=1, sticky='wen', padx=10, pady=20)
     # btn(annual_plan_term, text='修改', command=modify_btn_click).grid(row=6, column=2, sticky='wen', padx=10, pady=20)
     delete_btn(annual_plan_term, text='刪除', command=lambda: delete_btn_click(data_list)).grid(row=6, column=2, sticky='wen', padx=10, pady=20)
     export_btn(annual_plan_term, text='匯出文件', command=lambda: export_selected_data(data_list)).grid(row=6, column=3, sticky='wen', padx=10, pady=20)

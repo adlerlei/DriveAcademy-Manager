@@ -59,7 +59,7 @@ def written_exam_roster(content):
     display_entry_value(written_exam_roster).grid(row=10, column=2, columnspan=2, sticky='wen',padx=10)
 
     # 新增按鈕
-    btn(written_exam_roster, text='新增', command=lambda: None).grid(row=11, column=0, columnspan=2, sticky='wen', padx=(10,0), pady=(20,0))
+    add_btn(written_exam_roster, text='新增', command=lambda: None).grid(row=11, column=0, columnspan=2, sticky='wen', padx=(10,0), pady=(20,0))
 
     # 修改按鈕
     btn(written_exam_roster, text='修改', command=lambda: None).grid(row=11, column=2, columnspan=2, sticky='wen', padx=10, pady=(20,0))

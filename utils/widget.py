@@ -35,13 +35,25 @@ def disable_all_menu_buttons(buttons):
             disable_menu_btn(button)
 
 
-# 按鈕
-def btn(frame, text, command):
+# 新增按鈕
+def add_btn(frame, text, command):
     button = ck.CTkButton( 
         frame, 
         text = text,
         height = 40,
         fg_color = '#669bbc', 
+        font = create_font(), 
+        command = command
+        )
+    return button
+
+# 修改按鈕
+def modify_btn(frame, text, command):
+    button = ck.CTkButton( 
+        frame, 
+        text = text,
+        height = 40,
+        fg_color = '#a09382', 
         font = create_font(), 
         command = command
         )
@@ -54,6 +66,30 @@ def delete_btn(frame, text, command):
         text = text,
         height = 40,
         fg_color = '#E0645D', 
+        font = create_font(), 
+        command = command
+        )
+    return button
+
+# 查詢按鈕
+def search_btn(frame, text, command):
+    button = ck.CTkButton( 
+        frame, 
+        text = text,
+        height = 40,
+        fg_color = '#edafb8', 
+        font = create_font(), 
+        command = command
+        )
+    return button
+
+# 登入，註冊 按鈕
+def btn(frame, text, command):
+    button = ck.CTkButton( 
+        frame, 
+        text = text,
+        height = 40,
+        fg_color = '#669bbc', 
         font = create_font(), 
         command = command
         )

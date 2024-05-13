@@ -83,11 +83,11 @@ def instructor_all(content):
     entry(instructor_all).grid(row=16, column=2, sticky='wen', columnspan=2, padx=10)
 
     # 新增
-    btn(instructor_all, text="新增", command=lambda: print("新增")).grid(row=17, column=0, sticky='wen', padx=10, pady=10)
+    add_btn(instructor_all, text="新增", command=lambda: print("新增")).grid(row=17, column=0, sticky='wen', padx=10, pady=10)
     # 修改
     btn(instructor_all, text="修改", command=lambda: print("修改")).grid(row=17, column=2, sticky='wen', padx=10, pady=10)
     # 刪除
-    btn(instructor_all, text="刪除", command=lambda: print("刪除")).grid(row=17, column=3, sticky='wen', padx=10, pady=10)
+    delete_btn(instructor_all, text="刪除", command=lambda: print("刪除")).grid(row=17, column=3, sticky='wen', padx=10, pady=10)
 
     # 資料顯示區
     data_list = ttk.Treeview(instructor_all, columns=('id', 'name', 'instructor_num', 'birth_date', 'city_phone', 'cell_phone', 'email', 'instructor_id', 'license_type', 'license_number', 'basic_salary', 'hire_date', 'leave_date', 'comment', 'home_address', 'communication_address'), show='headings')
