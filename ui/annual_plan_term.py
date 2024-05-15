@@ -71,6 +71,7 @@ def annual_plan_term(content):
     label(annual_plan_term, text='梯次').grid(row=0, column=2, sticky='ws', padx=(10,0))
     batch = combobox(annual_plan_term, values=['A', 'B'])
     batch.grid(row=1, column=2, sticky='wen', padx=10)
+    batch.set('')
 
     # 上課期別代碼
     label(annual_plan_term, text='上課期別代碼').grid(row=0, column=3, sticky='ws', padx=(10,0))

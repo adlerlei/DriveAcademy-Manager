@@ -22,22 +22,21 @@ def student_all(content):
     
     
     # 訓練班別 ######
-    # training_type_codes = ['1', '2', '3', '4', '5', '6', '7', '8']
-    # training_type_names = ['普通小型車班', '大貨車班', '大客車班', '聯結車班', '職業小型車班', '普通重機車班', '大型重機車班', '小型車逕升大客車班']
-    # training_type_dict = dict(zip(training_type_codes, training_type_names))
+    training_type_codes = ['1', '2', '3', '4', '5', '6', '7', '8']
+    training_type_names = ['普通小型車班', '大貨車班', '大客車班', '聯結車班', '職業小型車班', '普通重機車班', '大型重機車班', '小型車逕升大客車班']
+    training_type_dict = dict(zip(training_type_codes, training_type_names))
     label(student_all, text='訓練班別').grid(row=0, column=0, sticky='ws', padx=(10,0), pady=(10,0))
-    # training_type_code = combobox(student_all, command=lambda x: on_training_type_code_changed(x, training_type_name, training_type_dict))
-    training_type_code = combobox(student_all)
+    training_type_code = combobox(student_all, values=training_type_codes, command=lambda x: on_training_type_code_changed(x, training_type_name, training_type_dict))
     training_type_code.grid(row=1, column=0, sticky='wen', padx=10)
-    training_type_name = combobox(student_all)
+    training_type_name = combobox(student_all, values=training_type_names)
     training_type_name.grid(row=1, column=1, sticky='wen', padx=10)
 
     # 監聽訓練班別第一個下拉選單的變化
-    # def on_training_type_code_changed(selected_code, training_type_name, training_type_dict):
-    #     # 根據訓練班別代碼獲取訓練班別名稱
-    #     selected_name = training_type_dict.get(selected_code, "")
-    #     # 設置第二個下拉選單的值
-    #     training_type_name.set(selected_name)
+    def on_training_type_code_changed(selected_code, training_type_name, training_type_dict):
+        # 根據訓練班別代碼獲取訓練班別名稱
+        selected_name = training_type_dict.get(selected_code, "")
+        # 設置第二個下拉選單的值
+        training_type_name.set(selected_name)
     #################
 
     # 考照類別 ######

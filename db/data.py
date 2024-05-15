@@ -25,7 +25,6 @@ CREATE TABLE IF NOT EXISTS student (
     id INTEGER PRIMARY KEY AUTOINCREMENT, -- id主鍵自增
     license_type_code VARCHAR, -- 考照類別編號
     license_type_name VARCHAR, -- 考照類別名稱
-
     student_number VARCHAR, -- 學員編號
     student_name VARCHAR, -- 學員姓名
     birth_date VARCHAR, -- 出生日期
