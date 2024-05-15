@@ -32,7 +32,7 @@ def fetch_and_populate_treeview(treeview):
     conn = sqlite3.connect(database_path)
     c = conn.cursor()
 
-    # 執行 SQL 查詢
+    # 執行 SQL 查詢f
     c.execute("SELECT rowid, * FROM annual_plan")
     results = c.fetchall()
 
@@ -67,8 +67,6 @@ def delete_btn_click(treeview):
         fetch_and_populate_treeview(treeview)
     except Exception as e:
         messagebox.showerror("錯誤", str(e))
-
-
 
 
 # 從資料庫中刪除記錄
