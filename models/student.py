@@ -63,4 +63,5 @@ def get_instructor_data():
 
 
 # student_all.py 用戶輸入寫入資料表中
-# def insert_student_data(student_number, student_name, student_gender, student_birthday, student_email, student_phone, student_address_zip_code, student_instructor_number):
+def insert_student_data():
+    pass

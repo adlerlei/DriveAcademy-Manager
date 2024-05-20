@@ -219,6 +219,11 @@ def student_all(content):
 
             checkbox_added = True
 
+    
+    # 獲取輸入欄位信息
+    def get_data_and_insert():
+        pass
+
 
     # 新增，修改，刪除，查詢 -- 按鈕
     add_btn(student_all, text='新增', command=lambda: None).grid(row=13, column=0, sticky='wen', padx=10, pady=20)

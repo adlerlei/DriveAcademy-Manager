@@ -43,6 +43,8 @@ CREATE TABLE IF NOT EXISTS student (
     r_address_zip_code VARCHAR -- 戶籍地址郵遞區號
     r_address_city VARCHAR -- 戶籍地址縣市區域
     r_address VARCHAR, -- 戶籍地址
+    m_address_zip_code VARCHAR -- 通訊地址郵遞區號
+    m_address_city VARCHAR -- 通訊地址縣市區域
     m_address VARCHAR, -- 通訊地址
     learner_permit_date VARCHAR, -- 學照日期
     learner_permit_number VARCHAR, -- 學照號碼
@@ -52,7 +54,7 @@ CREATE TABLE IF NOT EXISTS student (
     transmission_type_code VARCHAR, -- 手自排類別編號
     transmission_type_name VARCHAR, -- 手自排類別名稱
     dropout VARCHAR, -- 是否退訓
-    register_number VARCHAR, -- 名冊號碼（期別增加修改為名冊號碼）
+    register_number VARCHAR, -- 名冊號碼
     written_exam_date VARCHAR, -- 筆試日期
     session_number VARCHAR, -- 場次
     road_test_date VARCHAR, -- 路試日期
