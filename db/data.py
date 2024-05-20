@@ -25,16 +25,23 @@ CREATE TABLE IF NOT EXISTS student (
     id INTEGER PRIMARY KEY AUTOINCREMENT, -- id主鍵自增
     license_type_code VARCHAR, -- 考照類別編號
     license_type_name VARCHAR, -- 考照類別名稱
+    training_type_code VARCHAR, -- 訓練班別代號
+    training_type_name VARCHAR, -- 訓練班別名稱
     student_number VARCHAR, -- 學員編號
     student_name VARCHAR, -- 學員姓名
+    batch VARCHAR, -- 梯次
     birth_date VARCHAR, -- 出生日期
     national_id_no VARCHAR, -- 身分證字號
     mobile_phone VARCHAR, -- 手機
     home_phone VARCHAR, -- 市話
     education VARCHAR, -- 學歷
+    instructor_number VARCHAR. -- 指導教練編號
+    instructor_name VARCHAR. -- 指導教練名稱
     gender VARCHAR, -- 性別
     email VARCHAR, -- 信箱
     remarks TEXT, -- 備註
+    r_address_zip_code VARCHAR -- 戶籍地址郵遞區號
+    r_address_city VARCHAR -- 戶籍地址縣市區域
     r_address VARCHAR, -- 戶籍地址
     m_address VARCHAR, -- 通訊地址
     learner_permit_date VARCHAR, -- 學照日期

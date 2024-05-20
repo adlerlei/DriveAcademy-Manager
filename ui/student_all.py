@@ -72,8 +72,8 @@ def student_all(content):
 
     # 學員姓名
     label(student_all, text='學員姓名').grid(row=6, column=0, sticky='ws', padx=(10,0), pady=(20,0 ))
-    name = entry(student_all)
-    name.grid(row=7, column=0, sticky='wen', padx=10)
+    student_name = entry(student_all)
+    student_name.grid(row=7, column=0, sticky='wen', padx=10)
 
     # 身分證號碼
     label(student_all, text='身分證號碼').grid(row=6, column=1, sticky='ws', pady=(20,0))
@@ -96,16 +96,16 @@ def student_all(content):
     # 戶籍地址 ######
     label(student_all, text='戶籍地址').grid(row=10, column=0, sticky='ws', padx=(10,0), pady=(20,0))
     # 郵遞區號
-    r_address_zip_code_list = combobox(student_all, values = r_address_zip_code_lists, command=lambda x: auto_event_r_address(x, r_address_city_list, r_address_dict))
-    r_address_zip_code_list.grid(row=11, column=0, sticky='wen', padx=10)
+    r_address_zip_code = combobox(student_all, values = r_address_zip_code_lists, command=lambda x: auto_event_r_address(x, r_address_city, r_address_dict))
+    r_address_zip_code.grid(row=11, column=0, sticky='wen', padx=10)
     # 縣市區域
-    r_address_city_list = combobox(student_all, values = r_address_city_lists)
-    r_address_city_list.grid(row=11, column=1, sticky='wen', padx=(0,10))
+    r_address_city = combobox(student_all, values = r_address_city_lists)
+    r_address_city.grid(row=11, column=1, sticky='wen', padx=(0,10))
     # 地址
     r_address = entry(student_all)
     r_address.grid(row=12, column=0, columnspan=2, sticky='wen', padx=10)
-    r_address_zip_code_list.set('')
-    r_address_city_list.set('')
+    r_address_zip_code.set('')
+    r_address_city.set('')
 
     # 監聽第一個下拉選單的變化
     def auto_event_r_address(zip_code_list, r_address_city, address_dict):
