@@ -23,7 +23,7 @@ def insert_annual_plan_data(year, term, term_class_code, batch, training_type_co
     conn.commit()
     conn.close()
 
-    messagebox.showinfo("成功", "已新增期別資料！") 
+    messagebox.showinfo("成功", "已新增期別資料！")
 
 
 # 讀取年度計畫表資料
