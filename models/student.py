@@ -63,5 +63,29 @@ def get_instructor_data():
 
 
 # student_all.py 用戶輸入寫入資料表中
-def insert_student_data():
-    pass
+# student_all.py 用戶輸入寫入資料表中
+def insert_student_data(data):
+    conn = sqlite3.connect(database_path)
+    cursor = conn.cursor()
+
+    # 寫入資料庫
+    cursor.execute('''
+        INSERT INTO student (
+            training_type_code, training_type_name, license_type_code, license_type_name,
+            student_number, batch, student_name, national_id_no, birth_date, mobile_phone,
+            r_address_zip_code, r_address_city, r_address, home_phone, gender, education,
+            instructor_number, instructor_name, email, remarks, m_address_zip_code,
+            m_address_city, m_address
+        ) VALUES (
+            :training_type_code, :training_type_name, :license_type_code, :license_type_name,
+            :student_number, :batch, :student_name, :national_id_no, :birth_date, :mobile_phone,
+            :r_address_zip_code, :r_address_city, :r_address, :home_phone, :gender, :education,
+            :instructor_number, :instructor_name, :email, :remarks, :m_address_zip_code,
+            :m_address_city, :m_address
+        )
+    ''', data)
+
+    conn.commit()
+    conn.close()
+
+    messagebox.showinfo("成功", "已新增學員資料！")

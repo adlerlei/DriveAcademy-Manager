@@ -35,16 +35,16 @@ CREATE TABLE IF NOT EXISTS student (
     mobile_phone VARCHAR, -- 手機
     home_phone VARCHAR, -- 市話
     education VARCHAR, -- 學歷
-    instructor_number VARCHAR. -- 指導教練編號
-    instructor_name VARCHAR. -- 指導教練名稱
+    instructor_number VARCHAR, -- 指導教練編號
+    instructor_name VARCHAR, -- 指導教練名稱
     gender VARCHAR, -- 性別
     email VARCHAR, -- 信箱
     remarks TEXT, -- 備註
-    r_address_zip_code VARCHAR -- 戶籍地址郵遞區號
-    r_address_city VARCHAR -- 戶籍地址縣市區域
+    r_address_zip_code VARCHAR, -- 戶籍地址郵遞區號
+    r_address_city VARCHAR, -- 戶籍地址縣市區域
     r_address VARCHAR, -- 戶籍地址
-    m_address_zip_code VARCHAR -- 通訊地址郵遞區號
-    m_address_city VARCHAR -- 通訊地址縣市區域
+    m_address_zip_code VARCHAR, -- 通訊地址郵遞區號
+    m_address_city VARCHAR, -- 通訊地址縣市區域
     m_address VARCHAR, -- 通訊地址
     learner_permit_date VARCHAR, -- 學照日期
     learner_permit_number VARCHAR, -- 學照號碼

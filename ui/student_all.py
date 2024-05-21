@@ -1,7 +1,7 @@
 # 學員新增 - 修改 - 刪除 - 查詢
 from utils.widget import *
 from utils.config import *
-from models.student import get_instructor_data, address_data
+from models.student import get_instructor_data, address_data, insert_student_data
 from tkinter import messagebox
 import customtkinter as ctk
 
@@ -167,16 +167,16 @@ def student_all(content):
     # 通訊地址 ######
     label(student_all, text='通訊地址').grid(row=10, column=2, sticky='ws', padx=(10,0), pady=(20,0))
     # 郵遞區號
-    m_address_zip_code_list = combobox(student_all,  values = m_address_zip_code_lists, command=lambda x: auto_event_m_address(x, m_address_city_list, m_address_dict))
-    m_address_zip_code_list.grid(row=11, column=2, sticky='wen', padx=10)
+    m_address_zip_code = combobox(student_all,  values = m_address_zip_code_lists, command=lambda x: auto_event_m_address(x, m_address_city, m_address_dict))
+    m_address_zip_code.grid(row=11, column=2, sticky='wen', padx=10)
     # 縣市區域
-    m_address_city_list = combobox(student_all, values = m_address_city_lists)
-    m_address_city_list.grid(row=11, column=3, sticky='wen', padx=(0,10))
+    m_address_city = combobox(student_all, values = m_address_city_lists)
+    m_address_city.grid(row=11, column=3, sticky='wen', padx=(0,10))
     # 地址
     m_address = entry(student_all)
     m_address.grid(row=12, column=2, columnspan=2, sticky='wen', padx=10)
-    m_address_zip_code_list.set('')
-    m_address_city_list.set('')
+    m_address_zip_code.set('')
+    m_address_city.set('')
 
     # 監聽第一個下拉選單的變化
     def auto_event_m_address(zip_code_list, m_address_city, address_dict):
@@ -222,11 +222,38 @@ def student_all(content):
     
     # 獲取輸入欄位信息
     def get_data_and_insert():
-        pass
+        # 獲取用戶輸入 entry 的值
+        student_data = {
+            'training_type_code': training_type_code.get(),
+            'training_type_name': training_type_name.get(),
+            'license_type_code': license_type_code.get(),
+            'license_type_name': license_type_name.get(),
+            'student_number': student_number.get(),
+            'batch': batch.get(),
+            'student_name': student_name.get(),
+            'national_id_no': national_id_no.get(),
+            'birth_date': birth_date.get(),
+            'mobile_phone': mobile_phone.get(),
+            'r_address_zip_code': r_address_zip_code.get(),
+            'r_address_city': r_address_city.get(),
+            'r_address': r_address.get(),
+            'home_phone': home_phone.get(),
+            'gender': gender.get(),
+            'education': education.get(),
+            'instructor_number': instructor_number.get(),
+            'instructor_name': instructor_name.get(),
+            'email': email.get(),
+            'remarks': remarks.get(),
+            'm_address_zip_code': m_address_zip_code.get(),
+            'm_address_city': m_address_city.get(),
+            'm_address': m_address.get()
+        }
+        # 寫入資料庫
+        insert_student_data(student_data)
 
 
     # 新增，修改，刪除，查詢 -- 按鈕
-    add_btn(student_all, text='新增', command=lambda: None).grid(row=13, column=0, sticky='wen', padx=10, pady=20)
+    add_btn(student_all, text='新增', command=get_data_and_insert).grid(row=13, column=0, sticky='wen', padx=10, pady=20)
     search_btn(student_all, text='查詢', command=click_btn).grid(row=13, column=1, sticky='wen', padx=(0,10), pady=20)
     modify_btn(student_all, text='修改', command=lambda: None).grid(row=13, column=2, sticky='wen', padx=10, pady=20)
     delete_btn(student_all, text='刪除', command=lambda: None).grid(row=13, column=3, sticky='wen', padx=(0,10), pady=20)
