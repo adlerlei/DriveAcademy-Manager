@@ -32,7 +32,7 @@ def fetch_and_populate_treeview(treeview):
     conn = sqlite3.connect(database_path)
     c = conn.cursor()
 
-    # 執行 SQL 查詢f
+    # 執行 SQL 查詢
     c.execute("SELECT rowid, * FROM annual_plan")
     results = c.fetchall()
 
