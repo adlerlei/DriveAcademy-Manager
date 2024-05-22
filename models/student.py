@@ -63,7 +63,6 @@ def get_instructor_data():
 
 
 # student_all.py 用戶輸入寫入資料表中
-# student_all.py 用戶輸入寫入資料表中
 def insert_student_data(data):
     conn = sqlite3.connect(database_path)
     cursor = conn.cursor()

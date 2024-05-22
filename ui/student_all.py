@@ -250,6 +250,26 @@ def student_all(content):
         }
         # 寫入資料庫
         insert_student_data(student_data)
+        # 清空 entry 的值
+        student_number.delete(0, ctk.END)
+        student_name.delete(0, ctk.END)
+        national_id_no.delete(0, ctk.END)
+        birth_date.delete(0, ctk.END)
+        batch.set('')
+        mobile_phone.delete(0, ctk.END)
+        r_address_zip_code.set('')
+        r_address_city.set('')
+        r_address.delete(0, ctk.END)
+        home_phone.delete(0, ctk.END)
+        gender.set('')
+        education.set('')
+        instructor_number.set('')
+        instructor_name.set('')
+        email.delete(0, ctk.END)
+        remarks.delete(0, ctk.END)
+        m_address_zip_code.set('')
+        m_address_city.set('')
+        m_address.delete(0, ctk.END)
 
 
     # 新增，修改，刪除，查詢 -- 按鈕
