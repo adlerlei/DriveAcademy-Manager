@@ -217,7 +217,6 @@ def student_all(content):
             m_address.insert(0, student_data[23])
 
     # 獲取輸入欄位信息
-    # 修改 get_data_and_insert 函數
     def get_data_and_insert():
         global is_editing, current_student_id
         student_data = {
@@ -245,6 +244,17 @@ def student_all(content):
             'm_address_city': m_address_city.get(),
             'm_address': m_address.get()
         }
+
+        # 驗證必填欄位是否為空
+        required_fields = ['training_type_code', 'training_type_name', 'license_type_code', 'license_type_name', 
+                        'student_number', 'student_name', 'national_id_no', 'birth_date', 'mobile_phone',
+                        'r_address_zip_code', 'r_address_city', 'r_address', 'home_phone', 'gender', 
+                        'education', 'instructor_number', 'instructor_name', 'email', 'm_address_zip_code',
+                        'm_address_city', 'm_address']
+        for field in required_fields:
+            if not student_data[field]:
+                messagebox.showwarning('提示', f'{field} 欄位不能為空！')
+                return
         
         if is_editing:
             # 如果是編輯模式，提示使用者無法新增
