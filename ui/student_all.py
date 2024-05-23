@@ -303,7 +303,7 @@ def student_all(content):
 
         # 清空所有 Entry 和 Combobox 的值
         clear_entries_and_comboboxes(student_all)
-
+ 
     # 修改按鈕配置
     add_btn(student_all, text='新增', command=get_data_and_insert).grid(row=13, column=0, sticky='wen', padx=10, pady=20)
     search_btn(student_all, text='查詢', command=click_btn).grid(row=13, column=1, sticky='wen', padx=(0,10), pady=20)

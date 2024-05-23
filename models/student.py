@@ -5,6 +5,34 @@ from tkinter import messagebox
 # 資料庫路徑
 database_path = os.path.join(os.path.dirname(__file__), '..', 'db', 'driving_school.db')
 
+# 驗證學員資料輸入欄位
+validation_fields = {
+    'training_type_code': '訓練班別代碼',
+    'training_type_name': '訓練班別名稱',
+    'license_type_code': '考照類別代碼',
+    'license_type_name': '考照類別名稱',
+    'student_number': '學員編號',
+    'batch': '梯次',
+    'student_name': '學員姓名',
+    'national_id_no': '身分證號碼',
+    'birth_date': '出生日期',
+    'mobile_phone': '行動電話',
+    'r_address_zip_code': '戶籍地址郵遞區號',
+    'r_address_city': '戶籍地址縣市',
+    'r_address': '戶籍地址',
+    'home_phone': '家用電話',
+    'gender': '性別',
+    'education': '學歷',
+    'instructor_number': '指導教練編號',
+    'instructor_name': '指導教練名稱',
+    'email': '電子郵件',
+    'remarks': '備註',
+    'm_address_zip_code': '通訊地址郵遞區號',
+    'm_address_city': '通訊地址縣市',
+    'm_address': '通訊地址'
+}
+
+
 # 抓取郵局地址信息資料表
 def address_data():
     conn = sqlite3.connect(database_path)
@@ -28,6 +56,7 @@ def address_data():
 
     return address_zip_code_lists, address_city_lists, address_dict
 
+
 # 抓取教練資料表（編號，名稱）下拉選單監聽
 def get_instructor_data():
     conn = sqlite3.connect(database_path)
@@ -48,6 +77,7 @@ def get_instructor_data():
         instructor_dict[item[0]] = item[1]
 
     return instructor_numbers, instructor_names, instructor_dict
+
 
 # student_all.py 用戶輸入寫入資料表中
 def insert_student_data(data):
@@ -74,6 +104,7 @@ def insert_student_data(data):
     conn.close()
     messagebox.showinfo('訊息', '已新增學員資料！')
 
+
 # 根據指定的條件查詢學員資料
 def get_student_data(identifier, value):
     conn = sqlite3.connect(database_path)
@@ -85,6 +116,7 @@ def get_student_data(identifier, value):
     
     conn.close()
     return result
+
 
 # 更新學員資料
 def update_student_data(data):
