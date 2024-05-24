@@ -16,20 +16,20 @@ validation_fields = {
     'student_name': '學員姓名',
     'national_id_no': '身分證號碼',
     'birth_date': '出生日期',
-    'mobile_phone': '行動電話',
+    # 'mobile_phone': '行動電話',
     'r_address_zip_code': '戶籍地址郵遞區號',
     'r_address_city': '戶籍地址縣市',
     'r_address': '戶籍地址',
-    'home_phone': '家用電話',
-    'gender': '性別',
-    'education': '學歷',
-    'instructor_number': '指導教練編號',
-    'instructor_name': '指導教練名稱',
-    'email': '電子郵件',
-    'remarks': '備註',
-    'm_address_zip_code': '通訊地址郵遞區號',
-    'm_address_city': '通訊地址縣市',
-    'm_address': '通訊地址'
+    # 'home_phone': '家用電話',
+    # 'gender': '性別',
+    # 'education': '學歷',
+    # 'instructor_number': '指導教練編號',
+    # 'instructor_name': '指導教練名稱',
+    # 'email': '電子郵件',
+    # 'remarks': '備註',
+    # 'm_address_zip_code': '通訊地址郵遞區號',
+    # 'm_address_city': '通訊地址縣市',
+    # 'm_address': '通訊地址'
 }
 
 
@@ -154,3 +154,15 @@ def update_student_data(data):
     conn.commit()
     conn.close()
     messagebox.showinfo('訊息', '已更新學員資料！')
+
+
+# 刪除學員資料
+def delete_student_data(student_id):
+    conn = sqlite3.connect(database_path)
+    cursor = conn.cursor()
+
+    cursor.execute('DELETE FROM student WHERE id = ?', (student_id,))
+
+    conn.commit()
+    conn.close()
+    messagebox.showinfo('訊息', '已刪除學員資料！')

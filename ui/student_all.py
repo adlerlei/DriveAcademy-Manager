@@ -1,6 +1,6 @@
 from utils.widget import *
 from utils.config import *
-from models.student import get_instructor_data, address_data, insert_student_data, get_student_data, update_student_data
+from models.student import *
 from tkinter import messagebox
 import customtkinter as ctk
 
@@ -29,7 +29,7 @@ def student_all(content):
     training_type_code = combobox(student_all, values=training_type_codes, command=lambda x: on_training_type_code_changed(x, training_type_name, training_type_dict))
     training_type_code.grid(row=1, column=0, sticky='wen', padx=10)
     training_type_name = combobox(student_all, values=training_type_names)
-    training_type_name.grid(row=1, column=1, sticky='wen', padx=10)
+    training_type_name.grid(row=1, column=1, sticky='wen', padx=(0,10))
 
     def on_training_type_code_changed(selected_code, training_type_name, training_type_dict):
         selected_name = training_type_dict.get(selected_code, "")
@@ -245,19 +245,18 @@ def student_all(content):
             'm_address': m_address.get()
         }
 
+
         # 驗證必填欄位是否為空
         required_fields = ['training_type_code', 'training_type_name', 'license_type_code', 'license_type_name', 
-                        'student_number', 'student_name', 'national_id_no', 'birth_date', 'mobile_phone',
-                        'r_address_zip_code', 'r_address_city', 'r_address', 'home_phone', 'gender', 
-                        'education', 'instructor_number', 'instructor_name', 'email', 'm_address_zip_code',
-                        'm_address_city', 'm_address']
+                        'student_number', 'student_name', 'batch', 'national_id_no', 'birth_date','r_address_zip_code', 'r_address_city', 'r_address', 'email']
         for field in required_fields:
             if not student_data[field]:
-                messagebox.showwarning('提示', f'{field} 欄位不能為空！')
+                messagebox.showwarning('提示', f'{validation_fields[field]} 欄位不能為空！')
                 return
         
+
+        # 如果是編輯模式，提示使用者無法新增
         if is_editing:
-            # 如果是編輯模式，提示使用者無法新增
             messagebox.showinfo('提示', '無法新增學員，請使用更新功能。')
             return
 
@@ -268,7 +267,8 @@ def student_all(content):
         # 清空所有 Entry 和 Combobox 的值
         clear_entries_and_comboboxes(student_all)
 
-    # 修改修改按鈕的事件處理函數
+
+    # 修改按鈕的事件處理函數
     def update_student():
         global is_editing, current_student_id
         student_data = {
@@ -304,11 +304,28 @@ def student_all(content):
         # 清空所有 Entry 和 Combobox 的值
         clear_entries_and_comboboxes(student_all)
  
+
+    def delete_student():
+        global is_editing, current_student_id
+        if current_student_id:
+            confirm = messagebox.askyesno('確認', '此動作無法還原！確定要刪除此學員？')
+            if confirm:
+                delete_student_data(current_student_id)
+                is_editing = False
+                current_student_id = None
+
+                # 清空所有 entry 和 combobox 的值
+                clear_entries_and_comboboxes(student_all)
+
+        else:
+            messagebox.showwarning('提示', '請先輸入要刪除的學員資料！')
+
+
     # 修改按鈕配置
     add_btn(student_all, text='新增', command=get_data_and_insert).grid(row=13, column=0, sticky='wen', padx=10, pady=20)
     search_btn(student_all, text='查詢', command=click_btn).grid(row=13, column=1, sticky='wen', padx=(0,10), pady=20)
     modify_btn(student_all, text='修改', command=update_student).grid(row=13, column=2, sticky='wen', padx=10, pady=20)
-    delete_btn(student_all, text='刪除', command=lambda: None).grid(row=13, column=3, sticky='wen', padx=(0,10), pady=20)
+    delete_btn(student_all, text='刪除', command=delete_student).grid(row=13, column=3, sticky='wen', padx=(0,10), pady=20)
 
 
 def clear_entries_and_comboboxes(parent):
