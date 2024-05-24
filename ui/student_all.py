@@ -45,9 +45,11 @@ def student_all(content):
     license_type_name = combobox(student_all, values=license_type_names)
     license_type_name.grid(row=3, column=1, sticky='wen', padx=(0,10))
 
+    # 考照類別下拉選單監聽 code 改變時，自動更新 name 名稱
     def on_license_type_code_changed(selected_code, license_type_name, license_type_dict):
         selected_name = license_type_dict.get(selected_code, "")
         license_type_name.set(selected_name)
+
 
     # 學員編號
     label(student_all, text='學員編號').grid(row=4, column=0, sticky='ws', padx=(10,0), pady=(20,0))
@@ -55,11 +57,13 @@ def student_all(content):
     student_number.grid(row=5, column=0, sticky='wen', padx=10)
     student_number.bind("<KeyRelease>", lambda event: populate_student_data('student_number', student_number.get()))
 
+
     # 梯次
     label(student_all, text='梯次').grid(row=4, column=1, sticky='ws', pady=(20,0))
     batch = combobox(student_all, values=['A', 'B'])
     batch.grid(row=5, column=1, sticky='wen', padx=(0,10))
     batch.set('')
+
 
     # 學員姓名
     label(student_all, text='學員姓名').grid(row=6, column=0, sticky='ws', padx=(10,0), pady=(20,0))
@@ -67,22 +71,26 @@ def student_all(content):
     student_name.grid(row=7, column=0, sticky='wen', padx=10)
     student_name.bind("<KeyRelease>", lambda event: populate_student_data('student_name', student_name.get()))
 
+
     # 身分證號碼
     label(student_all, text='身分證號碼').grid(row=6, column=1, sticky='ws', pady=(20,0))
     national_id_no = entry(student_all)
     national_id_no.grid(row=7, column=1, sticky='wen', padx=(0,10))
     national_id_no.bind("<KeyRelease>", lambda event: populate_student_data('national_id_no', national_id_no.get()))
 
+
     # 出生日期
     label(student_all, text='出生日期').grid(row=8, column=0, sticky='ws', padx=(10,0), pady=(20,0))
     birth_date = entry(student_all)
     birth_date.grid(row=9, column=0, sticky='wen', padx=10)
+
 
     # 行動電話
     label(student_all, text='手機').grid(row=8, column=1, sticky='ws', pady=(20,0))
     mobile_phone = entry(student_all)
     mobile_phone.grid(row=9, column=1, sticky='wen', padx=(0,10))
     mobile_phone.bind("<KeyRelease>", lambda event: populate_student_data('mobile_phone', mobile_phone.get()))  # 新增行動電話查詢
+
 
     # 戶籍地址
     r_address_zip_code_lists, r_address_city_lists, r_address_dict = address_data()
@@ -96,14 +104,17 @@ def student_all(content):
     r_address_zip_code.set('')
     r_address_city.set('')
 
+    # 戶籍地址監聽 zip code 改變時，自動更新 city 城市
     def auto_event_r_address(zip_code_list, r_address_city, address_dict):
         selected_zip_code = address_dict.get(zip_code_list, "")
         r_address_city.set(selected_zip_code)
+
 
     # 家用電話
     label(student_all, text='市話').grid(row=0, column=2, sticky='ws', padx=(10,0))
     home_phone = entry(student_all)
     home_phone.grid(row=1, column=2, columnspan=2, sticky='wen', padx=10)
+
 
     # 性別
     label(student_all, text='性別').grid(row=2, column=2, sticky='ws', padx=(10,0), pady=(20,0))
@@ -111,11 +122,13 @@ def student_all(content):
     gender.grid(row=3, column=2, sticky='wen', padx=10)
     gender.set('')
 
+
     # 學歷 
     label(student_all, text='學歷').grid(row=2, column=3, sticky='ws', pady=(20,0))
     education = combobox(student_all, values=['學前教育','國小','國中','高中','專科','大學','碩士','博士'])
     education.grid(row=3, column=3, sticky='wen', padx=(0,10))
     education.set('')
+
 
     # 獲取教練資料
     instructor_numbers, instructor_names, instructor_dict = get_instructor_data()
@@ -127,9 +140,11 @@ def student_all(content):
     instructor_number.set('')
     instructor_name.set('')
 
+    # 指導教練下拉選單監聽 number 改變時，自動更新 name 名稱
     def on_instructor_number_changed(selected_number, instructor_name, instructor_dict):
         selected_name = instructor_dict.get(selected_number, "")
         instructor_name.set(selected_name)
+
 
     # 信箱
     label(student_all, text='信箱').grid(row=6, column=2, sticky='ws', padx=(10,0), pady=(20,0))
@@ -137,10 +152,12 @@ def student_all(content):
     email.grid(row=7, column=2, columnspan=2, sticky='wen', padx=10)
     email.bind("<KeyRelease>", lambda event: populate_student_data('email', email.get()))
 
+
     # 備註
     label(student_all, text='備註').grid(row=8, column=2, sticky='ws', padx=(10,0), pady=(20,0))
     remarks = entry(student_all)
     remarks.grid(row=9, column=2, columnspan=2, sticky='wen', padx=10)
+
 
     # 通訊地址
     m_address_zip_code_lists, m_address_city_lists, m_address_dict = address_data()
@@ -154,9 +171,11 @@ def student_all(content):
     m_address_zip_code.set('')
     m_address_city.set('')
 
+    # 通訊地址監聽 zip code 改變時，自動更新 city 城市
     def auto_event_m_address(zip_code_list, m_address_city, address_dict):
         selected_zip_code = address_dict.get(zip_code_list, "")
         m_address_city.set(selected_zip_code)
+
 
     # 點擊按鈕觸發事件
     def click_btn():
@@ -176,6 +195,8 @@ def student_all(content):
             display_entry_value(student_all, width=7).grid(row=17, column=1, sticky='wen')
             checkbox_added = True
 
+
+    # 學員資料顯示在輸入欄位上
     def populate_student_data(identifier, value):
         global is_editing, current_student_id
         student_data = get_student_data(identifier, value)
@@ -305,6 +326,7 @@ def student_all(content):
         clear_entries_and_comboboxes(student_all)
  
 
+    # 刪除按鈕的事件處理函數
     def delete_student():
         global is_editing, current_student_id
         if current_student_id:
