@@ -8,95 +8,82 @@ from utils.config import *
 def opening_training_roster(content):
     clear_frame(content)
     
-    window_title = label_frame(content, '  開訓名冊資料作業  ', fg=font_color['開結訓名冊'])
-    window_title.pack(fill='x', padx=(20,20), pady=(10,0))
-    
+    opening_training_roster = frame(content)
+    opening_training_roster.columnconfigure(0, weight=1)
+    opening_training_roster.columnconfigure(1, weight=1)
+    opening_training_roster.columnconfigure(2, weight=1)
+    opening_training_roster.columnconfigure(3, weight=1)
+    opening_training_roster.place(relwidth=1, relheight=1)
 
-    row1 = frame(window_title)
-    row1.pack(fill='x', padx=(30, 0), pady=(30, 0))
-    # 學員編號
-    label(row1, text='學員編號：').pack(side='left', padx=(20, 0))
-    entry(row1, width=10).pack(side='left')
+    entry(opening_training_roster,  placeholder_text = "輸入學員編號").grid(row=0, column=0, columnspan=3, sticky='wen', padx=10, pady=(10,0))
     # 搜尋按鈕
-    search_btn(row1, text='搜尋學員信息').pack(side='left', padx=(20, 0))
+    btn(opening_training_roster, text='搜尋學員信息', command=lambda: None).grid(row=0, column=3, sticky='wen', padx=(0,10), pady=(10,0))
     
-    
-    # 學員信息資料顯示
-    row5 = frame(window_title)
-    row5.pack(fill='x', padx=(30, 0), pady=(30, 0))
     # 學員姓名
-    label(row5, text='學員姓名：').pack(side='left', padx=(20,0))
-    display_entry_value(row5, width=10).pack(side='left')
+    label(opening_training_roster, text='學員姓名').grid(row=1, column=0, sticky='ws', padx=(10,0), pady=(50,0))
+    display_entry_value(opening_training_roster).grid(row=2, column=0, sticky='wen', padx=(10,0))
+
     # 顯示學員身分證號碼
-    label(row5, text='身分證號：').pack(side='left', padx=(20, 0))
-    display_entry_value(row5, width=10).pack(side='left')
+    label(opening_training_roster, text='身分證號').grid(row=1, column=1, sticky='ws', padx=(10,0), pady=(10,0))
+    display_entry_value(opening_training_roster).grid(row=2, column=1, sticky='wen', padx=(10,0))
+
     # 名冊號碼
-    label(row5, text='名冊號碼：').pack(side='left', padx=(20, 0))
-    display_entry_value(row5, width=10).pack(side='left')
-    
+    label(opening_training_roster, text='名冊號碼').grid(row=1, column=2, sticky='ws', padx=(10,0), pady=(10,0))
+    display_entry_value(opening_training_roster).grid(row=2, column=2, sticky='wen',padx=(10,0))
 
-    row6 = frame(window_title)
-    row6.pack(fill='x', padx=(30, 0), pady=(20, 0))
-    # 出生日期
-    label(row6, text='出生日期：').pack(side='left', padx=(20, 0))
-    display_entry_value(row6, width=8).pack(side='left')
-    # 學照日期
-    label(row6, text='學照日期：').pack(side='left', padx=(20, 0))
-    display_entry_value(row6, width=8).pack(side='left')
     # 性別
-    label(row6, text='性別：').pack(side='left', padx=(20, 0))
-    display_entry_value(row6, width=8).pack(side='left')
+    label(opening_training_roster, text='性別').grid(row=1, column=3, sticky='ws', padx=(10,0), pady=(10,0))
+    display_entry_value(opening_training_roster).grid(row=2, column=3, sticky='wen',padx=10)
+    
+    # 出生日期
+    label(opening_training_roster, text='出生日期').grid(row=3, column=0, sticky='ws', padx=(10,0), pady=(10,0))
+    display_entry_value(opening_training_roster).grid(row=4, column=0, sticky='wen',padx=(10,0))
+
+    # 學照日期
+    label(opening_training_roster, text='學照日期').grid(row=3, column=1, sticky='ws', padx=(10,0), pady=(10,0))
+    display_entry_value(opening_training_roster).grid(row=4, column=1, sticky='wen',padx=(10,0))
+
     # 梯次
-    label(row6, text='梯次：').pack(side='left', padx=(20, 0))
-    display_entry_value(row6, width=8).pack(side='left')
+    label(opening_training_roster, text='梯次').grid(row=3, column=2, sticky='ws', padx=10, pady=(10,0))
+    display_entry_value(opening_training_roster).grid(row=4, column=2, columnspan=2, sticky='wen',padx=10)
 
-    row7 = frame(window_title)
-    row7.pack(fill='x', padx=(30, 0), pady=(20, 0))
-    # 區號
-    label(row7, text='區號：').pack(side='left', padx=(20, 0))
-    display_entry_value(row7, width=8).pack(side='left')
     # 戶籍地址
-    label(row7, text='戶籍地址：').pack(side='left', padx=(20, 0))
-    display_entry_value(row7, width=45).pack(side='left')
+    label(opening_training_roster, text='戶籍地址').grid(row=5, column=0, sticky='ws', padx=(10,0), pady=(10,0))
+    display_entry_value(opening_training_roster).grid(row=6, column=0, sticky='wen',padx=(10,0))
+    display_entry_value(opening_training_roster).grid(row=6, column=1, sticky='wen',padx=(10,0))
+    display_entry_value(opening_training_roster).grid(row=6, column=2, columnspan=2, sticky='wen',padx=10)
     
+    # 訓練班別
+    label(opening_training_roster, text='訓練班別').grid(row=7, column=0, sticky='ws', padx=(10,0), pady=(50,0))
+    combobox(opening_training_roster, values=['1','2','3']).grid(row=8, column=0, sticky='wen',padx=(10,0))
+    entry(opening_training_roster).grid(row=8, column=1, sticky='wen',padx=(10,0))
 
-    row5 = frame(window_title)
-    row5.pack(fill='x', padx=(30, 0), pady=(30, 0))
-    # 訓練班別（抓取資料庫呈現）
-    label(row5, text='訓練班別：').pack(side='left', padx=(20,0))
-    combobox(row5, width=3, values=['1','2','3']).pack(side='left')
-    entry(row5, width=15).pack(side='left')
     # 名冊期別
-    label(row5, text='名冊期別：').pack(side='left', padx=(20, 0))
-    entry(row5, width=8).pack(side='left')
-    # 梯次下拉選單
-    label(row5, text='梯次：').pack(side='left', padx=(20, 0))
-    combobox(row5, width=3, values=['A', 'B']).pack(side='left')
+    label(opening_training_roster, text='名冊期別').grid(row=7, column=2, sticky='ws', padx=(10,0))
+    entry(opening_training_roster).grid(row=8, column=2, sticky='wen',padx=(10,0))
+
+    # 梯次
+    label(opening_training_roster, text='梯次').grid(row=7, column=3, sticky='ws', padx=(10,0))
+    combobox(opening_training_roster, values=['A', 'B']).grid(row=8, column=3, sticky='wen',padx=10)
     
-
-
-    row6 = frame(window_title)
-    row6.pack(fill='x', padx=(30, 0), pady=(30, 0))
     # 來源 下拉選單
-    label(row6, text='來源：').pack(side='left', padx=(20, 0))
-    combobox(row6, width=3, values=['A', 'B']).pack(side='left')
+    label(opening_training_roster, text='來源').grid(row=9, column=0, sticky='ws', padx=(10,0), pady=(10,0))
+    combobox(opening_training_roster, values=['A', 'B']).grid(row=10, column=0, sticky='wen',padx=(10,0))
+
     # 手自排 下拉選單
-    label(row6, text='手自排：').pack(side='left', padx=(20, 0))
-    combobox(row6, width=3, values=['A', 'B']).pack(side='left')
+    label(opening_training_roster, text='手自排').grid(row=9, column=1, sticky='ws', padx=(10,0))
+    combobox(opening_training_roster, values=['A', 'B']).grid(row=10, column=1, sticky='wen',padx=(10,0))
+
     # 教練 下拉選單
-    label(row6, text='教練：').pack(side='left', padx=(20, 0))
-    combobox(row6, width=3, values=['A', 'B']).pack(side='left')
-    
-    
-    # 加入開訓名冊按鈕
-    add_btn(row6, text='將該學員加入開訓名冊', command=lambda: None).pack(side='left', padx=(20, 0))
-    
-    
-    # 第4行 frame 所有欄位顯示 treeview
-    row8 = frame(window_title)
-    row8.pack(fill='x', padx=(30, 0), pady=(20, 0))
+    label(opening_training_roster, text='教練').grid(row=9, column=2, sticky='ws', padx=(10,0))
+    combobox(opening_training_roster, values=['A', 'B']).grid(row=10, column=2, sticky='wen',padx=(10,0))
+    entry(opening_training_roster).grid(row=10, column=3, sticky='wen',padx=10)
+
+    # 按鈕
+    btn(opening_training_roster, text='加入開訓名冊', command=lambda: None).grid(row=11, column=0,  columnspan=4,sticky='wen',padx=10, pady=20)
+
     # treeview
-    data_list = ttk.Treeview(row8, show='headings', column=['id', 'roster_number', 'batch', 'student_number', 'student_name', 'exam_source_type', 'transmission_type', 'instructor', 'gender', 'birth_date', 'national_id_no', 'zip_code', 'city_r_address', 'training_type'])
+    data_list = ttk.Treeview(opening_training_roster, show='headings', column=['id', 'roster_number', 'batch', 'student_number', 'student_name', 'exam_source_type', 'transmission_type', 'instructor', 'gender', 'birth_date', 'national_id_no', 'zip_code', 'city_r_address', 'training_type'])
     
     data_list.column('id', width=50, anchor='w')
     data_list.column('roster_number', width=50, anchor='w')
@@ -128,7 +115,7 @@ def opening_training_roster(content):
     data_list.heading('zip_code', text='區號')
     data_list.heading('city_r_address', text='戶籍地址')
     
-    data_list.pack(side="left", fill="both", expand=True, padx=(20,30), pady=(20,50))
+    data_list.grid(row=12, column=0, columnspan=4, sticky='wen', padx=10)
     
-    for i in range(100):  # 生成100行数据来测试滚动条
+    for i in range(100):
         data_list.insert("", "end", values=(f"202{i % 10}", f"張{i}", f"A{i}", f"202{i % 10}-01-01", f"男", f"02{i % 10}", f"09{i % 10}", f"test{i}@gmail.com", f"台北市", f"台北市"))

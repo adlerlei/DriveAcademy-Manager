@@ -1,125 +1,198 @@
-import tkinter as tk
 from tkinter import ttk
-from utils.config import custom_font, font_color
-from tkinter import PhotoImage
+from tkinter import *
+import customtkinter as ck
+from utils.config import create_font
+from PIL import Image
 
-# 設定按鈕的大小
-btnx = 10
-btny = 10
-# 新增按鈕
-def add_btn(frame, text, compound='left', fg=font_color['button_font'], **kwargs):
-    add_icon = PhotoImage(file='resources/img/add.png') # 載入圖片
-    button = tk.Button(frame, text=text, fg=fg, padx=btnx, pady=btny, font=custom_font(), image=add_icon, compound=compound, **kwargs)
-    button.add_icon = add_icon  # 保持對圖像的引用
-    return button
-
-# 修改按鈕
-def edit_btn(frame, text, compound='left', fg=font_color['button_font'], **kwargs):
-    edit_icon = PhotoImage(file='resources/img/edit.png') # 載入圖片
-    button = tk.Button(frame, text=text, fg=fg, padx=btnx, pady=btny, font=custom_font(), image=edit_icon, compound=compound, **kwargs)
-    button.edit_icon = edit_icon  # 保持對圖像的引用
-    return button
-
-# 查詢按鈕
-def search_btn(frame, text, compound='left', fg=font_color['button_font'], **kwargs):
-    search_icon = PhotoImage(file='resources/img/search.png') # 載入圖片
-    button = tk.Button(frame, text=text, fg=fg, padx=btnx, pady=btny, font=custom_font(), image=search_icon, compound=compound, **kwargs)
-    button.search_icon = search_icon  # 保持對圖像的引用
-    return button
-
-# 刪除按鈕
-def delete_btn(frame, text, compound='left', fg=font_color['button_font'], **kwargs):
-    delete_icon = PhotoImage(file='resources/img/delete.png') # 載入圖片
-    button = tk.Button(frame, text=text, fg=fg, padx=btnx, pady=btny, font=custom_font(), image=delete_icon, compound=compound, **kwargs)
-    button.delete_icon = delete_icon  # 保持對圖像的引用
-    return button
+menu_buttons = []  # 創建一個全局列表來存儲按鈕實例
+# 選單logo
+def menu_logo(menu, load_image, text=""):
+    logo_image = load_image("resources/img/logo.png")
+    logo_img = ck.CTkImage(light_image=logo_image, size=(250,250))
+    return ck.CTkLabel(menu, text=text, image=logo_img, compound='top')
 
 
 # 選單按鈕
-def menu_btn(frame, text, compound='left', fg=font_color['button_font'], **kwargs):
-    muen_icon = PhotoImage(file='resources/img/menu.png') # 載入圖片
-    button = tk.Button(frame, text=text, padx=7, pady=7, fg=fg, font=custom_font(), image=muen_icon, compound=compound, **kwargs)
-    button.muen_icon = muen_icon  # 保持對圖像的引用
+def menu_btn(frame, text, menu_icon_path, height=40, fg_color="#669bbc", font = create_font(), command=None):
+    menu_icon = Image.open(f"resources/img/menu/{menu_icon_path}")
+    menu_icon_ctk = ck.CTkImage(light_image=menu_icon)
+    button = ck.CTkButton(frame, text=text, height=height, fg_color=fg_color, font=font, image=menu_icon_ctk, command=command, state='disabled')
+    button.grid(sticky='nsew')
     return button
 
+# 禁用選單按鈕
+def disable_menu_btn(button):
+    button.configure(state='disabled')
 
-# 登入按鈕
-def login_btn(frame, text, compound='left', fg=font_color['button_font'], **kwargs):
-    login_icon = PhotoImage(file='resources/img/login.png') # 載入圖片
-    button = tk.Button(frame, text=text, fg=fg, padx=10, pady=10, font=custom_font(), image=login_icon, compound=compound, **kwargs)
-    button.login_icon = login_icon  # 保持對圖像的引用
+# 啟用選單按鈕
+def enable_menu_btn(button):
+    button.configure(state='normal')
+
+# 禁用所有選單按鈕
+def disable_all_menu_buttons(buttons):
+    for button in buttons:
+        if button is not None:
+            disable_menu_btn(button)
+
+
+# 新增按鈕
+def add_btn(frame, text, command):
+    button = ck.CTkButton( 
+        frame, 
+        text = text,
+        height = 40,
+        fg_color = '#669bbc', 
+        font = create_font(), 
+        command = command
+        )
     return button
 
+# 修改按鈕
+def modify_btn(frame, text, command):
+    button = ck.CTkButton( 
+        frame, 
+        text = text,
+        height = 40,
+        fg_color = '#a09382', 
+        font = create_font(), 
+        command = command
+        )
+    return button
 
-# 註冊按鈕
-def register_btn(frame, text, compound='left', fg=font_color['button_font'], **kwargs):
-    register_icon = PhotoImage(file='resources/img/register.png') # 載入圖片
-    button = tk.Button(frame, text=text, fg=fg, padx=10, pady=10, font=custom_font(), image=register_icon, compound=compound, **kwargs)
-    button.register_icon = register_icon  # 保持對圖像的引用
+# 刪除按鈕
+def delete_btn(frame, text, command):
+    button = ck.CTkButton( 
+        frame, 
+        text = text,
+        height = 40,
+        fg_color = '#E0645D', 
+        font = create_font(), 
+        command = command
+        )
+    return button
+
+# 查詢按鈕
+def search_btn(frame, text, command):
+    button = ck.CTkButton( 
+        frame, 
+        text = text,
+        height = 40,
+        fg_color = '#edafb8', 
+        font = create_font(), 
+        command = command
+        )
+    return button
+
+# 登入，註冊 按鈕
+def btn(frame, text, command):
+    button = ck.CTkButton( 
+        frame, 
+        text = text,
+        height = 40,
+        fg_color = '#669bbc', 
+        font = create_font(), 
+        command = command
+        )
+    return button
+
+# 匯出按鈕
+def export_btn(frame, text, command):
+    button = ck.CTkButton(
+        frame,
+        text = text,
+        height = 40,
+        fg_color = '#a3b18a',
+        font = create_font(),
+        command = command
+        )
     return button
 
 
 # label frame 標題容器
-def label_frame(frame, text, fg=font_color['button_font'], **kwargs):
-    return tk.LabelFrame(frame, text=text, fg=fg, font=custom_font(), **kwargs)
+def label_frame(frame, text):
+    return ttk.LabelFrame(frame, text=text)
 
 
 # frmae 容器
-def frame(frame, **kwargs):
-    return tk.Frame(frame, **kwargs) 
+def frame(frame, fg_color='#fdfdff'):
+    return ck.CTkFrame(frame, fg_color=fg_color) 
 
 
 # Label 文字顯示
-def label(frame, text, fg=font_color['label_font'], **kwargs):
-    return tk.Label(frame, text=text, fg=fg, font=custom_font(), **kwargs)
-
-# display info title 說明文字
-def display_info_label(frame, text, fg=font_color['display_info_label'], **kwargs):
-    return tk.Label(frame, text=text, fg=fg, font=custom_font(), **kwargs)
+def label(frame, text, text_color='#669bbc', font=create_font()):
+    return ck.CTkLabel(frame, text=text, text_color=text_color, font=font)
 
 
-# Combobox 下拉選單
-def combobox(frame, **kwargs):
-    style = ttk.Style()
-    style.theme_use('default')  # 使用預設主題
-    style.configure('TCombobox', foreground=font_color['entry_font'])
-    return ttk.Combobox(frame, style='TCombobox', font=custom_font(), **kwargs)
+# Combobox 下拉選單 
+def combobox(
+    frame, 
+    height=40, 
+    text_color='#8b8c89', 
+    fg_color='#d9d9d9', 
+    button_color='#bcb8b1', 
+    font = create_font(), 
+    dropdown_fg_color='#d9d9d9', 
+    command=None, 
+    **kwargs
+    ):
+    return ck.CTkComboBox(
+        frame, 
+        height=height, 
+        text_color=text_color, 
+        border_color='#fdfdff', 
+        font=font, 
+        button_color=button_color, 
+        dropdown_fg_color=dropdown_fg_color,
+        command=command, 
+        fg_color=fg_color, **kwargs
+        )
 
 
 # entry 用戶輸入欄位
-def entry(frame, fg=font_color['entry_font'], **kwargs):
-    return tk.Entry(frame, fg=fg, font=custom_font(), **kwargs)
+def entry(
+    frame , 
+    placeholder_text = '',
+    # width = 200,
+    height = 40,
+    font = create_font() , 
+    fg_color = '#d9d9d9',
+    text_color = '#8b8c89',
+    **kwargs
+    ):
+    return ck.CTkEntry(
+        frame, 
+        placeholder_text = placeholder_text ,
+        border_color = '#fdfdff',
+        # width = width ,
+        height = height ,
+        font = font , 
+        fg_color = fg_color,
+        text_color = text_color ,
+        **kwargs 
+        )
 
 
-# entry 顯示值禁止用戶輸入
-def display_entry_value(frame, state="readonly", fg=font_color['entry_display_value'], **kwargs):
-    return tk.Entry(frame, fg=fg, state=state, font=custom_font(), **kwargs)
-
-
-# frame hr 水平分隔線
-def hr(frame, height=2, bd=1, relief='sunken'):
-    return tk.Frame(frame, height=height, bd=bd, relief=relief)
-
-# hr_fun(display_students_data_row2, height=2, bd=1, relief='sunken').pack(fill='x', padx=(20, 20), pady=(0,10))
-
-
-# 查看 frame 中的所有控件，并禁用它们
-def disable_frame_widgets(frame):
-    for widget in frame.winfo_children():
-        try:
-            if 'state' in widget.configure():
-                widget.configure(state='disabled')
-            disable_frame_widgets(widget)  # 递归调用以禁用嵌套子控件
-        except Exception as e:
-            print(f"Error disabling widget {widget}: {e}")
-
-
-# 查看 frame 中的所有控件，并启用它们
-def enable_frame_widgets(frame):
-    for widget in frame.winfo_children():
-        try:
-            if 'state' in widget.configure():
-                widget.configure(state='normal')
-            enable_frame_widgets(widget)  # 递归调用以启用嵌套子控件
-        except Exception as e:
-            print(f"Error enabling widget {widget}: {e}")
+# entry 用戶資料顯示欄位，禁止用戶輸入
+def display_entry_value(
+    frame, 
+    placeholder_text = '',
+    # width = 200,
+    height = 40,
+    font = create_font(),
+    state = "readonly",
+    fg_color = '#d9d9d9',
+    text_color = '#8b8c89',
+    **kwargs
+    ):
+    return ck.CTkEntry(
+        frame,
+        placeholder_text = placeholder_text,
+        border_color = '#fdfdff',
+        # width = width,
+        height = height,
+        font = font,
+        state = state,
+        fg_color = fg_color,
+        text_color = text_color ,
+        **kwargs 
+        )

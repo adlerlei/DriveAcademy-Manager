@@ -5,32 +5,29 @@ from models.admin import register_insert_data
 
 
 #  admin 註冊介面
-def admin_register(content_frame):
-    clear_frame(content_frame)
+def admin_register(menu, content):
+    clear_frame(content)
     
-    window_title = label_frame(content_frame, ' 管理員註冊 ', fg='#F6995C')
-    window_title.pack(fill='x', padx=(20,20), pady=(15,0))
-    
-    username_frame = frame(window_title)
-    username_frame.pack(fill='x', pady=(50, 15))
+    admin_register = frame(content)
+    admin_register.columnconfigure(0, weight=1)
+    admin_register.columnconfigure(1, weight=1)
+    admin_register.columnconfigure(2, weight=2)
+    admin_register.columnconfigure(3, weight=1)
+    admin_register.columnconfigure(4, weight=1)
+    admin_register.place(relwidth=1, relheight=1)
 
-    label(username_frame, '登入帳號：').pack(side='left', padx=(500,0))
-    username = entry(username_frame, width=20)
-    username.pack(side='left')
-    username.focus_set()
+    label(admin_register, text='管理員帳號').grid(row=3, column=2, sticky='ws', pady=(200,0))
+    username = entry(admin_register )
+    username.grid(row=4, column=2, stick='wen')
     
-    password_frame = frame(window_title)
-    password_frame.pack(fill='x', pady=(0,15))
-    label(password_frame, '登入密碼：').pack(side='left', padx=(500, 0))
-    password = entry(password_frame, width=20, show='*')
-    password.pack(side='left')
+    label(admin_register, text='管理員密碼').grid(row=5, column=2, sticky='ws', pady=(20,0))
+    password = entry(admin_register, show='*')
+    password.grid(row=6, column=2, stick='wen')
     
     # 重複密碼欄位
-    repassword_frame = frame(window_title)
-    repassword_frame.pack(fill='x', pady=(0, 15))
-    label(repassword_frame, '密碼確認：').pack(side='left', padx=(500, 0))
-    repassword = entry(repassword_frame, width=20, show='*')
-    repassword.pack(side='left')
+    label(admin_register, text='密碼確認').grid(row=7, column=2, sticky='ws', pady=(20,0))
+    repassword = entry(admin_register, show='*')
+    repassword.grid(row=8, column=2, stick='wen')
     
     
     #  admin 註冊驗證
@@ -50,8 +47,8 @@ def admin_register(content_frame):
             return
         else:
             # 檢查通過調用函式寫入資料庫
-            register_insert_data(content_frame, username_value, password_value)
+            # register_insert_data(content, username_value, password_value)
+            register_insert_data(menu, content, username_value, password_value)
     
-    register_frame = frame(window_title)
-    register_frame.pack(fill='x', pady=(20, 20))
-    register_btn(register_frame, '註冊', command=register_validation).pack(pady=(10,50))
+
+    btn(admin_register, '註冊' , command=register_validation).grid(row=9, column=2, sticky='wen', pady=(40,0))
