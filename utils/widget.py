@@ -37,8 +37,8 @@ def disable_all_menu_buttons(buttons):
 
 # 新增按鈕
 def add_btn(frame, text, command):
-    button = ck.CTkButton( 
-        frame, 
+    button = ck.CTkButton(
+        frame,
         text = text,
         height = 40,
         fg_color = '#669bbc', 

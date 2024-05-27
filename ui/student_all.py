@@ -183,17 +183,28 @@ def student_all(content):
     #     global checkbox_added
     #     if not checkbox_added:
     label(student_all, text='該學員是否退訓').grid(row=14, column=0, sticky='ws', padx=(10,0))
-    display_entry_value(student_all, width=5).grid(row=15, column=0, sticky='wen', padx=10)
+    dropout = display_entry_value(student_all, width=5)
+    dropout.grid(row=15, column=0, sticky='wen', padx=10)
+
     label(student_all, text='名冊號碼').grid(row=14, column=1, sticky='ws')
-    display_entry_value(student_all, width=7).grid(row=15, column=1, sticky='wen', padx=(0,10))
+    register_number = display_entry_value(student_all, width=7)
+    register_number.grid(row=15, column=1, sticky='wen', padx=(0,10))
+
     label(student_all, text='學照日期').grid(row=14, column=2, sticky='ws', padx=(10,0))
-    display_entry_value(student_all, width=7).grid(row=15, column=2, sticky='wen', padx=10)
+    learner_permit_date = display_entry_value(student_all, width=7)
+    learner_permit_date.grid(row=15, column=2, sticky='wen', padx=10)
+
     label(student_all, text='學照號碼').grid(row=14, column=3, sticky='ws')
-    display_entry_value(student_all, width=7).grid(row=15, column=3, sticky='wen', padx=(0,10))
+    learner_permit_number = display_entry_value(student_all, width=7)
+    learner_permit_number.grid(row=15, column=3, sticky='wen', padx=(0,10))
+
     label(student_all, text='路試日期').grid(row=16, column=0, sticky='ws', padx=(10,0))
-    display_entry_value(student_all, width=7).grid(row=17, column=0, sticky='wen', padx=10)
+    road_test_date = display_entry_value(student_all, width=7)
+    road_test_date.grid(row=17, column=0, sticky='wen', padx=10)
+
     label(student_all, text='建檔日期').grid(row=16, column=1, sticky='ws')
-    display_entry_value(student_all, width=7).grid(row=17, column=1, sticky='wen')
+    creation_date = display_entry_value(student_all, width=7)
+    creation_date.grid(row=17, column=1, sticky='wen')
             # checkbox_added = True
 
 
@@ -237,6 +248,43 @@ def student_all(content):
             m_address_city.set(student_data[22])
             m_address.delete(0, ctk.END)
             m_address.insert(0, student_data[23])
+
+            # 學照日期
+            learner_permit_date.configure(state='normal')
+            learner_permit_date.delete(0, ctk.END)
+            learner_permit_date.insert(0, student_data[24])
+            learner_permit_date.configure(state='readonly')
+
+            # 學照號碼
+            learner_permit_number.configure(state='normal')
+            learner_permit_number.delete(0, ctk.END)
+            learner_permit_number.insert(0, student_data[25])
+            learner_permit_number.configure(state='readonly')
+
+            # 梯次
+            dropout.configure(state='normal')
+            dropout.delete(0, ctk.END)
+            dropout.insert(0, student_data[31])
+            dropout.configure(state='readonly')
+
+            # 名冊號碼
+            register_number.configure(state='normal')
+            register_number.delete(0, ctk.END)
+            register_number.insert(0, student_data[32])
+            register_number.configure(state='readonly')
+
+            # 學照日期
+            road_test_date.configure(state='normal')
+            road_test_date.delete(0, ctk.END)
+            road_test_date.insert(0, student_data[35])
+            road_test_date.configure(state='readonly')
+
+            # 建檔日期
+            creation_date.configure(state='normal')
+            creation_date.delete(0, ctk.END)
+            creation_date.insert(0, student_data[42])
+            creation_date.configure(state='readonly')
+            
 
     # 獲取輸入欄位信息
     def get_data_and_insert():

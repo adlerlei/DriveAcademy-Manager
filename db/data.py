@@ -45,26 +45,26 @@ CREATE TABLE IF NOT EXISTS student (
     r_address VARCHAR, -- 戶籍地址
     m_address_zip_code VARCHAR, -- 通訊地址郵遞區號
     m_address_city VARCHAR, -- 通訊地址縣市區域
-    m_address VARCHAR, -- 通訊地址
-    learner_permit_date VARCHAR, -- 學照日期
-    learner_permit_number VARCHAR, -- 學照號碼
+    m_address VARCHAR, -- 通訊地址23
+    learner_permit_date VARCHAR, -- 學照日期24
+    learner_permit_number VARCHAR, -- 學照號碼25
     submission_date VARCHAR, -- 送件日期
     exam_code VARCHAR, -- 來源編號
     exam_name VARCHAR, -- 來源名稱
     transmission_type_code VARCHAR, -- 手自排類別編號
     transmission_type_name VARCHAR, -- 手自排類別名稱
-    dropout VARCHAR, -- 是否退訓
-    register_number VARCHAR, -- 名冊號碼
+    dropout VARCHAR, -- 是否退訓31
+    register_number VARCHAR, -- 名冊號碼32
     written_exam_date VARCHAR, -- 筆試日期
     session_number VARCHAR, -- 場次
-    road_test_date VARCHAR, -- 路試日期
+    road_test_date VARCHAR, -- 路試日期35
     group_number VARCHAR, -- 組別
     road_test_items_type VARCHAR, -- 路考項目
     exam_type_code VARCHAR, -- 筆路編號
     exam_type_name VARCHAR, -- 筆路名稱
     annual_plan_id INTEGER, -- 外鍵關聯期別資料表
     instructor_id INTEGER, -- 外鍵關聯教練資料表
-    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 建檔時間
+    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 建檔時間40
     FOREIGN KEY (annual_plan_id) REFERENCES annual_plan(id),
     FOREIGN KEY (instructor_id) REFERENCES instructor(id)
 );
