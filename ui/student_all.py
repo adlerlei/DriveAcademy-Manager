@@ -8,9 +8,10 @@ is_editing = False
 current_student_id = None
 
 def student_all(content):
-    global checkbox_added, is_editing, current_student_id
+    # global checkbox_added, is_editing, current_student_id
+    global is_editing, current_student_id
     clear_frame(content)
-    checkbox_added = False 
+    # checkbox_added = False 
     is_editing = False
     current_student_id = None
 
@@ -178,22 +179,22 @@ def student_all(content):
 
 
     # 點擊按鈕觸發事件
-    def click_btn():
-        global checkbox_added
-        if not checkbox_added:
-            label(student_all, text='該學員是否退訓').grid(row=14, column=0, sticky='ws', padx=(10,0))
-            display_entry_value(student_all, width=5).grid(row=15, column=0, sticky='wen', padx=10)
-            label(student_all, text='名冊號碼').grid(row=14, column=1, sticky='ws')
-            display_entry_value(student_all, width=7).grid(row=15, column=1, sticky='wen', padx=(0,10))
-            label(student_all, text='學照日期').grid(row=14, column=2, sticky='ws', padx=(10,0))
-            display_entry_value(student_all, width=7).grid(row=15, column=2, sticky='wen', padx=10)
-            label(student_all, text='學照號碼').grid(row=14, column=3, sticky='ws')
-            display_entry_value(student_all, width=7).grid(row=15, column=3, sticky='wen', padx=(0,10))
-            label(student_all, text='路試日期').grid(row=16, column=0, sticky='ws', padx=(10,0))
-            display_entry_value(student_all, width=7).grid(row=17, column=0, sticky='wen', padx=10)
-            label(student_all, text='建檔日期').grid(row=16, column=1, sticky='ws')
-            display_entry_value(student_all, width=7).grid(row=17, column=1, sticky='wen')
-            checkbox_added = True
+    # def click_btn():
+    #     global checkbox_added
+    #     if not checkbox_added:
+    label(student_all, text='該學員是否退訓').grid(row=14, column=0, sticky='ws', padx=(10,0))
+    display_entry_value(student_all, width=5).grid(row=15, column=0, sticky='wen', padx=10)
+    label(student_all, text='名冊號碼').grid(row=14, column=1, sticky='ws')
+    display_entry_value(student_all, width=7).grid(row=15, column=1, sticky='wen', padx=(0,10))
+    label(student_all, text='學照日期').grid(row=14, column=2, sticky='ws', padx=(10,0))
+    display_entry_value(student_all, width=7).grid(row=15, column=2, sticky='wen', padx=10)
+    label(student_all, text='學照號碼').grid(row=14, column=3, sticky='ws')
+    display_entry_value(student_all, width=7).grid(row=15, column=3, sticky='wen', padx=(0,10))
+    label(student_all, text='路試日期').grid(row=16, column=0, sticky='ws', padx=(10,0))
+    display_entry_value(student_all, width=7).grid(row=17, column=0, sticky='wen', padx=10)
+    label(student_all, text='建檔日期').grid(row=16, column=1, sticky='ws')
+    display_entry_value(student_all, width=7).grid(row=17, column=1, sticky='wen')
+            # checkbox_added = True
 
 
     # 學員資料顯示在輸入欄位上
@@ -318,6 +319,19 @@ def student_all(content):
             'm_address': m_address.get(),
             'id': current_student_id
         }
+        # 驗證必填欄位是否為空
+        required_fields = ['training_type_code', 'training_type_name', 'license_type_code', 'license_type_name', 
+                        'student_number', 'student_name', 'batch', 'national_id_no', 'birth_date',
+                        'r_address_zip_code', 'r_address_city', 'r_address', 'email']
+        for field in required_fields:
+            if not student_data[field]:
+                messagebox.showwarning('提示', f'{validation_fields[field]} 欄位不能為空！')
+                return
+
+        if current_student_id is None:
+            messagebox.showwarning('提示', '請先查詢並選擇要修改的學員資料。')
+            return
+
         update_student_data(student_data)
         is_editing = False
         current_student_id = None
@@ -344,12 +358,13 @@ def student_all(content):
 
 
     # 修改按鈕配置
-    add_btn(student_all, text='新增', command=get_data_and_insert).grid(row=13, column=0, sticky='wen', padx=10, pady=20)
-    search_btn(student_all, text='查詢', command=click_btn).grid(row=13, column=1, sticky='wen', padx=(0,10), pady=20)
+    add_btn(student_all, text='新增', command=get_data_and_insert).grid(row=13, column=1, sticky='wen', padx=10, pady=20)
+    # search_btn(student_all, text='查詢', command=click_btn).grid(row=13, column=1, sticky='wen', padx=(0,10), pady=20)
     modify_btn(student_all, text='修改', command=update_student).grid(row=13, column=2, sticky='wen', padx=10, pady=20)
     delete_btn(student_all, text='刪除', command=delete_student).grid(row=13, column=3, sticky='wen', padx=(0,10), pady=20)
 
 
+# 清空所有 entry 和 combobox 的函式
 def clear_entries_and_comboboxes(parent):
     for child in parent.winfo_children():
         if isinstance(child, ctk.CTkEntry) or isinstance(child, Entry):
