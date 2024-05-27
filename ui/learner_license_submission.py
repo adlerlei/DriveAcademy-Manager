@@ -1,4 +1,4 @@
-# 學習駕照統一送件（匯出 txt 文件）其餘皆為 csv 文件
+# 學照統一送件（匯出 txt 文件）其餘皆為 csv 文件
 from utils.widget import *
 from utils.config import *
 
@@ -13,7 +13,6 @@ def learner_license_submission(content):
     learner_license_submission.place(relwidth=1, relheight=1)
 
     # # 輸入學號
-    # label(learner_license_submission, text='輸入學號').grid(row=0, column=0, sticky='ws', padx=(10,0), pady=(10,0))
     entry(learner_license_submission, placeholder_text = "輸入學號").grid(row=0, column=0, columnspan=3, sticky='wen', padx=10, pady=(10,0))
 
     # 搜尋按鈕
@@ -57,8 +56,9 @@ def learner_license_submission(content):
     label(learner_license_submission, text='送件日期').grid(row=7, column=0, sticky='ws', padx=(10,0), pady=(50,0))
     entry(learner_license_submission).grid(row=8, column=0, columnspan=2, sticky='wen', padx=10)
 
-    # 學照資料登錄
-    btn(learner_license_submission, text='送件', command=lambda: None).grid(row=8, column=2, columnspan=2, sticky='wen', padx=(0,10))
+    # 學照資料送件
+    btn(learner_license_submission, text='送件', command=lambda: None).grid(row=8, column=2, sticky='wen', padx=(0,10))
+    export_btn(learner_license_submission, text='匯出文件', command=lambda: None).grid(row=8, column=3, sticky='wen', padx=(0,10))
     
     
 
