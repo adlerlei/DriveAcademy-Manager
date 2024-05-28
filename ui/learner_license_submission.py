@@ -11,7 +11,7 @@ def learner_license_submission(content):
     learner_license_submission.columnconfigure(2, weight=1)
     learner_license_submission.columnconfigure(3, weight=1)
     learner_license_submission.place(relwidth=1, relheight=1)
-
+    
     # # 輸入學號
     entry(learner_license_submission, placeholder_text = "輸入學號").grid(row=0, column=0, columnspan=3, sticky='wen', padx=10, pady=(10,0))
 

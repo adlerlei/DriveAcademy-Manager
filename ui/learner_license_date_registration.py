@@ -57,13 +57,17 @@ def learner_license_date_registration(content):
     label(learner_license_date_registration, text='登錄日期：').grid(row=7, column=0, sticky='ws', padx=(10,0), pady=(50,0))
     entry(learner_license_date_registration).grid(row=8, column=0, sticky='wen', padx=10)
 
+
+    # 以下三樣信息依照學員搜尋後更新學員資料庫
     # 學照日期
     label(learner_license_date_registration, text='學照日期：').grid(row=7, column=1, sticky='ws', pady=(10,0))
-    entry(learner_license_date_registration).grid(row=8, column=1, sticky='wen', padx=(0,10))
+    learner_permit_date = entry(learner_license_date_registration)
+    learner_permit_date.grid(row=8, column=1, sticky='wen', padx=(0,10))
 
     # 學照號碼
     label(learner_license_date_registration, text='學照號碼：').grid(row=7, column=2, sticky='ws', pady=(10,0))
-    entry(learner_license_date_registration).grid(row=8, column=2, sticky='wen', padx=(0,10))
+    learner_permit_number = entry(learner_license_date_registration)
+    learner_permit_number.grid(row=8, column=2, sticky='wen', padx=(0,10))
 
     # 學照資料登錄
     btn(learner_license_date_registration, text='登錄', command=lambda: None).grid(row=8, column=3, sticky='wen', padx=(0,10))
