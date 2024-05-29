@@ -22,48 +22,48 @@ CREATE TABLE IF NOT EXISTS annual_plan (
 
 -- 創建學員資料表
 CREATE TABLE IF NOT EXISTS student (
-    id INTEGER PRIMARY KEY AUTOINCREMENT, -- id主鍵自增
-    license_type_code VARCHAR, -- 考照類別編號
-    license_type_name VARCHAR, -- 考照類別名稱
-    training_type_code VARCHAR, -- 訓練班別代號
-    training_type_name VARCHAR, -- 訓練班別名稱
-    student_number VARCHAR, -- 學員編號
-    student_name VARCHAR, -- 學員姓名
-    batch VARCHAR, -- 梯次
-    birth_date VARCHAR, -- 出生日期
-    national_id_no VARCHAR, -- 身分證字號
-    mobile_phone VARCHAR, -- 手機
-    home_phone VARCHAR, -- 市話
-    education VARCHAR, -- 學歷
-    instructor_number VARCHAR, -- 指導教練編號
-    instructor_name VARCHAR, -- 指導教練名稱
-    gender VARCHAR, -- 性別
-    email VARCHAR, -- 信箱
-    remarks TEXT, -- 備註
-    r_address_zip_code VARCHAR, -- 戶籍地址郵遞區號
-    r_address_city VARCHAR, -- 戶籍地址縣市區域
-    r_address VARCHAR, -- 戶籍地址
-    m_address_zip_code VARCHAR, -- 通訊地址郵遞區號
-    m_address_city VARCHAR, -- 通訊地址縣市區域
-    m_address VARCHAR, -- 通訊地址
-    learner_permit_login_data VARCHAR, -- 學照登陸日期
-    learner_permit_date VARCHAR, -- 學照日期
-    learner_permit_number VARCHAR, -- 學照號碼
-    submission_date VARCHAR, -- 送件日期
-    exam_code VARCHAR, -- 來源編號
-    exam_name VARCHAR, -- 來源名稱
-    transmission_type_code VARCHAR, -- 手自排類別編號
-    transmission_type_name VARCHAR, -- 手自排類別名稱
-    dropout VARCHAR, -- 是否退訓
-    register_number VARCHAR, -- 名冊號碼
-    written_exam_date VARCHAR, -- 筆試日期
-    session_number VARCHAR, -- 場次
-    road_test_date VARCHAR, -- 路試日期
-    group_number VARCHAR, -- 組別
-    road_test_items_type VARCHAR, -- 路考項目
-    exam_type_code VARCHAR, -- 筆路編號
-    exam_type_name VARCHAR, -- 筆路名稱
-    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- 建檔時間
+    id INTEGER PRIMARY KEY AUTOINCREMENT, -- id主鍵自增0
+    license_type_code VARCHAR, -- 考照類別編號1
+    license_type_name VARCHAR, -- 考照類別名稱2
+    training_type_code VARCHAR, -- 訓練班別代號3
+    training_type_name VARCHAR, -- 訓練班別名稱4
+    student_number VARCHAR, -- 學員編號5
+    student_name VARCHAR, -- 學員姓名6
+    batch VARCHAR, -- 梯次7
+    birth_date VARCHAR, -- 出生日期8
+    national_id_no VARCHAR, -- 身分證字號9
+    mobile_phone VARCHAR, -- 手機10
+    home_phone VARCHAR, -- 市話11
+    education VARCHAR, -- 學歷12
+    instructor_number VARCHAR, -- 指導教練編號13
+    instructor_name VARCHAR, -- 指導教練名稱14
+    gender VARCHAR, -- 性別15
+    email VARCHAR, -- 信箱16
+    remarks TEXT, -- 備註17
+    r_address_zip_code VARCHAR, -- 戶籍地址郵遞區號18
+    r_address_city VARCHAR, -- 戶籍地址縣市區域19
+    r_address VARCHAR, -- 戶籍地址20
+    m_address_zip_code VARCHAR, -- 通訊地址郵遞區號21
+    m_address_city VARCHAR, -- 通訊地址縣市區域22
+    m_address VARCHAR, -- 通訊地址23
+    learner_permit_login_data VARCHAR, -- 學照登陸日期24
+    learner_permit_date VARCHAR, -- 學照日期25
+    learner_permit_number VARCHAR, -- 學照號碼26
+    submission_date VARCHAR, -- 送件日期27
+    exam_code VARCHAR, -- 來源編號28
+    exam_name VARCHAR, -- 來源名稱29
+    transmission_type_code VARCHAR, -- 手自排類別編號30
+    transmission_type_name VARCHAR, -- 手自排類別名稱31
+    dropout VARCHAR, -- 是否退訓32
+    register_number VARCHAR, -- 名冊號碼33
+    written_exam_date VARCHAR, -- 筆試日期34
+    session_number VARCHAR, -- 場次35
+    road_test_date VARCHAR, -- 路試日期36
+    group_number VARCHAR, -- 組別37
+    road_test_items_type VARCHAR, -- 路考項目38
+    exam_type_code VARCHAR, -- 筆路編號39
+    exam_type_name VARCHAR, -- 筆路名稱40
+    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- 建檔時間41
 );
 
 -- 教練資料表

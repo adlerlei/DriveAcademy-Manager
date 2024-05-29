@@ -178,10 +178,6 @@ def student_all(content):
         m_address_city.set(selected_zip_code)
 
 
-    # 點擊按鈕觸發事件
-    # def click_btn():
-    #     global checkbox_added
-    #     if not checkbox_added:
     label(student_all, text='該學員是否退訓').grid(row=14, column=0, sticky='ws', padx=(10,0))
     dropout = display_entry_value(student_all, width=5)
     dropout.grid(row=15, column=0, sticky='wen', padx=10)
@@ -205,7 +201,6 @@ def student_all(content):
     label(student_all, text='建檔日期').grid(row=16, column=1, sticky='ws')
     creation_date = display_entry_value(student_all, width=7)
     creation_date.grid(row=17, column=1, sticky='wen')
-            # checkbox_added = True
 
 
     # 學員資料顯示在輸入欄位上
@@ -252,37 +247,37 @@ def student_all(content):
             # 學照日期
             learner_permit_date.configure(state='normal')
             learner_permit_date.delete(0, ctk.END)
-            learner_permit_date.insert(0, student_data[24])
+            learner_permit_date.insert(0, student_data[25])
             learner_permit_date.configure(state='readonly')
 
             # 學照號碼
             learner_permit_number.configure(state='normal')
             learner_permit_number.delete(0, ctk.END)
-            learner_permit_number.insert(0, student_data[25])
+            learner_permit_number.insert(0, student_data[26])
             learner_permit_number.configure(state='readonly')
 
-            # 梯次
+            # 是否退訓
             dropout.configure(state='normal')
             dropout.delete(0, ctk.END)
-            dropout.insert(0, student_data[31])
+            dropout.insert(0, student_data[32])
             dropout.configure(state='readonly')
 
             # 名冊號碼
             register_number.configure(state='normal')
             register_number.delete(0, ctk.END)
-            register_number.insert(0, student_data[32])
+            register_number.insert(0, student_data[33])
             register_number.configure(state='readonly')
 
             # 學照日期
             road_test_date.configure(state='normal')
             road_test_date.delete(0, ctk.END)
-            road_test_date.insert(0, student_data[35])
+            road_test_date.insert(0, student_data[25])
             road_test_date.configure(state='readonly')
 
             # 建檔日期
             creation_date.configure(state='normal')
             creation_date.delete(0, ctk.END)
-            creation_date.insert(0, student_data[42])
+            creation_date.insert(0, student_data[41])
             creation_date.configure(state='readonly')
             
 
