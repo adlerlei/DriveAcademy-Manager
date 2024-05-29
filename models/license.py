@@ -14,8 +14,9 @@ def license_update_student_data(learner_permit_login_data, learner_permit_date, 
     c = conn.cursor()
 
     update_sql = """
-    UPDATE student
-    SET learner_permit_login_data = ?, learner_permit_date = ?, learner_permit_number = ?
+    UPDATE student SET 
+        learner_permit_login_data = ?, learner_permit_date = ?, learner_permit_number = ?
+    WHERE id = ?
     """
 
     c.execute(update_sql, (learner_permit_login_data, learner_permit_date, learner_permit_number))
@@ -25,11 +26,11 @@ def license_update_student_data(learner_permit_login_data, learner_permit_date, 
 
 
 # 學員資料庫搜尋函式
-def search_student_info(student_number_value, student_number, student_name, national_id_no, birth_date, mobile_phone, license_type_code, license_type_name, remarks, r_address_zip_code, r_address_city, r_address):
+def search_student_info(student_number_value):
     conn = sqlite3.connect(database_path)
     cursor = conn.cursor()
     cursor.execute("""
-        SELECT id, student_name, national_id_no, birth_date, mobile_phone, license_type_code, license_type_name, remarks, r_address_zip_code, r_address_city, r_address 
+        SELECT student_number, student_name, national_id_no, mobile_phone, birth_date, license_type_code, license_type_name, remarks, r_address_zip_code, r_address_city, r_address 
         FROM student WHERE student_number = ?
     """, (student_number_value,))
     student = cursor.fetchone()
@@ -38,7 +39,7 @@ def search_student_info(student_number_value, student_number, student_name, nati
     # 調試訊息
     print(f"查詢學員編號: {student_number_value}")
     print(f"查詢結果: {student}")
-
+    
     if student:
         student_number.configure(state='normal')
         student_number.delete(0, ctk.END)
@@ -65,12 +66,12 @@ def search_student_info(student_number_value, student_number, student_name, nati
         mobile_phone.insert(0, student[4])
         mobile_phone.configure(state='readonly')
 
-        license_type_code.configure(state='normal')
-        license_type_code.delete(0, ctk.END)
-        license_type_code.insert(0, student[5])
-        license_type_code.configure(state='readonly')
+        # license_type_code.configure(state='normal')
+        # license_type_code.delete(0, ctk.END)
+        # license_type_code.insert(0, student[5])
+        # license_type_code.configure(state='readonly')
 
-        license_type_code.configure(state='normal')
+        license_type_name.configure(state='normal')
         license_type_name.delete(0, ctk.END)
         license_type_name.insert(0, student[2])
         license_type_name.configure(state='readonly')

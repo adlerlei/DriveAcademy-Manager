@@ -90,8 +90,7 @@ def learner_license_date_registration(content):
 
     # 搜尋按鈕
     search_btn(learner_license_date_registration, text='搜尋學員信息', command=lambda: search_student_info(
-        select_student_number.get(), student_number, student_name, national_id_no, birth_date, mobile_phone, license_type_code, license_type_name, remarks, r_address_zip_code, r_address_city, r_address
-    )).grid(row=0, column=3, sticky='wen', padx=(0,10), pady=(10,0))
+        select_student_number.get())).grid(row=0, column=3, sticky='wen', padx=(0,10), pady=(10,0))
 
 
     # 定義按鈕點擊事件
@@ -105,12 +104,12 @@ def learner_license_date_registration(content):
             messagebox.showerror('錯誤', '登錄日期、學照日期、學照號碼 - 欄位不可為空')
             return
         else:
-            student_name_val = student_name.get()
-            national_id_val = national_id_no.get()
-            birth_date_val = birth_date.get()
-            mobile_phone_val = mobile_phone.get()
+            # student_name_val = student_name.get()
+            # national_id_val = national_id_no.get()
+            # birth_date_val = birth_date.get()
+            # mobile_phone_val = mobile_phone.get()
             
-            license_update_student_data(id, student_name_val, national_id_val, birth_date_val, mobile_phone_val)
+            license_update_student_data(learner_permit_login_data_val, learner_permit_date_val, learner_permit_number_val)
             select_student_number.delete(0, ctk.END)
             student_number.delete(0, ctk.END)
             student_name.delete(0, ctk.END)
@@ -126,7 +125,7 @@ def learner_license_date_registration(content):
             learner_permit_login_data.delete(0, ctk.END)
             learner_permit_date.delete(0, ctk.END)
             learner_permit_number.delete(0, ctk.END)
-            messagebox.showinfo('成功', '學照日期登錄成功')
+            # messagebox.showinfo('成功', '學照日期登錄成功')
 
             # 在 Treeview 中顯示更新後的資料
             for i in data_list.get_children():
@@ -140,45 +139,40 @@ def learner_license_date_registration(content):
     
     # 登錄後顯示信息列表
     data_list = ttk.Treeview(learner_license_date_registration, show='headings', columns=(
-        'id', 'learner_license_date', 'learner_license_number', 'learner_license_type', 
-        'student_number', 'student_name','birth_date', 'national_id_no', 'phone',
-        'r_address_zip_code', 'r_address_city', 'r_address'))
+        'learner_permit_date',
+        'learner_permit_number',
+        'license_type_code',
+        'student_number',
+        'student_name',
+        'birth_date',
+        'national_id_no',
+        'mobile_phone',
+        'r_address_zip_code',
+        'r_address'
+    ))
     
-    data_list.column('id', width=50, anchor='w')
-    data_list.column('learner_license_date', width=50, anchor='w')
-    data_list.column('learner_license_number', width=50, anchor='w')
-    data_list.column('learner_license_type', width=50, anchor='w')
+    data_list.column('learner_permit_date', width=50, anchor='w')
+    data_list.column('learner_permit_number', width=50, anchor='w')
+    data_list.column('license_type_code', width=50, anchor='w')
     data_list.column('student_number', width=50, anchor='w')
     data_list.column('student_name', width=50, anchor='w')
     data_list.column('birth_date', width=50, anchor='w')
     data_list.column('national_id_no', width=60, anchor='w')
-    data_list.column('phone', width=50, anchor='w')
+    data_list.column('mobile_phone', width=50, anchor='w')
     data_list.column('r_address_zip_code', width=50, anchor='w')
-    data_list.column('r_address_city', width=50, anchor='w')
     data_list.column('r_address', width=250, anchor='w')
     
-    data_list.heading('id', text='ID')
-    data_list.heading('learner_license_date', text='學照日期')
-    data_list.heading('learner_license_number', text='學照號碼')
-    data_list.heading('learner_license_type', text='考照類別')
+    data_list.heading('learner_permit_date', text='學照日期')
+    data_list.heading('learner_permit_number', text='學照號碼')
+    data_list.heading('license_type_code', text='考照類別')
     data_list.heading('student_number', text='學員編號')
     data_list.heading('student_name', text='學員姓名')
     data_list.heading('birth_date', text='出生日期')
     data_list.heading('national_id_no', text='身分證號')
-    data_list.heading('phone', text='聯絡手機')
+    data_list.heading('mobile_phone', text='聯絡手機')
     data_list.heading('r_address_zip_code', text='區號')
-    data_list.heading('r_address_city', text='縣市')
-    data_list.heading('r_address', text='地址')
+    data_list.heading('r_address', text='地址') 
     
     data_list.grid(row=9, column=0, columnspan=4, sticky='wen', padx=10, pady=(20,0))
     
-    # def load_data_into_treeview(treeview):
-    #     conn = sqlite3.connect('database.db')
-    #     cursor = conn.cursor()
-    #     cursor.execute("SELECT * FROM student")
-    #     rows = cursor.fetchall()
-    #     for row in rows:
-    #         treeview.insert("", "end", values=row)
-    #     conn.close()
-    
-    load_data_into_treeview(data_list)
+    # load_data_into_treeview(data_list)
