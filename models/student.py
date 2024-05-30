@@ -79,7 +79,7 @@ def get_instructor_data():
     return instructor_numbers, instructor_names, instructor_dict
 
 
-# student_all.py 用戶輸入寫入資料表中
+# 用戶輸入寫入資料表中
 def insert_student_data(data):
     conn = sqlite3.connect(database_path)
     cursor = conn.cursor()

@@ -6,6 +6,8 @@ import customtkinter as ctk
 from tkinter import messagebox
 
 
+current_student_id = None
+
 def learner_license_date_registration(content):
     clear_frame(content)
         
@@ -19,6 +21,7 @@ def learner_license_date_registration(content):
     # 輸入學號查詢
     select_student_number = entry(learner_license_date_registration, placeholder_text = "輸入學員編號")
     select_student_number.grid(row=0, column=0, columnspan=3, sticky='wen', padx=10, pady=(10,0))
+    select_student_number.bind("<<KeyRelease>>", lambda event: populate_student_data(select_student_number.get()))
 
     # 顯示學員編號
     label(learner_license_date_registration, text='學員編號').grid(row=1, column=0, sticky='ws', padx=(10,0), pady=(50,0))
@@ -80,13 +83,6 @@ def learner_license_date_registration(content):
     label(learner_license_date_registration, text='學照號碼：').grid(row=7, column=2, sticky='ws', pady=(10,0))
     learner_permit_number = entry(learner_license_date_registration)
     learner_permit_number.grid(row=8, column=2, sticky='wen', padx=(0,10))
-
-    # 搜尋按鈕
-    search_btn(learner_license_date_registration, text='搜尋學員信息', command=lambda: search_student_info(
-        select_student_number.get())).grid(row=0, column=3, sticky='wen', padx=(0,10), pady=(10,0))
-
-    # 學照資料登錄按鈕
-    btn(learner_license_date_registration, text='登錄', command = None).grid(row=8, column=3, sticky='wen', padx=(0,10))
     
     # 使用 treeview 顯示學員資料
     columns = (
@@ -126,5 +122,77 @@ def learner_license_date_registration(content):
     data_list.column('r_address', width=250, anchor='w')
 
     data_list.grid(row=9, column=0, columnspan=4, sticky='wen', padx=10, pady=(20,0))
-    
-    # load_data_into_treeview(data_list)
+
+    # 邏輯功能
+    # 搜尋學員資料庫並且在 entry 顯示學員資料
+    def populate_student_data(identifier, value):
+        global is_editing, current_student_id
+        student_data = get_student_data(identifier, value)
+        if student_data:
+            # 獲取學員資料庫 id 序列
+            current_student_id = student_data[0]
+            is_editing = True
+            # 學員編號
+            student_number.configure(state='normal')
+            student_number.delete(0, ctk.END)
+            student_number.insert(0, student_data[5])
+            student_number.configure(state='readonly')
+            # 學員姓名
+            student_name.configure(state='normal')
+            student_name.delete(0, ctk.END)
+            student_name.insert(0, student_data[6])
+            student_name.configure(state='readonly')
+            # 身分證號
+            national_id_no.configure(state='normal')
+            national_id_no.delete(0, ctk.END)
+            national_id_no.insert(0, student_data[9])
+            national_id_no.configure(state='readonly')
+            # 聯絡手機
+            mobile_phone.configure(state='normal')
+            mobile_phone.delete(0, ctk.END)
+            mobile_phone.insert(0, student_data[10])
+            mobile_phone.configure(state='readonly')
+            # 出生日期
+            birth_date.configure(state='normal')
+            birth_date.delete(0, ctk.END)
+            birth_date.insert(0, student_data[8])
+            birth_date.configure(state='readonly')
+            # 考照類別 代號
+            license_type_code.configure(state='normal')
+            license_type_code.delete(0, ctk.END)
+            license_type_code.insert(0, student_data[3])
+            license_type_code.configure(state='readonly')
+            # 考照類別 名稱
+            license_type_name.configure(state='normal')
+            license_type_name.delete(0, ctk.END)
+            license_type_name.insert(0, student_data[3])
+            license_type_name.configure(state='readonly')
+            # 備註
+            remarks.configure(state='normal')
+            remarks.delete(0, ctk.END)
+            remarks.insert(0, student_data[17])
+            remarks.configure(state='readonly')
+            # 戶籍地址 郵遞區號
+            r_address_zip_code.configure(state='normal')
+            r_address_zip_code.delete(0, ctk.END)
+            r_address_zip_code.insert(0, student_data[18])
+            r_address_zip_code.configure(state='readonly')
+            # 戶籍地址 縣市區域
+            r_address_city.configure(state='normal')
+            r_address_city.delete(0, ctk.END)
+            r_address_city.insert(0, student_data[19])
+            r_address_city.configure(state='readonly')
+            # 戶籍地址 地址
+            r_address.configure(state='normal')
+            r_address.delete(0, ctk.END)
+            r_address.insert(0, student_data[20])
+            r_address.configure(state='readonly')
+
+
+
+
+    # 搜尋按鈕
+    search_btn(learner_license_date_registration, text='搜尋學員信息', command = None).grid(row=0, column=3, sticky='wen', padx=(0,10), pady=(10,0))
+
+    # 學照資料登錄按鈕
+    btn(learner_license_date_registration, text='登錄', command = None).grid(row=8, column=3, sticky='wen', padx=(0,10))

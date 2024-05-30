@@ -9,11 +9,11 @@ current_student_id = None
 
 def student_all(content):
     # global checkbox_added, is_editing, current_student_id
-    global is_editing, current_student_id
+    # global is_editing, current_student_id
     clear_frame(content)
     # checkbox_added = False 
-    is_editing = False
-    current_student_id = None
+    # is_editing = False
+    # current_student_id = None
 
     student_all = frame(content)
     student_all.columnconfigure(0, weight=1)
@@ -322,7 +322,7 @@ def student_all(content):
 
         # 如果是編輯模式，提示使用者無法新增
         if is_editing:
-            messagebox.showinfo('提示', '無法新增學員，請使用更新功能。')
+            messagebox.showinfo('提示', '無法新增學員，請使用 "修改" 功能。')
             return
 
         insert_student_data(student_data)
