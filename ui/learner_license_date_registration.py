@@ -19,68 +19,69 @@ def learner_license_date_registration(content):
     learner_license_date_registration.place(relwidth=1, relheight=1)
 
     # 顯示學員編號
-    label(learner_license_date_registration, text='學員編號').grid(row=1, column=0, sticky='ws', padx=(10,0), pady=(50,0))
+    label(learner_license_date_registration, text='學員編號').grid(row=0, column=0, sticky='ws', padx=(10,0), pady=(10,0))
     student_number = entry(learner_license_date_registration, placeholder_text="輸入學員編號")
-    student_number.grid(row=2, column=0, sticky='wen', padx=10)
+    student_number.grid(row=1, column=0, sticky='wen', padx=10)
     student_number.bind("<KeyRelease>", lambda event: populate_student_data('student_number', student_number.get()))
 
     # 顯示學員姓名
-    label(learner_license_date_registration, text='學員姓名').grid(row=1, column=1, sticky='ws', pady=(10,0))
+    label(learner_license_date_registration, text='學員姓名').grid(row=0, column=1, sticky='ws', pady=(10,0))
     student_name = display_entry_value(learner_license_date_registration)
-    student_name.grid(row=2, column=1, sticky='wen', padx=(0,10))
+    student_name.grid(row=1, column=1, sticky='wen', padx=(0,10))
 
     # 顯示學員身分證號碼
-    label(learner_license_date_registration, text='身分證號').grid(row=1, column=2, sticky='ws',pady=(10,0))
+    label(learner_license_date_registration, text='身分證號').grid(row=0, column=2, sticky='ws',pady=(10,0))
     national_id_no = display_entry_value(learner_license_date_registration)
-    national_id_no.grid(row=2, column=2, sticky='wen', padx=(0,10))
+    national_id_no.grid(row=1, column=2, sticky='wen', padx=(0,10))
 
     # 顯示學員電話
-    label(learner_license_date_registration, text='聯絡手機').grid(row=1, column=3, sticky='ws', pady=(10,0))
+    label(learner_license_date_registration, text='聯絡手機').grid(row=0, column=3, sticky='ws', pady=(10,0))
     mobile_phone = display_entry_value(learner_license_date_registration)
-    mobile_phone.grid(row=2, column=3, sticky='wen', padx=(0,10))
+    mobile_phone.grid(row=1, column=3, sticky='wen', padx=(0,10))
 
     # 顯示學員出生日期
-    label(learner_license_date_registration, text='出生日期').grid(row=3, column=0, sticky='ws', padx=(10,0), pady=(10,0))
+    label(learner_license_date_registration, text='出生日期').grid(row=2, column=0, sticky='ws', padx=(10,0), pady=(10,0))
     birth_date = display_entry_value(learner_license_date_registration)
-    birth_date.grid(row=4, column=0, sticky='wen', padx=10)
+    birth_date.grid(row=3, column=0, sticky='wen', padx=10)
 
     # 顯示考照類別
-    label(learner_license_date_registration, text='考照類別').grid(row=3, column=1, sticky='ws', pady=(10,0))
+    label(learner_license_date_registration, text='考照類別').grid(row=2, column=1, sticky='ws', pady=(10,0))
     license_type_code = display_entry_value(learner_license_date_registration)
-    license_type_code.grid(row=4, column=1, sticky='wen', padx=(0,10))
+    license_type_code.grid(row=3, column=1, sticky='wen', padx=(0,10))
     license_type_name = display_entry_value(learner_license_date_registration)
-    license_type_name.grid(row=4, column=2, sticky='wen', padx=(0,10))
+    license_type_name.grid(row=3, column=2, sticky='wen', padx=(0,10))
 
     # 顯示備註
-    label(learner_license_date_registration, text='備註').grid(row=3, column=3, sticky='ws',pady=(10,0))
+    label(learner_license_date_registration, text='備註').grid(row=2, column=3, sticky='ws',pady=(10,0))
     remarks = display_entry_value(learner_license_date_registration)
-    remarks.grid(row=4, column=3, sticky='wen', padx=(0,10))
+    remarks.grid(row=3, column=3, sticky='wen', padx=(0,10))
 
     # 顯示戶籍地址
-    label(learner_license_date_registration, text='戶籍地址').grid(row=5, column=0, sticky='ws', padx=(10,0), pady=(10,0))
+    label(learner_license_date_registration, text='戶籍地址').grid(row=4, column=0, sticky='ws', padx=(10,0), pady=(10,0))
     r_address_zip_code = display_entry_value(learner_license_date_registration)
-    r_address_zip_code.grid(row=6, column=0, sticky='wen', padx=10)
+    r_address_zip_code.grid(row=5, column=0, sticky='wen', padx=10)
     r_address_city = display_entry_value(learner_license_date_registration)
-    r_address_city.grid(row=6, column=1, sticky='wen', padx=(0,10))
+    r_address_city.grid(row=5, column=1, sticky='wen', padx=(0,10))
     r_address = display_entry_value(learner_license_date_registration)
-    r_address.grid(row=6, column=2, columnspan=2, sticky='wen', padx=(0,10))
+    r_address.grid(row=5, column=2, columnspan=2, sticky='wen', padx=(0,10))
     
     # 輸入登錄日期
-    label(learner_license_date_registration, text='登錄日期：').grid(row=7, column=0, sticky='ws', padx=(10,0), pady=(50,0))
+    label(learner_license_date_registration, text='登錄日期：').grid(row=6, column=0, sticky='ws', padx=(10,0), pady=(50,0))
     learner_permit_login_data = entry(learner_license_date_registration)
-    learner_permit_login_data.grid(row=8, column=0, sticky='wen', padx=10)
+    learner_permit_login_data.grid(row=7, column=0, sticky='wen', padx=10)
 
     # 輸入學照日期
-    label(learner_license_date_registration, text='學照日期：').grid(row=7, column=1, sticky='ws', pady=(10,0))
+    label(learner_license_date_registration, text='學照日期：').grid(row=6, column=1, sticky='ws', pady=(10,0))
     learner_permit_date = entry(learner_license_date_registration)
-    learner_permit_date.grid(row=8, column=1, sticky='wen', padx=(0,10))
+    learner_permit_date.grid(row=7, column=1, sticky='wen', padx=(0,10))
 
     # 輸入學照號碼
-    label(learner_license_date_registration, text='學照號碼：').grid(row=7, column=2, sticky='ws', pady=(10,0))
+    label(learner_license_date_registration, text='學照號碼：').grid(row=6, column=2, sticky='ws', pady=(10,0))
     learner_permit_number = entry(learner_license_date_registration)
-    learner_permit_number.grid(row=8, column=2, sticky='wen', padx=(0,10))
+    learner_permit_number.grid(row=7, column=2, sticky='wen', padx=(0,10))
     
     # 使用 treeview 顯示學員資料
+    global data_list
     columns = (
         'learner_permit_date', 
         'learner_permit_number', 
@@ -117,7 +118,7 @@ def learner_license_date_registration(content):
     data_list.column('r_address_zip_code', width=50, anchor='w')
     data_list.column('r_address', width=250, anchor='w')
 
-    data_list.grid(row=9, column=0, columnspan=4, sticky='wen', padx=10, pady=(20,0))
+    data_list.grid(row=8, column=0, columnspan=4, sticky='wen', padx=10, pady=(20,0))
 
     # 邏輯功能
     # 搜尋學員資料庫並且在 entry 顯示學員資料
@@ -128,6 +129,7 @@ def learner_license_date_registration(content):
             # 獲取學員資料庫 id 序列
             current_student_id = student_data[0]
             # 學員編號
+            student_number.configure(state='normal')
             student_number.delete(0, ctk.END)
             student_number.insert(0, student_data[5])
             # 學員姓名
@@ -181,6 +183,7 @@ def learner_license_date_registration(content):
             r_address.insert(0, student_data[20])
             r_address.configure(state='readonly')
 
+
     # 獲取輸入欄位信息
     def save_student_data():
         global current_student_id
@@ -188,6 +191,7 @@ def learner_license_date_registration(content):
             'learner_permit_login_data': learner_permit_login_data.get(),
             'learner_permit_date': learner_permit_date.get(),
             'learner_permit_number': learner_permit_number.get(),
+            'license_type_name': license_type_name.get(),
             'id': current_student_id
         }
 
@@ -210,8 +214,24 @@ def learner_license_date_registration(content):
         update_student_data(student_data)
         clear_entries_and_comboboxes(learner_license_date_registration)
 
+        # 將新登錄的學員資料添加到 Treeview 中
+        data_list.insert('', 'end', values=(
+            student_data['learner_permit_date'],
+            student_data['learner_permit_number'],
+            student_data['license_type_name'],
+            license_type_code.get(),
+            student_number.get(),
+            student_name.get(),
+            birth_date.get(),
+            national_id_no.get(),
+            mobile_phone.get(),
+            r_address_zip_code.get(),
+            r_address.get()
+        ))
+
+
     # 學照資料登錄按鈕
-    btn(learner_license_date_registration, text='登錄', command=save_student_data).grid(row=8, column=3, sticky='wen', padx=(0,10))
+    btn(learner_license_date_registration, text='登錄', command=save_student_data).grid(row=7, column=3, sticky='wen', padx=(0,10))
 
 # 清空所有 entry 和 combobox 的函式
 def clear_entries_and_comboboxes(parent):
@@ -219,6 +239,5 @@ def clear_entries_and_comboboxes(parent):
         if isinstance(child, ctk.CTkEntry) or isinstance(child, Entry):
             child.configure(state='normal')  # 設置為可編輯狀態
             child.delete(0, ctk.END)  # 清空內容
-            child.configure(state='readonly')  # 設置為只讀狀態
         elif isinstance(child, ctk.CTkComboBox):  # 檢查 customtkinter 的 CTkComboBox
             child.set('')  # 清空選項
