@@ -16,14 +16,9 @@ def learner_license_date_registration(content):
     learner_license_date_registration.columnconfigure(3, weight=1)
     learner_license_date_registration.place(relwidth=1, relheight=1)
 
-    # 輸入學號
+    # 輸入學號查詢
     select_student_number = entry(learner_license_date_registration, placeholder_text = "輸入學員編號")
     select_student_number.grid(row=0, column=0, columnspan=3, sticky='wen', padx=10, pady=(10,0))
-
-    # # 搜尋按鈕
-    # search_btn(learner_license_date_registration, text='搜尋學員信息', command=lambda: search_student_info(
-    #     select_student_number.get(), student_number, student_name, national_id_no, birth_date, mobile_phone, license_type_code, license_type_name, remarks, r_address_zip_code, r_address_city, r_address
-    # )).grid(row=0, column=3, sticky='wen', padx=(0,10), pady=(10,0))
 
     # 顯示學員編號
     label(learner_license_date_registration, text='學員編號').grid(row=1, column=0, sticky='ws', padx=(10,0), pady=(50,0))
@@ -57,12 +52,12 @@ def learner_license_date_registration(content):
     license_type_name = display_entry_value(learner_license_date_registration)
     license_type_name.grid(row=4, column=2, sticky='wen', padx=(0,10))
 
-    # 備註
+    # 顯示備註
     label(learner_license_date_registration, text='備註').grid(row=3, column=3, sticky='ws',pady=(10,0))
     remarks = display_entry_value(learner_license_date_registration)
     remarks.grid(row=4, column=3, sticky='wen', padx=(0,10))
 
-    # 戶籍地址
+    # 顯示戶籍地址
     label(learner_license_date_registration, text='戶籍地址').grid(row=5, column=0, sticky='ws', padx=(10,0), pady=(10,0))
     r_address_zip_code = display_entry_value(learner_license_date_registration)
     r_address_zip_code.grid(row=6, column=0, sticky='wen', padx=10)
@@ -71,71 +66,27 @@ def learner_license_date_registration(content):
     r_address = display_entry_value(learner_license_date_registration)
     r_address.grid(row=6, column=2, columnspan=2, sticky='wen', padx=(0,10))
     
-    # 登錄日期
+    # 輸入登錄日期
     label(learner_license_date_registration, text='登錄日期：').grid(row=7, column=0, sticky='ws', padx=(10,0), pady=(50,0))
     learner_permit_login_data = entry(learner_license_date_registration)
     learner_permit_login_data.grid(row=8, column=0, sticky='wen', padx=10)
 
-
-    # 學照日期
+    # 輸入學照日期
     label(learner_license_date_registration, text='學照日期：').grid(row=7, column=1, sticky='ws', pady=(10,0))
     learner_permit_date = entry(learner_license_date_registration)
     learner_permit_date.grid(row=8, column=1, sticky='wen', padx=(0,10))
 
-    # 學照號碼
+    # 輸入學照號碼
     label(learner_license_date_registration, text='學照號碼：').grid(row=7, column=2, sticky='ws', pady=(10,0))
     learner_permit_number = entry(learner_license_date_registration)
     learner_permit_number.grid(row=8, column=2, sticky='wen', padx=(0,10))
-
 
     # 搜尋按鈕
     search_btn(learner_license_date_registration, text='搜尋學員信息', command=lambda: search_student_info(
         select_student_number.get())).grid(row=0, column=3, sticky='wen', padx=(0,10), pady=(10,0))
 
-
-    # 定義按鈕點擊事件
-    def add_btn_click():
-        learner_permit_login_data_val = learner_permit_login_data.get()
-        learner_permit_date_val = learner_permit_date.get()
-        learner_permit_number_val = learner_permit_number.get()
-
-        # 檢查欄位是否為空
-        if not all([learner_permit_login_data_val, learner_permit_date_val, learner_permit_number_val]):
-            messagebox.showerror('錯誤', '登錄日期、學照日期、學照號碼 - 欄位不可為空')
-            return
-        else:
-            # student_name_val = student_name.get()
-            # national_id_val = national_id_no.get()
-            # birth_date_val = birth_date.get()
-            # mobile_phone_val = mobile_phone.get()
-            
-            license_update_student_data(learner_permit_login_data_val, learner_permit_date_val, learner_permit_number_val)
-            select_student_number.delete(0, ctk.END)
-            student_number.delete(0, ctk.END)
-            student_name.delete(0, ctk.END)
-            national_id_no.delete(0, ctk.END)
-            mobile_phone.delete(0, ctk.END)
-            birth_date.delete(0, ctk.END)
-            license_type_code.delete(0, ctk.END)
-            license_type_name.delete(0, ctk.END)
-            remarks.delete(0, ctk.END)
-            r_address_zip_code.delete(0, ctk.END)
-            r_address_city.delete(0, ctk.END)
-            r_address.delete(0, ctk.END)
-            learner_permit_login_data.delete(0, ctk.END)
-            learner_permit_date.delete(0, ctk.END)
-            learner_permit_number.delete(0, ctk.END)
-            # messagebox.showinfo('成功', '學照日期登錄成功')
-
-            # 在 Treeview 中顯示更新後的資料
-            for i in data_list.get_children():
-                data_list.delete(i)
-            load_data_into_treeview(data_list)
-
-
     # 學照資料登錄按鈕
-    btn(learner_license_date_registration, text='登錄', command = add_btn_click).grid(row=8, column=3, sticky='wen', padx=(0,10))
-    
+    btn(learner_license_date_registration, text='登錄', command = None).grid(row=8, column=3, sticky='wen', padx=(0,10))
     
     # 使用 treeview 顯示學員資料
     columns = (
@@ -162,31 +113,18 @@ def learner_license_date_registration(content):
     data_list.heading('mobile_phone', text='聯絡手機')
     data_list.heading('r_address_zip_code', text='區號')
     data_list.heading('r_address', text='地址')
+    
+    data_list.column('learner_permit_date', width=50, anchor='w')
+    data_list.column('learner_permit_number', width=50, anchor='w')
+    data_list.column('license_type_code', width=50, anchor='w')
+    data_list.column('student_number', width=50, anchor='w')
+    data_list.column('student_name', width=50, anchor='w')
+    data_list.column('birth_date', width=50, anchor='w')
+    data_list.column('national_id_no', width=60, anchor='w')
+    data_list.column('mobile_phone', width=50, anchor='w')
+    data_list.column('r_address_zip_code', width=50, anchor='w')
+    data_list.column('r_address', width=250, anchor='w')
 
     data_list.grid(row=9, column=0, columnspan=4, sticky='wen', padx=10, pady=(20,0))
-
-    # data_list = ttk.Treeview(learner_license_date_registration, show='headings', columns=(
-    #     'learner_permit_date',
-    #     'learner_permit_number',
-    #     'license_type_code',
-    #     'student_number',
-    #     'student_name',
-    #     'birth_date',
-    #     'national_id_no',
-    #     'mobile_phone',
-    #     'r_address_zip_code',
-    #     'r_address'
-    # ))
-    
-    # data_list.column('learner_permit_date', width=50, anchor='w')
-    # data_list.column('learner_permit_number', width=50, anchor='w')
-    # data_list.column('license_type_code', width=50, anchor='w')
-    # data_list.column('student_number', width=50, anchor='w')
-    # data_list.column('student_name', width=50, anchor='w')
-    # data_list.column('birth_date', width=50, anchor='w')
-    # data_list.column('national_id_no', width=60, anchor='w')
-    # data_list.column('mobile_phone', width=50, anchor='w')
-    # data_list.column('r_address_zip_code', width=50, anchor='w')
-    # data_list.column('r_address', width=250, anchor='w')
     
     # load_data_into_treeview(data_list)
