@@ -196,3 +196,13 @@ def display_entry_value(
         text_color = text_color ,
         **kwargs 
         )
+
+
+# 清空所有 entry 和 combobox 的函式
+def clear_entries_and_comboboxes(parent):
+    for child in parent.winfo_children():
+        if isinstance(child, ck.CTkEntry) or isinstance(child, Entry):
+            child.configure(state='normal')  # 設置為可編輯狀態
+            child.delete(0, ck.END)  # 清空內容
+        elif isinstance(child, ck.CTkComboBox):  # 檢查 customtkinter 的 CTkComboBox
+            child.set('')  # 清空選項

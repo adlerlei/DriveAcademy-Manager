@@ -399,14 +399,3 @@ def student_all(content):
     add_btn(student_all, text='新增', command=get_data_and_insert).grid(row=13, column=1, sticky='wen', padx=10, pady=20)
     modify_btn(student_all, text='修改', command=update_student).grid(row=13, column=2, sticky='wen', padx=10, pady=20)
     delete_btn(student_all, text='刪除', command=delete_student).grid(row=13, column=3, sticky='wen', padx=(0,10), pady=20)
-
-
-
-# 清空所有 entry 和 combobox 的函式
-def clear_entries_and_comboboxes(parent):
-    for child in parent.winfo_children():
-        if isinstance(child, ctk.CTkEntry) or isinstance(child, Entry):
-            child.configure(state='normal')  # 設置為可編輯狀態
-            child.delete(0, ctk.END)  # 清空內容
-        elif isinstance(child, ctk.CTkComboBox):  # 檢查 customtkinter 的 CTkComboBox
-            child.set('')  # 清空選項
