@@ -268,10 +268,10 @@ def student_all(content):
             register_number.insert(0, student_data[33])
             register_number.configure(state='readonly')
 
-            # 學照日期
+            # 路試日期
             road_test_date.configure(state='normal')
             road_test_date.delete(0, ctk.END)
-            road_test_date.insert(0, student_data[25])
+            road_test_date.insert(0, student_data[36])
             road_test_date.configure(state='readonly')
 
             # 建檔日期

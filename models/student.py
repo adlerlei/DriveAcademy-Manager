@@ -116,7 +116,7 @@ def get_student_data(identifier, value):
     
     conn.close()
     # 打印終端機顯示資料是否正確
-    # print(result)
+    print(result)
     return result
 
 

@@ -137,31 +137,21 @@ def learner_license_date_registration(content):
     btn(learner_license_date_registration, text='登錄', command = add_btn_click).grid(row=8, column=3, sticky='wen', padx=(0,10))
     
     
-    # 登錄後顯示信息列表
-    data_list = ttk.Treeview(learner_license_date_registration, show='headings', columns=(
-        'learner_permit_date',
-        'learner_permit_number',
+    # 使用 treeview 顯示學員資料
+    columns = (
+        'learner_permit_date', 
+        'learner_permit_number', 
         'license_type_code',
         'student_number',
-        'student_name',
-        'birth_date',
+        'student_name', 
+        'birth_date', 
         'national_id_no',
-        'mobile_phone',
-        'r_address_zip_code',
+        'mobile_phone', 
+        'r_address_zip_code', 
         'r_address'
-    ))
-    
-    data_list.column('learner_permit_date', width=50, anchor='w')
-    data_list.column('learner_permit_number', width=50, anchor='w')
-    data_list.column('license_type_code', width=50, anchor='w')
-    data_list.column('student_number', width=50, anchor='w')
-    data_list.column('student_name', width=50, anchor='w')
-    data_list.column('birth_date', width=50, anchor='w')
-    data_list.column('national_id_no', width=60, anchor='w')
-    data_list.column('mobile_phone', width=50, anchor='w')
-    data_list.column('r_address_zip_code', width=50, anchor='w')
-    data_list.column('r_address', width=250, anchor='w')
-    
+        )
+    data_list = ttk.Treeview(learner_license_date_registration, columns = columns, show='headings')
+
     data_list.heading('learner_permit_date', text='學照日期')
     data_list.heading('learner_permit_number', text='學照號碼')
     data_list.heading('license_type_code', text='考照類別')
@@ -171,8 +161,32 @@ def learner_license_date_registration(content):
     data_list.heading('national_id_no', text='身分證號')
     data_list.heading('mobile_phone', text='聯絡手機')
     data_list.heading('r_address_zip_code', text='區號')
-    data_list.heading('r_address', text='地址') 
-    
+    data_list.heading('r_address', text='地址')
+
     data_list.grid(row=9, column=0, columnspan=4, sticky='wen', padx=10, pady=(20,0))
+
+    # data_list = ttk.Treeview(learner_license_date_registration, show='headings', columns=(
+    #     'learner_permit_date',
+    #     'learner_permit_number',
+    #     'license_type_code',
+    #     'student_number',
+    #     'student_name',
+    #     'birth_date',
+    #     'national_id_no',
+    #     'mobile_phone',
+    #     'r_address_zip_code',
+    #     'r_address'
+    # ))
+    
+    # data_list.column('learner_permit_date', width=50, anchor='w')
+    # data_list.column('learner_permit_number', width=50, anchor='w')
+    # data_list.column('license_type_code', width=50, anchor='w')
+    # data_list.column('student_number', width=50, anchor='w')
+    # data_list.column('student_name', width=50, anchor='w')
+    # data_list.column('birth_date', width=50, anchor='w')
+    # data_list.column('national_id_no', width=60, anchor='w')
+    # data_list.column('mobile_phone', width=50, anchor='w')
+    # data_list.column('r_address_zip_code', width=50, anchor='w')
+    # data_list.column('r_address', width=250, anchor='w')
     
     # load_data_into_treeview(data_list)
