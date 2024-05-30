@@ -1,10 +1,10 @@
-# 學習駕照日期登錄
+# learner_license_date_registration.py 代碼
+
 from utils.widget import *
 from utils.config import * 
 from models.license import *
 import customtkinter as ctk
 from tkinter import messagebox
-
 
 current_student_id = None
 
@@ -18,15 +18,11 @@ def learner_license_date_registration(content):
     learner_license_date_registration.columnconfigure(3, weight=1)
     learner_license_date_registration.place(relwidth=1, relheight=1)
 
-    # 輸入學號查詢
-    select_student_number = entry(learner_license_date_registration, placeholder_text = "輸入學員編號")
-    select_student_number.grid(row=0, column=0, columnspan=3, sticky='wen', padx=10, pady=(10,0))
-    select_student_number.bind("<<KeyRelease>>", lambda event: populate_student_data(select_student_number.get()))
-
     # 顯示學員編號
     label(learner_license_date_registration, text='學員編號').grid(row=1, column=0, sticky='ws', padx=(10,0), pady=(50,0))
-    student_number = display_entry_value(learner_license_date_registration)
+    student_number = entry(learner_license_date_registration, placeholder_text="輸入學員編號")
     student_number.grid(row=2, column=0, sticky='wen', padx=10)
+    student_number.bind("<KeyRelease>", lambda event: populate_student_data('student_number', student_number.get()))
 
     # 顯示學員姓名
     label(learner_license_date_registration, text='學員姓名').grid(row=1, column=1, sticky='ws', pady=(10,0))
@@ -126,17 +122,14 @@ def learner_license_date_registration(content):
     # 邏輯功能
     # 搜尋學員資料庫並且在 entry 顯示學員資料
     def populate_student_data(identifier, value):
-        global is_editing, current_student_id
+        global current_student_id
         student_data = get_student_data(identifier, value)
         if student_data:
             # 獲取學員資料庫 id 序列
             current_student_id = student_data[0]
-            is_editing = True
             # 學員編號
-            student_number.configure(state='normal')
             student_number.delete(0, ctk.END)
             student_number.insert(0, student_data[5])
-            student_number.configure(state='readonly')
             # 學員姓名
             student_name.configure(state='normal')
             student_name.delete(0, ctk.END)
@@ -188,11 +181,44 @@ def learner_license_date_registration(content):
             r_address.insert(0, student_data[20])
             r_address.configure(state='readonly')
 
+    # 獲取輸入欄位信息
+    def save_student_data():
+        global current_student_id
+        student_data = {
+            'learner_permit_login_data': learner_permit_login_data.get(),
+            'learner_permit_date': learner_permit_date.get(),
+            'learner_permit_number': learner_permit_number.get(),
+            'id': current_student_id
+        }
 
+        # 驗證 登錄日期，學照日期，學照號碼，輸入欄位是否為空
+        required_fields = [
+            'learner_permit_login_data',
+            'learner_permit_date',
+            'learner_permit_number'
+        ]
+        
+        for field in required_fields:
+            if not student_data[field]:
+                messagebox.showwarning('提示', f'{validation_fields[field]} 欄位不能為空！')
+                return
 
+        if current_student_id is None:
+            messagebox.showwarning('提示', '請先搜尋需要登錄學照的學員')
+            return
 
-    # 搜尋按鈕
-    search_btn(learner_license_date_registration, text='搜尋學員信息', command = None).grid(row=0, column=3, sticky='wen', padx=(0,10), pady=(10,0))
+        update_student_data(student_data)
+        clear_entries_and_comboboxes(learner_license_date_registration)
 
     # 學照資料登錄按鈕
-    btn(learner_license_date_registration, text='登錄', command = None).grid(row=8, column=3, sticky='wen', padx=(0,10))
+    btn(learner_license_date_registration, text='登錄', command=save_student_data).grid(row=8, column=3, sticky='wen', padx=(0,10))
+
+# 清空所有 entry 和 combobox 的函式
+def clear_entries_and_comboboxes(parent):
+    for child in parent.winfo_children():
+        if isinstance(child, ctk.CTkEntry) or isinstance(child, Entry):
+            child.configure(state='normal')  # 設置為可編輯狀態
+            child.delete(0, ctk.END)  # 清空內容
+            child.configure(state='readonly')  # 設置為只讀狀態
+        elif isinstance(child, ctk.CTkComboBox):  # 檢查 customtkinter 的 CTkComboBox
+            child.set('')  # 清空選項

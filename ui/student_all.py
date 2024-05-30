@@ -8,12 +8,7 @@ is_editing = False
 current_student_id = None
 
 def student_all(content):
-    # global checkbox_added, is_editing, current_student_id
-    # global is_editing, current_student_id
     clear_frame(content)
-    # checkbox_added = False 
-    # is_editing = False
-    # current_student_id = None
 
     student_all = frame(content)
     student_all.columnconfigure(0, weight=1)
@@ -402,7 +397,6 @@ def student_all(content):
 
     # 修改按鈕配置
     add_btn(student_all, text='新增', command=get_data_and_insert).grid(row=13, column=1, sticky='wen', padx=10, pady=20)
-    # search_btn(student_all, text='查詢', command=click_btn).grid(row=13, column=1, sticky='wen', padx=(0,10), pady=20)
     modify_btn(student_all, text='修改', command=update_student).grid(row=13, column=2, sticky='wen', padx=10, pady=20)
     delete_btn(student_all, text='刪除', command=delete_student).grid(row=13, column=3, sticky='wen', padx=(0,10), pady=20)
 
@@ -411,6 +405,8 @@ def student_all(content):
 def clear_entries_and_comboboxes(parent):
     for child in parent.winfo_children():
         if isinstance(child, ctk.CTkEntry) or isinstance(child, Entry):
-            child.delete(0, ctk.END)
+            child.configure(state='normal')  # 設置為可編輯狀態
+            child.delete(0, ctk.END)  # 清空內容
+            child.configure(state='readonly')  # 設置為只讀狀態
         elif isinstance(child, ctk.CTkComboBox):  # 檢查 customtkinter 的 CTkComboBox
-            child.set('')
+            child.set('')  # 清空選項
