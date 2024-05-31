@@ -5,6 +5,7 @@ from models.license import *
 import customtkinter as ctk
 from tkinter import messagebox
 
+# 檢測學員資料庫 id 欄位來判定是否修改或新增
 current_student_id = None
 
 def learner_license_date_registration(content):
@@ -19,7 +20,7 @@ def learner_license_date_registration(content):
 
     # 顯示學員編號
     label(learner_license_date_registration, text='學員編號').grid(row=0, column=0, sticky='ws', padx=(10,0), pady=(10,0))
-    student_number = entry(learner_license_date_registration, placeholder_text="輸入學員編號")
+    student_number = entry(learner_license_date_registration, placeholder_text="輸入學員編號查詢")
     student_number.grid(row=1, column=0, sticky='wen', padx=10)
     student_number.bind("<KeyRelease>", lambda event: populate_student_data('student_number', student_number.get()))
 
@@ -102,7 +103,7 @@ def learner_license_date_registration(content):
     data_list.heading('student_name', text='學員姓名')  
     data_list.heading('birth_date', text='出生日期')  
     data_list.heading('national_id_no', text='身分證號')  
-    data_list.heading('mobile_phone', text='聯絡手機')  
+    data_list.heading('mobile_phone', text='手機')  
     data_list.heading('r_address_zip_code', text='區號')  
     data_list.heading('r_address', text='地址')  
 
@@ -117,7 +118,7 @@ def learner_license_date_registration(content):
     data_list.column('r_address_zip_code', width=50, anchor='center')  
     data_list.column('r_address', width=250, anchor='center')  
 
-    data_list.grid(row=9, column=0, columnspan=4, sticky='wen', padx=10, pady=(20,0))
+    data_list.grid(row=8, column=0, columnspan=4, sticky='wen', padx=10, pady=(20,0))
 
     # 邏輯功能
     # 搜尋學員資料庫並且在 entry 顯示學員資料
@@ -185,6 +186,7 @@ def learner_license_date_registration(content):
 
     # 獲取輸入欄位信息
     def save_student_data():
+        uid = 1
         global current_student_id
         student_data = {
             'learner_permit_login_data': learner_permit_login_data.get(),
@@ -214,14 +216,14 @@ def learner_license_date_registration(content):
                 return
 
         if current_student_id is None:
-            messagebox.showwarning('提示', '請先搜尋需要登錄學照的學員')
+            messagebox.showwarning('提示', '請先搜尋需要登錄的學員')
             return
 
-        update_student_data(student_data)
+        update_student_data(student_data, uid = 1)
         clear_entries_and_comboboxes(learner_license_date_registration)
 
         # 讀取 save_student_data 函式中的 key , 將新登錄的學員資料添加到 Treeview 中
-        data_list.insert('', 'end', values=(
+        data_list.insert('', 'end', values = (
             student_data['learner_permit_date'],
             student_data['learner_permit_number'],
             student_data['license_type_name'],
@@ -235,4 +237,4 @@ def learner_license_date_registration(content):
         ))
 
     # 學照資料登錄按鈕
-    btn(learner_license_date_registration, text='登錄', command=save_student_data).grid(row=7, column=3, sticky='wen', padx=(0,10))
+    btn(learner_license_date_registration, text='登錄', command = save_student_data).grid(row=7, column=3, sticky='wen', padx=(0,10))

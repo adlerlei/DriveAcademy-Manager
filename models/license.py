@@ -7,31 +7,40 @@ from tkinter import messagebox
 # 資料庫路徑
 database_path = os.path.join(os.path.dirname(__file__), '..', 'db', 'driving_school.db')
 
-
 # 驗證學員資料輸入欄位
 validation_fields = {
     'learner_permit_login_data': '登錄日期',
     'learner_permit_date': '學照日期',
-    'learner_permit_number': '學照號碼'
+    'learner_permit_number': '學照號碼',
+    'submission_date': '送件日期'
 }
 
 
-# 更新學員資料庫
-def update_student_data(data):
+# 更新 學照登錄 學員資料庫
+def update_student_data(data, uid):
     conn = sqlite3.connect(database_path)
     cursor = conn.cursor()
 
-    cursor.execute('''
-        UPDATE student SET
-            learner_permit_login_data = :learner_permit_login_data,
-            learner_permit_date = :learner_permit_date,
-            learner_permit_number = :learner_permit_number
-        WHERE id = :id
-    ''', data)
+    if uid == 1:
+        cursor.execute('''
+            UPDATE student SET
+                learner_permit_login_data = :learner_permit_login_data,
+                learner_permit_date = :learner_permit_date,
+                learner_permit_number = :learner_permit_number
+            WHERE id = :id
+        ''', data)
+        
+        messagebox.showinfo('訊息', '學照登錄完成！')
+    elif uid == 0:
+        cursor.execute('''
+            UPDATE student SET
+                submission_date = :submission_date
+            WHERE id = :id
+        ''', data)
+        messagebox.showinfo('訊息', '學照送件完成！')
 
     conn.commit()
     conn.close()
-    messagebox.showinfo('訊息', '登錄完成！')
 
 
 # 搜尋學員資料庫
