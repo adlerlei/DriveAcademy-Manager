@@ -234,6 +234,5 @@ def learner_license_date_registration(content):
             student_data['r_address']
         ))
 
-    # return learner_license_date_registration
     # 學照資料登錄按鈕
     btn(learner_license_date_registration, text='登錄', command=save_student_data).grid(row=7, column=3, sticky='wen', padx=(0,10))

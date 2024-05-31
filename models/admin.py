@@ -20,7 +20,7 @@ def register_insert_data(menu, content, name, password):
     if c.fetchone():
         messagebox.showerror('錯誤', '用戶名稱已存在！')
         return
-    # 如果用户名已存在，显示错误消息并返回，不执行以下的插入操作
+    # 如果用户名已存在，顯示錯誤消息並返回，不執行寫入。
     else:
         # 寫入資料
         c.execute('INSERT INTO admin (name, password) VALUES (?, ?)', (name, password))

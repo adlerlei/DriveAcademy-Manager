@@ -174,27 +174,27 @@ def student_all(content):
 
 
     label(student_all, text='該學員是否退訓').grid(row=14, column=0, sticky='ws', padx=(10,0))
-    dropout = display_entry_value(student_all, width=5)
+    dropout = display_entry_value(student_all)
     dropout.grid(row=15, column=0, sticky='wen', padx=10)
 
     label(student_all, text='名冊號碼').grid(row=14, column=1, sticky='ws')
-    register_number = display_entry_value(student_all, width=7)
+    register_number = display_entry_value(student_all)
     register_number.grid(row=15, column=1, sticky='wen', padx=(0,10))
 
     label(student_all, text='學照日期').grid(row=14, column=2, sticky='ws', padx=(10,0))
-    learner_permit_date = display_entry_value(student_all, width=7)
+    learner_permit_date = display_entry_value(student_all)
     learner_permit_date.grid(row=15, column=2, sticky='wen', padx=10)
 
     label(student_all, text='學照號碼').grid(row=14, column=3, sticky='ws')
-    learner_permit_number = display_entry_value(student_all, width=7)
+    learner_permit_number = display_entry_value(student_all)
     learner_permit_number.grid(row=15, column=3, sticky='wen', padx=(0,10))
 
     label(student_all, text='路試日期').grid(row=16, column=0, sticky='ws', padx=(10,0))
-    road_test_date = display_entry_value(student_all, width=7)
+    road_test_date = display_entry_value(student_all)
     road_test_date.grid(row=17, column=0, sticky='wen', padx=10)
 
     label(student_all, text='建檔日期').grid(row=16, column=1, sticky='ws')
-    creation_date = display_entry_value(student_all, width=7)
+    creation_date = display_entry_value(student_all)
     creation_date.grid(row=17, column=1, sticky='wen')
 
 

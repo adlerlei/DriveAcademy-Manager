@@ -152,7 +152,6 @@ def combobox(
 def entry(
     frame , 
     placeholder_text = '',
-    # width = 200,
     height = 40,
     font = create_font() , 
     fg_color = '#d9d9d9',
@@ -163,7 +162,6 @@ def entry(
         frame, 
         placeholder_text = placeholder_text ,
         border_color = '#fdfdff',
-        # width = width ,
         height = height ,
         font = font , 
         fg_color = fg_color,
@@ -176,7 +174,6 @@ def entry(
 def display_entry_value(
     frame, 
     placeholder_text = '',
-    # width = 200,
     height = 40,
     font = create_font(),
     state = "readonly",
