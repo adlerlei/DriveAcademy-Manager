@@ -8,12 +8,7 @@ is_editing = False
 current_student_id = None
 
 def student_all(content):
-    # global checkbox_added, is_editing, current_student_id
-    global is_editing, current_student_id
     clear_frame(content)
-    # checkbox_added = False 
-    is_editing = False
-    current_student_id = None
 
     student_all = frame(content)
     student_all.columnconfigure(0, weight=1)
@@ -179,27 +174,27 @@ def student_all(content):
 
 
     label(student_all, text='該學員是否退訓').grid(row=14, column=0, sticky='ws', padx=(10,0))
-    dropout = display_entry_value(student_all, width=5)
+    dropout = display_entry_value(student_all)
     dropout.grid(row=15, column=0, sticky='wen', padx=10)
 
     label(student_all, text='名冊號碼').grid(row=14, column=1, sticky='ws')
-    register_number = display_entry_value(student_all, width=7)
+    register_number = display_entry_value(student_all)
     register_number.grid(row=15, column=1, sticky='wen', padx=(0,10))
 
     label(student_all, text='學照日期').grid(row=14, column=2, sticky='ws', padx=(10,0))
-    learner_permit_date = display_entry_value(student_all, width=7)
+    learner_permit_date = display_entry_value(student_all)
     learner_permit_date.grid(row=15, column=2, sticky='wen', padx=10)
 
     label(student_all, text='學照號碼').grid(row=14, column=3, sticky='ws')
-    learner_permit_number = display_entry_value(student_all, width=7)
+    learner_permit_number = display_entry_value(student_all)
     learner_permit_number.grid(row=15, column=3, sticky='wen', padx=(0,10))
 
     label(student_all, text='路試日期').grid(row=16, column=0, sticky='ws', padx=(10,0))
-    road_test_date = display_entry_value(student_all, width=7)
+    road_test_date = display_entry_value(student_all)
     road_test_date.grid(row=17, column=0, sticky='wen', padx=10)
 
     label(student_all, text='建檔日期').grid(row=16, column=1, sticky='ws')
-    creation_date = display_entry_value(student_all, width=7)
+    creation_date = display_entry_value(student_all)
     creation_date.grid(row=17, column=1, sticky='wen')
 
 
@@ -322,7 +317,7 @@ def student_all(content):
 
         # 如果是編輯模式，提示使用者無法新增
         if is_editing:
-            messagebox.showinfo('提示', '無法新增學員，請使用更新功能。')
+            messagebox.showinfo('提示', '無法新增學員，請使用 "修改" 功能。')
             return
 
         insert_student_data(student_data)
@@ -402,15 +397,5 @@ def student_all(content):
 
     # 修改按鈕配置
     add_btn(student_all, text='新增', command=get_data_and_insert).grid(row=13, column=1, sticky='wen', padx=10, pady=20)
-    # search_btn(student_all, text='查詢', command=click_btn).grid(row=13, column=1, sticky='wen', padx=(0,10), pady=20)
     modify_btn(student_all, text='修改', command=update_student).grid(row=13, column=2, sticky='wen', padx=10, pady=20)
     delete_btn(student_all, text='刪除', command=delete_student).grid(row=13, column=3, sticky='wen', padx=(0,10), pady=20)
-
-
-# 清空所有 entry 和 combobox 的函式
-def clear_entries_and_comboboxes(parent):
-    for child in parent.winfo_children():
-        if isinstance(child, ctk.CTkEntry) or isinstance(child, Entry):
-            child.delete(0, ctk.END)
-        elif isinstance(child, ctk.CTkComboBox):  # 檢查 customtkinter 的 CTkComboBox
-            child.set('')

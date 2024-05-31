@@ -203,12 +203,12 @@ def annual_plan_term(content):
     data_list = ttk.Treeview(annual_plan_term, show='headings', 
                              columns=('訓練班別名稱', '年度', '期別編號', '開訓日期', '結訓日期', '上課期別代碼'), height=25)
     
-    data_list.column("訓練班別名稱", width=150, anchor='w')
-    data_list.column("年度", width=50, anchor='w')
-    data_list.column("期別編號", width=50, anchor='w')
-    data_list.column("開訓日期", width=50, anchor='w')
-    data_list.column("結訓日期", width=50, anchor='w')
-    data_list.column("上課期別代碼", width=50, anchor='w')
+    data_list.column("訓練班別名稱", width=150, anchor='center')
+    data_list.column("年度", width=50, anchor='center')
+    data_list.column("期別編號", width=50, anchor='center')
+    data_list.column("開訓日期", width=50, anchor='center')
+    data_list.column("結訓日期", width=50, anchor='center')
+    data_list.column("上課期別代碼", width=50, anchor='center')
     
 
     data_list.heading("訓練班別名稱", text="訓練班別名稱")
