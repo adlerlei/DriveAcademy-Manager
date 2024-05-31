@@ -4,8 +4,7 @@ from utils.config import *
 from tkinter import messagebox
 import customtkinter as ctk
 from models.annual_plan import insert_annual_plan_data, fetch_and_populate_treeview, delete_btn_click, export_selected_data
-# from models.annual_plan import update_record_in_db
-# selected_record_id = None
+
 
 def annual_plan_term(content):
     clear_frame(content)
@@ -88,7 +87,7 @@ def annual_plan_term(content):
     
     # 結訓日期
     label(annual_plan_term, text='結訓日期').grid(row=4, column=2, sticky='ws',padx=(10,0), pady=(20,0))
-    end_date = entry(annual_plan_term)
+    end_date = entry(annual_plan_term) 
     end_date.grid(row=5, column=2, columnspan=2, sticky='wen', padx=10)
 
     # 新增按鈕觸發
@@ -111,86 +110,9 @@ def annual_plan_term(content):
         else:
             insert_annual_plan_data(year_value, term_value, term_class_code_value, batch_value, training_type_code_value, training_type_name_value, start_date_value, end_date_value)
             # 新增成功後，清空輸入欄位
-            year.delete(0, ctk.END)
-            term.delete(0, ctk.END)
-            term_class_code.delete(0, ctk.END)
-            batch.set('')
-            start_date.delete(0, ctk.END)
-            end_date.delete(0, ctk.END)
-
+            clear_entries_and_comboboxes(annual_plan_term)
             # 即時更新 Treeview
             fetch_and_populate_treeview(data_list)
-
-    
-    # 當選中 Treeview 中的一行時,將數據填充到輸入欄位中
-    # def on_treeview_select(event):
-    #     selected_item = data_list.selection()
-    #     global selected_record_id
-    #     if selected_item:
-    #         item_values = data_list.item(selected_item)["values"]
-    #         training_type_name.set(item_values[0])
-    #         year.delete(0, tk.END)
-    #         year.insert(0, item_values[1])
-    #         term.delete(0, tk.END)
-    #         term.insert(0, item_values[2])
-    #         start_date.delete(0, tk.END)
-    #         start_date.insert(0, item_values[3])
-    #         end_date.delete(0, tk.END)
-    #         end_date.insert(0, item_values[4])
-    #         term_class_code.delete(0, tk.END)
-    #         term_class_code.insert(0, item_values[5])
-    #         selected_record_id = data_list.item(selected_item)["text"]
-
-    # 修改按鈕觸發
-    # def modify_btn_click():
-    #     # 獲取選中行
-    #     selected_item = data_list.selection()
-    #     if not selected_item:
-    #         messagebox.showwarning("警告", "請先選擇要修改的行!")
-    #         return
-
-        # 獲取新的數據
-        # new_training_type_name = training_type_name.get()
-        # new_year = year.get()
-        # new_term = term.get()
-        # new_start_date = start_date.get()
-        # new_end_date = end_date.get()
-        # new_term_class_code = term_class_code.get()
-        # new_batch = batch.get()
-        # new_training_type_code = training_type_code.get()
-
-        # 更新資料庫
-        # update_record_in_db(selected_record_id, new_training_type_name, new_year, new_term, new_start_date, new_end_date, new_term_class_code, new_batch, new_training_type_code)
-
-        # 刷新 Treeview
-        # fetch_and_populate_treeview(data_list)
-        
-
-    # # 匯出文件按鈕觸發
-    # def export_selected_data(treeview):
-    #     # 获取选中的行
-    #     selected_items = treeview.selection()
-    #     if not selected_items:
-    #         messagebox.showwarning("警告", "請先選擇要匯出的資料列表!")
-    #         return
-
-    #     # 获取选中行的数据
-    #     data = []
-    #     for item in selected_items:
-    #         item_values = treeview.item(item)["values"]
-    #         data.append(item_values)
-
-    #     # 创建一个文件对话框,让用户选择保存路径
-    #     file_path = filedialog.asksaveasfilename(defaultextension=".txt")
-    #     if file_path:
-    #         try:
-    #             # 写入数据到文件
-    #             with open(file_path, "w", encoding="utf-8") as f:
-    #                 for row in data:
-    #                     f.write("\t".join(str(value) for value in row) + "\n")
-    #             messagebox.showinfo("成功", "匯出文件成功!")
-    #         except Exception as e:
-    #             messagebox.showerror("錯誤", f"匯出文件失敗: {str(e)}")
 
     
     # 新增，刪除，匯出文件 按鈕
@@ -219,9 +141,6 @@ def annual_plan_term(content):
     data_list.heading("上課期別代碼", text="上課期別代碼")
     
     data_list.grid(row=8, column=0, columnspan=4, sticky='wens', padx=10)
-
-    # 綁定 Treeview 的選擇事件
-    # data_list.bind("<<TreeviewSelect>>", on_treeview_select)
     
     # 調用函數填充 Treeview（進入介面時會直接抓取資料庫呈現資料列表）
     fetch_and_populate_treeview(data_list)

@@ -183,7 +183,7 @@ def learner_license_submission(content):
             messagebox.showwarning('提示', '請先搜尋需要送件的學員')
             return
         
-        update_student_data(student_data, uid = 0)
+        update_student_data(student_data, uid = uid)
         clear_entries_and_comboboxes(learner_license_submission)
 
         # 讀取 save_student_data 函式中的 key , 將新登錄的學員資料添加到 Treeview 中
@@ -197,7 +197,7 @@ def learner_license_submission(content):
                 student_data['mobile_phone'],
                 student_data['email']
             ))
-
+        
     # 學照資料送件
     btn(learner_license_submission, text='送件', command = save_student_data).grid(row=7, column=2, sticky='wen', padx=(0,10))
-    export_btn(learner_license_submission, text='匯出文件', command=lambda: None).grid(row=7, column=3, sticky='wen', padx=(0,10))
+    export_btn(learner_license_submission, text='匯出文件', command=lambda: export_selected_data(data_list, submission_date)).grid(row=7, column=3, sticky='wen', padx=(0,10))

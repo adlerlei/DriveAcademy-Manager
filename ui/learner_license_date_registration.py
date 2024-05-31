@@ -219,7 +219,7 @@ def learner_license_date_registration(content):
             messagebox.showwarning('提示', '請先搜尋需要登錄的學員')
             return
 
-        update_student_data(student_data, uid = 1)
+        update_student_data(student_data, uid = uid)
         clear_entries_and_comboboxes(learner_license_date_registration)
 
         # 讀取 save_student_data 函式中的 key , 將新登錄的學員資料添加到 Treeview 中
