@@ -185,10 +185,12 @@ def learner_license_submission(content):
         
         update_student_data(student_data, uid = uid)
 
-        # 使用範例
-        keep_entries = [submission_date] # 需要保留的 entry 列表
-        clear_entries_and_comboboxes(learner_license_submission, keep_entries) # 清空但保留特定 entry
-        # clear_entries_and_comboboxes(learner_license_submission)
+        # 需要保留的 entry 列表，clear_entries_and_comboboxes 函式中的參數之一 ###
+        keep_entries = [submission_date]
+        # 清空但保留特定 entry
+        clear_entries_and_comboboxes(learner_license_submission, keep_entries)
+        # clear_entries_and_comboboxes 函式結束 ################
+
 
         # 讀取 save_student_data 函式中的 key , 將新登錄的學員資料添加到 Treeview 中
         data_list.insert('', 'end', values = (
