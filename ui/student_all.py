@@ -49,7 +49,7 @@ def student_all(content):
 
     # 學員編號
     label(student_all, text='學員編號').grid(row=4, column=0, sticky='ws', padx=(10,0), pady=(20,0))
-    student_number = entry(student_all)
+    student_number = entry(student_all, placeholder_text='輸入學員編號查詢')
     student_number.grid(row=5, column=0, sticky='wen', padx=10)
     student_number.bind("<KeyRelease>", lambda event: populate_student_data('student_number', student_number.get()))
 
@@ -63,14 +63,14 @@ def student_all(content):
 
     # 學員姓名
     label(student_all, text='學員姓名').grid(row=6, column=0, sticky='ws', padx=(10,0), pady=(20,0))
-    student_name = entry(student_all)
+    student_name = entry(student_all, placeholder_text='輸入學員姓名查詢')
     student_name.grid(row=7, column=0, sticky='wen', padx=10)
     student_name.bind("<KeyRelease>", lambda event: populate_student_data('student_name', student_name.get()))
 
 
     # 身分證號碼
     label(student_all, text='身分證號碼').grid(row=6, column=1, sticky='ws', pady=(20,0))
-    national_id_no = entry(student_all)
+    national_id_no = entry(student_all, placeholder_text='輸入學員身分證號查詢')
     national_id_no.grid(row=7, column=1, sticky='wen', padx=(0,10))
     national_id_no.bind("<KeyRelease>", lambda event: populate_student_data('national_id_no', national_id_no.get()))
 
@@ -83,7 +83,7 @@ def student_all(content):
 
     # 行動電話
     label(student_all, text='手機').grid(row=8, column=1, sticky='ws', pady=(20,0))
-    mobile_phone = entry(student_all)
+    mobile_phone = entry(student_all, placeholder_text='輸入學員手機查詢')
     mobile_phone.grid(row=9, column=1, sticky='wen', padx=(0,10))
     mobile_phone.bind("<KeyRelease>", lambda event: populate_student_data('mobile_phone', mobile_phone.get()))  # 新增行動電話查詢
 
@@ -144,7 +144,7 @@ def student_all(content):
 
     # 信箱
     label(student_all, text='信箱').grid(row=6, column=2, sticky='ws', padx=(10,0), pady=(20,0))
-    email = entry(student_all)
+    email = entry(student_all, placeholder_text='輸入學 Email 查詢')
     email.grid(row=7, column=2, columnspan=2, sticky='wen', padx=10)
     email.bind("<KeyRelease>", lambda event: populate_student_data('email', email.get()))
 
@@ -324,8 +324,11 @@ def student_all(content):
         is_editing = False
         current_student_id = None
 
-        # 清空所有 Entry 和 Combobox 的值
-        clear_entries_and_comboboxes(student_all)
+        # 需要保留的 entry 列表，clear_entries_and_comboboxes 函式中的參數之一 ###
+        keep_entries = [training_type_code, training_type_name, license_type_code, license_type_name]
+        # 清空但保留特定 entry
+        clear_entries_and_comboboxes(student_all, keep_entries)
+        # clear_entries_and_comboboxes 函式結束 ################
 
 
     # 修改按鈕的事件處理函數
@@ -374,8 +377,12 @@ def student_all(content):
         is_editing = False
         current_student_id = None
 
-        # 清空所有 Entry 和 Combobox 的值
-        clear_entries_and_comboboxes(student_all)
+
+        # 需要保留的 entry 列表，clear_entries_and_comboboxes 函式中的參數之一 ###
+        keep_entries = [training_type_code, training_type_name, license_type_code, license_type_name]
+        # 清空但保留特定 entry
+        clear_entries_and_comboboxes(student_all, keep_entries)
+        # clear_entries_and_comboboxes 函式結束 ################
  
 
     # 刪除按鈕的事件處理函數
@@ -388,8 +395,11 @@ def student_all(content):
                 is_editing = False
                 current_student_id = None
 
-                # 清空所有 entry 和 combobox 的值
-                clear_entries_and_comboboxes(student_all)
+                # 需要保留的 entry 列表，clear_entries_and_comboboxes 函式中的參數之一 ###
+                keep_entries = [training_type_code, training_type_name, license_type_code, license_type_name]
+                # 清空但保留特定 entry
+                clear_entries_and_comboboxes(student_all, keep_entries)
+                # clear_entries_and_comboboxes 函式結束 ################
 
         else:
             messagebox.showwarning('提示', '請先輸入要刪除的學員資料！')

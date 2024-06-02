@@ -109,8 +109,13 @@ def annual_plan_term(content):
         # 新增資料到資料庫
         else:
             insert_annual_plan_data(year_value, term_value, term_class_code_value, batch_value, training_type_code_value, training_type_name_value, start_date_value, end_date_value)
+            
             # 新增成功後，清空輸入欄位
-            clear_entries_and_comboboxes(annual_plan_term)
+            keep_entries = [training_type_code, training_type_name]
+            # 清空但保留特定 entry
+            clear_entries_and_comboboxes(annual_plan_term, keep_entries)
+            # clear_entries_and_comboboxes 函式結束 ################
+
             # 即時更新 Treeview
             fetch_and_populate_treeview(data_list)
 

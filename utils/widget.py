@@ -196,22 +196,18 @@ def display_entry_value(
 
 
 # 清空所有 entry 和 combobox 的函式
-# def clear_entries_and_comboboxes(parent):
-#     for child in parent.winfo_children():
-#         if isinstance(child, ck.CTkEntry) or isinstance(child, Entry):
-#             child.configure(state='normal')  # 設置為可編輯狀態
-#             child.delete(0, ck.END)  # 清空內容
-#         elif isinstance(child, ck.CTkComboBox):  # 檢查 customtkinter 的 CTkComboBox
-#             child.set('')  # 清空選項
+def clear_entries_and_comboboxes(parent, keep_entries=None):
+    if keep_entries is None:
+        keep_entries = []  # 如果未提供 keep_entries，則設置為空列表
 
-def clear_entries_and_comboboxes(parent, keep_entries=[]):
     # 遍歷父元件的所有子元件
     for child in parent.winfo_children():
         # 如果是 CTkEntry 或 Entry
         if isinstance(child, ck.CTkEntry) or isinstance(child, Entry):
-            if child not in keep_entries: # 檢查是否需要保留這個 entry
-                child.configure(state='normal') # 設置為可編輯狀態
-                child.delete(0, ck.END) # 清空內容
+            if child not in keep_entries:  # 檢查是否需要保留這個 entry
+                child.configure(state='normal')  # 設置為可編輯狀態
+                child.delete(0, ck.END)  # 清空內容
         # 如果是 CTkComboBox
-        elif isinstance(child, ck.CTkComboBox): 
-            child.set('') # 清空選項
+        elif isinstance(child, ck.CTkComboBox):
+            if child not in keep_entries:  # 檢查是否需要保留這個 combobox
+                child.set('')  # 清空選項
