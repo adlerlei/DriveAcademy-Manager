@@ -41,10 +41,62 @@ def fetch_and_populate_treeview(treeview):
 
     # 插入數據到 Treeview
     for row in results:
-        treeview.insert("", "end", text=str(row[0]), values=(row[7], row[2], row[3], row[8], row[9], row[4]))
+        treeview.insert("", "end", text=str(row[0]), values=(row[7], row[2], row[3], row[8], row[9], row[4], row[5]))
 
     # 關閉資料庫連線
     conn.close()
+
+
+# 匯出 csv 文件按鈕觸發
+def export_selected_data(treeview):
+    # 獲取所選行
+    selected_items = treeview.selection()
+    if not selected_items:
+        messagebox.showwarning("警告", "請先選擇要匯出的行!")
+        return
+
+    # 獲取所選行的數據
+    data = []
+    for item in selected_items:
+        item_values = treeview.item(item)["values"]
+        start_date = str(item_values[3])  # 確保開訓日期為字符串
+        end_date = str(item_values[4])  # 確保結訓日期為字符串
+        term_class_code = str(item_values[5])
+
+        rowid = treeview.item(item)["text"]  # 獲取 rowid
+        
+        start_date = re.sub(r'/', '', start_date)  # 去除開訓日期中的 /
+        end_date = re.sub(r'/', '', end_date)  # 去除結訓日期中的 /
+        data.append(f"{start_date},{end_date},{term_class_code}")
+
+        # 從資料庫中獲取 training_type_code
+        conn = sqlite3.connect(database_path)
+        c = conn.cursor()
+        c.execute("SELECT training_type_code FROM annual_plan WHERE rowid=?", (rowid,))
+        training_type_code = c.fetchone()[0]
+        conn.close()
+
+    year_from_data = str(item_values[1])
+    # 生成文件名稱
+    file_name = generate_csv_filename(year_from_data, training_type_code)
+
+    # 創建文件保存對話框
+    file_path = filedialog.asksaveasfilename(defaultextension=".csv", initialfile=file_name)
+    if file_path:
+        try:
+            # 將數據寫入文件
+            with open(file_path, "w", newline='', encoding="utf-8") as f:
+                f.write("\n".join(data))
+            messagebox.showinfo("成功", "匯出文件成功!")
+        except Exception as e:
+            messagebox.showerror("錯誤", f"匯出文件失敗: {str(e)}")
+
+
+# 創建 CSV 自動生成文件名稱
+def generate_csv_filename(year, training_type_code):
+    # 根據你的固定格式生成文件名稱
+    return f"400032{year}{training_type_code}_A.csv"
+
 
 
 # 刪除按鈕觸發
@@ -78,85 +130,3 @@ def delete_from_db(training_type_name, year, term, start_date, end_date, term_cl
     conn.commit()
     conn.close()
     messagebox.showinfo("成功", "刪除記錄成功!")
-
-# 創建 CSV 自動生成文件名稱
-def generate_csv_filename(year):
-    # 根據你的固定格式生成文件名稱
-    return f"400032{year}1_A.csv"
-
-# 匯出 csv 文件按鈕觸發
-def export_selected_data(treeview):
-    # 獲取所選行
-    selected_items = treeview.selection()
-    if not selected_items:
-        messagebox.showwarning("警告", "請先選擇要匯出的行!")
-        return
-
-    # 獲取所選行的數據
-    data = []
-    for item in selected_items:
-        item_values = treeview.item(item)["values"]
-        start_date = str(item_values[3])  # 確保開訓日期為字符串
-        end_date = str(item_values[4])  # 確保結訓日期為字符串
-        term_class_code = item_values[5]
-        start_date = re.sub(r'/', '', start_date)  # 去除開訓日期中的 /
-        end_date = re.sub(r'/', '', end_date)  # 去除結訓日期中的 /
-        data.append(f"{start_date},{end_date},{term_class_code}")
-
-    year_from_data = str(item_values[1])
-    # 生成文件名稱
-    file_name = generate_csv_filename(year_from_data)
-
-    # 創建文件保存對話框
-    file_path = filedialog.asksaveasfilename(defaultextension=".csv", initialfile=file_name)
-    if file_path:
-        try:
-            # 將數據寫入文件
-            with open(file_path, "w", newline='', encoding="utf-8") as f:
-                f.write("\n".join(data))
-            messagebox.showinfo("成功", "匯出文件成功!")
-        except Exception as e:
-            messagebox.showerror("錯誤", f"匯出文件失敗: {str(e)}")
-
-
-# 匯出 txt 文件按鈕觸發
-# def export_selected_data(treeview):
-#     # 獲取所選行
-#     selected_items = treeview.selection()
-#     if not selected_items:
-#         messagebox.showwarning("警告", "請先選擇要匯出的行!")
-#         return
-
-#     # 獲取所選行的數據
-#     data = []
-#     for item in selected_items:
-#         item_values = treeview.item(item)["values"]
-#         start_date = str(item_values[3])  # 確保開訓日期為字符串
-#         end_date = str(item_values[4])  # 確保結訓日期為字符串
-#         term_class_code = item_values[5]
-#         start_date = re.sub(r'/', '', start_date)  # 去除開訓日期中的 /
-#         end_date = re.sub(r'/', '', end_date)  # 去除结訓日期中的 /
-#         data.append(f"{start_date},{end_date},{term_class_code}")
-
-#     # 創建文件保存對話框
-#     file_path = filedialog.asksaveasfilename(defaultextension=".txt")
-#     if file_path:
-#         try:
-#             # 將數據寫入文件
-#             with open(file_path, "w", encoding="utf-8") as f:
-#                 f.write("\n".join(data))
-#             messagebox.showinfo("成功", "匯出文件成功!")
-#         except Exception as e:
-#             messagebox.showerror("錯誤", f"匯出文件失敗: {str(e)}")
-
-
-# 更新資料庫記錄
-# def update_record_in_db(record_id, new_training_type_name, new_year, new_term, new_start_date, new_end_date, new_term_class_code, new_batch, new_training_type_code):
-#     conn = sqlite3.connect(database_path)
-#     c = conn.cursor()
-#     c.execute("UPDATE annual_plan SET training_type_name=?, year=?, term=?, start_date=?, end_date=?, term_class_code=?, batch=?, training_type_code=? "
-#               "WHERE rowid=?",
-#               (new_training_type_name, new_year, new_term, new_start_date, new_end_date, new_term_class_code, new_batch, new_training_type_code, record_id))
-#     conn.commit()
-#     conn.close()
-#     messagebox.showinfo("成功", "修改記錄成功!")
