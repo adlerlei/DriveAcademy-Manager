@@ -72,7 +72,7 @@ def annual_plan_term(content):
     batch.grid(row=1, column=2, sticky='wen', padx=10)
     batch.set('')
 
-    # 上課期別代碼
+    # 上課期別代碼 
     label(annual_plan_term, text='上課期別代碼').grid(row=0, column=3, sticky='ws', padx=(10,0))
     term_class_code = entry(annual_plan_term)
     term_class_code.grid(row=1, column=3, sticky='wen', padx=(0,10))

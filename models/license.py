@@ -67,9 +67,9 @@ def generate_csv_filename(submission_date):
 
 # 匯出 txt 文件按鈕觸發
 def export_selected_data(treeview, submission_date_entry):
-    print("submission_date_entry:", submission_date_entry)
+    # print("submission_date_entry:", submission_date_entry)
     file_date_name = submission_date_entry.get()
-    print("file_date_name:", file_date_name)
+    # print("file_date_name:", file_date_name)
     # 獲取所選行
     selected_items = treeview.selection()
     if not selected_items:
