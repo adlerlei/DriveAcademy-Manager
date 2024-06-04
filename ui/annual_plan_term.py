@@ -17,7 +17,7 @@ def annual_plan_term(content):
     # 監聽 term 輸入值，並且再次設定 term_class_code 值
     def on_value_changed(event):
         value = training_type_code.get() + '0' + term.get() + batch.get()
-        term_class_code.delete(0, 'end')
+        term_class_code.delete(0, END)
         term_class_code.insert(0, value)
 
     # 處理訓練班別第一個下拉選單training_type_code的選擇變化
@@ -57,32 +57,31 @@ def annual_plan_term(content):
     training_type_code.grid(row=1, column=0, sticky='wen', padx=(10,0))
     training_type_name = entry(annual_plan_term)
     training_type_name.insert(0, '普通小型車班') # 預設顯示 (1, 普通小型車班)
-    training_type_name.grid(row=1, column=1, sticky='wen', padx=10)
+    training_type_name.grid(row=1, column=1, sticky='wen', padx=(10,0))
 
     # 綁定函數到第一個下拉選單的選擇變化事件
     training_type_code.bind("<<ComboboxSelected>>", on_combobox_changed)
 
-
     # 梯次
     label(annual_plan_term, text='梯次').grid(row=2, column=0, sticky='ws', padx=(10,0))
     batch = combobox(annual_plan_term, values=['A', 'B'])
-    batch.grid(row=3, column=0, columnspan=2, sticky='wen', padx=10)
+    batch.grid(row=3, column=0, columnspan=2, sticky='wen', padx=(10,0))
     batch.set('')
-    
-    # 年度
-    label(annual_plan_term, text='年度').grid(row=0, column=2, sticky='ws',padx=(10,0), pady=(20,0))
-    year = entry(annual_plan_term)
-    year.grid(row=1, column=2, columnspan=2, sticky='wen', padx=10)
     
     # 期別
     label(annual_plan_term, text='期別').grid(row=4, column=0, sticky='ws',padx=(10,0), pady=(20,0))
     term = entry(annual_plan_term)
-    term.grid(row=5, column=0, columnspan=2, sticky='wen', padx=10)
+    term.grid(row=5, column=0, columnspan=2, sticky='wen', padx=(10,0))
+
+    # 年度
+    label(annual_plan_term, text='年度').grid(row=0, column=2, sticky='ws',padx=(10,0), pady=(20,0))
+    year = entry(annual_plan_term)
+    year.grid(row=1, column=2, sticky='wen', padx=(10,0))
 
     # 上課期別代碼 
-    label(annual_plan_term, text='上課期別代碼').grid(row=0, column=3, sticky='ws', padx=(10,0))
+    label(annual_plan_term, text='上課期別代碼').grid(row=0, column=3, padx=(10,0), sticky='ws')
     term_class_code = entry(annual_plan_term)
-    term_class_code.grid(row=1, column=3, sticky='wen', padx=(0,10))
+    term_class_code.grid(row=1, column=3, sticky='wen', padx=10)
 
     # 監聽 term 輸入值，並且再次設定 term_class_code 值
     term.bind("<KeyRelease>", on_value_changed)
@@ -123,14 +122,13 @@ def annual_plan_term(content):
             training_type_code.set('1')
             training_type_name.delete(0, END)
             training_type_name.insert(0,'普通小型車班')
-
             # 即時更新 Treeview
             fetch_and_populate_treeview(data_list)
 
     
     # 新增，刪除，匯出文件 按鈕
-    add_btn(annual_plan_term, text='新增', command=add_btn_click).grid(row=6, column=1, sticky='wen', padx=10, pady=20)
-    delete_btn(annual_plan_term, text='刪除', command=lambda: delete_btn_click(data_list)).grid(row=6, column=2, sticky='wen', padx=10, pady=20)
+    add_btn(annual_plan_term, text='新增', command=add_btn_click).grid(row=6, column=1, sticky='wen', padx=(10,0), pady=20)
+    delete_btn(annual_plan_term, text='刪除', command=lambda: delete_btn_click(data_list)).grid(row=6, column=2, sticky='wen', padx=(10,0), pady=20)
     export_btn(annual_plan_term, text='匯出文件', command=lambda: export_selected_data(data_list)).grid(row=6, column=3, sticky='wen', padx=10, pady=20)
     
     # 列表框 - 期別新增 - 年度計畫表與期別新增

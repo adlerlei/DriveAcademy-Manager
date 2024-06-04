@@ -98,49 +98,20 @@ def generate_csv_filename(year, training_type_code):
     return f"400032{year}{training_type_code}_A.csv"
 
 
-
-# 刪除按鈕觸發
-# def delete_btn_click(treeview):
-#     try:
-#         # 獲取所選擇的行
-#         selected_items = treeview.selection()
-#         if len(selected_items) != 1:
-#             raise ValueError("請只選擇一條數據進行刪除!")
-        
-#         # 獲取所選行的數據
-#         selected_item = selected_items[0]
-#         item_values = treeview.item(selected_item)["values"]
-#         training_type_name, year, term, start_date, end_date, term_class_code = item_values
-
-#         # 從資料庫中刪除對應記錄
-#         delete_from_db(training_type_name, year, term, start_date, end_date, term_class_code)
-
-#         # 更新 Treeview
-#         fetch_and_populate_treeview(treeview)
-#     except Exception as e:
-#         messagebox.showerror("錯誤", str(e))
-
-
-# # 從資料庫中刪除記錄
-# def delete_from_db(training_type_name, year, term, start_date, end_date, term_class_code):
-#     conn = sqlite3.connect(database_path)
-#     c = conn.cursor()
-#     c.execute("DELETE FROM annual_plan WHERE training_type_name=? AND year=? AND term=? AND start_date=? AND end_date=? AND term_class_code=?",
-#               (training_type_name, year, term, start_date, end_date, term_class_code))
-#     conn.commit()
-#     conn.close()
-#     messagebox.showinfo("成功", "刪除記錄成功!")
-# 刪除按鈕觸發
+# 刪除 treeview 資料列表以及相關資料庫欄位
 def delete_btn_click(data_list):
     selected = data_list.selection()
     if selected:
-        record_id = data_list.item(selected[0], 'values')[2]  # '期別編號' is the third column
-        # Connect to the SQLite database
+        # 抓取 資料庫 term '期別' 來尋找該資料行 id
+        record_id = data_list.item(selected[0], 'values')[2] 
+
         conn = sqlite3.connect(database_path)
         c = conn.cursor()
-        # Delete the record from the database
+
+        # 刪除針對選取的 term 該行資料 id，從資料庫移除
         c.execute("DELETE FROM annual_plan WHERE term = ?", (record_id,))
         conn.commit()
-        # Delete the record from the Treeview
+
+        # 刪除 treeview 資料列表中的資料
         data_list.delete(selected)
         conn.close()

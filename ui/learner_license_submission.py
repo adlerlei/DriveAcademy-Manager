@@ -21,52 +21,52 @@ def learner_license_submission(content):
     # 顯示 / 搜尋 學員編號
     label(learner_license_submission, text='學員編號').grid(row=0, column=0, sticky='ws', padx=(10,0), pady=(10,0))
     student_number = entry(learner_license_submission, placeholder_text='輸入學員編號查詢')
-    student_number.grid(row=1, column=0, sticky='wen', padx=10)
+    student_number.grid(row=1, column=0, sticky='wen', padx=(10,0))
     student_number.bind("<KeyRelease>", lambda event: populate_student_data('student_number', student_number.get()))
 
     # 顯示學員姓名
-    label(learner_license_submission, text='學員姓名').grid(row=0, column=1, sticky='ws', pady=(10,0))
+    label(learner_license_submission, text='學員姓名').grid(row=0, column=1, sticky='ws', padx=(10,0), pady=(10,0))
     student_name = display_entry_value(learner_license_submission)
-    student_name.grid(row=1, column=1, sticky='wen', padx=(0,10))
+    student_name.grid(row=1, column=1, sticky='wen', padx=(10,0))
 
     # 顯示學員身分證號碼
-    label(learner_license_submission, text='身分證號').grid(row=0, column=2, sticky='ws',pady=(10,0))
+    label(learner_license_submission, text='身分證號').grid(row=0, column=2, sticky='ws', padx=(10,0), pady=(10,0))
     national_id_no = display_entry_value(learner_license_submission)
-    national_id_no.grid(row=1, column=2, sticky='wen', padx=(0,10))
+    national_id_no.grid(row=1, column=2, sticky='wen', padx=(10,0))
 
     # 顯示學員電話
-    label(learner_license_submission, text='聯絡電話').grid(row=0, column=3, sticky='ws', pady=(10,0))
+    label(learner_license_submission, text='聯絡電話').grid(row=0, column=3, sticky='ws', padx=(10,0), pady=(10,0))
     mobile_phone = display_entry_value(learner_license_submission)
-    mobile_phone.grid(row=1, column=3, sticky='wen', padx=(0,10))
+    mobile_phone.grid(row=1, column=3, sticky='wen', padx=10)
 
     # 顯示學員出生日期
     label(learner_license_submission, text='出生日期').grid(row=2, column=0, sticky='ws', padx=(10,0), pady=(10,0))
     birth_date = display_entry_value(learner_license_submission)
-    birth_date.grid(row=3, column=0, sticky='wen', padx=10)
+    birth_date.grid(row=3, column=0, sticky='wen', padx=(10,0))
 
     # 學員信箱
-    label(learner_license_submission, text='學員信箱').grid(row=2, column=1, sticky='ws', pady=(10,0))
+    label(learner_license_submission, text='學員信箱').grid(row=2, column=1, sticky='ws', padx=(10,0), pady=(10,0))
     email = display_entry_value(learner_license_submission)
-    email.grid(row=3, column=1, sticky='wen', padx=(0,10))
+    email.grid(row=3, column=1, sticky='wen', padx=(10,0))
 
     # 備註
-    label(learner_license_submission, text='備註').grid(row=2, column=2, sticky='ws',pady=(10,0))
+    label(learner_license_submission, text='備註').grid(row=2, column=2, sticky='ws', padx=(10,0), pady=(10,0))
     remarks = display_entry_value(learner_license_submission, width=55)
-    remarks.grid(row=3, column=2, columnspan=2, sticky='wen', padx=(0,10))
+    remarks.grid(row=3, column=2, columnspan=2, sticky='wen', padx=10)
 
     # 顯示學員戶籍地址
     label(learner_license_submission, text='戶籍地址').grid(row=4, column=0, sticky='ws', padx=(10,0), pady=(10,0))
     r_address_zip_code = display_entry_value(learner_license_submission)
-    r_address_zip_code.grid(row=5, column=0, sticky='wen', padx=10)
+    r_address_zip_code.grid(row=5, column=0, sticky='wen', padx=(10,0))
     r_address_city = display_entry_value(learner_license_submission)
-    r_address_city.grid(row=5, column=1, sticky='wen', padx=(0,10))
+    r_address_city.grid(row=5, column=1, sticky='wen', padx=(10,0))
     r_address = display_entry_value(learner_license_submission)
-    r_address.grid(row=5, column=2, columnspan=2, sticky='wen', padx=(0,10))
+    r_address.grid(row=5, column=2, columnspan=2, sticky='wen', padx=10)
     
     # 送件日期
     label(learner_license_submission, text='送件日期').grid(row=6, column=0, sticky='ws', padx=(10,0), pady=(50,0))
     submission_date = entry(learner_license_submission)
-    submission_date.grid(row=7, column=0, columnspan=2, sticky='wen', padx=10)    
+    submission_date.grid(row=7, column=0, columnspan=2, sticky='wen', padx=(10,0))    
 
     # 使用 treeview 顯示學員資料
     global data_list
@@ -205,5 +205,5 @@ def learner_license_submission(content):
             ))
         
     # 學照資料送件
-    btn(learner_license_submission, text='送件', command = save_student_data).grid(row=7, column=2, sticky='wen', padx=(0,10))
-    export_btn(learner_license_submission, text='匯出文件', command=lambda: export_selected_data(data_list, submission_date)).grid(row=7, column=3, sticky='wen', padx=(0,10))
+    btn(learner_license_submission, text='送件', command = save_student_data).grid(row=7, column=2, sticky='wen', padx=(10,0))
+    export_btn(learner_license_submission, text='匯出文件', command=lambda: export_selected_data(data_list, submission_date)).grid(row=7, column=3, sticky='wen', padx=10)

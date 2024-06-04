@@ -23,9 +23,9 @@ def student_all(content):
     training_type_dict = dict(zip(training_type_codes, training_type_names))
     label(student_all, text='訓練班別').grid(row=0, column=0, sticky='ws', padx=(10,0), pady=(10,0))
     training_type_code = combobox(student_all, values=training_type_codes, command=lambda x: on_training_type_code_changed(x, training_type_name, training_type_dict))
-    training_type_code.grid(row=1, column=0, sticky='wen', padx=10)
+    training_type_code.grid(row=1, column=0, sticky='wen', padx=(10,0))
     training_type_name = combobox(student_all, values=training_type_names)
-    training_type_name.grid(row=1, column=1, sticky='wen', padx=(0,10))
+    training_type_name.grid(row=1, column=1, sticky='wen', padx=(10,0))
 
     def on_training_type_code_changed(selected_code, training_type_name, training_type_dict):
         selected_name = training_type_dict.get(selected_code, "")
@@ -37,9 +37,9 @@ def student_all(content):
     license_type_dict = dict(zip(license_type_codes, license_type_names))
     label(student_all, text='考照類別').grid(row=2, column=0, sticky='ws', padx=(10,0), pady=(20,0))
     license_type_code = combobox(student_all,  values=license_type_codes, command=lambda x: on_license_type_code_changed(x, license_type_name, license_type_dict))
-    license_type_code.grid(row=3, column=0, sticky='wen', padx=10)
+    license_type_code.grid(row=3, column=0, sticky='wen', padx=(10,0))
     license_type_name = combobox(student_all, values=license_type_names)
-    license_type_name.grid(row=3, column=1, sticky='wen', padx=(0,10))
+    license_type_name.grid(row=3, column=1, sticky='wen', padx=(10,0))
 
     # 考照類別下拉選單監聽 code 改變時，自動更新 name 名稱
     def on_license_type_code_changed(selected_code, license_type_name, license_type_dict):
@@ -50,41 +50,41 @@ def student_all(content):
     # 學員編號
     label(student_all, text='學員編號').grid(row=4, column=0, sticky='ws', padx=(10,0), pady=(20,0))
     student_number = entry(student_all, placeholder_text='輸入學員編號查詢')
-    student_number.grid(row=5, column=0, sticky='wen', padx=10)
+    student_number.grid(row=5, column=0, sticky='wen', padx=(10,0))
     student_number.bind("<KeyRelease>", lambda event: populate_student_data('student_number', student_number.get()))
 
 
     # 梯次
-    label(student_all, text='梯次').grid(row=4, column=1, sticky='ws', pady=(20,0))
+    label(student_all, text='梯次').grid(row=4, column=1, sticky='ws',padx=(10,0), pady=(20,0))
     batch = combobox(student_all, values=['A', 'B'])
-    batch.grid(row=5, column=1, sticky='wen', padx=(0,10))
+    batch.grid(row=5, column=1, sticky='wen', padx=(10,0))
     batch.set('')
 
 
     # 學員姓名
     label(student_all, text='學員姓名').grid(row=6, column=0, sticky='ws', padx=(10,0), pady=(20,0))
     student_name = entry(student_all, placeholder_text='輸入學員姓名查詢')
-    student_name.grid(row=7, column=0, sticky='wen', padx=10)
+    student_name.grid(row=7, column=0, sticky='wen', padx=(10,0))
     student_name.bind("<KeyRelease>", lambda event: populate_student_data('student_name', student_name.get()))
 
 
     # 身分證號碼
-    label(student_all, text='身分證號碼').grid(row=6, column=1, sticky='ws', pady=(20,0))
+    label(student_all, text='身分證號碼').grid(row=6, column=1, sticky='ws', padx=(10,0), pady=(20,0))
     national_id_no = entry(student_all, placeholder_text='輸入學員身分證號查詢')
-    national_id_no.grid(row=7, column=1, sticky='wen', padx=(0,10))
+    national_id_no.grid(row=7, column=1, sticky='wen', padx=(10,0))
     national_id_no.bind("<KeyRelease>", lambda event: populate_student_data('national_id_no', national_id_no.get()))
 
 
     # 出生日期
     label(student_all, text='出生日期').grid(row=8, column=0, sticky='ws', padx=(10,0), pady=(20,0))
     birth_date = entry(student_all)
-    birth_date.grid(row=9, column=0, sticky='wen', padx=10)
+    birth_date.grid(row=9, column=0, sticky='wen', padx=(10,0))
 
 
     # 行動電話
-    label(student_all, text='手機').grid(row=8, column=1, sticky='ws', pady=(20,0))
+    label(student_all, text='手機').grid(row=8, column=1, sticky='ws', padx=(10,0), pady=(20,0))
     mobile_phone = entry(student_all, placeholder_text='輸入學員手機查詢')
-    mobile_phone.grid(row=9, column=1, sticky='wen', padx=(0,10))
+    mobile_phone.grid(row=9, column=1, sticky='wen', padx=(10,0))
     mobile_phone.bind("<KeyRelease>", lambda event: populate_student_data('mobile_phone', mobile_phone.get()))  # 新增行動電話查詢
 
 
@@ -92,11 +92,11 @@ def student_all(content):
     r_address_zip_code_lists, r_address_city_lists, r_address_dict = address_data()
     label(student_all, text='戶籍地址').grid(row=10, column=0, sticky='ws', padx=(10,0), pady=(20,0))
     r_address_zip_code = combobox(student_all, values=r_address_zip_code_lists, command=lambda x: auto_event_r_address(x, r_address_city, r_address_dict))
-    r_address_zip_code.grid(row=11, column=0, sticky='wen', padx=10)
+    r_address_zip_code.grid(row=11, column=0, sticky='wen', padx=(10,0))
     r_address_city = combobox(student_all, values=r_address_city_lists)
-    r_address_city.grid(row=11, column=1, sticky='wen', padx=(0,10))
+    r_address_city.grid(row=11, column=1, sticky='wen', padx=(10,0))
     r_address = entry(student_all)
-    r_address.grid(row=12, column=0, columnspan=2, sticky='wen', padx=10)
+    r_address.grid(row=12, column=0, columnspan=2, sticky='wen', padx=(10,0))
     r_address_zip_code.set('')
     r_address_city.set('')
 
@@ -115,14 +115,14 @@ def student_all(content):
     # 性別
     label(student_all, text='性別').grid(row=2, column=2, sticky='ws', padx=(10,0), pady=(20,0))
     gender = combobox(student_all, values=['男', '女'])
-    gender.grid(row=3, column=2, sticky='wen', padx=10)
+    gender.grid(row=3, column=2, sticky='wen', padx=(10,0))
     gender.set('')
 
 
     # 學歷 
     label(student_all, text='學歷').grid(row=2, column=3, sticky='ws', pady=(20,0))
     education = combobox(student_all, values=['學前教育','國小','國中','高中','專科','大學','碩士','博士'])
-    education.grid(row=3, column=3, sticky='wen', padx=(0,10))
+    education.grid(row=3, column=3, sticky='wen', padx=10)
     education.set('')
 
 
@@ -130,9 +130,9 @@ def student_all(content):
     instructor_numbers, instructor_names, instructor_dict = get_instructor_data()
     label(student_all, text='指導教練').grid(row=4, column=2, sticky='ws', padx=(10,0), pady=(20,0))
     instructor_number = combobox(student_all, values=instructor_numbers, command=lambda x: on_instructor_number_changed(x, instructor_name, instructor_dict))
-    instructor_number.grid(row=5, column=2, sticky='wen', padx=10)
+    instructor_number.grid(row=5, column=2, sticky='wen', padx=(10,0))
     instructor_name = combobox(student_all, values=instructor_names)
-    instructor_name.grid(row=5, column=3, sticky='wen', padx=(0,10))
+    instructor_name.grid(row=5, column=3, sticky='wen', padx=10)
     instructor_number.set('')
     instructor_name.set('')
 
@@ -159,9 +159,9 @@ def student_all(content):
     m_address_zip_code_lists, m_address_city_lists, m_address_dict = address_data()
     label(student_all, text='通訊地址').grid(row=10, column=2, sticky='ws', padx=(10,0), pady=(20,0))
     m_address_zip_code = combobox(student_all, values=m_address_zip_code_lists, command=lambda x: auto_event_m_address(x, m_address_city, m_address_dict))
-    m_address_zip_code.grid(row=11, column=2, sticky='wen', padx=10)
+    m_address_zip_code.grid(row=11, column=2, sticky='wen', padx=(10,0))
     m_address_city = combobox(student_all, values=m_address_city_lists)
-    m_address_city.grid(row=11, column=3, sticky='wen', padx=(0,10))
+    m_address_city.grid(row=11, column=3, sticky='wen', padx=10)
     m_address = entry(student_all)
     m_address.grid(row=12, column=2, columnspan=2, sticky='wen', padx=10)
     m_address_zip_code.set('')
@@ -175,27 +175,27 @@ def student_all(content):
 
     label(student_all, text='該學員是否退訓').grid(row=14, column=0, sticky='ws', padx=(10,0))
     dropout = display_entry_value(student_all)
-    dropout.grid(row=15, column=0, sticky='wen', padx=10)
+    dropout.grid(row=15, column=0, sticky='wen', padx=(10,0))
 
-    label(student_all, text='名冊號碼').grid(row=14, column=1, sticky='ws')
+    label(student_all, text='名冊號碼').grid(row=14, column=1, sticky='ws', padx=(10,0))
     register_number = display_entry_value(student_all)
-    register_number.grid(row=15, column=1, sticky='wen', padx=(0,10))
+    register_number.grid(row=15, column=1, sticky='wen', padx=(10,0))
 
     label(student_all, text='學照日期').grid(row=14, column=2, sticky='ws', padx=(10,0))
     learner_permit_date = display_entry_value(student_all)
-    learner_permit_date.grid(row=15, column=2, sticky='wen', padx=10)
+    learner_permit_date.grid(row=15, column=2, sticky='wen', padx=(10,0))
 
-    label(student_all, text='學照號碼').grid(row=14, column=3, sticky='ws')
+    label(student_all, text='學照號碼').grid(row=14, column=3, sticky='ws', padx=(10,0))
     learner_permit_number = display_entry_value(student_all)
-    learner_permit_number.grid(row=15, column=3, sticky='wen', padx=(0,10))
+    learner_permit_number.grid(row=15, column=3, sticky='wen', padx=10)
 
     label(student_all, text='路試日期').grid(row=16, column=0, sticky='ws', padx=(10,0))
     road_test_date = display_entry_value(student_all)
-    road_test_date.grid(row=17, column=0, sticky='wen', padx=10)
+    road_test_date.grid(row=17, column=0, sticky='wen', padx=(10,0))
 
-    label(student_all, text='建檔日期').grid(row=16, column=1, sticky='ws')
+    label(student_all, text='建檔日期').grid(row=16, column=1, sticky='ws', padx=(10,0))
     creation_date = display_entry_value(student_all)
-    creation_date.grid(row=17, column=1, sticky='wen')
+    creation_date.grid(row=17, column=1, sticky='wen', padx=(10,0))
 
 
     # 學員資料顯示在輸入欄位上
@@ -406,6 +406,6 @@ def student_all(content):
 
 
     # 修改按鈕配置
-    add_btn(student_all, text='新增', command=get_data_and_insert).grid(row=13, column=1, sticky='wen', padx=10, pady=20)
-    modify_btn(student_all, text='修改', command=update_student).grid(row=13, column=2, sticky='wen', padx=10, pady=20)
-    delete_btn(student_all, text='刪除', command=delete_student).grid(row=13, column=3, sticky='wen', padx=(0,10), pady=20)
+    add_btn(student_all, text='新增', command=get_data_and_insert).grid(row=13, column=1, sticky='wen', padx=(10,0), pady=20)
+    modify_btn(student_all, text='修改', command=update_student).grid(row=13, column=2, sticky='wen', padx=(10,0), pady=20)
+    delete_btn(student_all, text='刪除', command=delete_student).grid(row=13, column=3, sticky='wen', padx=10, pady=20)
