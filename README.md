@@ -13,6 +13,6 @@ C 2024 ZHUNG - DriveAcademy Manager v1.0
 3. 修復訓練班別 combobox 下拉選單改為 entry 呈現代號名稱。
 4. 修改訓練班別代號 combobox 下拉選單關聯 訓練班別名稱 entry 監聽功能。
 5. 修復年度計畫期別新增中 "上課期別代碼" 匯出文件關聯格式：
- - 期別代碼格式（ 訓練班別代號 + 0 + 期別 + 梯次 ）
- - {tarining_type_code} + '0' + {term} + {batch}
+    1. 期別代碼格式（ 訓練班別代號 + 0 + 期別 + 梯次 ）
+    2. {tarining_type_code} + '0' + {term} + {batch}
 
