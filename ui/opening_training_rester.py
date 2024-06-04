@@ -4,9 +4,22 @@ from utils.config import *
 from models.training import *
 import customtkinter as ctk
 from tkinter import messagebox
-
-
+import sqlite3
+import os
+from tkinter import filedialog
+import re
 # 開訓名冊建立後需要將資料顯示欄位的名冊號碼與學員資料綁定
+
+# 資料庫路徑
+database_path = os.path.join(os.path.dirname(__file__), '..', 'db', 'driving_school.db')
+# 連結教練資料表讀取教練編號，教練姓名
+def get_instructor_info():
+    conn = sqlite3.connect(database_path)
+    c = conn.execute("SELECT number, name FROM instructor")
+    result = [row for row in c]
+    conn.close()
+    return result
+
 
 def opening_training_roster(content):
     clear_frame(content)
@@ -64,7 +77,7 @@ def opening_training_roster(content):
     batch.grid(row=5, column=0, sticky='wen', padx=(10,0))
 
     # 名冊梯次 將梯次的值直接帶過來即可
-    label(opening_training_roster, text='梯次').grid(row=4, column=1, sticky='ws', padx=(10,0), pady=(10,0))
+    label(opening_training_roster, text='名冊梯次').grid(row=4, column=1, sticky='ws', padx=(10,0), pady=(10,0))
     register_batch = combobox(opening_training_roster, values=['A', 'B'])
     register_batch.grid(row=5, column=1, sticky='wen', padx=(10,0))
 
@@ -99,11 +112,13 @@ def opening_training_roster(content):
     transmission_type_name.grid(row=9, column=3, sticky='wen', padx=10)
 
     # 教練 下拉選單
+    values = get_instructor_info()
     label(opening_training_roster, text='教練').grid(row=10, column=0, sticky='ws', padx=(10,0), pady=(10,0))
-    instructor_number = combobox(opening_training_roster, values=['A', 'B'])
+    instructor_number = combobox(opening_training_roster, values = ['A','V'])
     instructor_number.grid(row=11, column=0, sticky='wen', padx=(10,0))
     instructor_name = entry(opening_training_roster)
     instructor_name.grid(row=11, column=1, sticky='wen', padx=(10,0))
+
 
     # 按鈕
     btn(opening_training_roster, text='加入開訓名冊', command=lambda: None).grid(row=11, column=2, columnspan=2, sticky='wen', padx=10)
