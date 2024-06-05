@@ -102,6 +102,12 @@ def insert_student_data(data):
 
     conn.commit()
     conn.close()
+
+    # 重置 is_editing 和 current_student_id
+    global is_editing, current_student_id
+    is_editing = False
+    current_student_id = None
+
     messagebox.showinfo('訊息', '已新增學員資料！')
 
 

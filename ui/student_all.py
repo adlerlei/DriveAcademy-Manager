@@ -203,83 +203,91 @@ def student_all(content):
     creation_date.grid(row=17, column=1, sticky='wen', padx=(10,0))
 
 
-    # 學員資料顯示在輸入欄位上
+    # 學員資料顯示在輸入欄位上 
     def populate_student_data(identifier, value):
         global is_editing, current_student_id
         student_data = get_student_data(identifier, value)
         if student_data:
-            current_student_id = student_data[0]
-            is_editing = True
-            training_type_code.set(student_data[1])
-            training_type_name.set(student_data[2])
-            license_type_code.set(student_data[3])
-            license_type_name.set(student_data[4])
+            if not is_editing:
+                # 如果不是編輯模式,則將 is_editing 設為 True,但不更新 current_student_id
+                is_editing = True
+            else:
+                # 如果是編輯模式,則更新 current_student_id
+                current_student_id = student_data[0]
+            # is_editing = True
+            training_type_code.set(student_data[3])
+            training_type_name.set(student_data[4])
+            license_type_code.set(student_data[1])
+            license_type_name.set(student_data[2])
             student_number.delete(0, ctk.END)
             student_number.insert(0, student_data[5])
             batch.set(student_data[7])
             student_name.delete(0, ctk.END)
             student_name.insert(0, student_data[6])
             national_id_no.delete(0, ctk.END)
-            national_id_no.insert(0, student_data[9])
+            national_id_no.insert(0, student_data[10])
             birth_date.delete(0, ctk.END)
-            birth_date.insert(0, student_data[8])
+            birth_date.insert(0, student_data[9])
             mobile_phone.delete(0, ctk.END)
-            mobile_phone.insert(0, student_data[10])
-            r_address_zip_code.set(student_data[18])
-            r_address_city.set(student_data[19])
+            mobile_phone.insert(0, student_data[11])
+            r_address_zip_code.set(student_data[19])
+            r_address_city.set(student_data[20])
             r_address.delete(0, ctk.END)
-            r_address.insert(0, student_data[20])
+            r_address.insert(0, student_data[21])
             home_phone.delete(0, ctk.END)
-            home_phone.insert(0, student_data[11])
-            gender.set(student_data[15])
-            education.set(student_data[12])
-            instructor_number.set(student_data[13])
-            instructor_name.set(student_data[14])
+            home_phone.insert(0, student_data[12])
+            gender.set(student_data[16])
+            education.set(student_data[13])
+            instructor_number.set(student_data[14])
+            instructor_name.set(student_data[15])
             email.delete(0, ctk.END)
-            email.insert(0, student_data[16])
+            email.insert(0, student_data[17])
             remarks.delete(0, ctk.END)
-            remarks.insert(0, student_data[17])
-            m_address_zip_code.set(student_data[21])
-            m_address_city.set(student_data[22])
+            remarks.insert(0, student_data[18])
+            m_address_zip_code.set(student_data[22])
+            m_address_city.set(student_data[23])
             m_address.delete(0, ctk.END)
-            m_address.insert(0, student_data[23])
+            m_address.insert(0, student_data[24])
 
             # 學照日期
             learner_permit_date.configure(state='normal')
             learner_permit_date.delete(0, ctk.END)
-            learner_permit_date.insert(0, student_data[25])
+            learner_permit_date.insert(0, student_data[26])
             learner_permit_date.configure(state='readonly')
 
             # 學照號碼
             learner_permit_number.configure(state='normal')
             learner_permit_number.delete(0, ctk.END)
-            learner_permit_number.insert(0, student_data[26])
+            learner_permit_number.insert(0, student_data[27])
             learner_permit_number.configure(state='readonly')
 
             # 是否退訓
             dropout.configure(state='normal')
             dropout.delete(0, ctk.END)
-            dropout.insert(0, student_data[32])
+            dropout.insert(0, student_data[33])
             dropout.configure(state='readonly')
 
             # 名冊號碼
             register_number.configure(state='normal')
             register_number.delete(0, ctk.END)
-            register_number.insert(0, student_data[33])
+            register_number.insert(0, student_data[34])
             register_number.configure(state='readonly')
 
             # 路試日期
             road_test_date.configure(state='normal')
             road_test_date.delete(0, ctk.END)
-            road_test_date.insert(0, student_data[36])
+            road_test_date.insert(0, student_data[38])
             road_test_date.configure(state='readonly')
 
             # 建檔日期
             creation_date.configure(state='normal')
             creation_date.delete(0, ctk.END)
-            creation_date.insert(0, student_data[41])
+            creation_date.insert(0, student_data[43])
             creation_date.configure(state='readonly')
-            
+        else:
+            # 如果沒有查詢到學生資料,則重置 is_editing 和 current_student_id
+            is_editing = False
+            current_student_id = None    
 
     # 獲取輸入欄位信息
     def get_data_and_insert():
@@ -326,8 +334,8 @@ def student_all(content):
             return
 
         insert_student_data(student_data)
-        is_editing = False
-        current_student_id = None
+        # is_editing = False
+        # current_student_id = None
 
         # 需要保留的 entry 列表，clear_entries_and_comboboxes 函式中的參數之一 ###
         keep_entries = [training_type_code, training_type_name, license_type_code, license_type_name]

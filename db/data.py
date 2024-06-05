@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS student (
     student_number VARCHAR, -- 學員編號5
     student_name VARCHAR, -- 學員姓名6
     batch VARCHAR, -- 梯次7
-    register_batch, VARCHAR -- 名冊梯次8
+    register_batch VARCHAR, -- 名冊梯次8
     birth_date VARCHAR, -- 出生日期9
     national_id_no VARCHAR, -- 身分證字號10
     mobile_phone VARCHAR, -- 手機11

@@ -148,47 +148,47 @@ def learner_license_date_registration(content):
             # 身分證號
             national_id_no.configure(state='normal')
             national_id_no.delete(0, ctk.END)
-            national_id_no.insert(0, student_data[9])
+            national_id_no.insert(0, student_data[10])
             national_id_no.configure(state='readonly')
             # 聯絡手機
             mobile_phone.configure(state='normal')
             mobile_phone.delete(0, ctk.END)
-            mobile_phone.insert(0, student_data[10])
+            mobile_phone.insert(0, student_data[11])
             mobile_phone.configure(state='readonly')
             # 出生日期
             birth_date.configure(state='normal')
             birth_date.delete(0, ctk.END)
-            birth_date.insert(0, student_data[8])
+            birth_date.insert(0, student_data[9])
             birth_date.configure(state='readonly')
             # 考照類別 代號
             license_type_code.configure(state='normal')
             license_type_code.delete(0, ctk.END)
-            license_type_code.insert(0, student_data[3])
+            license_type_code.insert(0, student_data[1])
             license_type_code.configure(state='readonly')
             # 考照類別 名稱
             license_type_name.configure(state='normal')
             license_type_name.delete(0, ctk.END)
-            license_type_name.insert(0, student_data[4])
+            license_type_name.insert(0, student_data[2])
             license_type_name.configure(state='readonly')
             # 備註
             remarks.configure(state='normal')
             remarks.delete(0, ctk.END)
-            remarks.insert(0, student_data[17])
+            remarks.insert(0, student_data[18])
             remarks.configure(state='readonly')
             # 戶籍地址 郵遞區號
             r_address_zip_code.configure(state='normal')
             r_address_zip_code.delete(0, ctk.END)
-            r_address_zip_code.insert(0, student_data[18])
+            r_address_zip_code.insert(0, student_data[19])
             r_address_zip_code.configure(state='readonly')
             # 戶籍地址 縣市區域
             r_address_city.configure(state='normal')
             r_address_city.delete(0, ctk.END)
-            r_address_city.insert(0, student_data[19])
+            r_address_city.insert(0, student_data[20])
             r_address_city.configure(state='readonly')
             # 戶籍地址 地址
             r_address.configure(state='normal')
             r_address.delete(0, ctk.END)
-            r_address.insert(0, student_data[20])
+            r_address.insert(0, student_data[21])
             r_address.configure(state='readonly')
 
 

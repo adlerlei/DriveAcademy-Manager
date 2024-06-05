@@ -229,23 +229,31 @@ def opening_training_roster(content):
             # 出生日期
             birth_date.configure(state='normal')
             birth_date.delete(0, ctk.END)
-            birth_date.insert(0, student_data[8])
+            birth_date.insert(0, student_data[9])
             birth_date.configure(state='readonly')
             # 學照日期
             learner_permit_date.configure(state='normal')
             learner_permit_date.delete(0, ctk.END)
-            learner_permit_date.insert(0, student_data[26])
+            learner_permit_date.insert(0, student_data[27])
             learner_permit_date.configure(state='readonly')
             # 名冊號碼
             register_number.configure(state='normal')
             register_number.delete(0, ctk.END)
-            register_number.insert(0, student_data[34])
+            if student_data[34] is not None:
+                register_number.insert(0, student_data[34])
+            else:
+                register_number.insert(0, '')
             register_number.configure(state='readonly')
-            # 名冊期別 
+            # 名冊期別
+            register_term.configure(values=student_data[35])
+            if student_data[35]:
+                register_term.set(student_data[35][0])
+            else:
+                register_term.set('')
             # register_term.configure(state='normal')
             # register_term.set('')  # 清除當前選擇
             # register_term.configure(values=student_data[35])  # 設置新的選項
-            register_term.set(student_data[35])  # 設置新的選項為當前選擇
+            # register_term.set(student_data[35])  # 設置新的選項為當前選擇
             # register_term.configure(state='readonly')
             # 性別
             gender.configure(state='normal')
