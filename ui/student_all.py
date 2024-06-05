@@ -131,7 +131,7 @@ def student_all(content):
     label(student_all, text='指導教練').grid(row=4, column=2, sticky='ws', padx=(10,0), pady=(20,0))
     instructor_number = combobox(student_all, values=instructor_numbers, command=lambda x: on_instructor_number_changed(x, instructor_name, instructor_dict))
     instructor_number.grid(row=5, column=2, sticky='wen', padx=(10,0))
-    instructor_name = combobox(student_all, values=instructor_names)
+    instructor_name = combobox(student_all, values=instructor_names, command=lambda x: on_instructor_name_changed(x, instructor_number, instructor_dict))
     instructor_name.grid(row=5, column=3, sticky='wen', padx=10)
     instructor_number.set('')
     instructor_name.set('')
@@ -140,6 +140,11 @@ def student_all(content):
     def on_instructor_number_changed(selected_number, instructor_name, instructor_dict):
         selected_name = instructor_dict.get(selected_number, "")
         instructor_name.set(selected_name)
+
+    # 指導教練下拉選單監聽 name 改變時，自動更新 number 編號
+    def on_instructor_name_changed(selected_name, instructor_number, instructor_dict):
+        selected_number = next((number for number, name in instructor_dict.items() if name == selected_name), "")
+        instructor_number.set(selected_number)
 
 
     # 信箱

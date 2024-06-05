@@ -185,7 +185,6 @@ def display_entry_value(
         frame,
         placeholder_text = placeholder_text,
         border_color = '#fdfdff',
-        # width = width,
         height = height,
         font = font,
         state = state,
