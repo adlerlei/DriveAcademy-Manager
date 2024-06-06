@@ -83,6 +83,18 @@ def search_btn(frame, text, command):
         )
     return button
 
+# 列印按鈕
+def print_btn(frame, text, command):
+    button = ck.CTkButton(
+        frame,
+        text = text,
+        height = 40,
+        fg_color = '#fb8500',
+        font = create_font(),
+        command = command
+    )
+    return button
+
 # 登入，註冊 按鈕
 def btn(frame, text, command):
     button = ck.CTkButton( 
