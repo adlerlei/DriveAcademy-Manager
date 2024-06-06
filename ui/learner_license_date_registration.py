@@ -100,6 +100,7 @@ def learner_license_date_registration(content):
         'national_id_no',
         'mobile_phone', 
         'r_address_zip_code', 
+        'r_address_city',
         'r_address'
     )
     data_list = ttk.Treeview(learner_license_date_registration, columns=columns, show='headings')
@@ -112,8 +113,9 @@ def learner_license_date_registration(content):
     data_list.heading('birth_date', text='出生日期')  
     data_list.heading('national_id_no', text='身分證號')  
     data_list.heading('mobile_phone', text='手機')  
-    data_list.heading('r_address_zip_code', text='區號')  
-    data_list.heading('r_address', text='地址')  
+    data_list.heading('r_address_zip_code', text='區號')
+    data_list.heading('r_address_city', text='縣市區')
+    data_list.heading('r_address', text='戶籍地址')  
 
     data_list.column('learner_permit_date', width=50, anchor='center')  
     data_list.column('learner_permit_number', width=50, anchor='center')  
@@ -123,7 +125,8 @@ def learner_license_date_registration(content):
     data_list.column('birth_date', width=50, anchor='center')  
     data_list.column('national_id_no', width=60, anchor='center')  
     data_list.column('mobile_phone', width=50, anchor='center')  
-    data_list.column('r_address_zip_code', width=50, anchor='center')  
+    data_list.column('r_address_zip_code', width=50, anchor='center')
+    data_list.column('r_address_city', width=50, anchor='center')
     data_list.column('r_address', width=250, anchor='center')  
 
     data_list.grid(row=8, column=0, columnspan=4, sticky='wen', padx=10, pady=(20,0))
@@ -184,7 +187,7 @@ def learner_license_date_registration(content):
             r_address_city.configure(state='normal')
             r_address_city.delete(0, ctk.END)
             r_address_city.insert(0, student_data[20])
-            r_address_city.configure(state='readonly')
+            r_address_city.configure(state='readonly') 
             # 戶籍地址 地址
             r_address.configure(state='normal')
             r_address.delete(0, ctk.END)
@@ -207,6 +210,7 @@ def learner_license_date_registration(content):
             'national_id_no': national_id_no.get(),
             'mobile_phone': mobile_phone.get(),
             'r_address_zip_code': r_address_zip_code.get(),
+            'r_address_city': r_address_city.get(),
             'r_address': r_address.get(),
             'id': current_student_id
         }
@@ -241,6 +245,7 @@ def learner_license_date_registration(content):
             student_data['national_id_no'],
             student_data['mobile_phone'],
             student_data['r_address_zip_code'],
+            student_data['r_address_city'],
             student_data['r_address']
         ))
 

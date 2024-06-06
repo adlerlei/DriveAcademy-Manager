@@ -185,8 +185,8 @@ def opening_training_roster(content):
     data_list.heading('student_name', text='學員姓名')
     data_list.heading('exam_code', text='來源')
     data_list.heading('transmission_type_code', text='手自排')
-    data_list.heading('instructor_number', text='教練')
-    data_list.heading('gender', text='性別')
+    data_list.heading('instructor_number', text='教練編號')
+    data_list.heading('gender', text='學員性別')
     data_list.heading('birth_date', text='出生日期')
     data_list.heading('national_id_no', text='身分證號')
     data_list.heading('r_address_zip_code', text='區號')
@@ -236,10 +236,10 @@ def opening_training_roster(content):
                 birth_date.delete(0, ctk.END)
                 birth_date.insert(0, student_data[9])
                 birth_date.configure(state='readonly')
-                # 學照日期
+                # 學照日期 
                 learner_permit_date.configure(state='normal')
                 learner_permit_date.delete(0, ctk.END)
-                learner_permit_date.insert(0, student_data[27])
+                learner_permit_date.insert(0, student_data[26])
                 learner_permit_date.configure(state='readonly')
                 # 名冊號碼
                 register_number.configure(state='normal')
@@ -298,6 +298,21 @@ def opening_training_roster(content):
         global current_student_id
         student_data = {
             'id': current_student_id,
+            # 獲取輸入欄位呈現資料列表 treeview
+            'register_number': register_number.get(),
+            'batch': batch.get(),
+            'student_number': student_number.get(),
+            'student_name': student_name.get(),
+            'exam_code': exam_code.get(),
+            'transmission_type_code': transmission_type_code.get(),
+            'instructor_number': instructor_number.get(),
+            'gender': gender.get(),
+            'birth_date': birth_date.get(),
+            'national_id_no': national_id_no.get(),
+            'r_address_zip_code': r_address_zip_code.get(),
+            'r_address': r_address.get(),
+            'learner_permit_date': learner_permit_date.get(),
+
             'exam_code': exam_code.get(),
             'exam_name': exam_name.get(),
             'register_term': register_term.get(),
@@ -326,7 +341,25 @@ def opening_training_roster(content):
         if current_student_id is None:
             messagebox.showwarning('提示', '請先搜尋學員資料！')
 
-        update_student_data(opening_training_roster)
+        update_student_data(student_data)
+        clear_entries_and_comboboxes(opening_training_roster)
+
+        # 讀取 save_student_data 的資料
+        data_list.insert('', 'end', values = (
+            student_data['register_number'],
+            student_data['batch'],
+            student_data['student_number'],
+            student_data['student_name'],
+            student_data['exam_code'],
+            student_data['transmission_type_code'],
+            student_data['instructor_number'],
+            student_data['gender'],
+            student_data['birth_date'],
+            student_data['national_id_no'],
+            student_data['r_address_zip_code'],
+            student_data['r_address'],
+            student_data['learner_permit_date'],
+        ))
 
 
 
