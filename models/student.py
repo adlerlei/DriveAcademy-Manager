@@ -57,7 +57,7 @@ def address_data():
     return address_zip_code_lists, address_city_lists, address_dict
 
 
-# 抓取教練資料表（編號，名稱）下拉選單監聽
+# 抓取教練資料表（編號，名稱）下拉選單監聽 
 def get_instructor_data():
     conn = sqlite3.connect(database_path)
     cursor = conn.cursor()

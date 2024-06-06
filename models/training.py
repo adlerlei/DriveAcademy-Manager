@@ -50,8 +50,12 @@ def get_term_data():
 
     conn.close()
 
+    term_list = []
+    for item in term_data:
+        term_list.append(item[0])
+
     # 將數據從元組轉換為列表
-    term_list = [item[0] for item in term_data]
+    # term_list = [item[0] for item in term_data]
     return term_list
 
 
@@ -82,7 +86,8 @@ def update_student_data(data):
             transmission_type_code = :transmission_type_code,
             transmission_type_name = :transmission_type_name,
             instructor_number = :instructor_number,
-            instructor_name = :instructor_name
+            instructor_name = :instructor_name,
+            register_batch = :register_batch
         WHERE id = :id
     ''', data)
 

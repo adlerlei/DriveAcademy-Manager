@@ -21,46 +21,57 @@ def annual_plan_term(content):
         term_class_code.insert(0, value)
 
     # 處理訓練班別第一個下拉選單training_type_code的選擇變化
-    def on_combobox_changed(event): 
-        # 獲取第一個下拉選單的當前選擇
-        selected_code = training_type_code.get()
-        # 根據選擇更新第二個下拉選單的值
-        match selected_code:
-            case '1':
-                training_type_name.delete(0, END)
-                training_type_name.insert(0, '普通小型車班')
-            case '2':
-                training_type_name.delete(0, END)
-                training_type_name.insert(0, '大貨車班')
-            case '3':
-                training_type_name.delete(0, END)
-                training_type_name.insert(0, '大客車班')
-            case '4':
-                training_type_name.delete(0, END)
-                training_type_name.insert(0, '聯結車班')
-            case '5':
-                training_type_name.delete(0, END)
-                training_type_name.insert(0, '職業小型車班')
-            case '6':
-                training_type_name.delete(0, END)
-                training_type_name.insert(0, '普通重機車班')
-            case '7':
-                training_type_name.delete(0, END)
-                training_type_name.insert(0, '大型重機車班')
-            case '8':
-                training_type_name.delete(0, END)
-                training_type_name.insert(0, '小型車逕升大客車班')
+    # def on_combobox_changed(event): 
+    #     # 獲取第一個下拉選單的當前選擇
+    #     selected_code = training_type_code.get()
+    #     # 根據選擇更新第二個下拉選單的值
+    #     match selected_code:
+    #         case '1':
+    #             training_type_name.delete(0, END)
+    #             training_type_name.insert(0, '普通小型車班')
+    #         case '2':
+    #             training_type_name.delete(0, END)
+    #             training_type_name.insert(0, '大貨車班')
+    #         case '3':
+    #             training_type_name.delete(0, END)
+    #             training_type_name.insert(0, '大客車班')
+    #         case '4':
+    #             training_type_name.delete(0, END)
+    #             training_type_name.insert(0, '聯結車班')
+    #         case '5':
+    #             training_type_name.delete(0, END)
+    #             training_type_name.insert(0, '職業小型車班')
+    #         case '6':
+    #             training_type_name.delete(0, END)
+    #             training_type_name.insert(0, '普通重機車班')
+    #         case '7':
+    #             training_type_name.delete(0, END)
+    #             training_type_name.insert(0, '大型重機車班')
+    #         case '8':
+    #             training_type_name.delete(0, END)
+    #             training_type_name.insert(0, '小型車逕升大客車班')
 
     # 訓練班別
+    training_type_codes = ['1', '2', '3', '4', '5', '6', '7', '8']
+    training_type_names = ['普通小型車班', '大貨車班', '大客車班', '聯結車班', '職業小型車班', '普通重機車班', '大型重機車班', '小型車逕升大客車班']
+    training_type_dict_c = dict(zip(training_type_codes, training_type_names))
+    training_type_dict_n = dict(zip(training_type_names, training_type_codes))
     label(annual_plan_term, text='訓練班別').grid(row=0, column=0, sticky='ws', padx=(10,0), pady=(10,0))
-    training_type_code = combobox(annual_plan_term, values=['1','2','3','4','5','6','7','8'], command=on_combobox_changed)
+    training_type_code = combobox(annual_plan_term, values=training_type_codes, command=lambda x: on_training_type_code_changed(x, training_type_name, training_type_dict_c))
     training_type_code.grid(row=1, column=0, sticky='wen', padx=(10,0))
-    training_type_name = entry(annual_plan_term)
-    training_type_name.insert(0, '普通小型車班') # 預設顯示 (1, 普通小型車班)
+    training_type_name = combobox(annual_plan_term, values=training_type_names, command=lambda x: on_training_type_name_changed(x, training_type_code, training_type_dict_n))
+    # training_type_name.insert(0, '普通小型車班') # 預設顯示 (1, 普通小型車班)
     training_type_name.grid(row=1, column=1, sticky='wen', padx=(10,0))
 
     # 綁定函數到第一個下拉選單的選擇變化事件
-    training_type_code.bind("<<ComboboxSelected>>", on_combobox_changed)
+    # training_type_code.bind("<<ComboboxSelected>>", on_combobox_changed)
+    def on_training_type_code_changed(selected_code, training_type_name, training_type_dict):
+        selected_name = training_type_dict.get(selected_code, "")
+        training_type_name.set(selected_name)
+
+    def on_training_type_name_changed(selected_name, training_type_code, training_type_dict):
+        selected_code = training_type_dict.get(selected_name, "")
+        training_type_code.set(selected_code)
 
     # 梯次
     label(annual_plan_term, text='梯次').grid(row=2, column=0, sticky='ws', padx=(10,0))
