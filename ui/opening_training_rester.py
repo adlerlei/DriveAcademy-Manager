@@ -256,7 +256,7 @@ def opening_training_roster(content):
                 birth_date.delete(0, ctk.END)
                 birth_date.insert(0, student_data[9])
                 birth_date.configure(state='readonly')
-                # 學照日期 
+                # 學照日期
                 learner_permit_date.configure(state='normal')
                 learner_permit_date.delete(0, ctk.END)
                 learner_permit_date.insert(0, student_data[26])
