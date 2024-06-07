@@ -5,7 +5,7 @@ C 2024 ZHUNG - DriveAcademy Manager v1.0
 # 駕駛訓練學校學員管理系統
 
 ### 新增功能
-- [] 開訓名冊列印按鈕
+- [x] 開訓名冊列印按鈕
 - [] 結訓名冊列印按鈕
 - [] M2 補訓名冊列印按鈕
 - [] 筆試清冊列印按鈕
@@ -19,15 +19,24 @@ C 2024 ZHUNG - DriveAcademy Manager v1.0
 - [] 場考清冊列印功能
 - [] 道考清冊列印功能
 
-- [] 開訓名冊 - 名冊號碼欄位資料關聯
+- [x] 開訓名冊 - 名冊號碼欄位資料關聯
 
 ## 20240607
+@ 專頁信息回覆。
+@ 製作新社區廣告機
+------
 1. 修復開訓名冊：
     - 修復期別號碼關聯名冊號碼顯示錯誤。
     - 新增名冊號碼獲取期別資料庫信息。
     - populate_student_data() 更新。
     - save_student_data() 更新。
     - student_data = {} 更新。
+    - 新增 register_number_data_changed() 函式。
+    - 讀取，紀錄 choice（期別）值，判斷不同期別遞增。
+    - 修復 register_number 無法寫入資料 問題。
+    - 修復無法針對 register_term 空值提出警告。
+    - 修復 register_term 對應名稱。
+    - 更新 treeview 合併顯示 r_address_zip_code, r_address_city
 
 ## 20240606
 1. 修復開訓介面及功能問題：

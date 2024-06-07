@@ -13,7 +13,8 @@ validation_fields = {
     'transmission_type_code': '手自排類別編號',
     'transmission_type_name': '手自排類別名稱',
     'instructor_number': '教練編號',
-    'instructor_name': '教練名稱'
+    'instructor_name': '教練名稱',
+    'register_term': '期別'
 }
 
 # 抓取教練資料表（編號，名稱）下拉選單監聽
@@ -80,17 +81,18 @@ def update_student_data(data):
 
     cursor.execute('''
         UPDATE student SET
-            register_term = :register_term,
-            exam_code = :exam_code,
-            exam_name = :exam_name,
-            transmission_type_code = :transmission_type_code,
-            transmission_type_name = :transmission_type_name,
-            instructor_number = :instructor_number,
-            instructor_name = :instructor_name,
-            register_batch = :register_batch
+            register_number = :register_number, -- 名冊號碼
+            register_term = :register_term, -- 名冊期別
+            exam_code = :exam_code, -- 來源類別編號
+            exam_name = :exam_name, -- 來源類別名稱
+            transmission_type_code = :transmission_type_code, -- 手自排類別編號
+            transmission_type_name = :transmission_type_name, -- 手自排類別名稱
+            instructor_number = :instructor_number, -- 教練編號
+            instructor_name = :instructor_name, -- 教練名稱
+            register_batch = :register_batch -- 名冊梯次
         WHERE id = :id
     ''', data)
 
     conn.commit()
     conn.close()
-    messagebox.showinfo('訊息', '已更新學員資料！')
+    messagebox.showinfo('訊息', '加入開訓名冊完成！')

@@ -6,6 +6,8 @@ import customtkinter as ctk
 from tkinter import messagebox
 # 開訓名冊建立後需要將資料顯示欄位的名冊號碼與學員資料綁定
 
+counter = 1
+current_choice = None
 
 def opening_training_roster(content):
     clear_frame(content)
@@ -19,14 +21,20 @@ def opening_training_roster(content):
 
     # 監聽 名冊號碼 register_number 輸入值
     def register_number_data_changed(choice):
+        global counter, current_choice  # 使用全域變數
         print("事件觸發了")
-        value = choice
+        
+        # 檢查當前選擇的值是否改變
+        if current_choice != choice:
+            current_choice = choice
+            counter = 1  # 重置計數器
+        
+        batch_value = batch.get()
+        value = '0' + choice + batch_value + f'{counter:03d}'  # 格式化數字為三位數
         print(f"選擇的名冊期別: {value}")
         register_number.delete(0, ctk.END)
         register_number.insert(0, value)
-        # value = register_term.get()
-        # register_number.delete(0, END)
-        # register_number.insert(0, value)
+        counter += 1  # 計數器遞增
 
 
     # 顯示 / 搜尋 學員編號
@@ -60,10 +68,9 @@ def opening_training_roster(content):
     register_number = entry(opening_training_roster)
     register_number.grid(row=3, column=1, sticky='wen',padx=(10,0))
 
-    # 名冊期別 ( 抓取年度計畫期別新增 "期別" 使用下拉選單呈現選擇) 不需要從資料庫讀取，但需要寫入資料庫
-    # 獲得期別資料庫資料
+    # 期別 ( 抓取年度計畫期別新增 "期別" 使用下拉選單呈現選擇) 不需要從資料庫讀取，但需要寫入資料庫
     term_data = get_term_data()
-    label(opening_training_roster, text='名冊期別').grid(row=2, column=2, sticky='ws', padx=(10,0), pady=(10,0))
+    label(opening_training_roster, text='期別').grid(row=2, column=2, sticky='ws', padx=(10,0), pady=(10,0))
     register_term = combobox(opening_training_roster, values=term_data, command=register_number_data_changed)
     register_term.grid(row=3, column=2, sticky='wen',padx=(10,0))
     register_term.set('')  # 初始值設為空
@@ -186,7 +193,7 @@ def opening_training_roster(content):
         'birth_date', # 出生日期
         'national_id_no', # 學員 身分證號碼
         'r_address_zip_code', # 戶籍地址區號
-        'r_address', # 戶籍地址 ( 前面增加縣市區域，但不需要顯示 treeview )
+        'r_address_city_road', # 戶籍地址 ( 前面增加縣市區域，但不需要顯示 treeview )
         'learner_permit_date', # 學照日期
     )
     data_list = ttk.Treeview(opening_training_roster, show='headings', column = columns)
@@ -202,7 +209,7 @@ def opening_training_roster(content):
     data_list.heading('birth_date', text='出生日期')
     data_list.heading('national_id_no', text='身分證號')
     data_list.heading('r_address_zip_code', text='區號')
-    data_list.heading('r_address', text='戶籍地址')
+    data_list.heading('r_address_city_road', text='戶籍地址')
     data_list.heading('learner_permit_date', text='學照日期')
 
     data_list.column('register_number', width=50, anchor='center')
@@ -216,14 +223,14 @@ def opening_training_roster(content):
     data_list.column('birth_date', width=50, anchor='center')
     data_list.column('national_id_no', width=60, anchor='center')
     data_list.column('r_address_zip_code', width=50, anchor='center')
-    data_list.column('r_address', width=250, anchor='center')
+    data_list.column('r_address_city_road', width=250, anchor='center')
     data_list.column('learner_permit_date', width=50, anchor='center')
     
     data_list.grid(row=12, column=0, columnspan=4, sticky='wen', padx=10, pady=(20,0))
     
     # 邏輯功能 - 搜尋學員資料並顯示在 entry 
     def populate_student_data(identifier, value):
-        print(f"調用 populate_student_data: {identifier}, {value}")
+
         # 監聽學員編號輸入欄位如果為空，清除學員資料
         if identifier == 'student_number' and value == '':
             keep_entries = [register_term]
@@ -232,7 +239,6 @@ def opening_training_roster(content):
             global current_student_id
             student_data = get_student_data(identifier, value)
             if student_data:
-                print(f"學員數據: {student_data}")
                 # 獲取學員資料庫 id 序列
                 current_student_id = student_data[0]
                 # 學員姓名
@@ -256,11 +262,11 @@ def opening_training_roster(content):
                 learner_permit_date.insert(0, student_data[26])
                 learner_permit_date.configure(state='readonly')
                 # 名冊號碼
-                # if student_data[34] is not None:
-                #     register_number.insert(0, student_data[34])
-                # else:
-                #     register_number.insert(0, '')
-                # register_number.configure(state='readonly')
+                if student_data[34] is not None:
+                    register_number.insert(0, student_data[34])
+                else:
+                    register_number.insert(0, '')
+                register_number.configure(state='readonly')
 
                 # 來源
                 if student_data[29] is not None:
@@ -350,15 +356,17 @@ def opening_training_roster(content):
             'birth_date': birth_date.get(), # 生日
             'national_id_no': national_id_no.get(), # 身分證字號
             'r_address_zip_code': r_address_zip_code.get(), # 戶籍地址 郵遞區號
+            'r_address_city': r_address_city.get(), # 戶籍地址 縣市區域
             'r_address': r_address.get(), # 戶籍地址 地址
             'learner_permit_date': learner_permit_date.get(), # 學照日期
             'exam_code': exam_code.get(), # 來源編號
             'exam_name': exam_name.get(), # 來源類型
-            'register_term': register_term.get(), # 名冊期別
+            'register_term': register_term.get(), # 期別
             'transmission_type_code': transmission_type_code.get(), # 手自排
             'transmission_type_name': transmission_type_name.get(), # 手自排
             'instructor_number': instructor_number.get(), # 教練編號
-            'instructor_name': instructor_name.get() # 教練名稱
+            'instructor_name': instructor_name.get(), # 教練名稱
+            'r_address_city_road': r_address_city.get() + r_address.get() # 將縣市區域加上地址組合
         }
 
         # 驗證 名冊期別，來源，手自排，教練 輸入欄位是否為空
@@ -383,7 +391,7 @@ def opening_training_roster(content):
         update_student_data(student_data)
         clear_entries_and_comboboxes(opening_training_roster)
 
-        # 讀取 save_student_data 的資料
+        # 讀取 save_student_data 的資料寫入 treeview
         data_list.insert('', 'end', values = (
             student_data['register_number'],
             student_data['batch'],
@@ -396,8 +404,8 @@ def opening_training_roster(content):
             student_data['birth_date'],
             student_data['national_id_no'],
             student_data['r_address_zip_code'],
-            student_data['r_address'],
-            student_data['learner_permit_date'],
+            student_data['r_address_city_road'],
+            student_data['learner_permit_date']
         ))
 
 
