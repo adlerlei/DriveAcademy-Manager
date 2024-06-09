@@ -342,7 +342,7 @@ def opening_training_roster(content):
 
     # 獲取輸入欄位信息
     def save_student_data():
-        # uid = 0
+        uid = 1
         global current_student_id
         student_data = {
             'id': current_student_id,
@@ -388,7 +388,7 @@ def opening_training_roster(content):
         if current_student_id is None:
             messagebox.showwarning('提示', '請先搜尋學員資料！')
 
-        update_student_data(student_data)
+        update_student_data(student_data, uid=uid)
         clear_entries_and_comboboxes(opening_training_roster)
 
         # 讀取 save_student_data 的資料寫入 treeview

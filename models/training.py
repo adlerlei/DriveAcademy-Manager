@@ -14,7 +14,8 @@ validation_fields = {
     'transmission_type_name': '手自排類別名稱',
     'instructor_number': '教練編號',
     'instructor_name': '教練名稱',
-    'register_term': '期別'
+    'register_term': '期別',
+    'dropout': '退訓'
 }
 
 # 抓取教練資料表（編號，名稱）下拉選單監聽
@@ -75,24 +76,40 @@ def get_student_data(identifier, value):
 
 
 # 更新學員資料
-def update_student_data(data):
+def update_student_data(data, uid):
     conn = sqlite3.connect(database_path)
-    cursor = conn.cursor()
+    cursor = conn.cursor() 
 
-    cursor.execute('''
-        UPDATE student SET
-            register_number = :register_number, -- 名冊號碼
-            register_term = :register_term, -- 名冊期別
-            exam_code = :exam_code, -- 來源類別編號
-            exam_name = :exam_name, -- 來源類別名稱
-            transmission_type_code = :transmission_type_code, -- 手自排類別編號
-            transmission_type_name = :transmission_type_name, -- 手自排類別名稱
-            instructor_number = :instructor_number, -- 教練編號
-            instructor_name = :instructor_name, -- 教練名稱
-            register_batch = :register_batch -- 名冊梯次
-        WHERE id = :id
-    ''', data)
+    if uid == 1:
+        cursor.execute('''
+            UPDATE student SET
+                register_number = :register_number, -- 名冊號碼
+                register_term = :register_term, -- 名冊期別
+                exam_code = :exam_code, -- 來源類別編號
+                exam_name = :exam_name, -- 來源類別名稱
+                transmission_type_code = :transmission_type_code, -- 手自排類別編號
+                transmission_type_name = :transmission_type_name, -- 手自排類別名稱
+                instructor_number = :instructor_number, -- 教練編號
+                instructor_name = :instructor_name, -- 教練名稱
+                register_batch = :register_batch -- 名冊梯次
+            WHERE id = :id
+        ''', data)
+        messagebox.showinfo('訊息', '學照登錄完成！')
+    elif uid == 0:
+        cursor.execute('''
+            UPDATE student SET
+                register_number = :register_number, -- 名冊號碼
+                register_term = :register_term, -- 名冊期別
+                dropout = :dropout, -- 退訓
+                transmission_type_code = :transmission_type_code, -- 手自排類別編號
+                transmission_type_name = :transmission_type_name, -- 手自排類別名稱
+                instructor_number = :instructor_number, -- 教練編號
+                instructor_name = :instructor_name, -- 教練名稱
+                register_batch = :register_batch -- 名冊梯次
+            WHERE id = :id
+        ''', data)
+        messagebox.showinfo('訊息', '學照送件完成！')
 
     conn.commit()
     conn.close()
-    messagebox.showinfo('訊息', '加入開訓名冊完成！')
+    # messagebox.showinfo('訊息', '加入開訓名冊完成！')
