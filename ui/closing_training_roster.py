@@ -1,122 +1,3 @@
-# # 結訓名冊
-# from utils.widget import *
-# from utils.config import *
-
-# def closing_training_roster(content):
-#     clear_frame(content)
-
-#     closing_training_roster = frame(content)
-#     closing_training_roster.columnconfigure(0, weight=1)
-#     closing_training_roster.columnconfigure(1, weight=1)
-#     closing_training_roster.columnconfigure(2, weight=1)
-#     closing_training_roster.columnconfigure(3, weight=1)
-#     closing_training_roster.place(relwidth=1, relheight=1)
-
-#     entry(closing_training_roster,  placeholder_text = "輸入學員編號").grid(row=0, column=0, columnspan=3, sticky='wen', padx=10, pady=(10,0))
-#     # 搜尋按鈕
-#     btn(closing_training_roster, text='搜尋學員信息', command=lambda: None).grid(row=0, column=3, sticky='wen', padx=(0,10), pady=(10,0))
-    
-#     # 學員姓名
-#     label(closing_training_roster, text='學員姓名').grid(row=1, column=0, sticky='ws', padx=(10,0), pady=(50,0))
-#     display_entry_value(closing_training_roster).grid(row=2, column=0, sticky='wen', padx=(10,0))
-
-#     # 顯示學員身分證號碼
-#     label(closing_training_roster, text='身分證號').grid(row=1, column=1, sticky='ws', padx=(10,0), pady=(10,0))
-#     display_entry_value(closing_training_roster).grid(row=2, column=1, sticky='wen', padx=(10,0))
-
-#     # 名冊號碼
-#     label(closing_training_roster, text='名冊號碼').grid(row=1, column=2, sticky='ws', padx=(10,0), pady=(10,0))
-#     display_entry_value(closing_training_roster).grid(row=2, column=2, sticky='wen',padx=(10,0))
-
-#     # 性別
-#     label(closing_training_roster, text='性別').grid(row=1, column=3, sticky='ws', padx=(10,0), pady=(10,0))
-#     display_entry_value(closing_training_roster).grid(row=2, column=3, sticky='wen',padx=10)
-    
-#     # 出生日期
-#     label(closing_training_roster, text='出生日期').grid(row=3, column=0, sticky='ws', padx=(10,0), pady=(10,0))
-#     display_entry_value(closing_training_roster).grid(row=4, column=0, sticky='wen',padx=(10,0))
-
-#     # 學照日期
-#     label(closing_training_roster, text='學照日期').grid(row=3, column=1, sticky='ws', padx=(10,0), pady=(10,0))
-#     display_entry_value(closing_training_roster).grid(row=4, column=1, sticky='wen',padx=(10,0))
-
-#     # 梯次
-#     label(closing_training_roster, text='梯次').grid(row=3, column=2, sticky='ws', padx=10, pady=(10,0))
-#     display_entry_value(closing_training_roster).grid(row=4, column=2, columnspan=2, sticky='wen',padx=10)
-
-#     # 戶籍地址
-#     label(closing_training_roster, text='戶籍地址').grid(row=5, column=0, sticky='ws', padx=(10,0), pady=(10,0))
-#     display_entry_value(closing_training_roster).grid(row=6, column=0, sticky='wen',padx=(10,0))
-#     display_entry_value(closing_training_roster).grid(row=6, column=1, sticky='wen',padx=(10,0))
-#     display_entry_value(closing_training_roster).grid(row=6, column=2, columnspan=2, sticky='wen',padx=10)
-    
-#     # 訓練班別（抓取資料庫呈現）
-#     label(closing_training_roster, text='訓練班別').grid(row=7, column=0, sticky='ws', padx=(10,0), pady=(50,0))
-#     combobox(closing_training_roster, values=['1','2','3']).grid(row=8, column=0, sticky='wen',padx=(10,0))
-#     entry(closing_training_roster).grid(row=8, column=1, sticky='wen',padx=(10,0))
-
-#     # 名冊期別
-#     label(closing_training_roster, text='名冊期別').grid(row=7, column=2, sticky='ws', padx=(10,0))
-#     entry(closing_training_roster).grid(row=8, column=2, sticky='wen',padx=(10,0))
-
-#     # 梯次
-#     label(closing_training_roster, text='梯次').grid(row=7, column=3, sticky='ws', padx=(10,0))
-#     combobox(closing_training_roster, values=['A', 'B']).grid(row=8, column=3, sticky='wen',padx=10)
-    
-#     # 來源 下拉選單
-#     label(closing_training_roster, text='退訓').grid(row=9, column=0, sticky='ws', padx=(10,0), pady=(10,0))
-#     combobox(closing_training_roster, values=['否', '是']).grid(row=10, column=0, sticky='wen',padx=(10,0))
-
-#     # 手自排 下拉選單
-#     label(closing_training_roster, text='手自排').grid(row=9, column=1, sticky='ws', padx=(10,0))
-#     combobox(closing_training_roster, values=['A', 'B']).grid(row=10, column=1, sticky='wen',padx=(10,0))
-
-#     # 教練 下拉選單
-#     label(closing_training_roster, text='教練').grid(row=9, column=2, sticky='ws', padx=(10,0))
-#     combobox(closing_training_roster, values=['A', 'B']).grid(row=10, column=2, sticky='wen',padx=(10,0))
-#     entry(closing_training_roster).grid(row=10, column=3, sticky='wen',padx=10)
-
-#     # 按鈕
-#     btn(closing_training_roster, text='加入結訓名冊', command=lambda: None).grid(row=11, column=0,  columnspan=4, sticky='wen',padx=10, pady=20)
-
-#     # treeview
-#     data_list = ttk.Treeview(closing_training_roster, show='headings', column=['id', 'roster_number', 'batch', 'student_number', 'student_name', 'exam_source_type', 'transmission_type', 'instructor', 'gender', 'birth_date', 'national_id_no', 'zip_code', 'city_r_address', 'training_type'])
-    
-#     data_list.column('id', width=50, anchor='w')
-#     data_list.column('roster_number', width=50, anchor='w')
-#     data_list.column('batch', width=50, anchor='w')
-#     data_list.column('student_number', width=50, anchor='w')
-#     data_list.column('student_name', width=50, anchor='w')
-#     data_list.column('exam_source_type', width=50, anchor='w')
-#     data_list.column('transmission_type', width=50, anchor='w')
-#     data_list.column('instructor', width=50, anchor='w')
-#     data_list.column('gender', width=50, anchor='w')
-#     data_list.column('birth_date', width=50, anchor='w')
-#     data_list.column('national_id_no', width=60, anchor='w')
-#     data_list.column('training_type', width=50, anchor='w')
-#     data_list.column('zip_code', width=50, anchor='w')
-#     data_list.column('city_r_address', width=250, anchor='w')
-    
-#     data_list.heading('id', text='ID')
-#     data_list.heading('roster_number', text='名冊號碼')
-#     data_list.heading('batch', text='梯次')
-#     data_list.heading('student_number', text='學員編號')
-#     data_list.heading('student_name', text='學員姓名')
-#     data_list.heading('exam_source_type', text='來源')
-#     data_list.heading('transmission_type', text='手自排')
-#     data_list.heading('instructor', text='教練')
-#     data_list.heading('gender', text='性別')
-#     data_list.heading('birth_date', text='出生日期')
-#     data_list.heading('national_id_no', text='身分證號')
-#     data_list.heading('training_type', text='訓練班別')
-#     data_list.heading('zip_code', text='區號')
-#     data_list.heading('city_r_address', text='戶籍地址')
-    
-#     data_list.grid(row=12, column=0, columnspan=4, sticky='wen', padx=10)
-    
-#     for i in range(100):
-#         data_list.insert("", "end", values=(f"202{i % 10}", f"張{i}", f"A{i}", f"202{i % 10}-01-01", f"男", f"02{i % 10}", f"09{i % 10}", f"test{i}@gmail.com", f"台北市", f"台北市"))
-
 # 開訓名冊
 from utils.widget import *
 from utils.config import * 
@@ -141,7 +22,7 @@ def closing_training_roster(content):
     # 監聽 名冊號碼 register_number 輸入值
     def register_number_data_changed(choice):
         global counter, current_choice  # 使用全域變數
-        print("事件觸發了")
+        # print("事件觸發了")
         
         # 檢查當前選擇的值是否改變
         if current_choice != choice:
@@ -224,33 +105,12 @@ def closing_training_roster(content):
     r_address_city.grid(row=7, column=1, sticky='wen',padx=(10,0))
     r_address = display_entry_value(closing_training_roster)
     r_address.grid(row=7, column=2, columnspan=2, sticky='wen',padx=10)
-    
-    # 來源 下拉選單 ################################################
-    # exam_codes = ['A','B','C','G','Z']
-    # exam_names = ['新考','晉考','換考','吊扣註銷重考','臨時駕駛執照']
-    # # 使用 zip 函數生成字典來填充 exam_code
-    # exam_dict_c = dict(zip(exam_codes, exam_names))
-    # # 使用 zip 函數生成字典來填充 exam_name
-    # exam_dict_n = dict(zip(exam_names, exam_codes))
+
 
     label(closing_training_roster, text='退訓').grid(row=8, column=0, sticky='ws', padx=(10,0), pady=(50,0))
     dropout = combobox(closing_training_roster, values=['是','否'], command=None)
     dropout.grid(row=9, column=0, columnspan=2, sticky='wen', padx=(10,0))
-    # exam_name = combobox(closing_training_roster, values=exam_names, command=None)
-    # exam_name.grid(row=9, column=1, sticky='wen', padx=(10,0))
     dropout.set('')
-    # exam_name.set('')
-
-    # 來源下拉選單監聽 code 改變時，自動更新 name 名稱
-    # def on_exam_code_changed(select_code, exam_name, exam_dict):
-    #     select_name = exam_dict.get(select_code, "")
-    #     exam_name.set(select_name)
-
-    # # 來源下拉選單監聽 name 改變時，自動更新 code 名稱
-    # def on_exam_name_changed(select_name, exam_code, exam_dict):
-    #     select_code = exam_dict.get(select_name, "")
-    #     exam_code.set(select_code)
-    # 來源 下拉選單 END ##############################################
 
     # 手自排 下拉選單
     transmission_type_codes = ['M','A','S']
@@ -305,7 +165,7 @@ def closing_training_roster(content):
         'batch', # 梯次
         'student_number', # 學員編號
         'student_name', # 學員姓名
-        'dropout', # 來源 編號
+        'dropout', # 退訓
         'transmission_type_code', # 手自排 編號
         'instructor_number', # 教練 編號
         'gender', # 學員性別
@@ -392,12 +252,7 @@ def closing_training_roster(content):
                     dropout.set(student_data[33])
                 else:
                     dropout.set('')
-                # 來源名稱
-                # if student_data[30] is not None:
-                #     exam_name.set(student_data[30])
-                # else:
-                #     exam_name.set('')
-                # 手自排
+                # 手自排編號
                 if student_data[31] is not None:
                     transmission_type_code.set(student_data[31])
                 else:
@@ -479,7 +334,6 @@ def closing_training_roster(content):
             'r_address': r_address.get(), # 戶籍地址 地址
             'learner_permit_date': learner_permit_date.get(), # 學照日期
             'dropout': dropout.get(), # 退訓
-            # 'exam_name': exam_name.get(), # 來源類型
             'register_term': register_term.get(), # 期別
             'transmission_type_code': transmission_type_code.get(), # 手自排
             'transmission_type_name': transmission_type_name.get(), # 手自排
@@ -529,5 +383,5 @@ def closing_training_roster(content):
 
 
     # 按鈕
-    btn(closing_training_roster, text='存檔', command=save_student_data).grid(row=11, column=2, sticky='wen', padx=10)
-    print_btn(closing_training_roster, text='列印開訓名冊', command=None).grid(row=11, column=3, sticky='wen', padx=10)
+    btn(closing_training_roster, text='加入結訓名冊', command=save_student_data).grid(row=11, column=2, sticky='wen', padx=10)
+    print_btn(closing_training_roster, text='列印結訓名冊', command=None).grid(row=11, column=3, sticky='wen', padx=10)

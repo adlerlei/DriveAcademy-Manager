@@ -22,7 +22,7 @@ def opening_training_roster(content):
     # 監聽 名冊號碼 register_number 輸入值
     def register_number_data_changed(choice):
         global counter, current_choice  # 使用全域變數
-        print("事件觸發了")
+        # print("事件觸發了")
         
         # 檢查當前選擇的值是否改變
         if current_choice != choice:
