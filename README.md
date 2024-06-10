@@ -28,7 +28,8 @@ C 2024 ZHUNG - DriveAcademy Manager v1.0
     - 修復介面佈局。
     - 新增csv文件匯出功能。
     - 修復介面佈局新增匯出按鈕。
-    
+    - exam_code, exam_name 變更 dropout 退訓。
+
 ## 20240607
 @ 專頁信息回覆。
 @ 製作新社區廣告機
