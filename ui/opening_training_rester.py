@@ -6,6 +6,10 @@ import customtkinter as ctk
 from tkinter import messagebox
 # 開訓名冊建立後需要將資料顯示欄位的名冊號碼與學員資料綁定
 
+
+# 檢測學員資料庫 id 欄位來判定是否修改或新增
+current_student_id = None
+
 counter = 1
 current_choice = None
 
@@ -345,7 +349,6 @@ def opening_training_roster(content):
         uid = 1
         global current_student_id
         student_data = {
-            'id': current_student_id,
             # 獲取輸入欄位呈現資料列表 treeview
             'register_number': register_number.get(), # 名冊號碼
             'batch': batch.get(), # 梯次
@@ -366,11 +369,12 @@ def opening_training_roster(content):
             'transmission_type_name': transmission_type_name.get(), # 手自排
             'instructor_number': instructor_number.get(), # 教練編號
             'instructor_name': instructor_name.get(), # 教練名稱
-            'r_address_city_road': r_address_city.get() + r_address.get() # 將縣市區域加上地址組合
+            'r_address_city_road': r_address_city.get() + r_address.get(), # 將縣市區域加上地址組合
+            'id': current_student_id
         }
 
         # 驗證 名冊期別，來源，手自排，教練 輸入欄位是否為空
-        required_fields = [
+        required_fields = [ 
             'exam_code',
             'exam_name',
             'register_term',
@@ -387,6 +391,7 @@ def opening_training_roster(content):
             
         if current_student_id is None:
             messagebox.showwarning('提示', '請先搜尋學員資料！')
+            return
 
         update_student_data(student_data, uid=uid)
         clear_entries_and_comboboxes(opening_training_roster)
