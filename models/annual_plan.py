@@ -50,7 +50,8 @@ def fetch_and_populate_treeview(treeview):
 # 匯出 csv 文件按鈕觸發
 def export_selected_data(treeview):
     # 獲取所選行
-    selected_items = treeview.selection()
+    selected_items = treeview.selection() # 針對用戶選取的行做處理
+    # selected_items = treeview.get_children() # 直接取得所有行
     if not selected_items:
         messagebox.showwarning("警告", "請先選擇要匯出的行!")
         return

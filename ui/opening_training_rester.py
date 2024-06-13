@@ -418,4 +418,4 @@ def opening_training_roster(content):
     # 按鈕
     btn(opening_training_roster, text='加入開訓名冊', command=save_student_data).grid(row=11, column=2, sticky='wen', padx=(10, 0))
     print_btn(opening_training_roster, text='列印開訓名冊', command=None).grid(row=11, column=3, sticky='wen', padx=10)
-    export_btn(opening_training_roster, text='匯出文件', command=None).grid(row=12, column=0, columnspan=4, sticky='wen', pady=(20,0), padx=10)
+    export_btn(opening_training_roster, text='匯出文件', command=lambda: export_selected_data(data_list)).grid(row=12, column=0, columnspan=4, sticky='wen', pady=(20,0), padx=10)
