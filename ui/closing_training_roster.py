@@ -111,10 +111,26 @@ def closing_training_roster(content):
     r_address.grid(row=7, column=2, columnspan=2, sticky='wen',padx=10)
 
 
-    label(closing_training_roster, text='退訓').grid(row=8, column=0, sticky='ws', padx=(10,0), pady=(50,0))
-    dropout = combobox(closing_training_roster, values=['是','否'], command=None)
-    dropout.grid(row=9, column=0, columnspan=2, sticky='wen', padx=(10,0))
-    dropout.set('')
+    # 獲得教練資料庫資料
+    instructor_numbers, instructor_names, instructor_dict = get_instructor_data()
+    label(closing_training_roster, text='指導教練').grid(row=8, column=0, sticky='ws', padx=(10,0), pady=(10,0))
+    instructor_number = combobox(closing_training_roster, values=instructor_numbers, command=lambda x: on_instructor_number_changed(x, instructor_name, instructor_dict))
+    instructor_number.grid(row=9, column=0, sticky='wen', padx=(10,0))
+    instructor_name = combobox(closing_training_roster, values=instructor_names, command=lambda x: on_instructor_name_changed(x, instructor_number, instructor_dict))
+    instructor_name.grid(row=9, column=1, sticky='wen', padx=(10,0))
+    instructor_number.set('')
+    instructor_name.set('')
+
+    # 指導教練下拉選單監聽 number 改變時，自動更新 name 名稱
+    def on_instructor_number_changed(selected_number, instructor_name, instructor_dict):
+        selected_name = instructor_dict.get(selected_number, "")
+        instructor_name.set(selected_name)
+
+    # 指導教練下拉選單監聽 name 改變時，自動更新 number 編號 
+    def on_instructor_name_changed(selected_name, instructor_number, instructor_dict):
+        selected_number = next((number for number, name in instructor_dict.items() if name == selected_name), "")
+        instructor_number.set(selected_number)
+
 
     # 手自排 下拉選單
     transmission_type_codes = ['M','A','S']
@@ -138,28 +154,11 @@ def closing_training_roster(content):
         transmission_type_code.set(select_code)
 
 
-    # 教練 下拉選單 #################################################
-    # 獲得教練資料庫資料
-    instructor_numbers, instructor_names, instructor_dict = get_instructor_data()
-    label(closing_training_roster, text='指導教練').grid(row=10, column=0, sticky='ws', padx=(10,0), pady=(10,0))
-    instructor_number = combobox(closing_training_roster, values=instructor_numbers, command=lambda x: on_instructor_number_changed(x, instructor_name, instructor_dict))
-    instructor_number.grid(row=11, column=0, sticky='wen', padx=(10,0))
-    instructor_name = combobox(closing_training_roster, values=instructor_names, command=lambda x: on_instructor_name_changed(x, instructor_number, instructor_dict))
-    instructor_name.grid(row=11, column=1, sticky='wen', padx=(10,0))
-    instructor_number.set('')
-    instructor_name.set('')
-
-    # 指導教練下拉選單監聽 number 改變時，自動更新 name 名稱
-    def on_instructor_number_changed(selected_number, instructor_name, instructor_dict):
-        selected_name = instructor_dict.get(selected_number, "")
-        instructor_name.set(selected_name)
-
-    # 指導教練下拉選單監聽 name 改變時，自動更新 number 編號 
-    def on_instructor_name_changed(selected_name, instructor_number, instructor_dict):
-        selected_number = next((number for number, name in instructor_dict.items() if name == selected_name), "")
-        instructor_number.set(selected_number)
-
-    # 教練 下拉選單 END #################################################
+    # 退訓
+    label(closing_training_roster, text='退訓').grid(row=9, column=0, sticky='ws', padx=(10,0), pady=(50,0))
+    dropout = combobox(closing_training_roster, values=['是','否'], command=None)
+    dropout.grid(row=10, column=0, sticky='wen', padx=(10,0))
+    dropout.set('')
 
 
     # treeview
@@ -209,7 +208,7 @@ def closing_training_roster(content):
     data_list.column('r_address_city_road', width=250, anchor='center')
     data_list.column('learner_permit_date', width=50, anchor='center')
     
-    data_list.grid(row=12, column=0, columnspan=4, sticky='wen', padx=10, pady=(20,0))
+    data_list.grid(row=11, column=0, columnspan=4, sticky='wen', padx=10, pady=(20,0))
     
     # 邏輯功能 - 搜尋學員資料並顯示在 entry 
     def populate_student_data(identifier, value):
@@ -388,5 +387,6 @@ def closing_training_roster(content):
 
 
     # 按鈕
-    btn(closing_training_roster, text='加入結訓名冊', command=save_student_data).grid(row=11, column=2, sticky='wen', padx=10)
-    print_btn(closing_training_roster, text='列印結訓名冊', command=None).grid(row=11, column=3, sticky='wen', padx=10)
+    btn(closing_training_roster, text='加入結訓名冊', command=save_student_data).grid(row=10, column=1, sticky='wen', padx=(10, 0))
+    print_btn(closing_training_roster, text='列印結訓名冊', command=None).grid(row=10, column=2, sticky='wen', padx=(10, 0))
+    export_btn(closing_training_roster, text='匯出文件', command=None).grid(row=10, column=3, sticky='wen', padx=10)

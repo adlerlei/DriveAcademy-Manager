@@ -230,7 +230,7 @@ def opening_training_roster(content):
     data_list.column('r_address_city_road', width=250, anchor='center')
     data_list.column('learner_permit_date', width=50, anchor='center')
     
-    data_list.grid(row=12, column=0, columnspan=4, sticky='wen', padx=10, pady=(20,0))
+    data_list.grid(row=13, column=0, columnspan=4, sticky='wen', padx=10, pady=(20,0))
     
     # 邏輯功能 - 搜尋學員資料並顯示在 entry 
     def populate_student_data(identifier, value):
@@ -416,5 +416,6 @@ def opening_training_roster(content):
 
 
     # 按鈕
-    btn(opening_training_roster, text='加入開訓名冊', command=save_student_data).grid(row=11, column=2, sticky='wen', padx=10)
+    btn(opening_training_roster, text='加入開訓名冊', command=save_student_data).grid(row=11, column=2, sticky='wen', padx=(10, 0))
     print_btn(opening_training_roster, text='列印開訓名冊', command=None).grid(row=11, column=3, sticky='wen', padx=10)
+    export_btn(opening_training_roster, text='匯出文件', command=None).grid(row=12, column=0, columnspan=4, sticky='wen', pady=(20,0), padx=10)
