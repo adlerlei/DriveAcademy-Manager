@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS student (
     transmission_type_name VARCHAR, -- 手自排類別名稱32
     dropout VARCHAR, -- 是否退訓33
     register_number VARCHAR, -- 名冊號碼34
-    register_term VARCHAR, -- 名冊期別35
+    register_term VARCHAR, -- 期別35
     written_exam_date VARCHAR, -- 筆試日期36
     session_number VARCHAR, -- 場次37
     road_test_date VARCHAR, -- 路試日期38
