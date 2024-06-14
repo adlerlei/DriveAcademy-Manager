@@ -206,7 +206,7 @@ def opening_training_roster(content):
     data_list.heading('batch', text='梯次')
     data_list.heading('student_number', text='學員編號')
     data_list.heading('student_name', text='學員姓名')
-    data_list.heading('exam_code', text='來源')
+    data_list.heading('exam_code', text='來源') 
     data_list.heading('transmission_type_code', text='手自排')
     data_list.heading('instructor_number', text='教練編號')
     data_list.heading('gender', text='性別')
@@ -372,6 +372,7 @@ def opening_training_roster(content):
             'r_address_city_road': r_address_city.get() + r_address.get(), # 將縣市區域加上地址組合
             'id': current_student_id
         }
+
 
         # 驗證 名冊期別，來源，手自排，教練 輸入欄位是否為空
         required_fields = [ 

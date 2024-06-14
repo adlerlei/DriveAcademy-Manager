@@ -60,8 +60,6 @@ def get_term_data():
     for item in term_data:
         term_list.append(item[0])
 
-    # 將數據從元組轉換為列表
-    # term_list = [item[0] for item in term_data]
     return term_list
 
 
@@ -121,49 +119,79 @@ def update_student_data(data, uid):
 # 匯出 csv 文件按鈕觸發
 def export_selected_data(treeview):
     # 獲取所選行
-    selected_items = treeview.selection()
+    selected_items = treeview.get_children()
     if not selected_items:
-        messagebox.showwarning("警告", "請先選擇要匯出的行!")
+        messagebox.showwarning("警告", "資料列表為空！請先加入開訓名冊的學員！")
         return
+
+    # 獲取學員資料庫中的手機欄位
+    conn = sqlite3.connect(database_path)
+    cursor = conn.cursor()
+    cursor.execute("SELECT national_id_no, mobile_phone FROM student")
+    mobile_phone_data = cursor.fetchall()
+    conn.close()
 
     # 獲取所選行的數據
     data = []
+    register_number = None  # 初始化 register_number 變量
     for item in selected_items:
         item_values = treeview.item(item)["values"]
-        start_date = str(item_values[3])  # 確保開訓日期為字符串
-        end_date = str(item_values[4])  # 確保結訓日期為字符串
-        term_class_code = str(item_values[5])
+        national_id_no = str(item_values[9])  # 獲取身分證字號
+        birth_date = str(item_values[8])  # 獲取生日
+        student_name = str(item_values[3])  # 獲取姓名
+        mobile_phone = ""
+        for student_id, phone in mobile_phone_data:
+            if student_id == national_id_no:
+                mobile_phone = str(phone)
+                break
+        register_number = str(item_values[0])  # 獲取名冊號碼
+        exam_code = str(item_values[4])  # 獲取來源類別編號
+        transmission_type_code = str(item_values[5])  # 獲取手自排類別編號
+        instructor_number = str(item_values[6]).zfill(3) # 獲取教練編號
+        print(f"type(instructor_number): {type(instructor_number)}")
+        print(f"item_values: {item_values}")
+        print(f"instructor_number: {instructor_number}")
+        print(f"instructor_number: {instructor_number}")
 
-        rowid = treeview.item(item)["text"]  # 獲取 rowid
-        
-        start_date = re.sub(r'/', '', start_date)  # 去除開訓日期中的 /
-        end_date = re.sub(r'/', '', end_date)  # 去除結訓日期中的 /
-        data.append(f"{start_date},{end_date},{term_class_code}")
-
-        # 從資料庫中獲取 training_type_code
+        # 獲取教練身分證號碼和出生日期
         conn = sqlite3.connect(database_path)
-        c = conn.cursor()
-        c.execute("SELECT training_type_code FROM annual_plan WHERE rowid=?", (rowid,))
-        training_type_code = c.fetchone()[0]
+        cursor = conn.cursor()
+        cursor.execute("SELECT national_id_no, birth_date FROM instructor WHERE number = ?", (instructor_number,))
+        instructor_data = cursor.fetchone()
         conn.close()
 
-    year_from_data = str(item_values[1])
-    # 生成文件名稱
-    file_name = generate_csv_filename(year_from_data, training_type_code)
+        if instructor_data:
+            instructor_national_id_no, instructor_birth_date = instructor_data
+        else:
+            instructor_national_id_no, instructor_birth_date = "", ""
 
-    # 創建文件保存對話框
-    file_path = filedialog.asksaveasfilename(defaultextension=".csv", initialfile=file_name)
-    if file_path:
-        try:
-            # 將數據寫入文件
-            with open(file_path, "w", newline='', encoding="utf-8") as f:
-                f.write("\n".join(data))
-            messagebox.showinfo("成功", "匯出文件成功!")
-        except Exception as e:
-            messagebox.showerror("錯誤", f"匯出文件失敗: {str(e)}")
+        print(f"instructor_data: {instructor_data}")
+        if instructor_data:
+            print(f"instructor_national_id_no: {instructor_national_id_no}")
+            print(f"instructor_birth_date: {instructor_birth_date}")
+        else:
+            print("instructor_data is None")
 
+        data.append(f"{national_id_no},{birth_date},{student_name},{mobile_phone},{register_number},{exam_code},{transmission_type_code},{instructor_national_id_no},{instructor_birth_date}")
+    
+    if register_number is not None:
+        year_from_data = register_number
+        file_name = generate_csv_filename(year_from_data)
+
+        # 創建文件保存對話框
+        file_path = filedialog.asksaveasfilename(defaultextension=".csv", initialfile=file_name)
+        if file_path:
+            try:
+                # 將數據寫入文件
+                with open(file_path, "w", newline='', encoding="utf-8") as f:
+                    f.write("\n".join(data))
+                messagebox.showinfo("成功", "匯出文件成功!")
+            except Exception as e:
+                messagebox.showerror("錯誤", f"匯出文件失敗: {str(e)}")
+    else:
+        messagebox.showerror("錯誤", "未找到任何數據!")
 
 # 創建 CSV 自動生成文件名稱
-def generate_csv_filename(year, training_type_code):
+def generate_csv_filename(register_number):
     # 根據你的固定格式生成文件名稱
-    return f"400032{year}{training_type_code}_A.csv"
+    return f"400032{register_number}_B.csv"
