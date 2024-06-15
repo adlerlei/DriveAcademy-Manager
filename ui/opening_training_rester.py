@@ -199,6 +199,7 @@ def opening_training_roster(content):
         'r_address_zip_code', # 戶籍地址區號
         'r_address_city_road', # 戶籍地址 ( 前面增加縣市區域，但不需要顯示 treeview )
         'learner_permit_date', # 學照日期
+        'training_type_code' # 訓練班別代號 (隱藏列)
     )
     data_list = ttk.Treeview(opening_training_roster, show='headings', column = columns)
     
@@ -229,6 +230,7 @@ def opening_training_roster(content):
     data_list.column('r_address_zip_code', width=50, anchor='center')
     data_list.column('r_address_city_road', width=250, anchor='center')
     data_list.column('learner_permit_date', width=50, anchor='center')
+    data_list.column('training_type_code', width=0, stretch=0)
     
     data_list.grid(row=13, column=0, columnspan=4, sticky='wen', padx=10, pady=(20,0))
     
@@ -370,6 +372,7 @@ def opening_training_roster(content):
             'instructor_number': instructor_number.get(), # 教練編號
             'instructor_name': instructor_name.get(), # 教練名稱
             'r_address_city_road': r_address_city.get() + r_address.get(), # 將縣市區域加上地址組合
+            'training_type_code': training_type_code.get(), # 訓練班別代號
             'id': current_student_id
         }
 
@@ -411,9 +414,9 @@ def opening_training_roster(content):
             student_data['national_id_no'],
             student_data['r_address_zip_code'],
             student_data['r_address_city_road'],
-            student_data['learner_permit_date']
+            student_data['learner_permit_date'],
+            student_data['training_type_code'] # 添加訓練班別代號
         ))
-
 
 
     # 按鈕

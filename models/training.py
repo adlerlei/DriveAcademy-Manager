@@ -145,13 +145,11 @@ def export_selected_data(treeview):
                 mobile_phone = str(phone)
                 break
         register_number = str(item_values[0])  # 獲取名冊號碼
+        register_number = register_number[:-3]  # 移除最後三個字符 001 ~ xxx
         exam_code = str(item_values[4])  # 獲取來源類別編號
         transmission_type_code = str(item_values[5])  # 獲取手自排類別編號
         instructor_number = str(item_values[6]).zfill(3) # 獲取教練編號
-        print(f"type(instructor_number): {type(instructor_number)}")
-        print(f"item_values: {item_values}")
-        print(f"instructor_number: {instructor_number}")
-        print(f"instructor_number: {instructor_number}")
+        training_type_code = str(item_values[13]) # 獲取訓練班別代號
 
         # 獲取教練身分證號碼和出生日期
         conn = sqlite3.connect(database_path)
@@ -165,18 +163,13 @@ def export_selected_data(treeview):
         else:
             instructor_national_id_no, instructor_birth_date = "", ""
 
-        print(f"instructor_data: {instructor_data}")
-        if instructor_data:
-            print(f"instructor_national_id_no: {instructor_national_id_no}")
-            print(f"instructor_birth_date: {instructor_birth_date}")
-        else:
-            print("instructor_data is None")
 
         data.append(f"{national_id_no},{birth_date},{student_name},{mobile_phone},{register_number},{exam_code},{transmission_type_code},{instructor_national_id_no},{instructor_birth_date}")
     
     if register_number is not None:
         year_from_data = register_number
-        file_name = generate_csv_filename(year_from_data)
+        file_name = generate_csv_filename(year_from_data, training_type_code)
+        print(f"Generated file name: {file_name}")
 
         # 創建文件保存對話框
         file_path = filedialog.asksaveasfilename(defaultextension=".csv", initialfile=file_name)
@@ -192,6 +185,6 @@ def export_selected_data(treeview):
         messagebox.showerror("錯誤", "未找到任何數據!")
 
 # 創建 CSV 自動生成文件名稱
-def generate_csv_filename(register_number):
+def generate_csv_filename(register_number, training_type_code):
     # 根據你的固定格式生成文件名稱
-    return f"400032{register_number}_B.csv"
+    return f"400032{training_type_code}{register_number}_B.csv"
