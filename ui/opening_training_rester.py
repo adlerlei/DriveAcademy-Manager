@@ -35,7 +35,6 @@ def opening_training_roster(content):
         
         batch_value = batch.get()
         value = '0' + choice + batch_value + f'{counter:03d}'  # 格式化數字為三位數
-        print(f"選擇的名冊期別: {value}")
         register_number.delete(0, ctk.END)
         register_number.insert(0, value)
         counter += 1  # 計數器遞增
@@ -270,9 +269,16 @@ def opening_training_roster(content):
                 # 名冊號碼
                 if student_data[34] is not None:
                     register_number.insert(0, student_data[34])
+                    messagebox.showinfo('提示用戶', '該學員已經存在名冊號碼')
                 else:
                     register_number.insert(0, '')
                 register_number.configure(state='readonly')
+
+                # 期別
+                if student_data[35] is not None:
+                    register_term.set(student_data[35])
+                else:
+                    register_term.set('')
 
                 # 來源
                 if student_data[29] is not None:

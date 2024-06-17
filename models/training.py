@@ -96,7 +96,7 @@ def update_student_data(data, uid):
                 register_batch = :register_batch -- 名冊梯次
             WHERE id = :id
         ''', data)
-        messagebox.showinfo('訊息', '學照登錄完成！')
+        messagebox.showinfo('訊息', '已加入開訓名冊！')
     elif uid == 0:
         cursor.execute('''
             UPDATE student SET
@@ -110,7 +110,7 @@ def update_student_data(data, uid):
                 register_batch = :register_batch -- 名冊梯次
             WHERE id = :id
         ''', data)
-        messagebox.showinfo('訊息', '學照送件完成！')
+        messagebox.showinfo('訊息', '已加入結訓名冊！')
 
     conn.commit()
     conn.close()
@@ -169,7 +169,6 @@ def export_selected_data(treeview):
     if register_number is not None:
         year_from_data = register_number
         file_name = generate_csv_filename(year_from_data, training_type_code)
-        print(f"Generated file name: {file_name}")
 
         # 創建文件保存對話框
         file_path = filedialog.asksaveasfilename(defaultextension=".csv", initialfile=file_name)

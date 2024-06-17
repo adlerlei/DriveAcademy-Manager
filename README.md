@@ -19,6 +19,23 @@ C 2024 ZHUNG - DriveAcademy Manager v1.0
 - [] 場考清冊列印功能
 - [] 道考清冊列印功能
 
+## 20240617
+@ 粉絲專頁信息回覆。
+@ HollyWood診所 Google 查詢相關信息。
+@ LinePay審核通知完成，已通過審核。
+@ 查詢 LinePay付款QR CODE各項細部設定。
+@ 查詢 LinePay付款頁面相關設定。
+@ 查詢 LinePay公司名稱及品牌名稱設定方式。
+@ 測試 LinePay付款QR CODE。
+1. 開訓名冊：
+    - 修復加入開訓名冊 messagebox.showinfo 彈出信息。
+    - 移除錯誤調試 print.
+    - 新增判斷該學員是否已加入過開訓名冊，是否已擁有名冊號碼，避免重複加入。
+2. 結訓名冊：
+    - 修復加入結訓名冊  messagebox.showinfo 彈出信息。
+    - 移除錯誤調試 print.
+    - 新增判斷該學員是否已加入過結訓名冊，是否已擁有名冊號碼，避免重複加入。
+
 ## 20240613
 @ 查詢LinePayDM審核退件原因。
 @ LinePay價格DM重新上傳審核。

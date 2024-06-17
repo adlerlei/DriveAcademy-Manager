@@ -4,8 +4,8 @@ from models.student import *
 from tkinter import messagebox
 import customtkinter as ctk
 
-is_editing = False
-current_student_id = None
+is_editing = False # 用來判斷用戶新增還是修改學員資料
+current_student_id = None # 抓取 id 學員欄位
 
 def student_all(content):
     clear_frame(content)
@@ -224,19 +224,22 @@ def student_all(content):
 
     # 學員資料顯示在輸入欄位上 
     def populate_student_data(identifier, value):
+        global is_editing, current_student_id
         # 監聽學員編號輸入欄位如果為空，清除學員資料
         if identifier == 'student_number' and value == '':
             clear_entries_and_comboboxes(student_all)
         else:
-            global is_editing, current_student_id
+            # global is_editing, current_student_id
             student_data = get_student_data(identifier, value)
             if student_data:
-                if not is_editing:
-                    # 如果不是編輯模式,則將 is_editing 設為 True,但不更新 current_student_id
-                    is_editing = True
-                else:
+                is_editing = True
+                current_student_id = student_data[0]
+                # if not is_editing:
+                #     # 如果不是編輯模式,則將 is_editing 設為 True,但不更新 current_student_id
+                #     is_editing = True
+                # else:
                     # 如果是編輯模式,則更新 current_student_id
-                    current_student_id = student_data[0]
+                    #current_student_id = student_data[0]
                 # is_editing = True
                 training_type_code.set(student_data[3])
                 training_type_name.set(student_data[4])
