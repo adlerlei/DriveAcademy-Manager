@@ -229,18 +229,10 @@ def student_all(content):
         if identifier == 'student_number' and value == '':
             clear_entries_and_comboboxes(student_all)
         else:
-            # global is_editing, current_student_id
             student_data = get_student_data(identifier, value)
             if student_data:
                 is_editing = True
                 current_student_id = student_data[0]
-                # if not is_editing:
-                #     # 如果不是編輯模式,則將 is_editing 設為 True,但不更新 current_student_id
-                #     is_editing = True
-                # else:
-                    # 如果是編輯模式,則更新 current_student_id
-                    #current_student_id = student_data[0]
-                # is_editing = True
                 training_type_code.set(student_data[3])
                 training_type_name.set(student_data[4])
                 license_type_code.set(student_data[1])
@@ -278,37 +270,41 @@ def student_all(content):
                 # 學照日期
                 learner_permit_date.configure(state='normal')
                 learner_permit_date.delete(0, ctk.END)
-                learner_permit_date.insert(0, student_data[26])
+                if student_data[26]:
+                    learner_permit_date.insert(0, student_data[26])
+                else:
+                    learner_permit_date.insert(0, '')
                 learner_permit_date.configure(state='readonly')
 
                 # 學照號碼
                 learner_permit_number.configure(state='normal')
                 learner_permit_number.delete(0, ctk.END)
-                learner_permit_number.insert(0, student_data[27])
+                if student_data[27]:
+                    learner_permit_number.insert(0, student_data[27])
+                else:
+                    learner_permit_number.insert(0, '')
                 learner_permit_number.configure(state='readonly')
 
                 # 是否退訓 
                 dropout.configure(state='normal')
                 dropout.delete(0, ctk.END)
-                if student_data[33] is not None:
+                if student_data[33]:
                     dropout.insert(0, student_data[33])
                 else:
                     dropout.insert(0, '')
                 dropout.configure(state='readonly')
-
+                
                 # 名冊號碼
                 register_number.configure(state='normal')
                 register_number.delete(0, ctk.END)
-                if student_data[34] is not None:
+                if student_data[34]:
                     register_number.insert(0, student_data[34])
-                else:
-                    register_number.insert(0, '')
                 register_number.configure(state='readonly')
 
                 # 路試日期
                 road_test_date.configure(state='normal')
                 road_test_date.delete(0, ctk.END)
-                if student_data[38] is not None:
+                if student_data[38]:
                     road_test_date.insert(0, student_data[38])
                 else:
                     road_test_date.insert(0, '')
@@ -362,21 +358,16 @@ def student_all(content):
                 messagebox.showwarning('提示', f'{validation_fields[field]} 欄位不能為空！')
                 return
         
-
         # 如果是編輯模式，提示使用者無法新增
         if is_editing:
             messagebox.showinfo('提示', '無法新增學員，請使用 "修改" 功能。')
             return
 
         insert_student_data(student_data)
-        # is_editing = False
-        # current_student_id = None
 
         # 需要保留的 entry 列表，clear_entries_and_comboboxes 函式中的參數之一 ###
         keep_entries = [training_type_code, training_type_name, license_type_code, license_type_name]
-        # 清空但保留特定 entry
         clear_entries_and_comboboxes(student_all, keep_entries)
-        # clear_entries_and_comboboxes 函式結束 ################
 
 
     # 修改按鈕的事件處理函數
@@ -428,9 +419,7 @@ def student_all(content):
 
         # 需要保留的 entry 列表，clear_entries_and_comboboxes 函式中的參數之一 ###
         keep_entries = [training_type_code, training_type_name, license_type_code, license_type_name]
-        # 清空但保留特定 entry
         clear_entries_and_comboboxes(student_all, keep_entries)
-        # clear_entries_and_comboboxes 函式結束 ################
  
 
     # 刪除按鈕的事件處理函數
@@ -445,9 +434,7 @@ def student_all(content):
 
                 # 需要保留的 entry 列表，clear_entries_and_comboboxes 函式中的參數之一 ###
                 keep_entries = [training_type_code, training_type_name, license_type_code, license_type_name]
-                # 清空但保留特定 entry
                 clear_entries_and_comboboxes(student_all, keep_entries)
-                # clear_entries_and_comboboxes 函式結束 ################
 
         else:
             messagebox.showwarning('提示', '請先輸入要刪除的學員資料！')
