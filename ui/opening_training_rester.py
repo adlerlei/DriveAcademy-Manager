@@ -237,7 +237,7 @@ def opening_training_roster(content):
 
         # 監聽學員編號輸入欄位如果為空，清除學員資料
         if identifier == 'student_number' and value == '':
-            keep_entries = [register_term]
+            keep_entries = [register_term] # 保留名冊號碼
             clear_entries_and_comboboxes(opening_training_roster, keep_entries)
         else:
             global current_student_id
@@ -266,12 +266,14 @@ def opening_training_roster(content):
                 learner_permit_date.insert(0, student_data[26])
                 learner_permit_date.configure(state='readonly')
                 # 名冊號碼
+                register_number.configure(state='normal')
+                register_number.delete(0, ctk.END)
                 if student_data[34] is not None:
                     register_number.insert(0, student_data[34])
                     messagebox.showinfo('提示用戶', '該學員已經存在名冊號碼')
                 else:
                     register_number.insert(0, '')
-                register_number.configure(state='readonly')
+                # register_number.configure(state='readonly')
 
                 # 期別
                 if student_data[35] is not None:

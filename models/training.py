@@ -19,6 +19,7 @@ validation_fields = {
     'instructor_number': '教練編號',
     'instructor_name': '教練名稱',
     'register_term': '期別',
+    'register_number': '名冊號碼',
     'dropout': '退訓'
 }
 

@@ -31,6 +31,25 @@ C 2024 ZHUNG - DriveAcademy Manager v1.0
     - 新增筆路，資料選擇，來源定義。
     - 介面佈局完成。
     - 新增加入補訓，匯出文件，列印按鈕。
+    - 修復 exam_code 資料列表錯誤。
+    - 修復 transmission_type_code 資料列表錯誤。
+    - 修復 instructor_number 資料列表錯誤。
+    - 修復 'transmission_type_code': transmission_type_code.get() 拼寫錯誤。
+2. 學員資料：
+    - 修復學員新增後無法修改資料問題。
+    - 修復搜尋學員無法修改變更資料問題。
+    - 更新 學照日期，學照號碼，是否退訓，名冊號碼，路試日期，建檔日期，若無資料顯示空白。
+    - 修復 creation_date.insert(0, student_data[42]) 序列號錯誤。
+3. 資料庫：
+    - 清除所有測試資料表信息內容。
+    - 刪除 driving_school.db。
+    - 針對駕訓班提供照片資料增加欄位信息表。
+    - 重建 data 資料表及信息欄位。
+    - 重建 driving_school.db 資料庫。
+4. 期別年度計畫：
+    - 修復 training_type_name.delete(0, END), AttributeError 異常。
+5. 開訓名冊：
+    - 修復 register_number.configure(state='readonly')無法寫入。
 
 ## 20240617
 > 駕訓班系統進度：[███████---] 97%

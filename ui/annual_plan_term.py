@@ -127,12 +127,14 @@ def annual_plan_term(content):
         else:
             insert_annual_plan_data(year_value, term_value, term_class_code_value, batch_value, training_type_code_value, training_type_name_value, start_date_value, end_date_value)
             
-            # 新增成功後，清空輸入欄位
-            clear_entries_and_comboboxes(annual_plan_term)
+            # 需要保留的 entry 列表，clear_entries_and_comboboxes 函式中的參數之一 ###
+            keep_entries = [training_type_code, training_type_name]
+            # 新增成功後，清空輸入欄位 
+            clear_entries_and_comboboxes(annual_plan_term, keep_entries)
             # 重新設定預設值
-            training_type_code.set('1')
-            training_type_name.delete(0, END)
-            training_type_name.insert(0,'普通小型車班')
+            # training_type_code.set('1')
+            # training_type_name.delete(0, END)
+            # training_type_name.insert(0,'普通小型車班')
             # 即時更新 Treeview
             fetch_and_populate_treeview(data_list)
 

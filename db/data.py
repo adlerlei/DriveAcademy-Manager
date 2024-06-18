@@ -63,9 +63,8 @@ CREATE TABLE IF NOT EXISTS student (
     road_test_date VARCHAR, -- 路試日期38
     group_number VARCHAR, -- 組別39
     road_test_items_type VARCHAR, -- 路考項目40
-    exam_type_code VARCHAR, -- 筆路編號41
-    exam_type_name VARCHAR, -- 筆路名稱42
-    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- 建檔時間43
+    exam_type_name VARCHAR, -- 筆路名稱41
+    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- 建檔時間42
 );
 
 -- 教練資料表
