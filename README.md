@@ -19,6 +19,15 @@ C 2024 ZHUNG - DriveAcademy Manager v1.0
 - [] 場考清冊列印功能
 - [] 道考清冊列印功能
 
+## 20240619
+@
+-----
+1. M2 補訓：
+    - 修復 learner_permit_date treeview 重複錯誤。
+    - 修復 treeview 資料列表錯誤。 
+2. 結訓名冊：
+    - 更新 register_number.configure(state='readonly') 資料寫入。
+
 ## 20240618
 @ 粉絲專頁信息回覆。
 @ 比照駕訓班圖片資料信息。

@@ -248,7 +248,7 @@ def closing_training_roster(content):
                     messagebox.showinfo('提示', '該學員已經存在名冊號碼')
                 else:
                     register_number.insert(0, '')
-                register_number.configure(state='readonly')
+                # register_number.configure(state='readonly')
 
                 # 期別
                 if student_data[35] is not None:

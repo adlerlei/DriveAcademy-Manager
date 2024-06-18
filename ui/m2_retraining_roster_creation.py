@@ -178,7 +178,6 @@ def  m2_retraining_roster_creation(content):
         'birth_date', # 出生日期
         'r_address_zip_code', # 戶籍地址區號
         'r_address_city_road', # 戶籍地址 ( 前面增加縣市區域，但不需要顯示 treeview )
-        'learner_permit_date', # 學照日期
         'training_type_code' # 訓練班別代號 (隱藏列)
     )
     data_list = ttk.Treeview(m2_retraining_roster_creation, show='headings', column = columns)
@@ -199,16 +198,16 @@ def  m2_retraining_roster_creation(content):
     
     data_list.column('register_number', width=50, anchor='w')
     data_list.column('student_number', width=50, anchor='w')
-    data_list.column('batch', width=50, anchor='w')
+    data_list.column('batch', width=20, anchor='w')
     data_list.column('student_name', width=50, anchor='w')
-    data_list.column('exam_code', width=50, anchor='w')
-    data_list.column('transmission_type_code', width=50, anchor='w')
-    data_list.column('instructor_number', width=50, anchor='w')
-    data_list.column('national_id_no', width=60, anchor='w')
-    data_list.column('learner_permit_date', width=50, anchor='w')
-    data_list.column('gender', width=50, anchor='w')
+    data_list.column('exam_code', width=20, anchor='w')
+    data_list.column('transmission_type_code', width=20, anchor='w')
+    data_list.column('instructor_number', width=30, anchor='w')
+    data_list.column('national_id_no', width=80, anchor='w')
+    data_list.column('learner_permit_date', width=30, anchor='w')
+    data_list.column('gender', width=20, anchor='w')
     data_list.column('birth_date', width=50, anchor='w')
-    data_list.column('r_address_zip_code', width=50, anchor='w')
+    data_list.column('r_address_zip_code', width=30, anchor='w')
     data_list.column('r_address_city_road', width=250, anchor='w')
     data_list.column('training_type_code', width=0, stretch=0) # 隱藏列
     
