@@ -33,15 +33,6 @@ C 2024 ZHUNG - DriveAcademy Manager v1.0
     - 新增加入補訓，匯出文件，列印按鈕。
 
 ## 20240617
-@ 粉絲專頁信息回覆。
-@ Google商家評論回覆。
-@ HollyWood診所 Google 查詢相關信息。
-@ LinePay審核通知完成，已通過審核。
-@ 查詢 LinePay付款QR CODE各項細部設定。
-@ 查詢 LinePay付款頁面相關設定。
-@ 查詢 LinePay公司名稱及品牌名稱設定方式。
-@ 測試 LinePay付款QR CODE。
-------
 > 駕訓班系統進度：[███████---] 97%
 1. 開訓名冊：
     - 修復加入開訓名冊 messagebox.showinfo 彈出信息。
@@ -60,9 +51,6 @@ C 2024 ZHUNG - DriveAcademy Manager v1.0
     - 針對駕訓班提供資料修改介面佈局。
 
 ## 20240614
-@ 專頁信息回覆
-@ 詢問駕訓班資料相關
------
 1. 更新開訓名冊：
     - 針對監理站需求格式變更文件輸出。
     - 修復文件名稱讀取資料庫問題。
@@ -75,10 +63,6 @@ C 2024 ZHUNG - DriveAcademy Manager v1.0
     - 修復資料寫入移除多餘空格及特殊符號。
 
 ## 20240613
-@ 查詢LinePayDM審核退件原因。
-@ LinePay價格DM重新上傳審核。
-@ 專頁信息回覆。
------
 1. 更新開訓名冊：
     - 修復程式錯誤問題。
     - 新增 csv 文件匯出。
@@ -86,9 +70,6 @@ C 2024 ZHUNG - DriveAcademy Manager v1.0
     - 新增 csv 文件匯出。
 
 ## 20240612
-@ 專頁信息回覆
-@ LinePay 價格DM製作
------
 1. 修復 Github 問題：
     - 修復廣告機與駕訓班系統 ssh 金鑰錯誤問題。
     - 修復 ssh 金鑰錯誤。
@@ -111,9 +92,6 @@ C 2024 ZHUNG - DriveAcademy Manager v1.0
     - exam_code, exam_name 變更 dropout 退訓。
 
 ## 20240607
-@ 專頁信息回覆。
-@ 製作新社區廣告機
-------
 1. 修復開訓名冊：
     - 修復期別號碼關聯名冊號碼顯示錯誤。
     - 新增名冊號碼獲取期別資料庫信息。
