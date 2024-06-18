@@ -1,7 +1,7 @@
 # 開訓結訓名冊
 import sqlite3
 import os
-import csv
+# import csv
 from tkinter import messagebox
 from tkinter import filedialog
 # 導入 re 模組,用於處理字符串的正則表達式操作

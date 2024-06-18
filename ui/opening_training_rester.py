@@ -4,7 +4,6 @@ from utils.config import *
 from models.training import *
 import customtkinter as ctk
 from tkinter import messagebox
-# 開訓名冊建立後需要將資料顯示欄位的名冊號碼與學員資料綁定
 
 
 # 檢測學員資料庫 id 欄位來判定是否修改或新增
