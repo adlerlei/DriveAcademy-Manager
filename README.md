@@ -20,7 +20,10 @@ C 2024 ZHUNG - DriveAcademy Manager v1.0
 - [] 道考清冊列印功能
 
 ## 20240619
-@
+@ 整理 HollyWood 官網文宣資料。
+@ 整理 HollyWood 官網圖片資料。
+@ 製作 HollyWood 廣告圖。
+@ 規劃 HollyWood 廣告影片。
 -----
 1. M2 補訓：
     - 修復 learner_permit_date treeview 重複錯誤。
