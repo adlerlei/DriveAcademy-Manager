@@ -4,6 +4,7 @@ import customtkinter as ck
 from utils.config import create_font
 from PIL import Image
 
+
 menu_buttons = []  # 創建一個全局列表來存儲按鈕實例
 # 選單logo
 def menu_logo(menu, load_image, text=""):
