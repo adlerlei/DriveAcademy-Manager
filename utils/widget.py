@@ -4,6 +4,7 @@ import customtkinter as ck
 from utils.config import create_font
 from PIL import Image
 
+
 menu_buttons = []  # 創建一個全局列表來存儲按鈕實例
 # 選單logo
 def menu_logo(menu, load_image, text=""):
@@ -81,6 +82,18 @@ def search_btn(frame, text, command):
         font = create_font(), 
         command = command
         )
+    return button
+
+# 列印按鈕
+def print_btn(frame, text, command):
+    button = ck.CTkButton(
+        frame,
+        text = text,
+        height = 40,
+        fg_color = '#fb8500',
+        font = create_font(),
+        command = command
+    )
     return button
 
 # 登入，註冊 按鈕
@@ -185,7 +198,6 @@ def display_entry_value(
         frame,
         placeholder_text = placeholder_text,
         border_color = '#fdfdff',
-        # width = width,
         height = height,
         font = font,
         state = state,
@@ -196,10 +208,18 @@ def display_entry_value(
 
 
 # 清空所有 entry 和 combobox 的函式
-def clear_entries_and_comboboxes(parent):
+def clear_entries_and_comboboxes(parent, keep_entries=None):
+    if keep_entries is None:
+        keep_entries = []  # 如果未提供 keep_entries，則設置為空列表
+
+    # 遍歷父元件的所有子元件
     for child in parent.winfo_children():
+        # 如果是 CTkEntry 或 Entry
         if isinstance(child, ck.CTkEntry) or isinstance(child, Entry):
-            child.configure(state='normal')  # 設置為可編輯狀態
-            child.delete(0, ck.END)  # 清空內容
-        elif isinstance(child, ck.CTkComboBox):  # 檢查 customtkinter 的 CTkComboBox
-            child.set('')  # 清空選項
+            if child not in keep_entries:  # 檢查是否需要保留這個 entry
+                child.configure(state='normal')  # 設置為可編輯狀態
+                child.delete(0, ck.END)  # 清空內容
+        # 如果是 CTkComboBox
+        elif isinstance(child, ck.CTkComboBox):
+            if child not in keep_entries:  # 檢查是否需要保留這個 combobox
+                child.set('')  # 清空選項

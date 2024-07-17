@@ -57,7 +57,7 @@ def address_data():
     return address_zip_code_lists, address_city_lists, address_dict
 
 
-# 抓取教練資料表（編號，名稱）下拉選單監聽
+# 抓取教練資料表（編號，名稱）下拉選單監聽 
 def get_instructor_data():
     conn = sqlite3.connect(database_path)
     cursor = conn.cursor()
@@ -102,6 +102,12 @@ def insert_student_data(data):
 
     conn.commit()
     conn.close()
+
+    # 重置 is_editing 和 current_student_id
+    global is_editing, current_student_id
+    is_editing = False
+    current_student_id = None
+
     messagebox.showinfo('訊息', '已新增學員資料！')
 
 
