@@ -11,6 +11,9 @@ current_student_id = None
 def  road_test_roster(content):
     clear_frame(content)
 
+    # 添加列表變數來跟蹤 treeview 號碼流水號自動增加
+    current_number = [0]
+
     road_test_roster = frame(content)
     road_test_roster.columnconfigure(0, weight=1)
     road_test_roster.columnconfigure(1, weight=1)
@@ -22,7 +25,7 @@ def  road_test_roster(content):
     label(road_test_roster, text='學員編號').grid(row=0, column=0, sticky='ws', padx=(10,0), pady=(10,0))
     student_number = entry(road_test_roster,  placeholder_text = "輸入學員編號")
     student_number.grid(row=1, column=0, sticky='wen', padx=(10,0))
-    # student_number.bind("<KeyRelease>", lambda event: populate_student_data('student_number', student_number.get()))
+    student_number.bind("<KeyRelease>", lambda event: populate_student_data('student_number', student_number.get()))
     
     # 學員姓名
     label(road_test_roster, text='學員姓名').grid(row=0, column=1, sticky='ws', padx=(10,0), pady=(10,0))
@@ -80,7 +83,7 @@ def  road_test_roster(content):
 
     # 號碼
     label(road_test_roster, text='號碼').grid(row=6, column=1, sticky='ws', padx=(10,0), pady=(10,0))
-    driving_test_number = entry(road_test_roster)
+    driving_test_number = display_entry_value(road_test_roster)
     driving_test_number.grid(row=7, column=1, sticky='wen',padx=(10,0))
 
     # treeview
@@ -97,7 +100,7 @@ def  road_test_roster(content):
     )
     data_list = ttk.Treeview(road_test_roster, show='headings', column=columns)
     
-    data_list.column('treeview_number', width=50, anchor='w')
+    data_list.column('driving_test_number', width=50, anchor='w')
     data_list.column('student_number', width=50, anchor='w')
     data_list.column('register_number', width=50, anchor='w')
     data_list.column('batch', width=50, anchor='w')
@@ -107,7 +110,7 @@ def  road_test_roster(content):
     data_list.column('road_test_date', width=50, anchor='w')
     data_list.column('road_test_items_type', width=50, anchor='w')
     
-    data_list.heading('treeview_number', text='號碼')
+    data_list.heading('driving_test_number', text='號碼')
     data_list.heading('student_number', text='學員編號')
     data_list.heading('register_number', text='名冊號碼')
     data_list.heading('batch', text='梯次')
@@ -186,7 +189,7 @@ def  road_test_roster(content):
                     # road_test_date.configure(state='readonly')
                 # 組別
                 driving_test_group.configure(state='normal')
-                driving_test_group.delete(0, ctk,END)
+                driving_test_group.delete(0, ctk.END)
                 if student_data[39] is not None:
                     driving_test_group.insert(0, student_data[39])
                 else:
@@ -204,34 +207,32 @@ def  road_test_roster(content):
                     driving_test_number.insert(0, student_data[42])
                 else:
                     driving_test_number.insert(0, '')
-                # driving_test_number.configure(state='readonly')
+                driving_test_number.configure(state='readonly')
                                     
 
     # 獲取輸入欄位信息
     def save_student_data():
         global current_student_id
+
+        # 偵測號碼自動增加流水號
+        current_number[0] += 1
+
         student_data = {
-            # 獲取輸入欄位信息並呈現在 treeview
-            'driving_test_number': driving_test_number.get(), # 考試號碼
-            'student_number': student_number.get(), # 學員編號
-            'register_number': register_number.get(), # 名冊號碼
-            'batch': batch.ger(), # 梯次
-            'student_name': student_name.get(), # 學員姓名
-            'birth_date': birth_date.get(), # 出生日期
-            'national_id_no': national_id_no.get(), # 身分證字號
-            'road_test_date': road_test_date.get(), # 路試日期
-            'training_type_code': training_type_code.get(), # 訓練班別代號
+            # 'driving_test_number': driving_test_number.get(),
+            # 使用 current_number 自動生成的號碼
+            'driving_test_number': str(current_number[0]),
+            'student_number': student_number.get(),
+            'register_number': register_number.get(),
+            'batch': batch.get(),
+            'student_name': student_name.get(),
+            'birth_date': birth_date.get(),
+            'national_id_no': national_id_no.get(),
+            'road_test_date': road_test_date.get(),
+            'road_test_items_type': road_test_items_type.get(),
+            'driving_test_group': driving_test_group.get(),
+            'training_type_code': training_type_code.get(),
             'id': current_student_id
         }
-
-        # # 驗證 筆路 輸入欄位是否為空
-        # required_fields = [ 
-        #     'exam_type_name',
-        # ]
-        # for field in required_fields:
-        #     if not student_data[field]:
-        #         messagebox.showwarning('提示', f'{validation_fields[field]} 欄位不能為空！')
-        #         return
 
         if current_student_id is None:
             messagebox.showwarning('警告', '請先搜尋學員資料！')
@@ -241,25 +242,20 @@ def  road_test_roster(content):
         clear_entries_and_comboboxes(road_test_roster)
 
         # 讀取 save_student_data 的資料寫入 treeview
-        data_list.insert('', 'end', values = (
-            student_data['register_number'],
+        data_list.insert('', 'end', values=(
+            student_data['driving_test_number'],
             student_data['student_number'],
+            student_data['register_number'],
             student_data['batch'],
             student_data['student_name'],
-            student_data['exam_code'],
-            student_data['transmission_type_code'],
-            student_data['instructor_number'],
-            student_data['national_id_no'],
-            student_data['learner_permit_data'],
-            student_data['gender'],
             student_data['birth_date'],
-            student_data['r_address_zip_code'],
-            student_data['r_address_city_road'],
-            student_data['training_type_code'] # 添加訓練班別代號
+            student_data['national_id_no'],
+            student_data['road_test_date'],
+            student_data['road_test_items_type']
         ))
 
     # 新增按鈕
-    add_btn(road_test_roster, text='新增道考清冊', command=lambda: None).grid(row=8, column=1, sticky='wen', padx=(10,0), pady=(20,0))
+    add_btn(road_test_roster, text='新增道考清冊', command=save_student_data).grid(row=8, column=1, sticky='wen', padx=(10,0), pady=(20,0))
 
     # 列印按鈕
     print_btn(road_test_roster, text='列印場考清冊', command=lambda: None).grid(row=8, column=2, sticky='wen', padx=(10,0), pady=(20,0))

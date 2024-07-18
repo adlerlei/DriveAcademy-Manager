@@ -30,17 +30,14 @@ def update_student_data(data):
     cursor = conn.cursor() 
 
     cursor.execute('''
-            UPDATE student SET
-                exam_code = :exam_code, -- 來源類別編號
-                exam_name = :exam_name, -- 來源類別名稱
-                transmission_type_code = :transmission_type_code, -- 手自排類別編號
-                transmission_type_name = :transmission_type_name, -- 手自排類別名稱
-                instructor_number = :instructor_number, -- 教練編號
-                instructor_name = :instructor_name, -- 教練名稱
-                exam_type_name = :exam_type_name  -- 筆試路試
-            WHERE id = :id
-        ''', data)
-    messagebox.showinfo('訊息', '已加入 M2 補訓名冊！')
+        UPDATE student SET
+            road_test_date = :road_test_date,
+            driving_test_group = :driving_test_group,
+            road_test_items_type = :road_test_items_type,
+            driving_test_number = :driving_test_number
+        WHERE id = :id
+    ''', data)
+    messagebox.showinfo('訊息', '已加入 道路考試 名冊！')
 
     conn.commit()
     conn.close()

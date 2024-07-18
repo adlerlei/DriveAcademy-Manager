@@ -61,12 +61,12 @@ CREATE TABLE IF NOT EXISTS student (
     written_exam_date VARCHAR, -- 筆試日期36
     session_number VARCHAR, -- 場次37
     road_test_date VARCHAR, -- 路試日期38
-    driving_test_group VARCHAR, -- 考試組別39
+    driving_test_group VARCHAR, -- 組別39
     road_test_items_type VARCHAR, -- 路考項目40
     exam_type_name VARCHAR, -- 筆路名稱41
-    driving_test_number VARCHAR, -- 考試號碼42
-    driving_test_session VARCH, -- 考試場次43
-    driving_test_code VARCH, -- 考試代碼44
+    driving_test_number VARCHAR, -- 號碼42
+    driving_test_session VARCH, -- 場次43
+    driving_test_code VARCH, -- 代碼44
     creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- 建檔時間45
 );
 

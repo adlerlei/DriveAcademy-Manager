@@ -2,6 +2,8 @@
 from utils.widget import *
 from utils.config import *
 from models.test import *
+import customtkinter as ctk
+from tkinter import messagebox
 
 def written_exam_roster(content):
     clear_frame(content)
@@ -58,25 +60,30 @@ def written_exam_roster(content):
     batch = display_entry_value(written_exam_roster)
     batch.grid(row=5, column=0, sticky='wen',padx=(10,0))
 
-    # 路試日期
-    label(written_exam_roster, text='路試日期').grid(row=4, column=1, sticky='ws', padx=(10,0), pady=(10,0))
+    # 筆試日期
+    label(written_exam_roster, text='筆試日期').grid(row=4, column=1, sticky='ws', padx=(10,0), pady=(10,0))
     road_test_date = entry(written_exam_roster)
     road_test_date.grid(row=5, column=1, sticky='wen',padx=(10,0))
 
     # 組別
-    label(written_exam_roster, text='組別').grid(row=4, column=2, sticky='ws', padx=(10,0), pady=(10,0))
-    driving_test_group = entry(written_exam_roster)
-    driving_test_group.grid(row=5, column=2, sticky='wen',padx=(10,0))
+    # label(written_exam_roster, text='組別').grid(row=4, column=2, sticky='ws', padx=(10,0), pady=(10,0))
+    # driving_test_group = entry(written_exam_roster)
+    # driving_test_group.grid(row=5, column=2, sticky='wen',padx=(10,0))
 
-    # 路考項目
-    label(written_exam_roster, text='路考項目').grid(row=6, column=0, sticky='ws', padx=(10,0), pady=(10,0))
-    road_test_items_type = combobox(written_exam_roster, values=['1', '2', '3'])
-    road_test_items_type.grid(row=7, column=0, sticky='wen',padx=(10,0))
+    # 代碼
+    label(written_exam_roster, text='代碼').grid(row=6, column=0, sticky='ws', padx=(10,0), pady=(10,0))
+    driving_test_code = entry(written_exam_roster)
+    driving_test_code.grid(row=7, column=0, sticky='wen',padx=(10,0))
+
+    # 場次
+    label(written_exam_roster, text='場次').grid(row=6, column=1, sticky='ws', padx=(10,0), pady=(10,0))
+    driving_test_session = entry(written_exam_roster)
+    driving_test_session.grid(row=7, column=1, sticky='wen',padx=(10,0))
 
     # 號碼
-    label(written_exam_roster, text='號碼').grid(row=6, column=1, sticky='ws', padx=(10,0), pady=(10,0))
+    label(written_exam_roster, text='號碼').grid(row=6, column=2, sticky='ws', padx=(10,0), pady=(10,0))
     driving_test_number = entry(written_exam_roster)
-    driving_test_number.grid(row=7, column=1, sticky='wen',padx=(10,0))
+    driving_test_number.grid(row=7, column=2, sticky='wen',padx=(10,0))
 
     # 新增按鈕
     add_btn(written_exam_roster, text='新增道考清冊', command=lambda: None).grid(row=8, column=1, sticky='wen', padx=(10,0), pady=(20,0))

@@ -395,6 +395,6 @@ def m2_retraining_roster_creation(content):
         ))
     
     # 按鈕
-    btn(m2_retraining_roster_creation, text='加入開訓名冊', command=save_student_data).grid(row=12, column=1, sticky='wen', padx=(10, 0), pady=(20, 0))
+    add_btn(m2_retraining_roster_creation, text='加入開訓名冊', command=save_student_data).grid(row=12, column=1, sticky='wen', padx=(10, 0), pady=(20, 0))
     print_btn(m2_retraining_roster_creation, text='列印開訓名冊', command=None).grid(row=12, column=2, sticky='wen', padx=(10, 0), pady=(20, 0))
     export_btn(m2_retraining_roster_creation, text='匯出文件', command=lambda: export_selected_data(data_list)).grid(row=12, column=3,sticky='wen', padx=10, pady=(20, 0))
