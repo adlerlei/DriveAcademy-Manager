@@ -85,7 +85,7 @@ def  road_test_roster(content):
 
     # treeview
     columns = (
-        'treeview_number', # 路號碼
+        'driving_test_number', # 考試號碼42
         'student_number', # 學員編號
         'register_number', # 名冊號碼
         'batch', # 梯次
@@ -176,54 +176,69 @@ def  road_test_roster(content):
                 batch.delete(0, ctk.END)
                 batch.insert(0, student_data[7])
                 batch.configure(state='readonly')
-                
+                # 路試日期
+                road_test_date.configure(state='normal')
+                road_test_date.delete(0, ctk.END)
+                if student_data[38] is not None:
+                    road_test_date.insert(0, student_data[38])
+                else:
+                    road_test_date.insert(0, '')
+                    # road_test_date.configure(state='readonly')
+                # 組別
+                driving_test_group.configure(state='normal')
+                driving_test_group.delete(0, ctk,END)
+                if student_data[39] is not None:
+                    driving_test_group.insert(0, student_data[39])
+                else:
+                    driving_test_group.insert(0, '')
+                # driving_test_group.configure(state='readonly')
+                # 路考項目
+                if student_data[40] is not None:
+                    road_test_items_type.set(student_data[40])
+                else:
+                    road_test_items_type.set('')
+                # 號碼
+                driving_test_number.configure(state='normal')
+                driving_test_number.delete(0, ctk.END)
+                if student_data[42] is not None:
+                    driving_test_number.insert(0, student_data[42])
+                else:
+                    driving_test_number.insert(0, '')
+                # driving_test_number.configure(state='readonly')
                                     
-
 
     # 獲取輸入欄位信息
     def save_student_data():
         global current_student_id
         student_data = {
             # 獲取輸入欄位信息並呈現在 treeview
-            'register_number': register_number.get(), # 名冊號碼
+            'driving_test_number': driving_test_number.get(), # 考試號碼
             'student_number': student_number.get(), # 學員編號
-            'batch': batch.get(), # 梯次
+            'register_number': register_number.get(), # 名冊號碼
+            'batch': batch.ger(), # 梯次
             'student_name': student_name.get(), # 學員姓名
-            'exam_code': exam_code.get(), # 來源代號
-            'exam_name': exam_name.get(), # 來源名稱
-            'exam_type_name': exam_type_name.get(), # 筆路
-            'transmission_type_code': transmission_type_code.get(), # 手自排代號
-            'transmission_type_name': transmission_type_name.get(), # 手自排名稱
-            'instructor_number': instructor_number.get(), # 教練代號
-            'national_id_no': national_id_no.get(), # 身分證
-            'instructor_name': instructor_name.get(), # 教練名稱
-            'learner_permit_data': learner_permit_date.get(), # 學照日期
-            'gender': gender.get(), # 性別
-            'birth_date': birth_date.get(), # 生日
-            'register_term': register_term.get(), # 期別
-            'r_address_zip_code': r_address_zip_code.get(), # 郵遞區號
-            'r_address_city': r_address_city.get(), # 縣市區域
-            'r_address': r_address.get(), # 戶籍地址
-            'r_address_city_road': r_address_city.get() + r_address.get(), # 將縣市區域加上地址組合
+            'birth_date': birth_date.get(), # 出生日期
+            'national_id_no': national_id_no.get(), # 身分證字號
+            'road_test_date': road_test_date.get(), # 路試日期
             'training_type_code': training_type_code.get(), # 訓練班別代號
             'id': current_student_id
         }
 
-        # 驗證 筆路 輸入欄位是否為空
-        required_fields = [ 
-            'exam_type_name',
-        ]
-        for field in required_fields:
-            if not student_data[field]:
-                messagebox.showwarning('提示', f'{validation_fields[field]} 欄位不能為空！')
-                return
+        # # 驗證 筆路 輸入欄位是否為空
+        # required_fields = [ 
+        #     'exam_type_name',
+        # ]
+        # for field in required_fields:
+        #     if not student_data[field]:
+        #         messagebox.showwarning('提示', f'{validation_fields[field]} 欄位不能為空！')
+        #         return
 
         if current_student_id is None:
             messagebox.showwarning('警告', '請先搜尋學員資料！')
             return
         
         update_student_data(student_data)
-        clear_entries_and_comboboxes(m2_retraining_roster_creation)
+        clear_entries_and_comboboxes(road_test_roster)
 
         # 讀取 save_student_data 的資料寫入 treeview
         data_list.insert('', 'end', values = (
