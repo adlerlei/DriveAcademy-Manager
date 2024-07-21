@@ -40,7 +40,7 @@ def  road_test_roster(content):
     # 身分證號碼
     label(road_test_roster, text='身分證號碼').grid(row=0, column=3, sticky='ws', padx=(10,0), pady=(10,0))
     national_id_no = display_entry_value(road_test_roster)
-    national_id_no.grid(row=1, column=3, sticky='wen',padx=(10,0))
+    national_id_no.grid(row=1, column=3, sticky='wen',padx=10)
 
     # 出生日期
     label(road_test_roster, text='出生日期').grid(row=2, column=0, sticky='ws', padx=(10,0), pady=(10,0))
@@ -59,7 +59,7 @@ def  road_test_roster(content):
     # 期別
     label(road_test_roster, text='期別').grid(row=2, column=3, sticky='ws', padx=(10,0), pady=(10,0))
     register_term = display_entry_value(road_test_roster)
-    register_term.grid(row=3, column=3, sticky='wen',padx=(10,0))
+    register_term.grid(row=3, column=3, sticky='wen',padx=10)
 
     # 梯次
     label(road_test_roster, text='梯次').grid(row=4, column=0, sticky='ws', padx=(10,0), pady=(10,0))
@@ -255,10 +255,10 @@ def  road_test_roster(content):
         ))
 
     # 新增按鈕
-    add_btn(road_test_roster, text='新增道考清冊', command=save_student_data).grid(row=8, column=1, sticky='wen', padx=(10,0), pady=(20,0))
+    add_btn(road_test_roster, text='新增道考清冊', command=save_student_data).grid(row=8, column=2, sticky='wen', padx=(10,0), pady=(20,0))
 
     # 列印按鈕
-    print_btn(road_test_roster, text='列印場考清冊', command=lambda: None).grid(row=8, column=2, sticky='wen', padx=(10,0), pady=(20,0))
+    print_btn(road_test_roster, text='列印場考清冊', command=lambda: None).grid(row=8, column=3, sticky='wen', padx=10, pady=(20,0))
 
     # 匯出按鈕
-    export_btn(road_test_roster, text='匯出文件', command=lambda: None).grid(row=8, column=3, sticky='wen', padx=10, pady=(20,0))
+    # export_btn(road_test_roster, text='匯出文件', command=lambda: None).grid(row=8, column=3, sticky='wen', padx=10, pady=(20,0))

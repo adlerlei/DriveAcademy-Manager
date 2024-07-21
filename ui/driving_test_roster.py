@@ -5,7 +5,11 @@ from models.test import *
 import customtkinter as ctk
 from tkinter import messagebox
 
+# 檢測學員資料庫 id 欄位來判定是否修改或新增
+current_student_id = None
+
 def  driving_test_roster(content):
+    clear_frame(content)
     # 添加列表變數來跟蹤 treeview 號碼流水號自動增加
     current_number = [0]
 
@@ -35,7 +39,7 @@ def  driving_test_roster(content):
     # 身分證號碼
     label(driving_test_roster, text='身分證號碼').grid(row=0, column=3, sticky='ws', padx=(10,0), pady=(10,0))
     national_id_no = display_entry_value(driving_test_roster)
-    national_id_no.grid(row=1, column=3, sticky='wen',padx=(10,0))
+    national_id_no.grid(row=1, column=3, sticky='wen',padx=10)
 
     # 出生日期
     label(driving_test_roster, text='出生日期').grid(row=2, column=0, sticky='ws', padx=(10,0), pady=(10,0))
@@ -54,7 +58,7 @@ def  driving_test_roster(content):
     # 期別
     label(driving_test_roster, text='期別').grid(row=2, column=3, sticky='ws', padx=(10,0), pady=(10,0))
     register_term = display_entry_value(driving_test_roster)
-    register_term.grid(row=3, column=3, sticky='wen',padx=(10,0))
+    register_term.grid(row=3, column=3, sticky='wen',padx=10)
 
     # 梯次
     label(driving_test_roster, text='梯次').grid(row=4, column=0, sticky='ws', padx=(10,0), pady=(10,0))

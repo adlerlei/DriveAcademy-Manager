@@ -34,7 +34,7 @@ def written_exam_roster(content):
     # 身分證號碼
     label(written_exam_roster, text='身分證號碼').grid(row=0, column=3, sticky='ws', padx=(10,0), pady=(10,0))
     national_id_no = display_entry_value(written_exam_roster)
-    national_id_no.grid(row=1, column=3, sticky='wen',padx=(10,0))
+    national_id_no.grid(row=1, column=3, sticky='wen',padx=10)
 
     # 出生日期
     label(written_exam_roster, text='出生日期').grid(row=2, column=0, sticky='ws', padx=(10,0), pady=(10,0))
@@ -53,7 +53,7 @@ def written_exam_roster(content):
     # 期別
     label(written_exam_roster, text='期別').grid(row=2, column=3, sticky='ws', padx=(10,0), pady=(10,0))
     register_term = display_entry_value(written_exam_roster)
-    register_term.grid(row=3, column=3, sticky='wen',padx=(10,0))
+    register_term.grid(row=3, column=3, sticky='wen',padx=10)
 
     # 梯次
     label(written_exam_roster, text='梯次').grid(row=4, column=0, sticky='ws', padx=(10,0), pady=(10,0))
