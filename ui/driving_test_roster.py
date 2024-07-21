@@ -10,6 +10,7 @@ current_student_id = None
 
 def  driving_test_roster(content):
     clear_frame(content)
+    
     # 添加列表變數來跟蹤 treeview 號碼流水號自動增加
     current_number = [0]
 
