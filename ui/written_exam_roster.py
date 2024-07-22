@@ -5,8 +5,14 @@ from models.test import *
 import customtkinter as ctk
 from tkinter import messagebox
 
+# 檢測學員資料庫 id 欄位來判定是否修改或新增
+current_student_id = None
+
 def written_exam_roster(content):
     clear_frame(content)
+
+    # 添加列表變數來跟蹤 treeview 號碼流水號自動增加
+    current_number = [0]
 
     written_exam_roster = frame(content)
     written_exam_roster.columnconfigure(0, weight=1)
@@ -19,7 +25,7 @@ def written_exam_roster(content):
     label(written_exam_roster, text='學員編號').grid(row=0, column=0, sticky='ws', padx=(10,0), pady=(10,0))
     student_number = entry(written_exam_roster,  placeholder_text = "輸入學員編號")
     student_number.grid(row=1, column=0, sticky='wen', padx=(10,0))
-    # student_number.bind("<KeyRelease>", lambda event: populate_student_data('student_number', student_number.get()))
+    student_number.bind("<KeyRelease>", lambda event: populate_student_data('student_number', student_number.get()))
     
     # 學員姓名
     label(written_exam_roster, text='學員姓名').grid(row=0, column=1, sticky='ws', padx=(10,0), pady=(10,0))
@@ -62,8 +68,8 @@ def written_exam_roster(content):
 
     # 筆試日期
     label(written_exam_roster, text='筆試日期').grid(row=4, column=1, sticky='ws', padx=(10,0), pady=(10,0))
-    road_test_date = entry(written_exam_roster)
-    road_test_date.grid(row=5, column=1, sticky='wen',padx=(10,0))
+    written_exam_date = entry(written_exam_roster)
+    written_exam_date.grid(row=5, column=1, sticky='wen',padx=(10,0))
 
     # 組別
     # label(written_exam_roster, text='組別').grid(row=4, column=2, sticky='ws', padx=(10,0), pady=(10,0))
@@ -85,49 +91,163 @@ def written_exam_roster(content):
     driving_test_number = entry(written_exam_roster)
     driving_test_number.grid(row=7, column=2, sticky='wen',padx=(10,0))
 
-    # 新增按鈕
-    add_btn(written_exam_roster, text='新增道考清冊', command=lambda: None).grid(row=8, column=1, sticky='wen', padx=(10,0), pady=(20,0))
-
-    # 列印按鈕
-    print_btn(written_exam_roster, text='列印場考清冊', command=lambda: None).grid(row=8, column=2, sticky='wen', padx=(10,0), pady=(20,0))
-
-    # 匯出按鈕
-    export_btn(written_exam_roster, text='匯出文件', command=lambda: None).grid(row=8, column=3, sticky='wen', padx=10, pady=(20,0))
-
     # treeview
-    data_list = ttk.Treeview(written_exam_roster, show='headings', column=['id', 'roster_number', 'batch', 'student_number', 'student_name', 'exam_source_type', 'transmission_type', 'instructor', 'gender', 'birth_date', 'national_id_no', 'zip_code', 'city_r_address', 'training_type'])
+    columns = (
+        'driving_test_number', # 考試號碼42
+        'register_number', # 名冊號碼
+        'batch', # 梯次
+        'student_number', # 學員編號
+        'student_name', # 學員姓名
+        'national_id_no', # 身分證號碼
+        'birth_date', # 出生日期
+    )
+    data_list = ttk.Treeview(written_exam_roster, show='headings', column=columns)
     
-    data_list.column('id', width=50, anchor='w')
-    data_list.column('roster_number', width=50, anchor='w')
+    data_list.column('driving_test_number', width=50, anchor='w')
+    data_list.column('register_number', width=50, anchor='w')
     data_list.column('batch', width=50, anchor='w')
     data_list.column('student_number', width=50, anchor='w')
     data_list.column('student_name', width=50, anchor='w')
-    data_list.column('exam_source_type', width=50, anchor='w')
-    data_list.column('transmission_type', width=50, anchor='w')
-    data_list.column('instructor', width=50, anchor='w')
-    data_list.column('gender', width=50, anchor='w')
+    data_list.column('national_id_no', width=50, anchor='w')
     data_list.column('birth_date', width=50, anchor='w')
-    data_list.column('national_id_no', width=60, anchor='w')
-    data_list.column('training_type', width=50, anchor='w')
-    data_list.column('zip_code', width=50, anchor='w')
-    data_list.column('city_r_address', width=250, anchor='w')
     
-    data_list.heading('id', text='ID')
-    data_list.heading('roster_number', text='名冊號碼')
+    data_list.heading('driving_test_number', text='號碼')
+    data_list.heading('register_number', text='名冊號碼')
     data_list.heading('batch', text='梯次')
     data_list.heading('student_number', text='學員編號')
     data_list.heading('student_name', text='學員姓名')
-    data_list.heading('exam_source_type', text='來源')
-    data_list.heading('transmission_type', text='手自排')
-    data_list.heading('instructor', text='教練')
-    data_list.heading('gender', text='性別')
+    data_list.heading('national_id_no', text='身分證號碼')
     data_list.heading('birth_date', text='出生日期')
-    data_list.heading('national_id_no', text='身分證號')
-    data_list.heading('training_type', text='訓練班別')
-    data_list.heading('zip_code', text='區號')
-    data_list.heading('city_r_address', text='戶籍地址')
-    
+
     data_list.grid(row=9, column=0, columnspan=4, sticky='wen', padx=10, pady=(20,0))
     
-    for i in range(100):
-        data_list.insert("", "end", values=(f"202{i % 10}", f"張{i}", f"A{i}", f"202{i % 10}-01-01", f"男", f"02{i % 10}", f"09{i % 10}", f"test{i}@gmail.com", f"台北市", f"台北市"))
+
+    # 邏輯功能 - 搜尋學員資料並顯示在 entry
+    def populate_student_data(identifier, value):
+        
+        # 監聽學員編號輸入欄位如果為空，清除學員資料
+        if identifier == 'student_number' and value == '':
+            # 不保留任何欄位值，全部清除
+            clear_entries_and_comboboxes(written_exam_roster)
+        else:
+            global current_student_id
+            student_data = get_student_data(identifier, value)
+            if student_data:
+                # 獲取學員資料庫 id 序列
+                current_student_id = student_data[0]
+                # 學員姓名
+                student_name.configure(state='normal')
+                student_name.delete(0, ctk.END)
+                student_name.insert(0, student_data[6])
+                student_name.configure(state='readonly')
+                # 名冊號碼
+                register_number.configure(state='normal')
+                register_number.delete(0, ctk.END)
+                register_number.insert(0, student_data[34])
+                register_number.configure(state='readonly')
+                # 身分證號碼
+                national_id_no.configure(state='normal')
+                national_id_no.delete(0, ctk.END)
+                national_id_no.insert(0, student_data[10])
+                national_id_no.configure(state='readonly')
+                # 出生日期
+                birth_date.configure(state='normal')
+                birth_date.delete(0, ctk.END)
+                birth_date.insert(0, student_data[9])
+                birth_date.configure(state='readonly')
+                # 訓練班別代號
+                training_type_code.configure(state='normal')
+                training_type_code.delete(0, ctk.END)
+                training_type_code.insert(0, student_data[3])
+                training_type_code.configure(state='readonly')
+                # 訓練班別名稱
+                training_type_name.configure(state='normal')
+                training_type_name.delete(0, ctk.END)
+                training_type_name.insert(0, student_data[4])
+                training_type_name.configure(state='readonly')
+                # 期別
+                register_term.configure(state='normal')
+                register_term.delete(0, ctk.END)
+                if student_data[35] is not None:
+                    register_term.insert(0, student_data[35])
+                else:
+                    register_term.insert(0, '')
+                register_number.configure(state='readonly')
+                # 梯次
+                batch.configure(state='normal')
+                batch.delete(0, ctk.END)
+                batch.insert(0, student_data[7])
+                batch.configure(state='readonly')
+                # 筆試日期
+                written_exam_date.configure(state='normal')
+                written_exam_date.delete(0, ctk.END)
+                if student_data[36] is not None:
+                    written_exam_date.insert(0, student_data[38])
+                else:
+                    written_exam_date.insert(0, '')
+                    # written_exam_date.configure(state='readonly')
+                # 代碼
+                driving_test_code.configure(state='normal')
+                driving_test_code.delete(0, ctk.END)
+                if student_data[44] is not None:
+                    driving_test_code.insert(0, '')
+                # 場次
+                driving_test_session.configure(state='normal')
+                driving_test_session.delete(0, ctk.END)
+                if student_data[43] is not None:
+                    driving_test_session.insert(0, '')
+                # 號碼
+                driving_test_number.configure(state='normal')
+                driving_test_number.delete(0, ctk.END)
+                if student_data[42] is not None:
+                    driving_test_number.insert(0, student_data[42])
+                else:
+                    driving_test_number.insert(0, '')
+                driving_test_number.configure(state='readonly')
+
+
+    # 獲取輸入欄位信息
+    def save_student_data():
+        global current_student_id
+
+        # 偵測號碼自動增加流水號
+        current_number[0] += 1
+
+        student_data = {
+            # 'driving_test_number': driving_test_number.get(),
+            # 使用 current_number 自動生成的號碼
+            'driving_test_number': str(current_number[0]),
+            'register_number': register_number.get(),
+            'batch': batch.get(),
+            'student_number': student_number.get(),
+            'student_name': student_name.get(),
+            'national_id_no': national_id_no.get(),
+            'birth_date': birth_date.get(),
+            'training_type_code': training_type_code.get(),
+            'id': current_student_id
+        }
+
+        if current_student_id is None:
+            messagebox.showwarning('警告', '請先搜尋學員資料')
+            return
+        
+        update_student_data(student_data)
+        clear_entries_and_comboboxes(written_exam_roster)
+
+        # 讀取 save_student_data 的資料寫入 treeview
+        data_list.insert('', 'end', values=(
+            student_data['driving_test_number'],
+            student_data['register_number'],
+            student_data['batch'],
+            student_data['student_number'],
+            student_data['student_name'],
+            student_data['national_id_no'],
+            student_data['birth_date']
+        ))
+
+    # 新增按鈕
+    add_btn(written_exam_roster, text='新增道考清冊', command=save_student_data).grid(row=8, column=1, sticky='wen', padx=(10,0), pady=(20,0))
+    # 列印按鈕
+    print_btn(written_exam_roster, text='列印場考清冊', command=lambda: None).grid(row=8, column=2, sticky='wen', padx=(10,0), pady=(20,0))
+    # 匯出按鈕
+    export_btn(written_exam_roster, text='匯出文件', command=lambda: None).grid(row=8, column=3, sticky='wen', padx=10, pady=(20,0))

@@ -141,7 +141,7 @@ def  road_test_roster(content):
                 student_name.insert(0, student_data[6])
                 student_name.configure(state='readonly')
                 # 名冊號碼
-                register_number.configure(state='readonly')
+                # register_number.configure(state='readonly')
                 register_number.configure(state='normal')
                 register_number.delete(0, ctk.END)
                 register_number.insert(0, student_data[34])
