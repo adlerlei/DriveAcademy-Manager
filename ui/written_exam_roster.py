@@ -182,7 +182,7 @@ def written_exam_roster(content):
                 written_exam_date.configure(state='normal')
                 written_exam_date.delete(0, ctk.END)
                 if student_data[36] is not None:
-                    written_exam_date.insert(0, student_data[38])
+                    written_exam_date.insert(0, student_data[36])
                 else:
                     written_exam_date.insert(0, '')
                     # written_exam_date.configure(state='readonly')
@@ -209,6 +209,7 @@ def written_exam_roster(content):
     # 獲取輸入欄位信息
     def save_student_data():
         global current_student_id
+        uid = 2
 
         # 偵測號碼自動增加流水號
         current_number[0] += 1
@@ -216,14 +217,17 @@ def written_exam_roster(content):
         student_data = {
             # 'driving_test_number': driving_test_number.get(),
             # 使用 current_number 自動生成的號碼
-            'driving_test_number': str(current_number[0]),
-            'register_number': register_number.get(),
-            'batch': batch.get(),
-            'student_number': student_number.get(),
-            'student_name': student_name.get(),
-            'national_id_no': national_id_no.get(),
-            'birth_date': birth_date.get(),
-            'training_type_code': training_type_code.get(),
+            'driving_test_number': str(current_number[0]), # 號碼42
+            'register_number': register_number.get(), # 名冊號碼34
+            'batch': batch.get(), # 梯次7
+            'student_number': student_number.get(), # 學員編號
+            'student_name': student_name.get(), # 學員姓名
+            'national_id_no': national_id_no.get(), # 身分證字號
+            'birth_date': birth_date.get(), # 出生日期
+            'driving_test_session': driving_test_session.get(), # 場次
+            'written_exam_date': written_exam_date.get(), # 筆試日期
+            'driving_test_code': driving_test_code.get(), # 代碼
+            'training_type_code': training_type_code.get(), # 訓練班別代號
             'id': current_student_id
         }
 
@@ -231,7 +235,7 @@ def written_exam_roster(content):
             messagebox.showwarning('警告', '請先搜尋學員資料')
             return
         
-        update_student_data(student_data)
+        update_student_data(student_data, uid=uid)
         clear_entries_and_comboboxes(written_exam_roster)
 
         # 讀取 save_student_data 的資料寫入 treeview

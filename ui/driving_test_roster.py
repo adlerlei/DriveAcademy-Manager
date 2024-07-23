@@ -1,4 +1,4 @@
-# 場考考試清冊
+# 路考清冊(場考)
 from utils.widget import *
 from utils.config import *
 from models.test import *
@@ -97,8 +97,22 @@ def  driving_test_roster(content):
         'national_id_no', # 身分證號碼
         'road_test_date', # 路試日期
         'road_test_items_type', # 路考項目
+        # 'register_number',# 上课期别代码 (index 2)
     )
+    # columns = (
+    #     'driving_test_number',  # 号码 (index 0)
+    #     'driving_test_group',   # 组别 (index 1)
+    #     'register_number',      # 上课期别代码 (index 2)
+    #     'student_number',       # 学员编号 (index 3)
+    #     'student_name',         # 学员姓名 (index 4)
+    #     'batch',                # 梯次 (index 5)
+    #     'birth_date',           # 出生日期 (index 6)
+    #     'national_id_no',       # 身分证号码 (index 7)
+    #     'road_test_date',       # 路试日期 (index 8)
+    #     'road_test_items_type'  # 路考项目 (index 9)
+    # )
     data_list = ttk.Treeview(driving_test_roster, show='headings', column=columns)
+
     
     data_list.column('driving_test_number', width=50, anchor='w')
     data_list.column('student_number', width=50, anchor='w')
@@ -212,6 +226,7 @@ def  driving_test_roster(content):
 
     # 獲取輸入欄位信息
     def save_student_data():
+        uid = 1
         global current_student_id
 
         # 偵測號碼自動增加流水號
@@ -220,17 +235,17 @@ def  driving_test_roster(content):
         student_data = {
             # 'driving_test_number': driving_test_number.get(),
             # 使用 current_number 自動生成的號碼
-            'driving_test_number': str(current_number[0]),
-            'student_number': student_number.get(),
-            'register_number': register_number.get(),
-            'batch': batch.get(),
-            'student_name': student_name.get(),
-            'birth_date': birth_date.get(),
-            'national_id_no': national_id_no.get(),
-            'road_test_date': road_test_date.get(),
-            'road_test_items_type': road_test_items_type.get(),
-            'driving_test_group': driving_test_group.get(),
-            'training_type_code': training_type_code.get(),
+            'driving_test_number': str(current_number[0]), # 號碼42
+            'student_number': student_number.get(), # 學員編號
+            'register_number': register_number.get(), # 名冊號碼34
+            'batch': batch.get(), # 梯次
+            'student_name': student_name.get(), # 學員姓名
+            'birth_date': birth_date.get(), # 出生日期
+            'national_id_no': national_id_no.get(), # 身分證號
+            'road_test_date': road_test_date.get(), # 路試日期38
+            'road_test_items_type': road_test_items_type.get(), # 路考項目40
+            'driving_test_group': driving_test_group.get(), # 組別39
+            'training_type_code': training_type_code.get(), # 訓練班別代號
             'id': current_student_id
         }
 
@@ -238,27 +253,25 @@ def  driving_test_roster(content):
             messagebox.showwarning('警告', '請先搜尋學員資料！')
             return
         
-        update_student_data(student_data)
+        update_student_data(student_data, uid=uid)
         clear_entries_and_comboboxes(driving_test_roster)
 
         # 讀取 save_student_data 的資料寫入 treeview
         data_list.insert('', 'end', values=(
-            student_data['driving_test_number'],
-            student_data['student_number'],
-            student_data['register_number'],
-            student_data['batch'],
-            student_data['student_name'],
-            student_data['birth_date'],
-            student_data['national_id_no'],
-            student_data['road_test_date'],
-            student_data['road_test_items_type']
+            student_data['driving_test_number'], # 號碼
+            student_data['student_number'], # 學員編號
+            student_data['register_number'], # 名冊號碼
+            student_data['batch'], # 梯次
+            student_data['student_name'], # 學員姓名
+            student_data['birth_date'], # 出生日期
+            student_data['national_id_no'], # 身分證號
+            student_data['road_test_date'], # 路試日期
+            student_data['road_test_items_type'] # 路考項目
         ))
 
     # 新增按鈕
     add_btn(driving_test_roster, text='新增道考清冊', command=save_student_data).grid(row=8, column=1, sticky='wen', padx=(10,0), pady=(20,0))
-
     # 列印按鈕
     print_btn(driving_test_roster, text='列印場考清冊', command=lambda: None).grid(row=8, column=2, sticky='wen', padx=(10,0), pady=(20,0))
-
     # 匯出按鈕
-    export_btn(driving_test_roster, text='匯出文件', command=lambda: None).grid(row=8, column=3, sticky='wen', padx=10, pady=(20,0))
+    export_btn(driving_test_roster, text='匯出文件', command=lambda: export_driving_test_data(database_path)).grid(row=8, column=3, sticky='wen', padx=10, pady=(20,0))

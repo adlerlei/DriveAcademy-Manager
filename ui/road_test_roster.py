@@ -1,4 +1,4 @@
-# 道考清冊
+# 道考清冊 不需要匯出文件功能
 from utils.widget import *
 from utils.config import *
 from models.test import *
@@ -212,6 +212,7 @@ def  road_test_roster(content):
 
     # 獲取輸入欄位信息
     def save_student_data():
+        uid = 1
         global current_student_id
 
         # 偵測號碼自動增加流水號
@@ -238,7 +239,7 @@ def  road_test_roster(content):
             messagebox.showwarning('警告', '請先搜尋學員資料！')
             return
         
-        update_student_data(student_data)
+        update_student_data(student_data, uid=uid)
         clear_entries_and_comboboxes(road_test_roster)
 
         # 讀取 save_student_data 的資料寫入 treeview
@@ -256,9 +257,5 @@ def  road_test_roster(content):
 
     # 新增按鈕
     add_btn(road_test_roster, text='新增道考清冊', command=save_student_data).grid(row=8, column=2, sticky='wen', padx=(10,0), pady=(20,0))
-
     # 列印按鈕
     print_btn(road_test_roster, text='列印場考清冊', command=lambda: None).grid(row=8, column=3, sticky='wen', padx=10, pady=(20,0))
-
-    # 匯出按鈕
-    # export_btn(road_test_roster, text='匯出文件', command=lambda: None).grid(row=8, column=3, sticky='wen', padx=10, pady=(20,0))

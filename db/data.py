@@ -59,11 +59,10 @@ CREATE TABLE IF NOT EXISTS student (
     register_number VARCHAR, -- 名冊號碼34
     register_term VARCHAR, -- 期別35
     written_exam_date VARCHAR, -- 筆試日期36
-    session_number VARCHAR, -- 場次37
     road_test_date VARCHAR, -- 路試日期38
     driving_test_group VARCHAR, -- 組別39
     road_test_items_type VARCHAR, -- 路考項目40
-    exam_type_name VARCHAR, -- 筆路名稱41
+    exam_type_name VARCHAR, -- 筆試 , 路試41
     driving_test_number VARCHAR, -- 號碼42
     driving_test_session VARCH, -- 場次43
     driving_test_code VARCH, -- 代碼44
