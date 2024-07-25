@@ -79,8 +79,15 @@ CREATE TABLE IF NOT EXISTS instructor (
     home_phone VARCHAR, -- 住宅電話
     mobile_phone VARCHAR, -- 手機號碼
     email VARCHAR, -- 電子郵箱
+    
+    r_address_zip_code VARCHAR, -- 戶籍地址郵遞區號
+    r_address_city VARCHAR, -- 戶籍地址縣市區域
     r_address VARCHAR, -- 戶籍地址
+
+    m_address_zip_code VARCHAR, -- 通訊地址郵遞區號
+    m_address_city VARCHAR, -- 通訊地址縣市區域
     m_address VARCHAR, -- 通訊地址
+
     instructor_license_number VARCHAR, -- 教練證號碼
     driving_license_category VARCHAR, -- 駕照類別
     driving_license_number VARCHAR, -- 駕照號碼

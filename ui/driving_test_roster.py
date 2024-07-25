@@ -97,20 +97,7 @@ def  driving_test_roster(content):
         'national_id_no', # 身分證號碼
         'road_test_date', # 路試日期
         'road_test_items_type', # 路考項目
-        # 'register_number',# 上课期别代码 (index 2)
     )
-    # columns = (
-    #     'driving_test_number',  # 号码 (index 0)
-    #     'driving_test_group',   # 组别 (index 1)
-    #     'register_number',      # 上课期别代码 (index 2)
-    #     'student_number',       # 学员编号 (index 3)
-    #     'student_name',         # 学员姓名 (index 4)
-    #     'batch',                # 梯次 (index 5)
-    #     'birth_date',           # 出生日期 (index 6)
-    #     'national_id_no',       # 身分证号码 (index 7)
-    #     'road_test_date',       # 路试日期 (index 8)
-    #     'road_test_items_type'  # 路考项目 (index 9)
-    # )
     data_list = ttk.Treeview(driving_test_roster, show='headings', column=columns)
 
     

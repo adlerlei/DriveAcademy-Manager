@@ -53,8 +53,6 @@ def written_exam_roster(content):
     training_type_code.grid(row=3, column=1, sticky='wen',padx=(10,0))
     training_type_name = display_entry_value(written_exam_roster)
     training_type_name.grid(row=3, column=2, sticky='wen',padx=(10,0))
-    # combobox(written_exam_roster, values=['1']).grid(row=6, column=0, sticky='wen',padx=10)
-    # combobox(written_exam_roster, values=['普通小型車班']).grid(row=6, column=1, sticky='wen',padx=10)
     
     # 期別
     label(written_exam_roster, text='期別').grid(row=2, column=3, sticky='ws', padx=(10,0), pady=(10,0))
