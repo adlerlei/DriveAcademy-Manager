@@ -196,16 +196,6 @@ def instructor_all(content):
     for i in range(100):
         data_list.insert("", "end", values=(f"202{i % 10}", f"張{i}", f"A{i}", f"202{i % 10}-01-01", f"男", f"02{i % 10}", f"09{i % 10}", f"test{i}@gmail.com", f"台北市", f"台北市"))
 
-    # # 創建水平捲軸
-    # h_scrollbar = ttk.Scrollbar(instructor_all, orient="horizontal", command=data_list.xview)
-    # data_list.configure(xscrollcommand=h_scrollbar.set)
-
-    # # 使用 grid 布局管理器來排列 Treeview 和捲軸
-    # h_scrollbar.grid(row=15, column=0, columnspan=4, sticky="ew")
-
-    # # 配置行和列的權重，使其在窗口調整大小時自動調整
-    # instructor_all.grid_rowconfigure(14, weight=1)
-    # instructor_all.grid_columnconfigure(0, weight=1)
     # 創建水平捲軸
     h_scrollbar = ttk.Scrollbar(instructor_all, orient="horizontal", command=data_list.xview)
     data_list.configure(xscrollcommand=h_scrollbar.set)

@@ -118,6 +118,25 @@ def written_exam_roster(content):
     data_list.heading('birth_date', text='出生日期')
 
     data_list.grid(row=9, column=0, columnspan=4, sticky='wen', padx=10, pady=(20,0))
+
+    # 創建水平捲軸
+    h_scrollbar = ttk.Scrollbar(written_exam_roster, orient="horizontal", command=data_list.xview)
+    data_list.configure(xscrollcommand=h_scrollbar.set)
+
+    # 創建垂直捲軸
+    v_scrollbar = ttk.Scrollbar(written_exam_roster, orient="vertical", command=data_list.yview)
+    data_list.configure(yscrollcommand=v_scrollbar.set)
+
+    # 使用 grid 布局管理器來排列 Treeview 和捲軸
+    h_scrollbar.grid(row=10, column=0, columnspan=4, sticky="ew", padx=10)
+    v_scrollbar.grid(row=9, column=4, rowspan=2, sticky="ns", pady=10)
+
+    # 配置行和列的權重，使其在窗口調整大小時自動調整
+    written_exam_roster.grid_rowconfigure(14, weight=1)
+    written_exam_roster.grid_columnconfigure(0, weight=1)
+    written_exam_roster.grid_columnconfigure(1, weight=1)
+    written_exam_roster.grid_columnconfigure(2, weight=1)
+    written_exam_roster.grid_columnconfigure(3, weight=1)
     
 
     # 邏輯功能 - 搜尋學員資料並顯示在 entry
@@ -252,4 +271,4 @@ def written_exam_roster(content):
     # 列印按鈕
     print_btn(written_exam_roster, text='列印場考清冊', command=lambda: None).grid(row=8, column=2, sticky='wen', padx=(10,0), pady=(20,0))
     # 匯出按鈕
-    export_btn(written_exam_roster, text='匯出文件', command=lambda: None).grid(row=8, column=3, sticky='wen', padx=10, pady=(20,0))
+    export_btn(written_exam_roster, text='匯出文件', command=lambda: export_written_exam_roster(database_path)).grid(row=8, column=3, sticky='wen', padx=10, pady=(20,0))

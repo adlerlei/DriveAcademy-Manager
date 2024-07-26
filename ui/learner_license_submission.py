@@ -102,6 +102,25 @@ def learner_license_submission(content):
     
     data_list.grid(row=8, column=0, columnspan=4, sticky='wen', padx=10, pady=(20,0))
 
+    # 創建水平捲軸
+    h_scrollbar = ttk.Scrollbar(learner_license_submission, orient="horizontal", command=data_list.xview)
+    data_list.configure(xscrollcommand=h_scrollbar.set)
+
+    # 創建垂直捲軸
+    v_scrollbar = ttk.Scrollbar(learner_license_submission, orient="vertical", command=data_list.yview)
+    data_list.configure(yscrollcommand=v_scrollbar.set)
+
+    # 使用 grid 布局管理器來排列 Treeview 和捲軸
+    h_scrollbar.grid(row=9, column=0, columnspan=4, sticky="ew", padx=10)
+    v_scrollbar.grid(row=8, column=4, rowspan=2, sticky="ns", pady=10)
+
+    # 配置行和列的權重，使其在窗口調整大小時自動調整
+    learner_license_submission.grid_rowconfigure(14, weight=1)
+    learner_license_submission.grid_columnconfigure(0, weight=1)
+    learner_license_submission.grid_columnconfigure(1, weight=1)
+    learner_license_submission.grid_columnconfigure(2, weight=1)
+    learner_license_submission.grid_columnconfigure(3, weight=1)
+
     # 邏輯功能
     # 搜尋學員資料庫並且在 entry 顯示學員資料
     def populate_student_data(identifier, value):
