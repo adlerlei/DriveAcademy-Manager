@@ -66,7 +66,8 @@ CREATE TABLE IF NOT EXISTS student (
     driving_test_number VARCHAR, -- 號碼42
     driving_test_session VARCH, -- 場次43
     driving_test_code VARCH, -- 代碼44
-    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- 建檔時間45
+    student_term_class_code VARCHAR, -- 學員上課期別代碼45
+    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- 建檔時間46
 );
 
 -- 教練資料表

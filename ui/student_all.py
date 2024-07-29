@@ -313,7 +313,7 @@ def student_all(content):
                 # 建檔日期
                 creation_date.configure(state='normal')
                 creation_date.delete(0, ctk.END)
-                creation_date.insert(0, student_data[45])
+                creation_date.insert(0, student_data[46])
                 creation_date.configure(state='readonly')
             else:
                 # 如果沒有查詢到學生資料,則重置 is_editing 和 current_student_id
