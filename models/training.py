@@ -83,34 +83,51 @@ def update_student_data(data, uid):
     conn = sqlite3.connect(database_path)
     cursor = conn.cursor() 
 
+    # 處理名冊號碼並生成 student_term_class_code
+    register_number = data.get('register_number', '')
+    training_type_code = data.get('training_type_code', '')
+    student_term_class_code = ''
+    
+    if register_number and training_type_code:
+        # 找到第一個字母的位置
+        alpha_index = next((i for i, c in enumerate(register_number) if c.isalpha()), None)
+        
+        if alpha_index is not None:
+            # 保留到字母（包括字母）
+            register_number_part = register_number[:alpha_index+1]
+            # 生成 student_term_class_code
+            student_term_class_code = f"{training_type_code}{register_number_part}"
+
     if uid == 1:
         cursor.execute('''
             UPDATE student SET
-                register_number = :register_number, -- 名冊號碼
-                register_term = :register_term, -- 名冊期別
-                exam_code = :exam_code, -- 來源類別編號
-                exam_name = :exam_name, -- 來源類別名稱
-                transmission_type_code = :transmission_type_code, -- 手自排類別編號
-                transmission_type_name = :transmission_type_name, -- 手自排類別名稱
-                instructor_number = :instructor_number, -- 教練編號
-                instructor_name = :instructor_name, -- 教練名稱
-                register_batch = :register_batch -- 名冊梯次
+                register_number = :register_number,
+                register_term = :register_term,
+                exam_code = :exam_code,
+                exam_name = :exam_name,
+                transmission_type_code = :transmission_type_code,
+                transmission_type_name = :transmission_type_name,
+                instructor_number = :instructor_number,
+                instructor_name = :instructor_name,
+                register_batch = :register_batch,
+                student_term_class_code = :student_term_class_code
             WHERE id = :id
-        ''', data)
+        ''', {**data, 'student_term_class_code': student_term_class_code})
         messagebox.showinfo('訊息', '已加入開訓名冊！')
     elif uid == 0:
         cursor.execute('''
             UPDATE student SET
-                register_number = :register_number, -- 名冊號碼
-                register_term = :register_term, -- 名冊期別
-                dropout = :dropout, -- 退訓
-                transmission_type_code = :transmission_type_code, -- 手自排類別編號
-                transmission_type_name = :transmission_type_name, -- 手自排類別名稱
-                instructor_number = :instructor_number, -- 教練編號
-                instructor_name = :instructor_name, -- 教練名稱
-                register_batch = :register_batch -- 名冊梯次
+                register_number = :register_number,
+                register_term = :register_term,
+                dropout = :dropout,
+                transmission_type_code = :transmission_type_code,
+                transmission_type_name = :transmission_type_name,
+                instructor_number = :instructor_number,
+                instructor_name = :instructor_name,
+                register_batch = :register_batch,
+                student_term_class_code = :student_term_class_code
             WHERE id = :id
-        ''', data)
+        ''', {**data, 'student_term_class_code': student_term_class_code})
         messagebox.showinfo('訊息', '已加入結訓名冊！')
 
     conn.commit()
