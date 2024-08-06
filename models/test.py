@@ -55,29 +55,23 @@ def update_student_data(data, uid):
 # 場考清冊匯出csv
 def export_driving_test_data(database_path):
     try:
-        # 连接到数据库
         conn = sqlite3.connect(database_path)
         cursor = conn.cursor()
 
-        # 获取最新的上课期别代码
         cursor.execute("SELECT MAX(term_class_code) FROM annual_plan")
         latest_term_class_code = cursor.fetchone()[0]
 
         if not latest_term_class_code:
-            messagebox.showerror("错误", "未找到有效的上课期别代碼")
+            messagebox.showerror("錯誤", "未找到有效的上課期別代碼")
             return
 
-        # 构造文件名
         filename = f"400032{latest_term_class_code}_E.csv"
-
-        # 打开文件对话框
         file_path = filedialog.asksaveasfilename(defaultextension=".csv", initialfile=filename)
         if not file_path:
-            return  # 用户取消了保存
+            return
 
-        # 查询所有需要导出的数据
         cursor.execute("""
-            SELECT s.register_term, s.national_id_no, s.birth_date, s.driving_test_group, 
+            SELECT s.student_term_class_code, s.register_term, s.national_id_no, s.birth_date, s.driving_test_group, 
                    s.road_test_date, s.driving_test_number, s.road_test_items_type
             FROM student s
             WHERE s.road_test_date IS NOT NULL
@@ -85,71 +79,71 @@ def export_driving_test_data(database_path):
         """)
         data = cursor.fetchall()
 
-        # 写入CSV文件
         with open(file_path, 'w', newline='', encoding='utf-8-sig') as csvfile:
             writer = csv.writer(csvfile)
             for row in data:
-                # 确保每个字段都有值，如果为None则替换为空字符串
-                processed_row = [str(item) if item is not None else '' for item in row]
+                student_term_class_code = row[0]
+                if student_term_class_code:
+                    # 找到第一個字母的位置
+                    alpha_index = next((i for i, c in enumerate(student_term_class_code) if c.isalpha()), None)
+                    if alpha_index is not None:
+                        # 保留到字母（包括字母）
+                        student_term_class_code = student_term_class_code[:alpha_index+1]
+                processed_row = [student_term_class_code] + [str(item) if item is not None else '' for item in row[1:]]
                 writer.writerow(processed_row)
 
         messagebox.showinfo("成功", f"文件已成功匯出至 {file_path}")
 
     except Exception as e:
-        messagebox.showerror("错误", f"匯出文件發生錯誤：{str(e)}")
-        print(f"错误详情: {e}")  # 打印详细错误信息
+        messagebox.showerror("錯誤", f"匯出文件發生錯誤：{str(e)}")
 
     finally:
         if conn:
             conn.close()
 
-
-# 筆試清冊匯出csv
 def export_written_exam_roster(database_path):
     try:
-        # 连接到数据库
         conn = sqlite3.connect(database_path)
         cursor = conn.cursor()
 
-        # 获取最新的上课期别代码
         cursor.execute("SELECT MAX(term_class_code) FROM annual_plan")
         latest_term_class_code = cursor.fetchone()[0]
 
         if not latest_term_class_code:
-            messagebox.showerror("错误", "未找到有效的上课期别代碼")
+            messagebox.showerror("錯誤", "未找到有效的上課期別代碼")
             return
 
-        # 构造文件名
         filename = f"400032{latest_term_class_code}_D.csv"
-
-        # 打开文件对话框
         file_path = filedialog.asksaveasfilename(defaultextension=".csv", initialfile=filename)
         if not file_path:
-            return  # 用户取消了保存
+            return
 
-        # 查询所有需要导出的数据
         cursor.execute("""
-            SELECT s.register_term, s.national_id_no, s.birth_date, s.driving_test_group, 
-                   s.road_test_date, s.driving_test_number
+            SELECT s.student_term_class_code, s.register_term, s.national_id_no, s.birth_date, s.driving_test_group, 
+                   s.written_exam_date, s.driving_test_number
             FROM student s
-            WHERE s.road_test_date IS NOT NULL
+            WHERE s.written_exam_date IS NOT NULL
             ORDER BY s.register_term, s.driving_test_number
         """)
         data = cursor.fetchall()
 
-        # 写入CSV文件
         with open(file_path, 'w', newline='', encoding='utf-8-sig') as csvfile:
             writer = csv.writer(csvfile)
             for row in data:
-                # 确保每个字段都有值，如果为None则替换为空字符串
-                processed_row = [str(item) if item is not None else '' for item in row]
+                student_term_class_code = row[0]
+                if student_term_class_code:
+                    # 找到第一個字母的位置
+                    alpha_index = next((i for i, c in enumerate(student_term_class_code) if c.isalpha()), None)
+                    if alpha_index is not None:
+                        # 保留到字母（包括字母）
+                        student_term_class_code = student_term_class_code[:alpha_index+1]
+                processed_row = [student_term_class_code] + [str(item) if item is not None else '' for item in row[1:]]
                 writer.writerow(processed_row)
 
         messagebox.showinfo("成功", f"文件已成功匯出至 {file_path}")
 
     except Exception as e:
-        messagebox.showerror("错误", f"匯出文件發生錯誤：{str(e)}")
-        print(f"错误详情: {e}")  # 打印详细错误信息
+        messagebox.showerror("錯誤", f"匯出文件發生錯誤：{str(e)}")
 
     finally:
         if conn:
