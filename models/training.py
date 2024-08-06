@@ -165,6 +165,7 @@ def export_selected_data(treeview):
         transmission_type_code = str(item_values[5])  # 獲取手自排類別編號
         instructor_number = str(item_values[6]).zfill(3) # 獲取教練編號
         training_type_code = str(item_values[13]) # 獲取訓練班別代號
+        # student_term_class_code = str(item_values[45])
 
         # 獲取教練身分證號碼和出生日期
         conn = sqlite3.connect(database_path)
@@ -179,7 +180,7 @@ def export_selected_data(treeview):
             instructor_national_id_no, instructor_birth_date = "", ""
 
 
-        data.append(f"{national_id_no},{birth_date},{student_name},{mobile_phone},{register_number},{exam_code},{transmission_type_code},{instructor_national_id_no},{instructor_birth_date}")
+        data.append(f"{national_id_no},{birth_date},{student_name},{mobile_phone},0{training_type_code}{register_number},{exam_code},{transmission_type_code},{instructor_national_id_no},{instructor_birth_date}")
     
     if register_number is not None:
         # 找到第一個字母的位置
