@@ -6,6 +6,9 @@ import customtkinter as ctk
 from tkinter import messagebox
 
 
+is_editing = False
+current_instructor_number = None
+
 def instructor_all(content):
     clear_frame(content)
 

@@ -267,8 +267,8 @@ def written_exam_roster(content):
         ))
 
     # 新增按鈕
-    add_btn(written_exam_roster, text='新增道考清冊', command=save_student_data).grid(row=8, column=1, sticky='wen', padx=(10,0), pady=(20,0))
+    add_btn(written_exam_roster, text='新增筆試清冊', command=save_student_data).grid(row=8, column=1, sticky='wen', padx=(10,0), pady=(20,0))
     # 列印按鈕
-    print_btn(written_exam_roster, text='列印場考清冊', command=lambda: None).grid(row=8, column=2, sticky='wen', padx=(10,0), pady=(20,0))
+    print_btn(written_exam_roster, text='列印筆試清冊', command=lambda: None).grid(row=8, column=2, sticky='wen', padx=(10,0), pady=(20,0))
     # 匯出按鈕
-    export_btn(written_exam_roster, text='匯出文件', command=lambda: export_written_exam_roster(database_path)).grid(row=8, column=3, sticky='wen', padx=10, pady=(20,0))
+    export_btn(written_exam_roster, text='匯出 筆試清冊 文件', command=lambda: export_written_exam_roster(database_path)).grid(row=8, column=3, sticky='wen', padx=10, pady=(20,0))

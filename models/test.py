@@ -118,12 +118,19 @@ def export_written_exam_roster(database_path):
         if not file_path:
             return
 
+        # cursor.execute("""
+        #     SELECT s.student_term_class_code, s.register_term, s.national_id_no, s.birth_date, s.driving_test_group, 
+        #            s.written_exam_date, s.driving_test_number
+        #     FROM student s
+        #     WHERE s.written_exam_date IS NOT NULL
+        #     ORDER BY s.register_term, s.driving_test_number
+        # """)
         cursor.execute("""
-            SELECT s.student_term_class_code, s.register_term, s.national_id_no, s.birth_date, s.driving_test_group, 
+            SELECT s.student_term_class_code, s.national_id_no, s.birth_date, s.driving_test_group, 
                    s.written_exam_date, s.driving_test_number
             FROM student s
             WHERE s.written_exam_date IS NOT NULL
-            ORDER BY s.register_term, s.driving_test_number
+            ORDER BY s.driving_test_number
         """)
         data = cursor.fetchall()
 
@@ -140,7 +147,8 @@ def export_written_exam_roster(database_path):
                 processed_row = [student_term_class_code] + [str(item) if item is not None else '' for item in row[1:]]
                 writer.writerow(processed_row)
 
-        messagebox.showinfo("成功", f"文件已成功匯出至 {file_path}")
+        # messagebox.showinfo("成功", f"文件已成功匯出至 {file_path}")
+        messagebox.showinfo("成功", f"文件已成功匯出")
 
     except Exception as e:
         messagebox.showerror("錯誤", f"匯出文件發生錯誤：{str(e)}")

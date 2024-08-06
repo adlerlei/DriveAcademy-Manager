@@ -276,8 +276,8 @@ def  driving_test_roster(content):
         ))
 
     # 新增按鈕
-    add_btn(driving_test_roster, text='新增道考清冊', command=save_student_data).grid(row=8, column=1, sticky='wen', padx=(10,0), pady=(20,0))
+    add_btn(driving_test_roster, text='新增場考清冊', command=save_student_data).grid(row=8, column=1, sticky='wen', padx=(10,0), pady=(20,0))
     # 列印按鈕
     print_btn(driving_test_roster, text='列印場考清冊', command=lambda: None).grid(row=8, column=2, sticky='wen', padx=(10,0), pady=(20,0))
     # 匯出按鈕
-    export_btn(driving_test_roster, text='匯出文件', command=lambda: export_driving_test_data(database_path)).grid(row=8, column=3, sticky='wen', padx=10, pady=(20,0))
+    export_btn(driving_test_roster, text='匯出 場考清冊 文件', command=lambda: export_driving_test_data(database_path)).grid(row=8, column=3, sticky='wen', padx=10, pady=(20,0))

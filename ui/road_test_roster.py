@@ -277,4 +277,4 @@ def  road_test_roster(content):
     # 新增按鈕
     add_btn(road_test_roster, text='新增道考清冊', command=save_student_data).grid(row=8, column=2, sticky='wen', padx=(10,0), pady=(20,0))
     # 列印按鈕
-    print_btn(road_test_roster, text='列印場考清冊', command=lambda: None).grid(row=8, column=3, sticky='wen', padx=10, pady=(20,0))
+    print_btn(road_test_roster, text='列印道考清冊', command=lambda: None).grid(row=8, column=3, sticky='wen', padx=10, pady=(20,0))
