@@ -72,31 +72,28 @@ CREATE TABLE IF NOT EXISTS student (
 
 -- 教練資料表
 CREATE TABLE IF NOT EXISTS instructor (
-    id INTEGER PRIMARY KEY AUTOINCREMENT, -- id主鍵自增
-    number VARCHAR, -- 教練編號
-    name VARCHAR, -- 教練姓名
-    national_id_no VARCHAR, -- 身份證號
-    birth_date VARCHAR, -- 出生日期
-    home_phone VARCHAR, -- 住宅電話
-    mobile_phone VARCHAR, -- 手機號碼
-    email VARCHAR, -- 電子郵箱
-    
-    r_address_zip_code VARCHAR, -- 戶籍地址郵遞區號
-    r_address_city VARCHAR, -- 戶籍地址縣市區域
-    r_address VARCHAR, -- 戶籍地址
-
-    m_address_zip_code VARCHAR, -- 通訊地址郵遞區號
-    m_address_city VARCHAR, -- 通訊地址縣市區域
-    m_address VARCHAR, -- 通訊地址
-
-    instructor_license_number VARCHAR, -- 教練證號碼
-    driving_license_category VARCHAR, -- 駕照類別
-    driving_license_number VARCHAR, -- 駕照號碼
-    base_salary INTEGER, -- 基本薪資
-    start_date VARCHAR, -- 入職日期
-    end_date VARCHAR, -- 離職日期
-    remarks TEXT, -- 備註
-    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- 建檔時間
+    id INTEGER PRIMARY KEY AUTOINCREMENT, -- id主鍵自增0
+    number VARCHAR, -- 教練編號1
+    name VARCHAR, -- 教練姓名2
+    national_id_no VARCHAR, -- 身份證號3
+    birth_date VARCHAR, -- 出生日期4
+    home_phone VARCHAR, -- 住宅電話5
+    mobile_phone VARCHAR, -- 手機號碼6
+    email VARCHAR, -- 電子郵箱7
+    r_address_zip_code VARCHAR, -- 戶籍地址郵遞區號8
+    r_address_city VARCHAR, -- 戶籍地址縣市區域9
+    r_address VARCHAR, -- 戶籍地址10
+    m_address_zip_code VARCHAR, -- 通訊地址郵遞區號11
+    m_address_city VARCHAR, -- 通訊地址縣市區域12
+    m_address VARCHAR, -- 通訊地址13
+    instructor_license_number VARCHAR, -- 教練證號碼14
+    driving_license_category VARCHAR, -- 駕照類別15
+    driving_license_number VARCHAR, -- 駕照號碼16
+    base_salary INTEGER, -- 基本薪資17
+    start_date VARCHAR, -- 入職日期18
+    end_date VARCHAR, -- 離職日期19
+    remarks TEXT, -- 備註20
+    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- 建檔時間21
 );
 
 -- 管理員註冊資料表

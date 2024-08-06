@@ -5,7 +5,6 @@ from models.instructor import *
 import customtkinter as ctk
 from tkinter import messagebox
 
-
 is_editing = False
 current_instructor_number = None
 
@@ -24,6 +23,7 @@ def instructor_all(content):
     label(instructor_all, text="教練編號").grid(row=0, column=0, sticky='ws', padx=(10,0), pady=(10,0))
     number = entry(instructor_all)
     number.grid(row=1, column=0, sticky='wen', padx=(10,0))
+    number.bind("<KeyRelease>", lambda event: populate_instructor_data('number', number.get()))
 
     # 教練姓名1
     label(instructor_all, text="教練姓名").grid(row=0, column=1, sticky='ws', padx=(10,0), pady=(10,0))
@@ -132,13 +132,6 @@ def instructor_all(content):
         selected_number = next((number for number, city in address_dict.items() if city == select_city), "")
         m_address_number.set(selected_number)
 
-    # 新增
-    add_btn(instructor_all, text="新增", command=lambda: print("新增")).grid(row=13, column=1, sticky='wen', padx=10, pady=10)
-    # 修改
-    modify_btn(instructor_all, text="修改", command=lambda: print("修改")).grid(row=13, column=2, sticky='wen', padx=10, pady=10)
-    # 刪除
-    delete_btn(instructor_all, text="刪除", command=lambda: print("刪除")).grid(row=13, column=3, sticky='wen', padx=10, pady=10)
-
     # 資料顯示區
     treeview_values = [
         'instructor_num',
@@ -195,10 +188,7 @@ def instructor_all(content):
     data_list.column('m_address', width=100, anchor=CENTER)
 
     data_list.grid(row=14, column=0, columnspan=4, sticky='nsew', padx=10, pady=10)
-
-    for i in range(100):
-        data_list.insert("", "end", values=(f"202{i % 10}", f"張{i}", f"A{i}", f"202{i % 10}-01-01", f"男", f"02{i % 10}", f"09{i % 10}", f"test{i}@gmail.com", f"台北市", f"台北市"))
-
+    
     # 創建水平捲軸
     h_scrollbar = ttk.Scrollbar(instructor_all, orient="horizontal", command=data_list.xview)
     data_list.configure(xscrollcommand=h_scrollbar.set)
@@ -217,3 +207,159 @@ def instructor_all(content):
     instructor_all.grid_columnconfigure(1, weight=1)
     instructor_all.grid_columnconfigure(2, weight=1)
     instructor_all.grid_columnconfigure(3, weight=1)
+
+    # 邏輯功能區
+    def populate_instructor_data(identifier, value):
+        global is_editing, current_instructor_number
+        # 監聽教練編號輸入框，如果教練編號为空，则清空所有输入框
+        if identifier == 'number' and value == '':
+            clear_entries_and_comboboxes(instructor_all)
+        else:
+            instructor_data = get_instructor_data(identifier, value)
+            if instructor_data:
+                is_editing = True
+                current_instructor_number = instructor_data[0]
+                number.delete(0, ctk.END)
+                number.insert(0, instructor_data[1])
+                name.delete(0, ctk.END)
+                name.insert(0, instructor_data[2])
+                national_id_no.delete(0, ctk.END)
+                national_id_no.insert(0, instructor_data[3])
+                birth_date.delete(0, ctk.END)
+                birth_date.insert(0, instructor_data[4])
+                home_phone.delete(0, ctk.END)
+                home_phone.insert(0, instructor_data[5])
+                mobile_phone.delete(0, ctk.END)
+                mobile_phone.insert(0, instructor_data[6])
+                email.delete(0, ctk.END)
+                email.insert(0, instructor_data[7])
+                instructor_license_number.delete(0, ctk.END)
+                instructor_license_number.insert(0, instructor_data[14])
+                driving_license_category.set(str(instructor_data[15]) if instructor_data[15] is not None else "")
+                driving_license_number.delete(0, ctk.END)
+                driving_license_number.insert(0, instructor_data[16])
+                base_salary.delete(0, ctk.END)
+                base_salary.insert(0, instructor_data[17])
+                start_date.delete(0, ctk.END)
+                start_date.insert(0, instructor_data[18])
+                end_date.delete(0, ctk.END)
+                end_date.insert(0, instructor_data[19])
+                remarks.delete(0, ctk.END)
+                remarks.insert(0, instructor_data[20])
+                r_address_zip_code.set(instructor_data[8])
+                r_address_city.set(instructor_data[9])
+                r_address.delete(0, ctk.END)
+                r_address.insert(0, instructor_data[10])
+                m_address_zip_code.set(instructor_data[11]) 
+                m_address_city.set(instructor_data[12])  
+                m_address.delete(0, ctk.END)
+                m_address.insert(0, instructor_data[13])          
+            else:
+                is_editing = False
+                current_instructor_number = None
+
+    def save_instructor_data():
+        global is_editing, current_instructor_number
+        instructor_data = {
+            'number': number.get(), # 教練編號1
+            'name': name.get(), # 教練姓名2
+            'national_id_no': national_id_no.get(), # 身分證號碼3
+            'birth_date': birth_date.get(), # 出生日期4
+            'home_phone': home_phone.get(), # 市內電話5
+            'mobile_phone': mobile_phone.get(), # 手機6
+            'email': email.get(), # 電子郵件7
+            'instructor_license_number': instructor_license_number.get(), # 教練證號
+            'driving_license_category': driving_license_category.get(), # 駕照類別
+            'driving_license_number': driving_license_number.get(), # 駕照號碼
+            'base_salary': base_salary.get(), # 基本薪資
+            'start_date': start_date.get(), # 入職日期
+            'end_date': end_date.get(), # 離職日期
+            'remarks': remarks.get(), # 備註
+            'r_address_zip_code': r_address_zip_code.get(), # 戶籍地址郵遞區號
+            'r_address_city': r_address_city.get(), # 戶籍地址縣市區域
+            'r_address': r_address.get(), # 戶籍地址
+            'm_address_zip_code': m_address_zip_code.get(), # 通訊地址郵遞區號
+            'm_address_city': m_address_city.get(), # 通訊地址縣市區域
+            'm_address': m_address.get(), # 通訊地址
+        }
+
+        if is_editing:
+            messagebox.showinfo('提示', '請使用 "修改" 功能來更新教練資料。')
+            return
+
+        insert_instructor_data(instructor_data)
+        update_treeview()
+        clear_entries_and_comboboxes(instructor_all)
+
+    def update_instructor():
+        global is_editing, current_instructor_number
+        instructor_data = {
+            'number': number.get(), # 教練編號1
+            'name': name.get(), # 教練姓名2
+            'national_id_no': national_id_no.get(), # 身分證號碼3
+            'birth_date': birth_date.get(), # 出生日期4
+            'home_phone': home_phone.get(), # 市內電話5
+            'mobile_phone': mobile_phone.get(), # 手機6
+            'email': email.get(), # 電子郵件7
+            'instructor_license_number': instructor_license_number.get(), # 教練證號
+            'driving_license_category': driving_license_category.get(), # 駕照類別
+            'driving_license_number': driving_license_number.get(), # 駕照號碼
+            'base_salary': base_salary.get(), # 基本薪資
+            'start_date': start_date.get(), # 入職日期
+            'end_date': end_date.get(), # 離職日期
+            'remarks': remarks.get(), # 備註
+            'r_address_zip_code': r_address_zip_code.get(), # 戶籍地址郵遞區號
+            'r_address_city': r_address_city.get(), # 戶籍地址縣市區域
+            'r_address': r_address.get(), # 戶籍地址
+            'm_address_zip_code': m_address_zip_code.get(), # 通訊地址郵遞區號
+            'm_address_city': m_address_city.get(), # 通訊地址縣市區域
+            'm_address': m_address.get(), # 通訊地址
+            'id': current_instructor_number
+        }
+
+        if current_instructor_number is None:
+            messagebox.showwarning('提示', '請先搜尋需要修改的教練資料。')
+            return
+        else:
+            update_instructor_data(instructor_data)
+        # is_editing = False
+        # current_instructor_number = None
+        update_treeview()
+
+
+
+    def delete_instructor():
+        global is_editing, current_instructor_number
+        if current_instructor_number:
+            confirm = messagebox.askyesno('確認', '確定要刪除此教練資料嗎？此操作無法撤銷。')
+            if confirm:
+                delete_instructor_data(current_instructor_number)
+                update_treeview()
+                is_editing = False
+                current_instructor_number = None
+        else:
+            messagebox.showwarning('提示', '請先搜尋需要刪除的教練資料。')
+
+
+    def update_treeview():
+        # 清空現有數據
+        data_list.delete(*data_list.get_children())
+        
+        # 從資料庫獲取所有教練資料
+        conn = sqlite3.connect(database_path)
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM instructor")
+        instructors = cursor.fetchall()
+        conn.close() 
+
+        # 將教練資料插入 Treeview
+        for instructor in instructors:
+            data_list.insert("", "end", values=instructor[1:])  # 假设第一个字段是 id，我们不显示
+
+    # 修改按钮配置
+    add_btn(instructor_all, text="新增", command=save_instructor_data).grid(row=13, column=1, sticky='wen', padx=10, pady=10)
+    modify_btn(instructor_all, text="修改", command=update_instructor).grid(row=13, column=2, sticky='wen', padx=10, pady=10)
+    delete_btn(instructor_all, text="刪除", command=delete_instructor).grid(row=13, column=3, sticky='wen', padx=10, pady=10)
+
+    # 初始化 Treeview
+    update_treeview()

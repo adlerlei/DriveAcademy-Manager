@@ -346,7 +346,7 @@ def student_all(content):
             'remarks': remarks.get(),
             'm_address_zip_code': m_address_zip_code.get(),
             'm_address_city': m_address_city.get(),
-            'm_address': m_address.get()
+            'm_address': m_address.get(),
         }
 
 
@@ -411,10 +411,11 @@ def student_all(content):
         if current_student_id is None:
             messagebox.showwarning('提示', '請先查詢並選擇要修改的學員資料。')
             return
-
-        update_student_data(student_data)
-        is_editing = False
-        current_student_id = None
+        else:
+            update_student_data(student_data)
+        
+        # is_editing = False
+        # current_student_id = None
 
 
         # 需要保留的 entry 列表，clear_entries_and_comboboxes 函式中的參數之一 ###

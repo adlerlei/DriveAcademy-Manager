@@ -67,7 +67,10 @@ def get_instructor_data(identifier, value):
     result = cursor.fetchone()
     
     conn.close()
-    return result
+    if result:
+        # 确保返回所有字段，如果某些字段为 None，用空字符串替代
+        return tuple('' if v is None else v for v in result)
+    return None
 
 # 更新教練資料資料庫
 def update_instructor_data(data):
@@ -76,16 +79,27 @@ def update_instructor_data(data):
 
     cursor.execute('''
         UPDATE instructor SET
-            name = :name, national_id_no = :national_id_no, birth_date = :birth_date,
-            home_phone = :home_phone, mobile_phone = :mobile_phone, email = :email,
-            r_address_zip_code = :r_address_zip_code, r_address_city = :r_address_city,
-            r_address = :r_address, m_address_zip_code = :m_address_zip_code,
-            m_address_city = :m_address_city, m_address = :m_address,
+            number = :number, -- 教練編號
+            name = :name, -- 教練姓名
+            national_id_no = :national_id_no, -- 身分證號碼
+            birth_date = :birth_date, -- 出生日期
+            home_phone = :home_phone, -- 市內電話
+            mobile_phone = :mobile_phone, -- 手機號碼
+            email = :email, -- 信箱
+            r_address_zip_code = :r_address_zip_code, 
+            r_address_city = :r_address_city,
+            r_address = :r_address, 
+            m_address_zip_code = :m_address_zip_code,
+            m_address_city = :m_address_city, 
+            m_address = :m_address,
             instructor_license_number = :instructor_license_number,
             driving_license_category = :driving_license_category,
-            driving_license_number = :driving_license_number, base_salary = :base_salary,
-            start_date = :start_date, end_date = :end_date, remarks = :remarks
-        WHERE number = :number
+            driving_license_number = :driving_license_number, 
+            base_salary = :base_salary,
+            start_date = :start_date, 
+            end_date = :end_date, 
+            remarks = :remarks
+        WHERE id = :id
     ''', data)
 
     conn.commit()
@@ -97,7 +111,7 @@ def delete_instructor_data(instructor_number):
     conn = sqlite3.connect(database_path)
     cursor = conn.cursor()
 
-    cursor.execute('DELETE FROM instructor WHERE number = ?', (instructor_number,))
+    cursor.execute('DELETE FROM instructor WHERE id = ?', (instructor_number,))
 
     conn.commit()
     conn.close()
