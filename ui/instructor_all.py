@@ -368,7 +368,7 @@ def instructor_all(content):
         cursor = conn.cursor()
         cursor.execute("SELECT * FROM instructor")
         instructors = cursor.fetchall()
-        conn.close() 
+        conn.close()
 
         # 將教練資料插入 Treeview
         for instructor in instructors:
