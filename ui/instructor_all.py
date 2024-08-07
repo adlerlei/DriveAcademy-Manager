@@ -21,7 +21,7 @@ def instructor_all(content):
 
     # 教練編號0
     label(instructor_all, text="教練編號").grid(row=0, column=0, sticky='ws', padx=(10,0), pady=(10,0))
-    number = entry(instructor_all)
+    number = entry(instructor_all, placeholder_text='輸入教練編號查詢')
     number.grid(row=1, column=0, sticky='wen', padx=(10,0))
     number.bind("<KeyRelease>", lambda event: populate_instructor_data('number', number.get()))
 
@@ -65,6 +65,7 @@ def instructor_all(content):
     label(instructor_all, text="駕照類別").grid(row=4, column=0, sticky='ws', padx=(10,0), pady=(10,0))
     driving_license_category = combobox(instructor_all, values = ['自用小客車', '職業小客車', '自用大貨車', '職業大貨車', '自用大客車', '職業大客車', '自用聯結車', '職業聯結車'])
     driving_license_category.grid(row=5, column=0, sticky='wen', padx=(10,0))
+    driving_license_category.set("")
 
     # 駕照號碼1
     label(instructor_all, text="駕照號碼").grid(row=4, column=1, sticky='ws', padx=(10,0), pady=(10,0))
@@ -134,13 +135,19 @@ def instructor_all(content):
 
     # 資料顯示區
     treeview_values = [
-        'instructor_num',
+        'number',
         'name',
         'national_id_no',
         'birth_date',
         'home_phone',
         'mobile_phone',
         'email',
+        'r_address_zip_code',
+        'r_address_city',
+        'r_address',
+        'm_address_zip_code',
+        'm_address_city',
+        'm_address',
         'instructor_id',
         'license_type',
         'license_number',
@@ -148,18 +155,23 @@ def instructor_all(content):
         'hire_date',
         'leave_date',
         'remarks',
-        'm_address_city',
-        'm_address'
+        'creation_date'
     ]
     data_list = ttk.Treeview(instructor_all, columns=treeview_values, show='headings')
 
-    data_list.heading('instructor_num', text='教練編號')
+    data_list.heading('number', text='教練編號')
     data_list.heading('name', text='姓名')
     data_list.heading('national_id_no', text='身分證')
     data_list.heading('birth_date', text='出生日期')
     data_list.heading('home_phone', text='市話')
     data_list.heading('mobile_phone', text='手機')
     data_list.heading('email', text='電子郵件')
+    data_list.heading('r_address_zip_code', text="戶籍區號")
+    data_list.heading('r_address_city', text="戶籍縣市")
+    data_list.heading('r_address', text="戶籍地址")
+    data_list.heading('m_address_zip_code', text='通訊區號')
+    data_list.heading('m_address_city', text='通訊縣市')
+    data_list.heading('m_address', text='通訊地址')
     data_list.heading('instructor_id', text='教練證號碼')
     data_list.heading('license_type', text='駕照類別')
     data_list.heading('license_number', text='駕照號碼')
@@ -167,25 +179,29 @@ def instructor_all(content):
     data_list.heading('hire_date', text='入職日期')
     data_list.heading('leave_date', text='離職日期')
     data_list.heading('remarks', text='備註')
-    data_list.heading('m_address_city', text='居住地')
-    data_list.heading('m_address', text='通訊地址')
+    data_list.heading('creation_date', text='建檔日期')
 
-    data_list.column('instructor_num', width=50, anchor=CENTER)
+    data_list.column('number', width=50, anchor=CENTER)
     data_list.column('name', width=70, anchor=CENTER)
     data_list.column('national_id_no', width=100, anchor=CENTER)
     data_list.column('birth_date', width=70, anchor=CENTER)
     data_list.column('home_phone', width=70, anchor=CENTER)
     data_list.column('mobile_phone', width=70, anchor=CENTER)
     data_list.column('email', width=100, anchor=CENTER)
-    data_list.column('instructor_id', width=100, anchor=CENTER)
-    data_list.column('license_type', width=100, anchor=CENTER)
-    data_list.column('license_number', width=100, anchor=CENTER)
-    data_list.column('basic_salary', width=70, anchor=CENTER)
-    data_list.column('hire_date', width=70, anchor=CENTER)
-    data_list.column('leave_date', width=70, anchor=CENTER)
-    data_list.column('remarks', width=100, anchor=CENTER)
+    data_list.column('r_address_zip_code', width=50, anchor=CENTER)
+    data_list.column('r_address_city', width=50, anchor=CENTER)
+    data_list.column('r_address', width=150, anchor=CENTER)
+    data_list.column('m_address_zip_code', width=50, anchor=CENTER)
     data_list.column('m_address_city', width=50, anchor=CENTER)
-    data_list.column('m_address', width=100, anchor=CENTER)
+    data_list.column('m_address', width=150, anchor=CENTER)
+    data_list.column('instructor_id', width=60, anchor=CENTER)
+    data_list.column('license_type', width=70, anchor=CENTER)
+    data_list.column('license_number', width=70, anchor=CENTER)
+    data_list.column('basic_salary', width=50, anchor=CENTER)
+    data_list.column('hire_date', width=50, anchor=CENTER)
+    data_list.column('leave_date', width=50, anchor=CENTER)
+    data_list.column('remarks', width=100, anchor=CENTER)
+    data_list.column('creation_date', width=100, anchor=CENTER)
 
     data_list.grid(row=14, column=0, columnspan=4, sticky='nsew', padx=10, pady=10)
     
@@ -324,6 +340,7 @@ def instructor_all(content):
             update_instructor_data(instructor_data)
         # is_editing = False
         # current_instructor_number = None
+        clear_entries_and_comboboxes(instructor_all)
         update_treeview()
 
 
@@ -339,6 +356,7 @@ def instructor_all(content):
                 current_instructor_number = None
         else:
             messagebox.showwarning('提示', '請先搜尋需要刪除的教練資料。')
+        clear_entries_and_comboboxes(instructor_all)
 
 
     def update_treeview():
