@@ -302,10 +302,16 @@ def instructor_all(content):
         if is_editing:
             messagebox.showinfo('提示', '請使用 "修改" 功能來更新教練資料。')
             return
-
-        insert_instructor_data(instructor_data)
-        update_treeview()
-        clear_entries_and_comboboxes(instructor_all)
+        
+        # 判斷 instructor_data 是否為空值
+        if not any(instructor_data.values()):
+            messagebox.showwarning('提示', '您沒有任何資料可以儲存！')
+            return
+        else:      
+            # 如果是編輯模式，更新教練資料
+            insert_instructor_data(instructor_data)
+            update_treeview()
+            clear_entries_and_comboboxes(instructor_all)
 
     def update_instructor():
         global is_editing, current_instructor_number
@@ -336,10 +342,10 @@ def instructor_all(content):
         if current_instructor_number is None:
             messagebox.showwarning('提示', '請先搜尋需要修改的教練資料。')
             return
-        else:
-            update_instructor_data(instructor_data)
-        # is_editing = False
-        # current_instructor_number = None
+        
+        update_instructor_data(instructor_data)
+        is_editing = False
+        current_instructor_number = None
         clear_entries_and_comboboxes(instructor_all)
         update_treeview()
 
