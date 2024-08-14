@@ -10,29 +10,29 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 
 def print_written_exam_roster(treeview):
-    # 获取treeview中的数据
+    # 讀取 treeview 數據資料
     data = [['序號', '姓名', '出生日期', '筆試', '路試', '身分證字號', '備註']]
     for item in treeview.get_children():
         values = treeview.item(item)['values']
         data.append([
-            str(values[0]),  # 号码
-            str(values[4]),  # 学员姓名
-            str(values[6]),  # 出生日期
-            '',              # 笔试（留空）
-            '',              # 路试（留空）
-            str(values[5]),  # 身份证号码
-            str(values[1])   # 名册号码作为备注
+            str(values[0]),  # 學生編號
+            str(values[4]),  # 學生姓名
+            str(values[6]),  # 生日
+            '',              # 筆試（留空）
+            '',              # 路試（留空）
+            str(values[5]),  # 身分證號碼
+            str(values[1])   # 名冊號碼
         ])
 
-    # 创建临时PDF文件
+    # 創建臨時PDF文件
     with tempfile.NamedTemporaryFile(delete=False, suffix='.pdf', mode='wb') as temp_pdf_file:
         temp_pdf_path = temp_pdf_file.name
 
-    # 使用系统默认字体
+    # 使用系统默認字體
     default_font = 'Helvetica'
     default_bold_font = 'Helvetica-Bold'
 
-    # 如果是macOS，尝试使用内建中文字体
+    # 如果是macOS，使用内建中文字體
     if platform.system() == 'Darwin':
         chinese_fonts = [
             ('/System/Library/Fonts/PingFang.ttc', 'PingFang'),
@@ -51,15 +51,15 @@ def print_written_exam_roster(treeview):
         else:
             print("无法加载任何中文字体，将使用默认字体。中文可能无法正确显示。")
 
-    # 创建PDF文档，明确指定A4大小
+    # 創建PDF，指定A4大小
     doc = SimpleDocTemplate(temp_pdf_path, pagesize=A4)
 
-    # 创建样式
+    # 創建 pdf 樣式表格
     styles = getSampleStyleSheet()
     styles['Normal'].fontName = default_font
     styles['Heading1'].fontName = default_bold_font
 
-    # 创建表格
+    # 創建表格
     table_data = [[Paragraph(str(cell), styles['Normal']) for cell in row] for row in data]
     table = Table(table_data)
     style = TableStyle([
@@ -74,7 +74,7 @@ def print_written_exam_roster(treeview):
     ])
     table.setStyle(style)
 
-    # 构建PDF内容
+    # 構建PDF内容
     elements = []
     elements.append(Paragraph('監理所（站）汽車駕駛人考驗記錄清冊', styles['Heading1']))
     elements.append(table)
@@ -83,28 +83,28 @@ def print_written_exam_roster(treeview):
     doc.build(elements)
     print(f"PDF文件已生成: {temp_pdf_path}")
 
-    # 根据操作系统选择打印方法
+    # 根據不同的作業系統選擇列印方式
     system = platform.system()
     if system == "Darwin":  # macOS
         try:
-            # 使用 lpr 命令打印，指定 A4 纸张大小
+            # 使用 lpr 打印，指定 A4 紙張大小
             subprocess.run(["lpr", "-o", "media=A4", temp_pdf_path], check=True)
-            print("文档已发送至默认打印机，指定使用A4纸张。请检查您的打印机。")
+            print("文件已經發送至系統默認印表機，指定A4紙張，請檢查你的列表機。")
         except subprocess.CalledProcessError:
-            print("打印文档失败。请检查您的打印机设置。")
+            print("列印文件失敗，請檢查你的列表機設置。")
     elif system == "Windows":
         try:
-            # 在 Windows 上，我们无法直接通过命令行指定纸张大小
-            # 但是 PDF 本身已经设置为 A4 大小，大多数打印机应该会遵循这个设置
+            # Windows 無法通过命令行指定紙張大小
+            # pdf預設為A4
             os.startfile(temp_pdf_path, "print")
-            print("打印对话框应该已经打开。PDF已设置为A4大小，请确保打印机设置正确。")
+            print("列印對話框應該已經打開，PDF已設置為A4大小，請確保列表機設置正確。")
         except AttributeError:
-            print("无法直接打印。正在使用默认PDF查看器打开文件。")
+            print("無法直接列印，正在使用默認PDF查看器打開文件。")
             os.startfile(temp_pdf_path)
     else:
         print(f"不支持的操作系统: {system}")
-        print(f"请手动打开并打印文件: {temp_pdf_path}")
+        print(f"請手動打開並且列印文件: {temp_pdf_path}")
 
     # 删除临时文件
     os.unlink(temp_pdf_path)
-    print("临时文件已删除。")
+    print("臨時文件已經刪除")
