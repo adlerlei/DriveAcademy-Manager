@@ -2,6 +2,7 @@
 from utils.widget import *
 from utils.config import *
 from models.test import *
+from models.print import *
 import customtkinter as ctk
 from tkinter import messagebox
 
@@ -266,25 +267,12 @@ def written_exam_roster(content):
             student_data['birth_date']
         ))
 
+    def on_print_button_click():
+        print_written_exam_roster(data_list)
+
     # 新增按鈕
     add_btn(written_exam_roster, text='新增筆試清冊', command=save_student_data).grid(row=8, column=1, sticky='wen', padx=(10,0), pady=(20,0))
     # 列印按鈕
-    print_btn(written_exam_roster, text='列印筆試清冊', command=lambda: None).grid(row=8, column=2, sticky='wen', padx=(10,0), pady=(20,0))
+    print_btn(written_exam_roster, text='列印筆試清冊', command=on_print_button_click).grid(row=8, column=2, sticky='wen', padx=(10,0), pady=(20,0))
     # 匯出按鈕
     export_btn(written_exam_roster, text='匯出 筆試清冊 文件', command=lambda: export_written_exam_roster(database_path)).grid(row=8, column=3, sticky='wen', padx=10, pady=(20,0))
-
-# 我想使用
-
-# python生成html報表
-
-# 提供預覽窗口
-
-# 不使用瀏覽器的列印功能，而是預覽的時候可以直接列印報表
-
-# 我的報表需要輸出 treeview 中的以下欄位信息：
-
-# 監理站報表：序號(抓取該學員的號碼) / 姓名 / 出生日期  /  筆試(留空暫時不需資料) / 路試(留空暫時不需資料) / 學員身分證號 / 備註(該欄位需抓取該名學員的名冊號碼)
-
-# 駕訓班自用：號碼 / 姓名 / 出生日期  / 車號(只需暫時打印000三個數字即可) / 備註(該欄位需抓取該名學員的名冊號碼)
-
-# 我需要使用
