@@ -8,6 +8,8 @@ from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
+import time
+import threading
 
 def print_written_exam_roster(treeview):
     # 讀取 treeview 數據資料
@@ -28,32 +30,32 @@ def print_written_exam_roster(treeview):
     with tempfile.NamedTemporaryFile(delete=False, suffix='.pdf', mode='wb') as temp_pdf_file:
         temp_pdf_path = temp_pdf_file.name
 
-    # 根據操作系統選擇字體
-    if platform.system() == 'Darwin':  # macOS
+    # 使用系统默認字體
+    default_font = 'Helvetica'
+    default_bold_font = 'Helvetica-Bold'
+
+    # 如果是macOS，使用内建中文字體
+    if platform.system() == 'Darwin':
         chinese_fonts = [
             ('/System/Library/Fonts/PingFang.ttc', 'PingFang'),
             ('/Library/Fonts/Arial Unicode.ttf', 'Arial Unicode MS'),
             ('/Library/Fonts/Songti.ttc', 'Songti TC'),
         ]
-    elif platform.system() == 'Windows':  # Windows
-        chinese_fonts = [
-            (r'C:\Windows\Fonts\msyh.ttc', 'Microsoft YaHei'),  # 微軟雅黑
-            (r'C:\Windows\Fonts\simsun.ttc', 'SimSun'),         # 宋體
-        ]
-    else:
-        chinese_fonts = []
-
-    for font_path, font_name in chinese_fonts:
+        for font_path, font_name in chinese_fonts:
+            try:
+                pdfmetrics.registerFont(TTFont(font_name, font_path))
+                default_font = font_name
+                default_bold_font = font_name
+                break
+            except:
+                continue
+    elif platform.system() == 'Windows':
         try:
-            pdfmetrics.registerFont(TTFont(font_name, font_path))
-            default_font = font_name
-            default_bold_font = font_name
-            print(f"成功加载 {font_name} 字体。")
-            break
+            pdfmetrics.registerFont(TTFont('Microsoft YaHei', 'C:/Windows/Fonts/msyh.ttc'))
+            default_font = 'Microsoft YaHei'
+            default_bold_font = 'Microsoft YaHei'
         except:
-            print(f"无法加载 {font_name} 字体。")
-    else:
-        print("无法加载任何中文字体，将使用默认字体。中文可能无法正确显示。")
+            pass
 
     # 創建PDF，指定A4大小
     doc = SimpleDocTemplate(temp_pdf_path, pagesize=A4)
@@ -87,28 +89,24 @@ def print_written_exam_roster(treeview):
     doc.build(elements)
     print(f"PDF文件已生成: {temp_pdf_path}")
 
-    # 根據不同的作業系統選擇列印方式
-    system = platform.system()
-    if system == "Darwin":  # macOS
+    def print_and_cleanup():
         try:
-            # 使用 lpr 打印，指定 A4 紙張大小
-            subprocess.run(["lpr", "-o", "media=A4", temp_pdf_path], check=True)
-            print("文件已經發送至系統默認印表機，指定A4紙張，請檢查你的列表機。")
-        except subprocess.CalledProcessError:
-            print("列印文件失敗，請檢查你的列表機設置。")
-    elif system == "Windows":
-        try:
-            # Windows 無法通过命令行指定紙張大小
-            # pdf預設為A4
-            os.startfile(temp_pdf_path, "print")
-            print("列印對話框應該已經打開，PDF已設置為A4大小，請確保列表機設置正確。")
-        except AttributeError:
-            print("無法直接列印，正在使用默認PDF查看器打開文件。")
-            os.startfile(temp_pdf_path)
-    else:
-        print(f"不支持的操作系统: {system}")
-        print(f"請手動打開並且列印文件: {temp_pdf_path}")
-
-    # 删除临时文件
-    os.unlink(temp_pdf_path)
-    print("臨時文件已經刪除")
+            # 根據不同的作業系統選擇列印方式
+            system = platform.system()
+            if system == "Darwin":  # macOS
+                subprocess.run(["lpr", "-o", "media=A4", temp_pdf_path], check=True)
+                print("文件已經發送至系統默認印表機，指定A4紙張，請檢查你的列表機。")
+            elif system == "Windows":
+                os.startfile(temp_pdf_path, "print")
+                print("列印對話框應該已經打開，PDF已設置為A4大小，請確保列表機設置正確。")
+                time.sleep(10)  # 等待10秒，確保列印已經完成
+            else:
+                print(f"不支持的操作系统: {system}")
+                print(f"請手動打開並且列印文件: {temp_pdf_path}")
+        finally:
+            time.sleep(1)  # 等待額外的1秒鐘，確保文件不會被過早刪除
+            os.unlink(temp_pdf_path)
+            print("臨時文件已經刪除")
+    
+    # 在新線程中執行列印與清理操作
+    threading.Thread(target=print_and_cleanup).start()
