@@ -28,28 +28,32 @@ def print_written_exam_roster(treeview):
     with tempfile.NamedTemporaryFile(delete=False, suffix='.pdf', mode='wb') as temp_pdf_file:
         temp_pdf_path = temp_pdf_file.name
 
-    # 使用系统默認字體
-    default_font = 'Helvetica'
-    default_bold_font = 'Helvetica-Bold'
-
-    # 如果是macOS，使用内建中文字體
-    if platform.system() == 'Darwin':
+    # 根據操作系統選擇字體
+    if platform.system() == 'Darwin':  # macOS
         chinese_fonts = [
             ('/System/Library/Fonts/PingFang.ttc', 'PingFang'),
             ('/Library/Fonts/Arial Unicode.ttf', 'Arial Unicode MS'),
             ('/Library/Fonts/Songti.ttc', 'Songti TC'),
         ]
-        for font_path, font_name in chinese_fonts:
-            try:
-                pdfmetrics.registerFont(TTFont(font_name, font_path))
-                default_font = font_name
-                default_bold_font = font_name
-                print(f"成功加载 {font_name} 字体。")
-                break
-            except:
-                print(f"无法加载 {font_name} 字体。")
-        else:
-            print("无法加载任何中文字体，将使用默认字体。中文可能无法正确显示。")
+    elif platform.system() == 'Windows':  # Windows
+        chinese_fonts = [
+            (r'C:\Windows\Fonts\msyh.ttc', 'Microsoft YaHei'),  # 微軟雅黑
+            (r'C:\Windows\Fonts\simsun.ttc', 'SimSun'),         # 宋體
+        ]
+    else:
+        chinese_fonts = []
+
+    for font_path, font_name in chinese_fonts:
+        try:
+            pdfmetrics.registerFont(TTFont(font_name, font_path))
+            default_font = font_name
+            default_bold_font = font_name
+            print(f"成功加载 {font_name} 字体。")
+            break
+        except:
+            print(f"无法加载 {font_name} 字体。")
+    else:
+        print("无法加载任何中文字体，将使用默认字体。中文可能无法正确显示。")
 
     # 創建PDF，指定A4大小
     doc = SimpleDocTemplate(temp_pdf_path, pagesize=A4)
