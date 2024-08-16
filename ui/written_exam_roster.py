@@ -277,8 +277,8 @@ def written_exam_roster(content):
     # def on_print_button_click():
     #     print_written_exam_roster(data_list)
     def print_html_report():
-        # HTML 文件路徑
-        html_path = r"C:\Users\Cyz\Documents\DriveAcademy-Manager\print\written_exam_roster.html"
+        base_dir = os.path.dirname(os.path.abspath(__file__))  # 獲取當前腳本的目錄
+        html_path = os.path.join(base_dir, "DriveAcademy-Manager", "print", "written_exam_roster.html")
 
         # 打開 HTML 文件
         webbrowser.open_new_tab(html_path)
