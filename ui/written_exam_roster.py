@@ -2,9 +2,16 @@
 from utils.widget import *
 from utils.config import *
 from models.test import *
-from models.print import *
+# from models.print import *
 import customtkinter as ctk
 from tkinter import messagebox
+
+import webbrowser
+import pyautogui
+import time
+
+import os
+import webbrowser
 
 # 檢測學員資料庫 id 欄位來判定是否修改或新增
 current_student_id = None
@@ -267,12 +274,34 @@ def written_exam_roster(content):
             student_data['birth_date']
         ))
 
-    def on_print_button_click():
-        print_written_exam_roster(data_list)
+    # def on_print_button_click():
+    #     print_written_exam_roster(data_list)
+    def print_html_report():
+        # HTML 文件路徑
+        html_path = r"C:\Users\Cyz\Documents\DriveAcademy-Manager\print\written_exam_roster.html"
+
+        # 打開 HTML 文件
+        webbrowser.open_new_tab(html_path)
+        
+        # 等待瀏覽器加載
+        time.sleep(3)
+        
+        # 模擬鍵盤操作觸發打印 (Ctrl+P)
+        pyautogui.hotkey('ctrl', 'p')
+        
+        # 等待打印窗口出現
+        time.sleep(2)
+        
+        # 模擬鍵盤操作確認打印 (Enter)
+        pyautogui.press('enter')
+
+
 
     # 新增按鈕
     add_btn(written_exam_roster, text='新增筆試清冊', command=save_student_data).grid(row=8, column=1, sticky='wen', padx=(10,0), pady=(20,0))
     # 列印按鈕
-    print_btn(written_exam_roster, text='列印筆試清冊', command=on_print_button_click).grid(row=8, column=2, sticky='wen', padx=(10,0), pady=(20,0))
+    # print_btn(written_exam_roster, text='列印筆試清冊', command=on_print_button_click).grid(row=8, column=2, sticky='wen', padx=(10,0), pady=(20,0))
+    print_btn(written_exam_roster, text='列印筆試清冊', command=print_html_report).grid(row=8, column=2, sticky='wen', padx=(10,0), pady=(20,0))
+
     # 匯出按鈕
     export_btn(written_exam_roster, text='匯出 筆試清冊 文件', command=lambda: export_written_exam_roster(database_path)).grid(row=8, column=3, sticky='wen', padx=10, pady=(20,0))
