@@ -277,9 +277,12 @@ def written_exam_roster(content):
     # def on_print_button_click():
     #     print_written_exam_roster(data_list)
     def print_html_report():
-        base_dir = os.path.dirname(os.path.abspath(__file__))  # 獲取當前腳本的目錄
-        html_path = os.path.join(base_dir, "DriveAcademy-Manager", "print", "written_exam_roster.html")
-
+        # 獲取當前腳本的目錄 (ui 目錄)
+        base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # 獲取父目錄
+        
+        # 動態生成 HTML 文件的完整路徑
+        html_path = os.path.join(base_dir, "print", "written_exam_roster.html")
+        
         # 打開 HTML 文件
         webbrowser.open_new_tab(html_path)
         
