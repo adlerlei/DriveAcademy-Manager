@@ -274,8 +274,7 @@ def written_exam_roster(content):
             student_data['birth_date']
         ))
 
-    # def on_print_button_click():
-    #     print_written_exam_roster(data_list)
+    
     def print_html_report():
         # 獲取當前腳本的目錄 (ui 目錄)
         base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # 獲取父目錄
