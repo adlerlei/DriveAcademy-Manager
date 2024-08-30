@@ -102,8 +102,6 @@ def learner_license_submission(content):
     
     data_list.grid(row=8, column=0, columnspan=4, sticky='wen', padx=10, pady=(20,0))
 
-<<<<<<< HEAD
-=======
     # 創建水平捲軸
     h_scrollbar = ttk.Scrollbar(learner_license_submission, orient="horizontal", command=data_list.xview)
     data_list.configure(xscrollcommand=h_scrollbar.set)
@@ -123,7 +121,6 @@ def learner_license_submission(content):
     learner_license_submission.grid_columnconfigure(2, weight=1)
     learner_license_submission.grid_columnconfigure(3, weight=1)
 
->>>>>>> dev/ui-and-db
     # 邏輯功能
     # 搜尋學員資料庫並且在 entry 顯示學員資料
     def populate_student_data(identifier, value):

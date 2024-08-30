@@ -231,8 +231,6 @@ def opening_training_roster(content):
     data_list.column('training_type_code', width=0, stretch=0)
     
     data_list.grid(row=13, column=0, columnspan=4, sticky='wen', padx=10, pady=(20,0))
-<<<<<<< HEAD
-=======
 
     # 創建水平捲軸
     h_scrollbar = ttk.Scrollbar(opening_training_roster, orient="horizontal", command=data_list.xview)
@@ -252,7 +250,6 @@ def opening_training_roster(content):
     opening_training_roster.grid_columnconfigure(1, weight=1)
     opening_training_roster.grid_columnconfigure(2, weight=1)
     opening_training_roster.grid_columnconfigure(3, weight=1)
->>>>>>> dev/ui-and-db
     
     # 邏輯功能 - 搜尋學員資料並顯示在 entry 
     def populate_student_data(identifier, value):

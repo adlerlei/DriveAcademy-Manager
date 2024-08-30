@@ -208,8 +208,6 @@ def closing_training_roster(content):
     data_list.column('learner_permit_date', width=50, anchor='center')
     
     data_list.grid(row=11, column=0, columnspan=4, sticky='wen', padx=10, pady=(20,0))
-<<<<<<< HEAD
-=======
 
     # 創建水平捲軸
     h_scrollbar = ttk.Scrollbar(closing_training_roster, orient="horizontal", command=data_list.xview)
@@ -229,7 +227,6 @@ def closing_training_roster(content):
     closing_training_roster.grid_columnconfigure(1, weight=1)
     closing_training_roster.grid_columnconfigure(2, weight=1)
     closing_training_roster.grid_columnconfigure(3, weight=1)
->>>>>>> dev/ui-and-db
     
     # 邏輯功能 - 搜尋學員資料並顯示在 entry 
     def populate_student_data(identifier, value):

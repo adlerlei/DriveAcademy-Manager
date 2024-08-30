@@ -164,8 +164,6 @@ def annual_plan_term(content):
     data_list.heading("上課期別代碼", text="上課期別代碼")
     
     data_list.grid(row=8, column=0, columnspan=4, sticky='wens', padx=10)
-<<<<<<< HEAD
-=======
 
     # 創建水平捲軸
     h_scrollbar = ttk.Scrollbar(annual_plan_term, orient="horizontal", command=data_list.xview)
@@ -185,7 +183,6 @@ def annual_plan_term(content):
     annual_plan_term.grid_columnconfigure(1, weight=1)
     annual_plan_term.grid_columnconfigure(2, weight=1)
     annual_plan_term.grid_columnconfigure(3, weight=1)
->>>>>>> dev/ui-and-db
         
     # 調用函數填充 Treeview（進入介面時會直接抓取資料庫呈現資料列表）
     fetch_and_populate_treeview(data_list)

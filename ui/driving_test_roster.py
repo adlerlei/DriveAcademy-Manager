@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-# 場考考試清冊
-from utils.widget import *
-from utils.config import *
-from models.test import *
-=======
 # 路考清冊(場考)
 from utils.widget import *
 from utils.config import *
@@ -13,7 +7,6 @@ from tkinter import messagebox
 
 # 檢測學員資料庫 id 欄位來判定是否修改或新增
 current_student_id = None
->>>>>>> dev/ui-and-db
 
 def  driving_test_roster(content):
     clear_frame(content)
@@ -32,11 +25,7 @@ def  driving_test_roster(content):
     label(driving_test_roster, text='學員編號').grid(row=0, column=0, sticky='ws', padx=(10,0), pady=(10,0))
     student_number = entry(driving_test_roster,  placeholder_text = "輸入學員編號")
     student_number.grid(row=1, column=0, sticky='wen', padx=(10,0))
-<<<<<<< HEAD
-    # student_number.bind("<KeyRelease>", lambda event: populate_student_data('student_number', student_number.get()))
-=======
     student_number.bind("<KeyRelease>", lambda event: populate_student_data('student_number', student_number.get()))
->>>>>>> dev/ui-and-db
     
     # 學員姓名
     label(driving_test_roster, text='學員姓名').grid(row=0, column=1, sticky='ws', padx=(10,0), pady=(10,0))
@@ -51,11 +40,7 @@ def  driving_test_roster(content):
     # 身分證號碼
     label(driving_test_roster, text='身分證號碼').grid(row=0, column=3, sticky='ws', padx=(10,0), pady=(10,0))
     national_id_no = display_entry_value(driving_test_roster)
-<<<<<<< HEAD
-    national_id_no.grid(row=1, column=3, sticky='wen',padx=(10,0))
-=======
     national_id_no.grid(row=1, column=3, sticky='wen',padx=10)
->>>>>>> dev/ui-and-db
 
     # 出生日期
     label(driving_test_roster, text='出生日期').grid(row=2, column=0, sticky='ws', padx=(10,0), pady=(10,0))
@@ -74,11 +59,7 @@ def  driving_test_roster(content):
     # 期別
     label(driving_test_roster, text='期別').grid(row=2, column=3, sticky='ws', padx=(10,0), pady=(10,0))
     register_term = display_entry_value(driving_test_roster)
-<<<<<<< HEAD
-    register_term.grid(row=3, column=3, sticky='wen',padx=(10,0))
-=======
     register_term.grid(row=3, column=3, sticky='wen',padx=10)
->>>>>>> dev/ui-and-db
 
     # 梯次
     label(driving_test_roster, text='梯次').grid(row=4, column=0, sticky='ws', padx=(10,0), pady=(10,0))
@@ -87,11 +68,7 @@ def  driving_test_roster(content):
 
     # 路試日期
     label(driving_test_roster, text='路試日期').grid(row=4, column=1, sticky='ws', padx=(10,0), pady=(10,0))
-<<<<<<< HEAD
-    road_test_date = entry(driving_test_roster)
-=======
     road_test_date = entry(driving_test_roster) 
->>>>>>> dev/ui-and-db
     road_test_date.grid(row=5, column=1, sticky='wen',padx=(10,0))
 
     # 組別
@@ -103,28 +80,11 @@ def  driving_test_roster(content):
     label(driving_test_roster, text='路考項目').grid(row=6, column=0, sticky='ws', padx=(10,0), pady=(10,0))
     road_test_items_type = combobox(driving_test_roster, values=['1', '2', '3'])
     road_test_items_type.grid(row=7, column=0, sticky='wen',padx=(10,0))
-<<<<<<< HEAD
-
-    # 號碼
-    label(driving_test_roster, text='號碼').grid(row=6, column=1, sticky='ws', padx=(10,0), pady=(10,0))
-    driving_test_number = entry(driving_test_roster)
-    driving_test_number.grid(row=7, column=1, sticky='wen',padx=(10,0))
-
-    # 新增按鈕
-    add_btn(driving_test_roster, text='新增道考清冊', command=lambda: None).grid(row=8, column=1, sticky='wen', padx=(10,0), pady=(20,0))
-
-    # 列印按鈕
-    print_btn(driving_test_roster, text='列印場考清冊', command=lambda: None).grid(row=8, column=2, sticky='wen', padx=(10,0), pady=(20,0))
-
-    # 匯出按鈕
-    export_btn(driving_test_roster, text='匯出文件', command=lambda: None).grid(row=8, column=3, sticky='wen', padx=10, pady=(20,0))
-=======
 
     # 號碼
     label(driving_test_roster, text='號碼').grid(row=6, column=1, sticky='ws', padx=(10,0), pady=(10,0))
     driving_test_number = display_entry_value(driving_test_roster)
     driving_test_number.grid(row=7, column=1, sticky='wen',padx=(10,0))
->>>>>>> dev/ui-and-db
 
     # treeview
     columns = (
@@ -182,12 +142,6 @@ def  driving_test_roster(content):
     driving_test_roster.grid_columnconfigure(2, weight=1)
     driving_test_roster.grid_columnconfigure(3, weight=1)
     
-<<<<<<< HEAD
-    data_list.grid(row=9, column=0, columnspan=4, sticky='wen', padx=10, pady=(20,0))
-    
-    for i in range(100):
-        data_list.insert("", "end", values=(f"202{i % 10}", f"張{i}", f"A{i}", f"202{i % 10}-01-01", f"男", f"02{i % 10}", f"09{i % 10}", f"test{i}@gmail.com", f"台北市", f"台北市"))
-=======
     # 邏輯功能 - 搜尋學員資料並顯示在 entry 
     def populate_student_data(identifier, value):
 
@@ -327,4 +281,3 @@ def  driving_test_roster(content):
     print_btn(driving_test_roster, text='列印場考清冊', command=lambda: None).grid(row=8, column=2, sticky='wen', padx=(10,0), pady=(20,0))
     # 匯出按鈕
     export_btn(driving_test_roster, text='匯出 場考清冊 文件', command=lambda: export_driving_test_data(database_path)).grid(row=8, column=3, sticky='wen', padx=10, pady=(20,0))
->>>>>>> dev/ui-and-db

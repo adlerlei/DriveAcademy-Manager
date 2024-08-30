@@ -74,28 +74,16 @@ def student_all(content):
 
     # 學員姓名
     label(student_all, text='學員姓名').grid(row=6, column=0, sticky='ws', padx=(10,0), pady=(20,0))
-<<<<<<< HEAD
-    student_name = entry(student_all, placeholder_text='輸入學員姓名查詢')
-    student_name.grid(row=7, column=0, sticky='wen', padx=(10,0))
-    student_name.bind("<KeyRelease>", lambda event: populate_student_data('student_name', student_name.get()))
-=======
     student_name = entry(student_all)
     student_name.grid(row=7, column=0, sticky='wen', padx=(10,0))
     # student_name.bind("<KeyRelease>", lambda event: populate_student_data('student_name', student_name.get()))
->>>>>>> dev/ui-and-db
 
 
     # 身分證號碼
     label(student_all, text='身分證號碼').grid(row=6, column=1, sticky='ws', padx=(10,0), pady=(20,0))
-<<<<<<< HEAD
-    national_id_no = entry(student_all, placeholder_text='輸入學員身分證號查詢')
-    national_id_no.grid(row=7, column=1, sticky='wen', padx=(10,0))
-    national_id_no.bind("<KeyRelease>", lambda event: populate_student_data('national_id_no', national_id_no.get()))
-=======
     national_id_no = entry(student_all)
     national_id_no.grid(row=7, column=1, sticky='wen', padx=(10,0))
     # national_id_no.bind("<KeyRelease>", lambda event: populate_student_data('national_id_no', national_id_no.get()))
->>>>>>> dev/ui-and-db
 
 
     # 出生日期
@@ -106,15 +94,9 @@ def student_all(content):
 
     # 行動電話
     label(student_all, text='手機').grid(row=8, column=1, sticky='ws', padx=(10,0), pady=(20,0))
-<<<<<<< HEAD
-    mobile_phone = entry(student_all, placeholder_text='輸入學員手機查詢')
-    mobile_phone.grid(row=9, column=1, sticky='wen', padx=(10,0))
-    mobile_phone.bind("<KeyRelease>", lambda event: populate_student_data('mobile_phone', mobile_phone.get()))  # 新增行動電話查詢
-=======
     mobile_phone = entry(student_all)
     mobile_phone.grid(row=9, column=1, sticky='wen', padx=(10,0))
     # mobile_phone.bind("<KeyRelease>", lambda event: populate_student_data('mobile_phone', mobile_phone.get()))  # 新增行動電話查詢
->>>>>>> dev/ui-and-db
 
 
     # 戶籍地址
@@ -331,11 +313,7 @@ def student_all(content):
                 # 建檔日期
                 creation_date.configure(state='normal')
                 creation_date.delete(0, ctk.END)
-<<<<<<< HEAD
-                creation_date.insert(0, student_data[42])
-=======
                 creation_date.insert(0, student_data[46])
->>>>>>> dev/ui-and-db
                 creation_date.configure(state='readonly')
             else:
                 # 如果沒有查詢到學生資料,則重置 is_editing 和 current_student_id
@@ -440,16 +418,9 @@ def student_all(content):
         # current_student_id = None
 
 
-<<<<<<< HEAD
-
-        # 需要保留的 entry 列表，clear_entries_and_comboboxes 函式中的參數之一 ###
-        keep_entries = [training_type_code, training_type_name, license_type_code, license_type_name]
-        clear_entries_and_comboboxes(student_all, keep_entries)
-=======
         # 需要保留的 entry 列表，clear_entries_and_comboboxes 函式中的參數之一 ###
         # keep_entries = [training_type_code, training_type_name, license_type_code, license_type_name]
         clear_entries_and_comboboxes(student_all)
->>>>>>> dev/ui-and-db
  
 
     # 刪除按鈕的事件處理函數
@@ -462,13 +433,7 @@ def student_all(content):
                 is_editing = False
                 current_student_id = None
 
-<<<<<<< HEAD
-                # 需要保留的 entry 列表，clear_entries_and_comboboxes 函式中的參數之一 ###
-                keep_entries = [training_type_code, training_type_name, license_type_code, license_type_name]
-                clear_entries_and_comboboxes(student_all, keep_entries)
-=======
                 clear_entries_and_comboboxes(student_all)
->>>>>>> dev/ui-and-db
 
         else:
             messagebox.showwarning('提示', '請先輸入要刪除的學員資料！')

@@ -4,11 +4,8 @@ from utils.config import *
 from models.m2retraining import * 
 import customtkinter as ctk
 from tkinter import messagebox
-<<<<<<< HEAD
-=======
 import sqlite3
 from tkinter import ttk
->>>>>>> dev/ui-and-db
 
 
 # 檢測學員資料庫 id 欄位來判定是否修改或新增
@@ -152,22 +149,12 @@ def m2_retraining_roster_creation(content):
     def on_instructor_name_changed(selected_name, instructor_number, instructor_dict):
         selected_number = next((number for number, name in instructor_dict.items() if name == selected_name), "")
         instructor_number.set(selected_number)
-<<<<<<< HEAD
-
-=======
->>>>>>> dev/ui-and-db
 
     # 筆試路試
     label(m2_retraining_roster_creation, text='筆路').grid(row=10, column=2, sticky='ws', padx=(10,0), pady=(10,0))
     exam_type_name = combobox(m2_retraining_roster_creation, values=['1 . 補筆', '2 . 補路'])
     exam_type_name.grid(row=11, column=2, sticky='wen',padx=(10,0))
     exam_type_name.set('')
-<<<<<<< HEAD
-
-    # 資料選擇 (自定義變數)
-    label(m2_retraining_roster_creation, text='資料選擇').grid(row=10, column=3, sticky='ws', padx=(10,0), pady=(10,0))
-    data_select = combobox(m2_retraining_roster_creation, values=['1 . 全部', '2 . 補筆', '3 . 補路'])
-=======
 
     def on_data_select(choice):
         fetch_and_display_data(choice)
@@ -175,7 +162,6 @@ def m2_retraining_roster_creation(content):
     # 資料選擇 (自定義變數)
     label(m2_retraining_roster_creation, text='資料選擇').grid(row=10, column=3, sticky='ws', padx=(10,0), pady=(10,0))
     data_select = combobox(m2_retraining_roster_creation, values=['1 . 全部', '2 . 補筆', '3 . 補路'], command=on_data_select)
->>>>>>> dev/ui-and-db
     data_select.grid(row=11, column=3, sticky='wen', padx=10)
     data_select.set('')
     
@@ -231,8 +217,6 @@ def m2_retraining_roster_creation(content):
     
     data_list.grid(row=13, column=0, columnspan=4, sticky='wen', padx=10, pady=(20,0))
 
-<<<<<<< HEAD
-=======
     # 創建水平捲軸
     h_scrollbar = ttk.Scrollbar(m2_retraining_roster_creation, orient="horizontal", command=data_list.xview)
     data_list.configure(xscrollcommand=h_scrollbar.set)
@@ -252,7 +236,6 @@ def m2_retraining_roster_creation(content):
     m2_retraining_roster_creation.grid_columnconfigure(2, weight=1)
     m2_retraining_roster_creation.grid_columnconfigure(3, weight=1)
 
->>>>>>> dev/ui-and-db
 
     # 邏輯功能 - 搜尋學員資料並顯示在 entry 
     def populate_student_data(identifier, value):
@@ -433,13 +416,6 @@ def m2_retraining_roster_creation(content):
             student_data['r_address_city_road'],
             student_data['training_type_code'] # 添加訓練班別代號
         ))
-<<<<<<< HEAD
-    
-    # 按鈕
-    btn(m2_retraining_roster_creation, text='加入開訓名冊', command=save_student_data).grid(row=12, column=1, sticky='wen', padx=(10, 0), pady=(20, 0))
-    print_btn(m2_retraining_roster_creation, text='列印開訓名冊', command=None).grid(row=12, column=2, sticky='wen', padx=(10, 0), pady=(20, 0))
-    export_btn(m2_retraining_roster_creation, text='匯出文件', command=lambda: export_selected_data(data_list)).grid(row=12, column=3,sticky='wen', padx=10, pady=(20, 0))
-=======
 
     # 資料選擇處理
     def fetch_and_display_data(choice):
@@ -489,4 +465,3 @@ def m2_retraining_roster_creation(content):
     # 按鈕
     add_btn(m2_retraining_roster_creation, text='加入開訓名冊', command=save_student_data).grid(row=12, column=2, sticky='wen', padx=(10, 0), pady=(20, 0))
     print_btn(m2_retraining_roster_creation, text='列印開訓名冊', command=None).grid(row=12, column=3, sticky='wen', padx=10, pady=(20, 0))
->>>>>>> dev/ui-and-db

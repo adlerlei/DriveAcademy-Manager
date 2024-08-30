@@ -83,22 +83,6 @@ def update_student_data(data, uid):
     conn = sqlite3.connect(database_path)
     cursor = conn.cursor() 
 
-<<<<<<< HEAD
-    if uid == 1:
-        cursor.execute('''
-            UPDATE student SET
-                register_number = :register_number, -- 名冊號碼
-                register_term = :register_term, -- 名冊期別
-                exam_code = :exam_code, -- 來源類別編號
-                exam_name = :exam_name, -- 來源類別名稱
-                transmission_type_code = :transmission_type_code, -- 手自排類別編號
-                transmission_type_name = :transmission_type_name, -- 手自排類別名稱
-                instructor_number = :instructor_number, -- 教練編號
-                instructor_name = :instructor_name, -- 教練名稱
-                register_batch = :register_batch -- 名冊梯次
-            WHERE id = :id
-        ''', data)
-=======
     # 處理名冊號碼並生成 student_term_class_code
     register_number = data.get('register_number', '')
     training_type_code = data.get('training_type_code', '')
@@ -123,23 +107,10 @@ def update_student_data(data, uid):
                 student_term_class_code = :student_term_class_code
             WHERE id = :id
         ''', {**data, 'student_term_class_code': student_term_class_code})
->>>>>>> dev/ui-and-db
         messagebox.showinfo('訊息', '已加入開訓名冊！')
     elif uid == 0:
         cursor.execute('''
             UPDATE student SET
-<<<<<<< HEAD
-                register_number = :register_number, -- 名冊號碼
-                register_term = :register_term, -- 名冊期別
-                dropout = :dropout, -- 退訓
-                transmission_type_code = :transmission_type_code, -- 手自排類別編號
-                transmission_type_name = :transmission_type_name, -- 手自排類別名稱
-                instructor_number = :instructor_number, -- 教練編號
-                instructor_name = :instructor_name, -- 教練名稱
-                register_batch = :register_batch -- 名冊梯次
-            WHERE id = :id
-        ''', data)
-=======
                 register_number = :register_number,
                 register_term = :register_term,
                 dropout = :dropout,
@@ -151,7 +122,6 @@ def update_student_data(data, uid):
                 student_term_class_code = :student_term_class_code
             WHERE id = :id
         ''', {**data, 'student_term_class_code': student_term_class_code})
->>>>>>> dev/ui-and-db
         messagebox.showinfo('訊息', '已加入結訓名冊！')
 
     conn.commit()
@@ -187,22 +157,15 @@ def export_selected_data(treeview):
                 mobile_phone = str(phone)
                 break
         register_number = str(item_values[0])  # 獲取名冊號碼
-<<<<<<< HEAD
-        register_number = register_number[:-3]  # 移除最後三個字符 001 ~ xxx
-=======
 
         # 移除這一行，因為我們現在需要完整的 register_number
         # register_number = register_number[:-3]  # 移除最後三個字符 001 ~ xxx
 
->>>>>>> dev/ui-and-db
         exam_code = str(item_values[4])  # 獲取來源類別編號
         transmission_type_code = str(item_values[5])  # 獲取手自排類別編號
         instructor_number = str(item_values[6]).zfill(3) # 獲取教練編號
         training_type_code = str(item_values[13]) # 獲取訓練班別代號
-<<<<<<< HEAD
-=======
         # student_term_class_code = str(item_values[45])
->>>>>>> dev/ui-and-db
 
         # 獲取教練身分證號碼和出生日期
         conn = sqlite3.connect(database_path)
@@ -217,13 +180,6 @@ def export_selected_data(treeview):
             instructor_national_id_no, instructor_birth_date = "", ""
 
 
-<<<<<<< HEAD
-        data.append(f"{national_id_no},{birth_date},{student_name},{mobile_phone},{register_number},{exam_code},{transmission_type_code},{instructor_national_id_no},{instructor_birth_date}")
-    
-    if register_number is not None:
-        year_from_data = register_number
-        file_name = generate_csv_filename(year_from_data, training_type_code)
-=======
         data.append(f"{national_id_no},{birth_date},{student_name},{mobile_phone},0{training_type_code}{register_number},{exam_code},{transmission_type_code},{instructor_national_id_no},{instructor_birth_date}")
     
     if register_number is not None:
@@ -238,7 +194,6 @@ def export_selected_data(treeview):
             register_number_for_filename = register_number
 
         file_name = generate_csv_filename(register_number_for_filename, training_type_code)
->>>>>>> dev/ui-and-db
 
         # 創建文件保存對話框
         file_path = filedialog.asksaveasfilename(defaultextension=".csv", initialfile=file_name)
