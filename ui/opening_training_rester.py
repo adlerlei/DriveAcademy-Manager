@@ -231,6 +231,28 @@ def opening_training_roster(content):
     data_list.column('training_type_code', width=0, stretch=0)
     
     data_list.grid(row=13, column=0, columnspan=4, sticky='wen', padx=10, pady=(20,0))
+<<<<<<< HEAD
+=======
+
+    # 創建水平捲軸
+    h_scrollbar = ttk.Scrollbar(opening_training_roster, orient="horizontal", command=data_list.xview)
+    data_list.configure(xscrollcommand=h_scrollbar.set)
+
+    # 創建垂直捲軸
+    v_scrollbar = ttk.Scrollbar(opening_training_roster, orient="vertical", command=data_list.yview)
+    data_list.configure(yscrollcommand=v_scrollbar.set)
+
+    # 使用 grid 布局管理器來排列 Treeview 和捲軸
+    h_scrollbar.grid(row=14, column=0, columnspan=4, sticky="ew", padx=10)
+    v_scrollbar.grid(row=13, column=4, rowspan=2, sticky="ns", pady=10)
+
+    # 配置行和列的權重，使其在窗口調整大小時自動調整
+    opening_training_roster.grid_rowconfigure(14, weight=1)
+    opening_training_roster.grid_columnconfigure(0, weight=1)
+    opening_training_roster.grid_columnconfigure(1, weight=1)
+    opening_training_roster.grid_columnconfigure(2, weight=1)
+    opening_training_roster.grid_columnconfigure(3, weight=1)
+>>>>>>> dev/ui-and-db
     
     # 邏輯功能 - 搜尋學員資料並顯示在 entry 
     def populate_student_data(identifier, value):

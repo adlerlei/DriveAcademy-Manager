@@ -5,5 +5,5 @@ def main():
     root = main_window()
     root.mainloop()
     
-if __name__ == '__main__':
+if __name__ == '__main__': 
     main()

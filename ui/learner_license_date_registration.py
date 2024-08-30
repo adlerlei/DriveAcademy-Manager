@@ -130,6 +130,28 @@ def learner_license_date_registration(content):
     data_list.column('r_address', width=250, anchor='center')  
 
     data_list.grid(row=8, column=0, columnspan=4, sticky='wen', padx=10, pady=(20,0))
+<<<<<<< HEAD
+=======
+
+    # 創建水平捲軸
+    h_scrollbar = ttk.Scrollbar(learner_license_date_registration, orient="horizontal", command=data_list.xview)
+    data_list.configure(xscrollcommand=h_scrollbar.set)
+
+    # 創建垂直捲軸
+    v_scrollbar = ttk.Scrollbar(learner_license_date_registration, orient="vertical", command=data_list.yview)
+    data_list.configure(yscrollcommand=v_scrollbar.set)
+
+    # 使用 grid 布局管理器來排列 Treeview 和捲軸
+    h_scrollbar.grid(row=9, column=0, columnspan=4, sticky="ew", padx=10)
+    v_scrollbar.grid(row=8, column=4, rowspan=2, sticky="ns", pady=10)
+
+    # 配置行和列的權重，使其在窗口調整大小時自動調整
+    learner_license_date_registration.grid_rowconfigure(14, weight=1)
+    learner_license_date_registration.grid_columnconfigure(0, weight=1)
+    learner_license_date_registration.grid_columnconfigure(1, weight=1)
+    learner_license_date_registration.grid_columnconfigure(2, weight=1)
+    learner_license_date_registration.grid_columnconfigure(3, weight=1)
+>>>>>>> dev/ui-and-db
 
     # 邏輯功能
     # 搜尋學員資料庫並且在 entry 顯示學員資料

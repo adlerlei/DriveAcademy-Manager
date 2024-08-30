@@ -1,9 +1,14 @@
-# 監理站M2補訓名冊
+# M2補訓名冊 不需要匯出文件功能
 from utils.widget import *
 from utils.config import *
 from models.m2retraining import * 
 import customtkinter as ctk
 from tkinter import messagebox
+<<<<<<< HEAD
+=======
+import sqlite3
+from tkinter import ttk
+>>>>>>> dev/ui-and-db
 
 
 # 檢測學員資料庫 id 欄位來判定是否修改或新增
@@ -147,17 +152,30 @@ def m2_retraining_roster_creation(content):
     def on_instructor_name_changed(selected_name, instructor_number, instructor_dict):
         selected_number = next((number for number, name in instructor_dict.items() if name == selected_name), "")
         instructor_number.set(selected_number)
+<<<<<<< HEAD
 
+=======
+>>>>>>> dev/ui-and-db
 
     # 筆試路試
     label(m2_retraining_roster_creation, text='筆路').grid(row=10, column=2, sticky='ws', padx=(10,0), pady=(10,0))
     exam_type_name = combobox(m2_retraining_roster_creation, values=['1 . 補筆', '2 . 補路'])
     exam_type_name.grid(row=11, column=2, sticky='wen',padx=(10,0))
     exam_type_name.set('')
+<<<<<<< HEAD
 
     # 資料選擇 (自定義變數)
     label(m2_retraining_roster_creation, text='資料選擇').grid(row=10, column=3, sticky='ws', padx=(10,0), pady=(10,0))
     data_select = combobox(m2_retraining_roster_creation, values=['1 . 全部', '2 . 補筆', '3 . 補路'])
+=======
+
+    def on_data_select(choice):
+        fetch_and_display_data(choice)
+
+    # 資料選擇 (自定義變數)
+    label(m2_retraining_roster_creation, text='資料選擇').grid(row=10, column=3, sticky='ws', padx=(10,0), pady=(10,0))
+    data_select = combobox(m2_retraining_roster_creation, values=['1 . 全部', '2 . 補筆', '3 . 補路'], command=on_data_select)
+>>>>>>> dev/ui-and-db
     data_select.grid(row=11, column=3, sticky='wen', padx=10)
     data_select.set('')
     
@@ -213,6 +231,28 @@ def m2_retraining_roster_creation(content):
     
     data_list.grid(row=13, column=0, columnspan=4, sticky='wen', padx=10, pady=(20,0))
 
+<<<<<<< HEAD
+=======
+    # 創建水平捲軸
+    h_scrollbar = ttk.Scrollbar(m2_retraining_roster_creation, orient="horizontal", command=data_list.xview)
+    data_list.configure(xscrollcommand=h_scrollbar.set)
+
+    # 創建垂直捲軸
+    v_scrollbar = ttk.Scrollbar(m2_retraining_roster_creation, orient="vertical", command=data_list.yview)
+    data_list.configure(yscrollcommand=v_scrollbar.set)
+
+    # 使用 grid 布局管理器來排列 Treeview 和捲軸
+    h_scrollbar.grid(row=14, column=0, columnspan=4, sticky="ew", padx=10)
+    v_scrollbar.grid(row=13, column=4, rowspan=2, sticky="ns", pady=10)
+
+    # 配置行和列的權重，使其在窗口調整大小時自動調整
+    m2_retraining_roster_creation.grid_rowconfigure(14, weight=1)
+    m2_retraining_roster_creation.grid_columnconfigure(0, weight=1)
+    m2_retraining_roster_creation.grid_columnconfigure(1, weight=1)
+    m2_retraining_roster_creation.grid_columnconfigure(2, weight=1)
+    m2_retraining_roster_creation.grid_columnconfigure(3, weight=1)
+
+>>>>>>> dev/ui-and-db
 
     # 邏輯功能 - 搜尋學員資料並顯示在 entry 
     def populate_student_data(identifier, value):
@@ -393,8 +433,60 @@ def m2_retraining_roster_creation(content):
             student_data['r_address_city_road'],
             student_data['training_type_code'] # 添加訓練班別代號
         ))
+<<<<<<< HEAD
     
     # 按鈕
     btn(m2_retraining_roster_creation, text='加入開訓名冊', command=save_student_data).grid(row=12, column=1, sticky='wen', padx=(10, 0), pady=(20, 0))
     print_btn(m2_retraining_roster_creation, text='列印開訓名冊', command=None).grid(row=12, column=2, sticky='wen', padx=(10, 0), pady=(20, 0))
     export_btn(m2_retraining_roster_creation, text='匯出文件', command=lambda: export_selected_data(data_list)).grid(row=12, column=3,sticky='wen', padx=10, pady=(20, 0))
+=======
+
+    # 資料選擇處理
+    def fetch_and_display_data(choice):
+        # 清空現有的 treeview 數據
+        data_list.delete(*data_list.get_children())
+
+        # 連接到數據庫
+        conn = sqlite3.connect(database_path)
+        cursor = conn.cursor()
+
+        # 準備 SQL 查詢
+        if choice == '1 . 全部':
+            query = "SELECT * FROM student WHERE exam_type_name IS NOT NULL"
+        elif choice == '2 . 補筆':
+            query = "SELECT * FROM student WHERE exam_type_name LIKE '%補筆%'"
+        elif choice == '3 . 補路':
+            query = "SELECT * FROM student WHERE exam_type_name LIKE '%補路%'"
+        else:
+            return  # 如果選擇無效，直接返回
+
+        # 執行查詢
+        cursor.execute(query)
+        results = cursor.fetchall()
+
+        # 將結果插入到 treeview
+        for row in results:
+            data_list.insert('', 'end', values=(
+                row[34],  # register_number 名冊號碼34
+                row[5],   # student_number 學員編號5
+                row[7],   # batch 梯次7
+                row[6],   # student_name 學員姓名6
+                row[29],  # exam_code 來源編號29
+                row[31],  # transmission_type_code 手自排類別編號31
+                row[14],  # instructor_number 指導教練編號14
+                row[10],  # national_id_no 身分證字號10
+                row[26],  # learner_permit_date 學照日期26
+                row[16],  # gender 性別16
+                row[9],   # birth_date 出生日期9
+                row[19],  # r_address_zip_code 戶籍地址郵遞區號19
+                row[20] + row[21],  # r_address_city_road
+                row[3]    # training_type_code 訓練班別代號3
+            ))
+
+        # 關閉數據庫連接
+        conn.close()
+    
+    # 按鈕
+    add_btn(m2_retraining_roster_creation, text='加入開訓名冊', command=save_student_data).grid(row=12, column=2, sticky='wen', padx=(10, 0), pady=(20, 0))
+    print_btn(m2_retraining_roster_creation, text='列印開訓名冊', command=None).grid(row=12, column=3, sticky='wen', padx=10, pady=(20, 0))
+>>>>>>> dev/ui-and-db

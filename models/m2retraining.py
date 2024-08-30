@@ -90,6 +90,7 @@ def update_student_data(data):
     messagebox.showinfo('訊息', '已加入 M2 補訓名冊！')
 
     conn.commit()
+<<<<<<< HEAD
     conn.close()
 
 
@@ -164,3 +165,6 @@ def export_selected_data(treeview):
 def generate_csv_filename(register_number, training_type_code):
     # 根據你的固定格式生成文件名稱
     return f"400032{training_type_code}{register_number}_B.csv"
+=======
+    conn.close()
+>>>>>>> dev/ui-and-db
