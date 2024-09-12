@@ -169,6 +169,3 @@ cython_debug/
 # macOS系統文件
 .DS_Store
 **/.DS_Store
-
-# 刪除這一行，因為我們已經在上面添加了更全面的忽略規則
-resources/.DS_Store
