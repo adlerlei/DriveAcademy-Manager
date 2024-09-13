@@ -76,6 +76,8 @@ def student_all(content):
     label(student_all, text='學員姓名').grid(row=6, column=0, sticky='ws', padx=(10,0), pady=(20,0))
     student_name = entry(student_all)
     student_name.grid(row=7, column=0, sticky='wen', padx=(10,0))
+    # 搜尋學員姓名
+    student_name.bind("<KeyRelease>", lambda event: populate_student_data('student_name', student_name.get()))
     # student_name.bind("<KeyRelease>", lambda event: populate_student_data('student_name', student_name.get()))
 
 
