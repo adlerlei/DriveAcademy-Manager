@@ -45,14 +45,18 @@ def update_student_data(data, uid):
     conn.close()
 
 
-# 搜尋學員資料庫
-# 根據指定的條件查詢學員資料
+# 根据指定的条件查询学员资料
 def get_student_data(identifier, value):
     conn = sqlite3.connect(database_path)
     cursor = conn.cursor()
     
-    query = f"SELECT * FROM student WHERE {identifier} = ?"
-    cursor.execute(query, (value,))
+    if identifier in ['student_number', 'student_name', 'national_id_no', 'mobile_phone']:
+        query = f"SELECT * FROM student WHERE {identifier} LIKE ?"
+        cursor.execute(query, (f"%{value}%",))
+    else:
+        query = f"SELECT * FROM student WHERE {identifier} = ?"
+        cursor.execute(query, (value,))
+    
     result = cursor.fetchone()
     
     conn.close()

@@ -18,29 +18,21 @@
     td, th {
         padding: 2px 5px; /* 減少上下padding，保持左右padding */
         height: 15px; /* 設定固定高度 */
-        /*overflow: hidden;  如果內容超出，則隱藏 */
         white-space: nowrap; /* 防止文字換行 */
     }
     @page {
             size: A4 landscape;
-            /* margin: 0; */
         }
         @media print {
             body {
                 width: 297mm;
                 height: 210mm;
-                /* margin: 20;
-                padding: 20; */
             }
             /* 隱藏所有默認的頁首頁尾 */
             * {
                 -webkit-print-color-adjust: exact !important;
                 print-color-adjust: exact !important;
             }
-            /* 移除所有邊距 */
-            /* @page {
-                margin: 20;
-            } */
             /* 隱藏 URL 和頁碼 */
             body::after {
                 content: none !important;
@@ -65,7 +57,7 @@
     <div class="header-item" style="text-align-last: right;font-size: x-small">考驗別：普通小型車班</div>
 </div>
 <div class="header-row">
-    <div class="header-item" style="font-size: x-small">期別：第 199 期 - B 梯次 - 第 01 組</div>
+    <div class="header-item" style="font-size: x-small">期別：第 (寫入annual_plan資料表中的term最新期別) 期 - (寫入annual_plan資料表中的batch最新梯次) 梯次 - 第 01 組</div>
     <div class="header-item" style="text-align: right;font-size: x-small">筆試日期： 113/08/10 - 第 10 組</div>
 </div>
 
@@ -86,330 +78,22 @@
         <th style="padding: 5px">身分證字號</th>
         <th style="padding: 5px">備註</th>
     </tr>
-    <!-- Repeat the following row structure 20 times for empty rows -->
-    {% for student in students %}
     <tr>
-        <td style="padding: 5px">{{student.number}}</td>
-        <td style="padding: 5px">{{student.name}}</td>
-        <td style="padding: 5px">{{student.birth_date}}</td>
         <td style="padding: 5px"></td>
         <td style="padding: 5px"></td>
-        <td style="padding: 5px">{{student.id_number}}</td>
-        <td style="padding: 5px">{{student.remark}}</td>
-        <td style="padding: 5px">{{student.number}}</td>
-        <td style="padding: 5px">{{student.name}}</td>
-        <td style="padding: 5px">{{student.birth_date}}</td>
         <td style="padding: 5px"></td>
         <td style="padding: 5px"></td>
-        <td style="padding: 5px">{{student.id_number}}</td>
-        <td style="padding: 5px">{{student.remark}}</td>
+        <td style="padding: 5px"></td>
+        <td style="padding: 5px"></td>
+        <td style="padding: 5px"></td>
+        <td style="padding: 5px"></td>
+        <td style="padding: 5px"></td>
+        <td style="padding: 5px"></td>
+        <td style="padding: 5px"></td>
+        <td style="padding: 5px"></td>
+        <td style="padding: 5px"></td>
+        <td style="padding: 5px"></td>
     </tr>
-    <tr>
-        <td style="padding: 5px">{{student.number}}</td>
-        <td style="padding: 5px">{{student.name}}</td>
-        <td style="padding: 5px">{{student.birth_date}}</td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px">{{student.id_number}}</td>
-        <td style="padding: 5px">{{student.remark}}</td>
-        <td style="padding: 5px">{{student.number}}</td>
-        <td style="padding: 5px">{{student.name}}</td>
-        <td style="padding: 5px">{{student.birth_date}}</td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px">{{student.id_number}}</td>
-        <td style="padding: 5px">{{student.remark}}</td>
-    </tr>
-    <tr>
-        <td style="padding: 5px">{{student.number}}</td>
-        <td style="padding: 5px">{{student.name}}</td>
-        <td style="padding: 5px">{{student.birth_date}}</td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px">{{student.id_number}}</td>
-        <td style="padding: 5px">{{student.remark}}</td>
-        <td style="padding: 5px">{{student.number}}</td>
-        <td style="padding: 5px">{{student.name}}</td>
-        <td style="padding: 5px">{{student.birth_date}}</td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px">{{student.id_number}}</td>
-        <td style="padding: 5px">{{student.remark}}</td>
-    </tr>
-    <tr>
-        <td style="padding: 5px">{{student.number}}</td>
-        <td style="padding: 5px">{{student.name}}</td>
-        <td style="padding: 5px">{{student.birth_date}}</td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px">{{student.id_number}}</td>
-        <td style="padding: 5px">{{student.remark}}</td>
-        <td style="padding: 5px">{{student.number}}</td>
-        <td style="padding: 5px">{{student.name}}</td>
-        <td style="padding: 5px">{{student.birth_date}}</td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px">{{student.id_number}}</td>
-        <td style="padding: 5px">{{student.remark}}</td>
-    </tr>
-    <tr>
-        <td style="padding: 5px">{{student.number}}</td>
-        <td style="padding: 5px">{{student.name}}</td>
-        <td style="padding: 5px">{{student.birth_date}}</td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px">{{student.id_number}}</td>
-        <td style="padding: 5px">{{student.remark}}</td>
-        <td style="padding: 5px">{{student.number}}</td>
-        <td style="padding: 5px">{{student.name}}</td>
-        <td style="padding: 5px">{{student.birth_date}}</td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px">{{student.id_number}}</td>
-        <td style="padding: 5px">{{student.remark}}</td>
-    </tr>
-    <tr>
-        <td style="padding: 5px">{{student.number}}</td>
-        <td style="padding: 5px">{{student.name}}</td>
-        <td style="padding: 5px">{{student.birth_date}}</td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px">{{student.id_number}}</td>
-        <td style="padding: 5px">{{student.remark}}</td>
-        <td style="padding: 5px">{{student.number}}</td>
-        <td style="padding: 5px">{{student.name}}</td>
-        <td style="padding: 5px">{{student.birth_date}}</td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px">{{student.id_number}}</td>
-        <td style="padding: 5px">{{student.remark}}</td>
-    </tr>
-    <tr>
-        <td style="padding: 5px">{{student.number}}</td>
-        <td style="padding: 5px">{{student.name}}</td>
-        <td style="padding: 5px">{{student.birth_date}}</td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px">{{student.id_number}}</td>
-        <td style="padding: 5px">{{student.remark}}</td>
-        <td style="padding: 5px">{{student.number}}</td>
-        <td style="padding: 5px">{{student.name}}</td>
-        <td style="padding: 5px">{{student.birth_date}}</td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px">{{student.id_number}}</td>
-        <td style="padding: 5px">{{student.remark}}</td>
-    </tr>
-    <tr>
-        <td style="padding: 5px">{{student.number}}</td>
-        <td style="padding: 5px">{{student.name}}</td>
-        <td style="padding: 5px">{{student.birth_date}}</td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px">{{student.id_number}}</td>
-        <td style="padding: 5px">{{student.remark}}</td>
-        <td style="padding: 5px">{{student.number}}</td>
-        <td style="padding: 5px">{{student.name}}</td>
-        <td style="padding: 5px">{{student.birth_date}}</td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px">{{student.id_number}}</td>
-        <td style="padding: 5px">{{student.remark}}</td>
-    </tr>
-    <tr>
-        <td style="padding: 5px">{{student.number}}</td>
-        <td style="padding: 5px">{{student.name}}</td>
-        <td style="padding: 5px">{{student.birth_date}}</td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px">{{student.id_number}}</td>
-        <td style="padding: 5px">{{student.remark}}</td>
-        <td style="padding: 5px">{{student.number}}</td>
-        <td style="padding: 5px">{{student.name}}</td>
-        <td style="padding: 5px">{{student.birth_date}}</td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px">{{student.id_number}}</td>
-        <td style="padding: 5px">{{student.remark}}</td>
-    </tr>
-    <tr>
-        <td style="padding: 5px">{{student.number}}</td>
-        <td style="padding: 5px">{{student.name}}</td>
-        <td style="padding: 5px">{{student.birth_date}}</td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px">{{student.id_number}}</td>
-        <td style="padding: 5px">{{student.remark}}</td>
-        <td style="padding: 5px">{{student.number}}</td>
-        <td style="padding: 5px">{{student.name}}</td>
-        <td style="padding: 5px">{{student.birth_date}}</td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px">{{student.id_number}}</td>
-        <td style="padding: 5px">{{student.remark}}</td>
-    </tr>
-    <tr>
-        <td style="padding: 5px">{{student.number}}</td>
-        <td style="padding: 5px">{{student.name}}</td>
-        <td style="padding: 5px">{{student.birth_date}}</td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px">{{student.id_number}}</td>
-        <td style="padding: 5px">{{student.remark}}</td>
-        <td style="padding: 5px">{{student.number}}</td>
-        <td style="padding: 5px">{{student.name}}</td>
-        <td style="padding: 5px">{{student.birth_date}}</td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px">{{student.id_number}}</td>
-        <td style="padding: 5px">{{student.remark}}</td>
-    </tr>
-    <tr>
-        <td style="padding: 5px">{{student.number}}</td>
-        <td style="padding: 5px">{{student.name}}</td>
-        <td style="padding: 5px">{{student.birth_date}}</td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px">{{student.id_number}}</td>
-        <td style="padding: 5px">{{student.remark}}</td>
-        <td style="padding: 5px">{{student.number}}</td>
-        <td style="padding: 5px">{{student.name}}</td>
-        <td style="padding: 5px">{{student.birth_date}}</td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px">{{student.id_number}}</td>
-        <td style="padding: 5px">{{student.remark}}</td>
-    </tr>
-    <tr>
-        <td style="padding: 5px">{{student.number}}</td>
-        <td style="padding: 5px">{{student.name}}</td>
-        <td style="padding: 5px">{{student.birth_date}}</td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px">{{student.id_number}}</td>
-        <td style="padding: 5px">{{student.remark}}</td>
-        <td style="padding: 5px">{{student.number}}</td>
-        <td style="padding: 5px">{{student.name}}</td>
-        <td style="padding: 5px">{{student.birth_date}}</td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px">{{student.id_number}}</td>
-        <td style="padding: 5px">{{student.remark}}</td>
-    </tr>
-    <tr>
-        <td style="padding: 5px">{{student.number}}</td>
-        <td style="padding: 5px">{{student.name}}</td>
-        <td style="padding: 5px">{{student.birth_date}}</td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px">{{student.id_number}}</td>
-        <td style="padding: 5px">{{student.remark}}</td>
-        <td style="padding: 5px">{{student.number}}</td>
-        <td style="padding: 5px">{{student.name}}</td>
-        <td style="padding: 5px">{{student.birth_date}}</td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px">{{student.id_number}}</td>
-        <td style="padding: 5px">{{student.remark}}</td>
-    </tr>
-    <tr>
-        <td style="padding: 5px">{{student.number}}</td>
-        <td style="padding: 5px">{{student.name}}</td>
-        <td style="padding: 5px">{{student.birth_date}}</td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px">{{student.id_number}}</td>
-        <td style="padding: 5px">{{student.remark}}</td>
-        <td style="padding: 5px">{{student.number}}</td>
-        <td style="padding: 5px">{{student.name}}</td>
-        <td style="padding: 5px">{{student.birth_date}}</td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px">{{student.id_number}}</td>
-        <td style="padding: 5px">{{student.remark}}</td>
-    </tr>
-    <tr>
-        <td style="padding: 5px">{{student.number}}</td>
-        <td style="padding: 5px">{{student.name}}</td>
-        <td style="padding: 5px">{{student.birth_date}}</td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px">{{student.id_number}}</td>
-        <td style="padding: 5px">{{student.remark}}</td>
-        <td style="padding: 5px">{{student.number}}</td>
-        <td style="padding: 5px">{{student.name}}</td>
-        <td style="padding: 5px">{{student.birth_date}}</td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px">{{student.id_number}}</td>
-        <td style="padding: 5px">{{student.remark}}</td>
-    </tr>
-    <tr>
-        <td style="padding: 5px">{{student.number}}</td>
-        <td style="padding: 5px">{{student.name}}</td>
-        <td style="padding: 5px">{{student.birth_date}}</td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px">{{student.id_number}}</td>
-        <td style="padding: 5px">{{student.remark}}</td>
-        <td style="padding: 5px">{{student.number}}</td>
-        <td style="padding: 5px">{{student.name}}</td>
-        <td style="padding: 5px">{{student.birth_date}}</td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px">{{student.id_number}}</td>
-        <td style="padding: 5px">{{student.remark}}</td>
-    </tr>
-    <tr>
-        <td style="padding: 5px">{{student.number}}</td>
-        <td style="padding: 5px">{{student.name}}</td>
-        <td style="padding: 5px">{{student.birth_date}}</td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px">{{student.id_number}}</td>
-        <td style="padding: 5px">{{student.remark}}</td>
-        <td style="padding: 5px">{{student.number}}</td>
-        <td style="padding: 5px">{{student.name}}</td>
-        <td style="padding: 5px">{{student.birth_date}}</td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px">{{student.id_number}}</td>
-        <td style="padding: 5px">{{student.remark}}</td>
-    </tr>
-    <tr>
-        <td style="padding: 5px">{{student.number}}</td>
-        <td style="padding: 5px">{{student.name}}</td>
-        <td style="padding: 5px">{{student.birth_date}}</td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px">{{student.id_number}}</td>
-        <td style="padding: 5px">{{student.remark}}</td>
-        <td style="padding: 5px">{{student.number}}</td>
-        <td style="padding: 5px">{{student.name}}</td>
-        <td style="padding: 5px">{{student.birth_date}}</td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px">{{student.id_number}}</td>
-        <td style="padding: 5px">{{student.remark}}</td>
-    </tr>
-    <tr>
-        <td style="padding: 5px">{{student.number}}</td>
-        <td style="padding: 5px">{{student.name}}</td>
-        <td style="padding: 5px">{{student.birth_date}}</td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px">{{student.id_number}}</td>
-        <td style="padding: 5px">{{student.remark}}</td>
-        <td style="padding: 5px">{{student.number}}</td>
-        <td style="padding: 5px">{{student.name}}</td>
-        <td style="padding: 5px">{{student.birth_date}}</td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px">{{student.id_number}}</td>
-        <td style="padding: 5px">{{student.remark}}</td>
-    </tr>
-    {% endfor %}
-    <!-- ... (repeat the above row 19 more times) ... -->
 </table>
 
 <!-- 下方表格 -->
@@ -426,7 +110,6 @@
         vertical-align: middle;
     }
     .exam-summary-table th {
-        /*background-color: #f0f0f0;*/
         font-weight: bold;
     }
 </style>
