@@ -60,7 +60,7 @@ def student_all(content):
 
     # 學員編號
     label(student_all, text='學員編號').grid(row=4, column=0, sticky='ws', padx=(10,0), pady=(20,0))
-    student_number = entry(student_all, placeholder_text='輸入學員編號查詢')
+    student_number = entry(student_all, placeholder_text='編號查詢')
     student_number.grid(row=5, column=0, sticky='wen', padx=(10,0))
     student_number.bind("<KeyRelease>", lambda event: populate_student_data('student_number', student_number.get()))
 
@@ -74,18 +74,16 @@ def student_all(content):
 
     # 學員姓名
     label(student_all, text='學員姓名').grid(row=6, column=0, sticky='ws', padx=(10,0), pady=(20,0))
-    student_name = entry(student_all)
+    student_name = entry(student_all, placeholder_text='姓名查詢')
     student_name.grid(row=7, column=0, sticky='wen', padx=(10,0))
-    # 搜尋學員姓名
-    # student_name.bind("<KeyRelease>", lambda event: populate_student_data('student_name', student_name.get()))
-    # student_name.bind("<KeyRelease>", lambda event: populate_student_data('student_name', student_name.get()))
+    student_name.bind("<KeyRelease>", lambda event: populate_student_data('student_name', student_name.get()))
 
 
     # 身分證號碼
     label(student_all, text='身分證號碼').grid(row=6, column=1, sticky='ws', padx=(10,0), pady=(20,0))
-    national_id_no = entry(student_all)
+    national_id_no = entry(student_all, placeholder_text='身分證查詢')
     national_id_no.grid(row=7, column=1, sticky='wen', padx=(10,0))
-    # national_id_no.bind("<KeyRelease>", lambda event: populate_student_data('national_id_no', national_id_no.get()))
+    national_id_no.bind("<KeyRelease>", lambda event: populate_student_data('national_id_no', national_id_no.get()))
 
 
     # 出生日期
@@ -96,9 +94,9 @@ def student_all(content):
 
     # 行動電話
     label(student_all, text='手機').grid(row=8, column=1, sticky='ws', padx=(10,0), pady=(20,0))
-    mobile_phone = entry(student_all)
+    mobile_phone = entry(student_all, placeholder_text='手機查詢')
     mobile_phone.grid(row=9, column=1, sticky='wen', padx=(10,0))
-    # mobile_phone.bind("<KeyRelease>", lambda event: populate_student_data('mobile_phone', mobile_phone.get()))  # 新增行動電話查詢
+    mobile_phone.bind("<KeyRelease>", lambda event: populate_student_data('mobile_phone', mobile_phone.get()))
 
 
     # 戶籍地址
@@ -153,7 +151,7 @@ def student_all(content):
     instructor_number.set('')
     instructor_name.set('')
 
-    # 指導教練下拉選單監聽 number 改變時，自動��新 name 名稱
+    # 指導教練下拉選單監聽 number 改變時，自動更新 name 名稱
     def on_instructor_number_changed(selected_number, instructor_name, instructor_dict):
         selected_name = instructor_dict.get(selected_number, "")
         instructor_name.set(selected_name)
@@ -168,7 +166,7 @@ def student_all(content):
     label(student_all, text='信箱').grid(row=6, column=2, sticky='ws', padx=(10,0), pady=(20,0))
     email = entry(student_all)
     email.grid(row=7, column=2, columnspan=2, sticky='wen', padx=10)
-    # email.bind("<KeyRelease>", lambda event: populate_student_data('email', email.get()))
+    email.bind("<KeyRelease>", lambda event: populate_student_data('email', email.get()))
 
 
     # 備註
@@ -228,13 +226,20 @@ def student_all(content):
     def populate_student_data(identifier, value):
         global is_editing, current_student_id
         # 監聽學員編號輸入欄位如果為空，清除學員資料
-        if identifier == 'student_number' and value == '':
+        if value == '':
             clear_entries_and_comboboxes(student_all)
+            is_editing = False
+            current_student_id = None
         else:
             student_data = get_student_data(identifier, value)
             if student_data:
                 is_editing = True
                 current_student_id = student_data[0]
+          
+                # 保存当前触发搜索的字段值
+                current_field_value = value
+          
+                # 填充数据
                 training_type_code.set(student_data[3])
                 training_type_name.set(student_data[4])
                 license_type_code.set(student_data[1])
@@ -295,7 +300,7 @@ def student_all(content):
                 else:
                     dropout.insert(0, '')
                 dropout.configure(state='readonly')
-                
+
                 # 名冊號碼
                 register_number.configure(state='normal')
                 register_number.delete(0, ctk.END)
@@ -317,8 +322,22 @@ def student_all(content):
                 creation_date.delete(0, ctk.END)
                 creation_date.insert(0, student_data[46])
                 creation_date.configure(state='readonly')
+
+                # 恢复当前触发搜索的字段值
+                if identifier == 'student_number':
+                    student_number.delete(0, ctk.END)
+                    student_number.insert(0, current_field_value)
+                elif identifier == 'student_name':
+                    student_name.delete(0, ctk.END)
+                    student_name.insert(0, current_field_value)
+                elif identifier == 'national_id_no':
+                    national_id_no.delete(0, ctk.END)
+                    national_id_no.insert(0, current_field_value)
+                elif identifier == 'mobile_phone':
+                    mobile_phone.delete(0, ctk.END)
+                    mobile_phone.insert(0, current_field_value)
             else:
-                # 如果沒有查詢到學生資料,則重置 is_editing 和 current_student_id
+                # 如果没有查询到学生资料,则重置 is_editing 和 current_student_id
                 is_editing = False
                 current_student_id = None    
 
@@ -359,7 +378,7 @@ def student_all(content):
             if not student_data[field]:
                 messagebox.showwarning('提示', f'{validation_fields[field]} 欄位不能為空！')
                 return
-        
+
         # 如果是編輯模式，提示使用者無法新增
         if is_editing:
             messagebox.showinfo('提示', '無法新增學員，請使用 "修改" 功能。')
@@ -401,27 +420,13 @@ def student_all(content):
             'm_address': m_address.get(),
             'id': current_student_id
         }
-        # 驗證必填欄位是否為空
-        # required_fields = ['training_type_code', 'training_type_name', 'license_type_code', 'license_type_name', 
-        #                 'student_number', 'student_name', 'batch', 'national_id_no', 'birth_date',
-        #                 'r_address_zip_code', 'r_address_city', 'r_address', 'email']
-        # for field in required_fields:
-        #     if not student_data[field]:
-        #         messagebox.showwarning('提���', f'{validation_fields[field]} 欄位不能為空！')
-        #         return
 
         if current_student_id is None:
             messagebox.showwarning('提示', '請先查詢並選擇要修改的學員資料。')
             return
         else:
             update_student_data(student_data)
-        
-        # is_editing = False
-        # current_student_id = None
 
-
-        # 需要保留的 entry 列表，clear_entries_and_comboboxes 函式中的參數之一 ###
-        # keep_entries = [training_type_code, training_type_name, license_type_code, license_type_name]
         clear_entries_and_comboboxes(student_all)
  
 
@@ -441,7 +446,16 @@ def student_all(content):
             messagebox.showwarning('提示', '請先輸入要刪除的學員資料！')
 
 
-    # 修改按鈕配置
-    add_btn(student_all, text='新增', command=get_data_and_insert).grid(row=13, column=1, sticky='wen', padx=(10,0), pady=20)
-    modify_btn(student_all, text='修改', command=update_student).grid(row=13, column=2, sticky='wen', padx=(10,0), pady=20)
-    delete_btn(student_all, text='刪除', command=delete_student).grid(row=13, column=3, sticky='wen', padx=10, pady=20)
+    # 清除所有欄位
+    def clear_all_fields():
+        clear_entries_and_comboboxes(student_all)
+        global is_editing, current_student_id
+        is_editing = False
+        current_student_id = None
+
+
+    # 按鈕配置
+    clear_btn(student_all, text='清除', command=clear_all_fields).grid(row=13, column=0, sticky='wen', padx=(10,0), pady=(50,40))
+    add_btn(student_all, text='新增', command=get_data_and_insert).grid(row=13, column=1, sticky='wen', padx=(10,0), pady=(50,40))
+    modify_btn(student_all, text='修改', command=update_student).grid(row=13, column=2, sticky='wen', padx=(10,0), pady=(50,40))
+    delete_btn(student_all, text='刪除', command=delete_student).grid(row=13, column=3, sticky='wen', padx=10, pady=(50,40))
