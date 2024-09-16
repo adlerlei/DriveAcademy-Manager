@@ -7,12 +7,14 @@ from tkinter import messagebox
 import sqlite3
 from tkinter import ttk
 
-
 # 檢測學員資料庫 id 欄位來判定是否修改或新增
 current_student_id = None
 
+# 在文件顶部添加全局变量声明
+global data_list
+
 def m2_retraining_roster_creation(content):
-    clear_frame(content)
+    global data_list  # 在函数开始处添加这行
     
     m2_retraining_roster_creation = frame(content)
     m2_retraining_roster_creation.columnconfigure(0, weight=1)
@@ -21,22 +23,23 @@ def m2_retraining_roster_creation(content):
     m2_retraining_roster_creation.columnconfigure(3, weight=1)
     m2_retraining_roster_creation.place(relwidth=1, relheight=1)
 
-
     # 顯示 / 搜尋 學員編號
     label(m2_retraining_roster_creation, text='學員編號').grid(row=0, column=0, sticky='ws', padx=(10,0), pady=(10,0))
-    student_number = entry(m2_retraining_roster_creation,  placeholder_text = "輸入學員編號")
+    student_number = entry(m2_retraining_roster_creation,  placeholder_text = "編號查詢")
     student_number.grid(row=1, column=0, sticky='wen', padx=(10,0))
-    student_number.bind("<KeyRelease>", lambda event: populate_student_data('student_number', student_number.get()))
+    student_number.bind("<KeyRelease>", lambda event: check_and_populate('student_number', student_number.get()))
     
-    # 學員姓名
+    # 顯示 / 搜尋 學員姓名
     label(m2_retraining_roster_creation, text='學員姓名').grid(row=0, column=1, sticky='ws', padx=(10,0), pady=(10,0))
-    student_name = display_entry_value(m2_retraining_roster_creation)
+    student_name = entry(m2_retraining_roster_creation, placeholder_text="姓名查詢")
     student_name.grid(row=1, column=1, sticky='wen', padx=(10,0))
+    student_name.bind("<KeyRelease>", lambda event: check_and_populate('student_name', student_name.get()))
 
-    # 身分證號碼
+    # 顯示 / 搜尋 身分證號碼
     label(m2_retraining_roster_creation, text='身分證號').grid(row=0, column=2, sticky='ws', padx=(10,0), pady=(10,0))
-    national_id_no = display_entry_value(m2_retraining_roster_creation)
+    national_id_no = entry(m2_retraining_roster_creation, placeholder_text="身分證查詢")
     national_id_no.grid(row=1, column=2, sticky='wen', padx=(10,0))
+    national_id_no.bind("<KeyRelease>", lambda event: check_and_populate('national_id_no', national_id_no.get()))
 
     # 出生日期
     label(m2_retraining_roster_creation, text='出生日期').grid(row=0, column=3, sticky='ws', padx=(10,0), pady=(10,0))
@@ -87,9 +90,7 @@ def m2_retraining_roster_creation(content):
     # 來源
     exam_codes = ['A','B','C','G','Z']
     exam_names = ['新考','晉考','換考','吊扣註銷重考','臨時駕駛執照']
-    # 使用 zip 函數生成字典來填充 exam_code
     exam_dict_c = dict(zip(exam_codes, exam_names))
-    # 使用 zip 函數生成字典來填充 exam_name
     exam_dict_n = dict(zip(exam_names, exam_codes))
 
     label(m2_retraining_roster_creation, text='來源').grid(row=8, column=0, sticky='ws', padx=(10,0), pady=(50,0))
@@ -130,7 +131,6 @@ def m2_retraining_roster_creation(content):
         transmission_type_code.set(select_code)
 
     # 教練 下拉選單
-    # 獲得教練資料庫資料
     instructor_numbers, instructor_names, instructor_dict = get_instructor_data()
     label(m2_retraining_roster_creation, text='指導教練').grid(row=10, column=0, sticky='ws', padx=(10,0), pady=(10,0))
     instructor_number = combobox(m2_retraining_roster_creation, values=instructor_numbers, command=lambda x: on_instructor_number_changed(x, instructor_name, instructor_dict))
@@ -140,12 +140,10 @@ def m2_retraining_roster_creation(content):
     instructor_number.set('')
     instructor_name.set('')
 
-    # 指導教練下拉選單監聽 number 改變時，自動更新 name 名稱
     def on_instructor_number_changed(selected_number, instructor_name, instructor_dict):
         selected_name = instructor_dict.get(selected_number, "")
         instructor_name.set(selected_name)
 
-    # 指導教練下拉選單監聽 name 改變時，自動更新 number 編號 
     def on_instructor_name_changed(selected_name, instructor_number, instructor_dict):
         selected_number = next((number for number, name in instructor_dict.items() if name == selected_name), "")
         instructor_number.set(selected_number)
@@ -156,18 +154,7 @@ def m2_retraining_roster_creation(content):
     exam_type_name.grid(row=11, column=2, sticky='wen',padx=(10,0))
     exam_type_name.set('')
 
-    def on_data_select(choice):
-        fetch_and_display_data(choice)
-
-    # 資料選擇 (自定義變數)
-    label(m2_retraining_roster_creation, text='資料選擇').grid(row=10, column=3, sticky='ws', padx=(10,0), pady=(10,0))
-    data_select = combobox(m2_retraining_roster_creation, values=['1 . 全部', '2 . 補筆', '3 . 補路'], command=on_data_select)
-    data_select.grid(row=11, column=3, sticky='wen', padx=10)
-    data_select.set('')
-    
-    
     # treeview
-    global data_list
     columns = (
         'register_number', # 名冊號碼
         'student_number', # 學員編號
@@ -206,180 +193,160 @@ def m2_retraining_roster_creation(content):
     data_list.column('student_name', width=50, anchor='w')
     data_list.column('exam_code', width=20, anchor='w')
     data_list.column('transmission_type_code', width=20, anchor='w')
-    data_list.column('instructor_number', width=30, anchor='w')
-    data_list.column('national_id_no', width=80, anchor='w')
-    data_list.column('learner_permit_date', width=30, anchor='w')
+    data_list.column('instructor_number', width=20, anchor='w')
+    data_list.column('national_id_no', width=50, anchor='w')
+    data_list.column('learner_permit_date', width=50, anchor='w')
     data_list.column('gender', width=20, anchor='w')
     data_list.column('birth_date', width=50, anchor='w')
-    data_list.column('r_address_zip_code', width=30, anchor='w')
-    data_list.column('r_address_city_road', width=250, anchor='w')
-    data_list.column('training_type_code', width=0, stretch=0) # 隱藏列
+    data_list.column('r_address_zip_code', width=20, anchor='w')
+    data_list.column('r_address_city_road', width=100, anchor='w')
     
-    data_list.grid(row=13, column=0, columnspan=4, sticky='wen', padx=10, pady=(20,0))
+    data_list.grid(row=13, column=0, columnspan=4, sticky='nsew', padx=10, pady=(10,0))
 
-    # 創建水平捲軸
-    h_scrollbar = ttk.Scrollbar(m2_retraining_roster_creation, orient="horizontal", command=data_list.xview)
-    data_list.configure(xscrollcommand=h_scrollbar.set)
-
-    # 創建垂直捲軸
-    v_scrollbar = ttk.Scrollbar(m2_retraining_roster_creation, orient="vertical", command=data_list.yview)
-    data_list.configure(yscrollcommand=v_scrollbar.set)
-
-    # 使用 grid 布局管理器來排列 Treeview 和捲軸
-    h_scrollbar.grid(row=14, column=0, columnspan=4, sticky="ew", padx=10)
-    v_scrollbar.grid(row=13, column=4, rowspan=2, sticky="ns", pady=10)
-
-    # 配置行和列的權重，使其在窗口調整大小時自動調整
-    m2_retraining_roster_creation.grid_rowconfigure(14, weight=1)
-    m2_retraining_roster_creation.grid_columnconfigure(0, weight=1)
-    m2_retraining_roster_creation.grid_columnconfigure(1, weight=1)
-    m2_retraining_roster_creation.grid_columnconfigure(2, weight=1)
-    m2_retraining_roster_creation.grid_columnconfigure(3, weight=1)
-
-
-    # 邏輯功能 - 搜尋學員資料並顯示在 entry 
-    def populate_student_data(identifier, value):
-
-        # 監聽學員編號輸入欄位如果為空，清除學員資料
-        if identifier == 'student_number' and value == '':
-            # 不保留任何欄位值，全部清除
-            clear_entries_and_comboboxes(m2_retraining_roster_creation)
+    # 邏輯功能
+    def check_and_populate(identifier, value):
+        if value == '':
+            clear_all_fields()
         else:
-            global current_student_id
-            student_data = get_student_data(identifier, value)
-            if student_data:
-                # 獲取學員資料庫 id 序列
-                current_student_id = student_data[0]
-                # 名冊號碼
-                register_number.configure(state='readonly')
-                register_number.configure(state='normal')
-                register_number.delete(0, ctk.END)
-                register_number.insert(0, student_data[34])
-                register_number.configure(state='readonly')
+            populate_student_data(identifier, value)
 
-                # 梯次
-                batch.configure(state='normal')
-                batch.delete(0, ctk.END)
-                batch.insert(0, student_data[7])
-                batch.configure(state='readonly')
-                # 學員姓名
-                student_name.configure(state='normal')
-                student_name.delete(0, ctk.END)
-                student_name.insert(0, student_data[6])
-                student_name.configure(state='readonly')
-                # 來源代號
-                if student_data[29] is not None:
-                    exam_code.set(student_data[29])
-                else:
-                    exam_code.set('')
-                # 來源名稱
-                if student_data[30] is not None:
-                    exam_name.set(student_data[30])
-                else:
-                    exam_name.set('')
-                # 手自排代號
-                if student_data[31] is not None:
-                    transmission_type_code.set(student_data[31])
-                else:
-                    transmission_type_code.set('')
-                # 手自排名稱
-                if student_data[32] is not None:
-                    transmission_type_name.set(student_data[32])
-                else:
-                    transmission_type_name.set('')
-                # 指導教練編號
-                if student_data[14] is not None:
-                    instructor_number.set(student_data[14])
-                else:
-                    instructor_number.set('')
-                # 指導教練名稱
-                if student_data[15] is not None:
-                    instructor_name.set(student_data[15])
-                else:
-                    instructor_name.set('')
-                # 身分證
-                national_id_no.configure(state='normal')
-                national_id_no.delete(0, ctk.END)
-                national_id_no.insert(0, student_data[10])
-                national_id_no.configure(state='readonly')
-                # 學照日期
-                learner_permit_date.configure(state='normal')
+    def clear_all_fields():
+        global current_student_id
+        clear_entries_and_comboboxes(m2_retraining_roster_creation)
+        current_student_id = None
+
+    # 搜尋學員資料庫並且在 entry 顯示學員資料
+    def populate_student_data(identifier, value):
+        global current_student_id
+        student_data = get_student_data(identifier, value)
+        if student_data:
+            current_student_id = student_data[0]
+            student_number.delete(0, ctk.END)
+            student_number.insert(0, student_data[5])
+            student_name.delete(0, ctk.END)
+            student_name.insert(0, student_data[6])
+            national_id_no.delete(0, ctk.END)
+            national_id_no.insert(0, student_data[10])
+            birth_date.configure(state='normal')
+            birth_date.delete(0, ctk.END)
+            birth_date.insert(0, student_data[9])
+            birth_date.configure(state='readonly')
+
+            # 學照日期
+            if student_data[26] is not None:
                 learner_permit_date.delete(0, ctk.END)
                 learner_permit_date.insert(0, student_data[26])
-                learner_permit_date.configure(state='readonly')
-                # 性別
-                gender.configure(state='normal')
-                gender.delete(0, ctk.END)
-                gender.insert(0, student_data[16])
-                gender.configure(state='readonly')
-                # 出生日期
-                birth_date.configure(state='normal')
-                birth_date.delete(0, ctk.END)
-                birth_date.insert(0, student_data[9])
-                birth_date.configure(state='readonly')
-                # 戶籍地址 郵遞區號
-                r_address_zip_code.configure(state='normal')
-                r_address_zip_code.delete(0, ctk.END)
-                r_address_zip_code.insert(0, student_data[19])
-                r_address_zip_code.configure(state='readonly')
-                # 戶籍地址 縣市區域
-                r_address_city.configure(state='normal')
-                r_address_city.delete(0, ctk.END)
-                r_address_city.insert(0, student_data[20])
-                r_address_city.configure(state='readonly')
-                # 戶籍地址 地址
-                r_address.configure(state='normal')
-                r_address.delete(0, ctk.END)
-                r_address.insert(0, student_data[21])
-                r_address.configure(state='readonly')
+            else:
+                learner_permit_date.delete(0, ctk.END)
+                learner_permit_date.insert(0, '')
 
-                # 期別
-                register_term.configure(state='normal')
+            # register_number.configure(state='normal')
+            # register_number.delete(0, ctk.END)
+            # register_number.insert(0, student_data[34])
+            # register_number.configure(state='readonly')
+            if student_data[34] is not None:
+                register_number.delete(0, ctk.END)
+                register_number.insert(0, student_data[34])
+            else:
+                register_number.delete(0, ctk.END)
+                register_number.insert(0, '')
+
+            # register_term.configure(state='normal')
+            # register_term.delete(0, ctk.END)
+            # register_term.insert(0, student_data[35])
+            # register_term.configure(state='readonly')
+            if student_data[35] is not None:
                 register_term.delete(0, ctk.END)
-                if student_data[35] is not None:
-                    register_term.insert(0, student_data[35])
+                register_term.insert(0, student_data[35])
+            else:
+                register_term.delete(0, ctk.END)
+                register_term.insert(0, '')
+
+
+            gender.configure(state='normal')
+            gender.delete(0, ctk.END)
+            gender.insert(0, student_data[16])
+            gender.configure(state='readonly')
+            batch.configure(state='normal')
+            batch.delete(0, ctk.END)
+            batch.insert(0, student_data[7])
+            batch.configure(state='readonly')
+            training_type_code.configure(state='normal')
+            training_type_code.delete(0, ctk.END)
+            training_type_code.insert(0, student_data[3])
+            training_type_code.configure(state='readonly')
+            training_type_name.configure(state='normal')
+            training_type_name.delete(0, ctk.END)
+            training_type_name.insert(0, student_data[4])
+            training_type_name.configure(state='readonly')
+            r_address_zip_code.configure(state='normal')
+            r_address_zip_code.delete(0, ctk.END)
+            r_address_zip_code.insert(0, student_data[19])
+            r_address_zip_code.configure(state='readonly')
+            r_address_city.configure(state='normal')
+            r_address_city.delete(0, ctk.END)
+            r_address_city.insert(0, student_data[20])
+            r_address_city.configure(state='readonly')
+            r_address.configure(state='normal')
+            r_address.delete(0, ctk.END)
+            r_address.insert(0, student_data[21])
+            r_address.configure(state='readonly')
+            
+            # 來源
+            if student_data[29] is not None:
+                exam_code.set(student_data[29])
+            else:
+                exam_code.set('')
+            # 來源名稱
+            if student_data[30] is not None:
+                exam_name.set(student_data[30])
+            else:
+                exam_name.set('')
+            
+            # 設置其他字段的值（如來源、手自排、教練等）
+            if student_data[31] is not None:
+                transmission_type_code.set(student_data[31])
+            if student_data[32] is not None:
+                transmission_type_name.set(student_data[32])
+            if student_data[14] is not None:
+                instructor_number.set(student_data[14])
+            if student_data[15] is not None:
+                instructor_name.set(student_data[15])
+            if len(student_data) > 43:
+                if student_data[43] is not None:
+                    exam_type_name.set(student_data[43])
                 else:
-                    register_term.insert(0, '')
-                register_number.configure(state='readonly')
-                                    
-                # 訓練班別代號
-                training_type_code.configure(state='normal')
-                training_type_code.delete(0, ctk.END)
-                training_type_code.insert(0, student_data[3])
-                training_type_code.configure(state='readonly')
-                # 訓練班別名稱
-                training_type_name.configure(state='normal')
-                training_type_name.delete(0, ctk.END)
-                training_type_name.insert(0, student_data[4])
-                training_type_name.configure(state='readonly')
+                    exam_type_name.set('')
+            else:
+                exam_type_name.set('')  # 如果没有这个字段，设置为空字符串
 
-
-    # 獲取輸入欄位信息
+    # 獲取入欄位信息
     def save_student_data():
+        global data_list  # 在函数开始处添加这行
+        uid = 0
         global current_student_id
         student_data = {
-            # 獲取輸入欄位信息並呈現在 treeview
-            'register_number': register_number.get(), # 名冊號碼
-            'student_number': student_number.get(), # 學員編號
-            'batch': batch.get(), # 梯次
-            'student_name': student_name.get(), # 學員姓名
-            'exam_code': exam_code.get(), # 來源代號
-            'exam_name': exam_name.get(), # 來源名稱
-            'exam_type_name': exam_type_name.get(), # 筆路
-            'transmission_type_code': transmission_type_code.get(), # 手自排代號
-            'transmission_type_name': transmission_type_name.get(), # 手自排名稱
-            'instructor_number': instructor_number.get(), # 教練代號
-            'national_id_no': national_id_no.get(), # 身分證
-            'instructor_name': instructor_name.get(), # 教練名稱
-            'learner_permit_data': learner_permit_date.get(), # 學照日期
-            'gender': gender.get(), # 性別
-            'birth_date': birth_date.get(), # 生日
-            'register_term': register_term.get(), # 期別
-            'r_address_zip_code': r_address_zip_code.get(), # 郵遞區號
-            'r_address_city': r_address_city.get(), # 縣市區域
-            'r_address': r_address.get(), # 戶籍地址
-            'r_address_city_road': r_address_city.get() + r_address.get(), # 將縣市區域加上地址組合
-            'training_type_code': training_type_code.get(), # 訓練班別代號
+            'register_number': register_number.get(),
+            'student_number': student_number.get(),
+            'batch': batch.get(),
+            'student_name': student_name.get(),
+            'exam_code': exam_code.get(),
+            'exam_name': exam_name.get(),
+            'exam_type_name': exam_type_name.get(),
+            'transmission_type_code': transmission_type_code.get(),
+            'transmission_type_name': transmission_type_name.get(),
+            'instructor_number': instructor_number.get(),
+            'national_id_no': national_id_no.get(),
+            'instructor_name': instructor_name.get(),
+            'learner_permit_date': learner_permit_date.get(),
+            'gender': gender.get(),
+            'birth_date': birth_date.get(),
+            'register_term': register_term.get(),
+            'r_address_zip_code': r_address_zip_code.get(),
+            'r_address_city': r_address_city.get(),
+            'r_address': r_address.get(),
+            'r_address_city_road': r_address_city.get() + r_address.get(),
+            'training_type_code': training_type_code.get(),
             'id': current_student_id
         }
 
@@ -409,59 +376,14 @@ def m2_retraining_roster_creation(content):
             student_data['transmission_type_code'],
             student_data['instructor_number'],
             student_data['national_id_no'],
-            student_data['learner_permit_data'],
+            student_data['learner_permit_date'],
             student_data['gender'],
             student_data['birth_date'],
             student_data['r_address_zip_code'],
             student_data['r_address_city_road'],
-            student_data['training_type_code'] # 添加訓練班別代號
+            student_data['training_type_code']
         ))
 
-    # 資料選擇處理
-    def fetch_and_display_data(choice):
-        # 清空現有的 treeview 數據
-        data_list.delete(*data_list.get_children())
-
-        # 連接到數據庫
-        conn = sqlite3.connect(database_path)
-        cursor = conn.cursor()
-
-        # 準備 SQL 查詢
-        if choice == '1 . 全部':
-            query = "SELECT * FROM student WHERE exam_type_name IS NOT NULL"
-        elif choice == '2 . 補筆':
-            query = "SELECT * FROM student WHERE exam_type_name LIKE '%補筆%'"
-        elif choice == '3 . 補路':
-            query = "SELECT * FROM student WHERE exam_type_name LIKE '%補路%'"
-        else:
-            return  # 如果選擇無效，直接返回
-
-        # 執行查詢
-        cursor.execute(query)
-        results = cursor.fetchall()
-
-        # 將結果插入到 treeview
-        for row in results:
-            data_list.insert('', 'end', values=(
-                row[34],  # register_number 名冊號碼34
-                row[5],   # student_number 學員編號5
-                row[7],   # batch 梯次7
-                row[6],   # student_name 學員姓名6
-                row[29],  # exam_code 來源編號29
-                row[31],  # transmission_type_code 手自排類別編號31
-                row[14],  # instructor_number 指導教練編號14
-                row[10],  # national_id_no 身分證字號10
-                row[26],  # learner_permit_date 學照日期26
-                row[16],  # gender 性別16
-                row[9],   # birth_date 出生日期9
-                row[19],  # r_address_zip_code 戶籍地址郵遞區號19
-                row[20] + row[21],  # r_address_city_road
-                row[3]    # training_type_code 訓練班別代號3
-            ))
-
-        # 關閉數據庫連接
-        conn.close()
-    
     # 按鈕
     add_btn(m2_retraining_roster_creation, text='加入開訓名冊', command=save_student_data).grid(row=12, column=2, sticky='wen', padx=(10, 0), pady=(20, 0))
-    print_btn(m2_retraining_roster_creation, text='列印開訓名冊', command=None).grid(row=12, column=3, sticky='wen', padx=10, pady=(20, 0))
+    print_btn(m2_retraining_roster_creation, text='列印開訓名', command=None).grid(row=12, column=3, sticky='wen', padx=10, pady=(20, 0))

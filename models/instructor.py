@@ -9,53 +9,56 @@ database_path = os.path.join(os.path.dirname(__file__), '..', 'db', 'driving_sch
 
 
 # 抓取郵局地址信息資料表
-def address_data():
-    conn = sqlite3.connect(database_path)
-    cursor = conn.cursor()
+# def address_data():
+#     conn = sqlite3.connect(database_path)
+#     cursor = conn.cursor()
 
-    # 查詢郵遞區號 zip_code 資料表
-    cursor.execute("SELECT zip_code, city FROM address_data")
-    zip_code_data = cursor.fetchall()
+#     # 查詢郵遞區號 zip_code 資料表
+#     cursor.execute("SELECT zip_code, city FROM address_data")
+#     zip_code_data = cursor.fetchall()
 
-    # 關閉資料庫連接
-    conn.close()
+#     # 關閉資料庫連接
+#     conn.close()
 
-    address_zip_code_lists = []
-    address_city_lists = []
-    address_dict = {}
+#     address_zip_code_lists = []
+#     address_city_lists = []
+#     address_dict = {}
 
-    for r_address_zip_code in zip_code_data:
-        address_zip_code_lists.append(r_address_zip_code[0])
-        address_city_lists.append(r_address_zip_code[1])
-        address_dict[r_address_zip_code[0]] = r_address_zip_code[1]
+#     for r_address_zip_code in zip_code_data:
+#         address_zip_code_lists.append(r_address_zip_code[0])
+#         address_city_lists.append(r_address_zip_code[1])
+#         address_dict[r_address_zip_code[0]] = r_address_zip_code[1]
 
-    return address_zip_code_lists, address_city_lists, address_dict
+#     return address_zip_code_lists, address_city_lists, address_dict
 
 
 # 新增教練資料邏輯功能
-def insert_instructor_data(data):
+def insert_instructor_data(instructor_data):
     conn = sqlite3.connect(database_path)
     cursor = conn.cursor()
-    
-    cursor.execute('''
-        INSERT INTO instructor (
-            number, name, national_id_no, birth_date, home_phone, mobile_phone,
-            email, r_address_zip_code, r_address_city, r_address,
-            m_address_zip_code, m_address_city, m_address,
-            instructor_license_number, driving_license_category,
-            driving_license_number, base_salary, start_date, end_date, remarks
-        ) VALUES (
-            :number, :name, :national_id_no, :birth_date, :home_phone, :mobile_phone,
-            :email, :r_address_zip_code, :r_address_city, :r_address,
-            :m_address_zip_code, :m_address_city, :m_address,
-            :instructor_license_number, :driving_license_category,
-            :driving_license_number, :base_salary, :start_date, :end_date, :remarks
-        )
-    ''', data)
-    
-    conn.commit()
-    conn.close()
-    messagebox.showinfo('訊息', '已新增教練資料！')
+
+    try:
+        cursor.execute('''
+            INSERT INTO instructor (
+                number, name, birth_date, instructor_number
+            ) VALUES (
+                :number, :name, :birth_date, :instructor_number
+            )
+        ''', {
+            'number': instructor_data.get('number', ''),
+            'name': instructor_data.get('name', ''),
+            'birth_date': instructor_data.get('birth_date', ''),
+            'instructor_number': instructor_data.get('instructor_number', '')
+        })
+
+        conn.commit()
+        messagebox.showinfo('成功', '已成功新增教練資料！')
+    except sqlite3.Error as e:
+        print(f"An error occurred: {e}")
+        messagebox.showerror('錯誤', f'新增教練資料時發生錯誤：{e}')
+    finally:
+        conn.close()
+
 
 # 獲取資料庫教練資料信息
 def get_instructor_data(identifier, value):
@@ -81,24 +84,8 @@ def update_instructor_data(data):
         UPDATE instructor SET
             number = :number, -- 教練編號
             name = :name, -- 教練姓名
-            national_id_no = :national_id_no, -- 身分證號碼
             birth_date = :birth_date, -- 出生日期
-            home_phone = :home_phone, -- 市內電話
-            mobile_phone = :mobile_phone, -- 手機號碼
-            email = :email, -- 信箱
-            r_address_zip_code = :r_address_zip_code, 
-            r_address_city = :r_address_city,
-            r_address = :r_address, 
-            m_address_zip_code = :m_address_zip_code,
-            m_address_city = :m_address_city, 
-            m_address = :m_address,
-            instructor_license_number = :instructor_license_number,
-            driving_license_category = :driving_license_category,
-            driving_license_number = :driving_license_number, 
-            base_salary = :base_salary,
-            start_date = :start_date, 
-            end_date = :end_date, 
-            remarks = :remarks
+            instructor_number = :instructor_number -- 教練證號
         WHERE id = :id
     ''', data)
 

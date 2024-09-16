@@ -59,27 +59,15 @@ CREATE TABLE IF NOT EXISTS student (
     register_number VARCHAR, -- 名冊號碼34
     register_term VARCHAR, -- 期別35
     written_exam_date VARCHAR, -- 筆試日期36
-<<<<<<< HEAD
-    session_number VARCHAR, -- 場次37
-    road_test_date VARCHAR, -- 路試日期38
-    driving_test_group VARCHAR, -- 考試組別39
-    road_test_items_type VARCHAR, -- 路考項目40
-    exam_type_name VARCHAR, -- 筆路名稱41
-    driving_test_number VARCHAR, -- 考試號碼42
-    driving_test_session VARCH, -- 考試場次43
-    driving_test_code VARCH, -- 考試代碼44
+    road_test_date VARCHAR, -- 路試日期37
+    driving_test_group VARCHAR, -- 組別38
+    road_test_items_type VARCHAR, -- 路考項目39
+    exam_type_name VARCHAR, -- 筆試 , 路試40
+    driving_test_number VARCHAR, -- 號碼41
+    driving_test_session VARCH, -- 場次42
+    driving_test_code VARCH, -- 代碼43
+    student_term_class_code VARCHAR, -- 學員上課期別代碼44
     creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- 建檔時間45
-=======
-    road_test_date VARCHAR, -- 路試日期38
-    driving_test_group VARCHAR, -- 組別39
-    road_test_items_type VARCHAR, -- 路考項目40
-    exam_type_name VARCHAR, -- 筆試 , 路試41
-    driving_test_number VARCHAR, -- 號碼42
-    driving_test_session VARCH, -- 場次43
-    driving_test_code VARCH, -- 代碼44
-    student_term_class_code VARCHAR, -- 學員上課期別代碼45
-    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- 建檔時間46
->>>>>>> dev/ui-and-db
 );
 
 -- 教練資料表
@@ -87,25 +75,9 @@ CREATE TABLE IF NOT EXISTS instructor (
     id INTEGER PRIMARY KEY AUTOINCREMENT, -- id主鍵自增0
     number VARCHAR, -- 教練編號1
     name VARCHAR, -- 教練姓名2
-    national_id_no VARCHAR, -- 身份證號3
-    birth_date VARCHAR, -- 出生日期4
-    home_phone VARCHAR, -- 住宅電話5
-    mobile_phone VARCHAR, -- 手機號碼6
-    email VARCHAR, -- 電子郵箱7
-    r_address_zip_code VARCHAR, -- 戶籍地址郵遞區號8
-    r_address_city VARCHAR, -- 戶籍地址縣市區域9
-    r_address VARCHAR, -- 戶籍地址10
-    m_address_zip_code VARCHAR, -- 通訊地址郵遞區號11
-    m_address_city VARCHAR, -- 通訊地址縣市區域12
-    m_address VARCHAR, -- 通訊地址13
-    instructor_license_number VARCHAR, -- 教練證號碼14
-    driving_license_category VARCHAR, -- 駕照類別15
-    driving_license_number VARCHAR, -- 駕照號碼16
-    base_salary INTEGER, -- 基本薪資17
-    start_date VARCHAR, -- 入職日期18
-    end_date VARCHAR, -- 離職日期19
-    remarks TEXT, -- 備註20
-    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- 建檔時間21
+    birth_date VARCHAR, -- 出生日期3
+    instructor_number VARCHAR, -- 教練證號4
+    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- 建檔時間5
 );
 
 -- 管理員註冊資料表

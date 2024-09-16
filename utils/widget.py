@@ -163,24 +163,26 @@ def combobox(
 
 # entry 用戶輸入欄位
 def entry(
-    frame , 
+    frame, 
     placeholder_text = '',
     height = 40,
-    font = create_font() , 
+    font = create_font(),
     fg_color = '#d9d9d9',
     text_color = '#8b8c89',
+    placeholder_text_color = '#a0a0a0',  # 添加這個參數，設置一個默認值
     **kwargs
-    ):
+):
     return ck.CTkEntry(
         frame, 
-        placeholder_text = placeholder_text ,
+        placeholder_text = placeholder_text,
         border_color = '#fdfdff',
-        height = height ,
-        font = font , 
+        height = height,
+        font = font, 
         fg_color = fg_color,
-        text_color = text_color ,
+        text_color = text_color,
+        placeholder_text_color = placeholder_text_color,  # 添加這個參數
         **kwargs 
-        )
+    )
 
 
 # entry 用戶資料顯示欄位，禁止用戶輸入
@@ -192,6 +194,7 @@ def display_entry_value(
     state = "readonly",
     fg_color = '#d9d9d9',
     text_color = '#8b8c89',
+    placeholder_text_color = '#aa998f',  # 添加這個參數，設置一個默認值
     **kwargs
     ):
     return ck.CTkEntry(
@@ -203,23 +206,24 @@ def display_entry_value(
         state = state,
         fg_color = fg_color,
         text_color = text_color ,
+        placeholder_text_color = placeholder_text_color,  # 添加這個參數
         **kwargs 
         )
 
 
 # 清空所有 entry 和 combobox 的函式
-def clear_entries_and_comboboxes(parent, keep_entries=None):
-    if keep_entries is None:
-        keep_entries = []  # 如果未提供 keep_entries，則設置為空列表
-
-    # 遍歷父元件的所有子元件
-    for child in parent.winfo_children():
+def clear_entries_and_comboboxes(frame, keep_entries=None):
+    # 移除对 current_student_id 的引用
+    # 遍历父元件的所有子元件
+    for child in frame.winfo_children():
         # 如果是 CTkEntry 或 Entry
         if isinstance(child, ck.CTkEntry) or isinstance(child, Entry):
-            if child not in keep_entries:  # 檢查是否需要保留這個 entry
-                child.configure(state='normal')  # 設置為可編輯狀態
-                child.delete(0, ck.END)  # 清空內容
+            if keep_entries is None or child not in keep_entries:
+                child.configure(state='normal')  # 设置为可编辑状态
+                child.delete(0, ck.END)  # 清空内容
+                if child.cget('state') == 'readonly':
+                    child.configure(state='readonly')
         # 如果是 CTkComboBox
         elif isinstance(child, ck.CTkComboBox):
-            if child not in keep_entries:  # 檢查是否需要保留這個 combobox
-                child.set('')  # 清空選項
+            if keep_entries is None or child not in keep_entries:
+                child.set('')  # 清空选项

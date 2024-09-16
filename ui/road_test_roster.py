@@ -160,11 +160,15 @@ def  road_test_roster(content):
                 student_name.insert(0, student_data[6])
                 student_name.configure(state='readonly')
                 # 名冊號碼
+                if student_data[34] is not None:
+                    register_number.insert(0, student_data[34])
+                else:
+                    register_number.insert(0, '')
                 # register_number.configure(state='readonly')
-                register_number.configure(state='normal')
-                register_number.delete(0, ctk.END)
-                register_number.insert(0, student_data[34])
-                register_number.configure(state='readonly')
+                # register_number.configure(state='normal')
+                # register_number.delete(0, ctk.END)
+                # register_number.insert(0, student_data[34])
+                # register_number.configure(state='readonly')
                 # 身分證號碼
                 national_id_no.configure(state='normal')
                 national_id_no.delete(0, ctk.END)
@@ -201,29 +205,29 @@ def  road_test_roster(content):
                 # 路試日期
                 road_test_date.configure(state='normal')
                 road_test_date.delete(0, ctk.END)
-                if student_data[38] is not None:
-                    road_test_date.insert(0, student_data[38])
+                if student_data[37] is not None:
+                    road_test_date.insert(0, student_data[37])
                 else:
                     road_test_date.insert(0, '')
                     # road_test_date.configure(state='readonly')
                 # 組別
                 driving_test_group.configure(state='normal')
                 driving_test_group.delete(0, ctk.END)
-                if student_data[39] is not None:
-                    driving_test_group.insert(0, student_data[39])
+                if student_data[38] is not None:
+                    driving_test_group.insert(0, student_data[38])
                 else:
                     driving_test_group.insert(0, '')
                 # driving_test_group.configure(state='readonly')
                 # 路考項目
-                if student_data[40] is not None:
-                    road_test_items_type.set(student_data[40])
+                if student_data[39] is not None:
+                    road_test_items_type.set(student_data[39])
                 else:
                     road_test_items_type.set('')
                 # 號碼
                 driving_test_number.configure(state='normal')
                 driving_test_number.delete(0, ctk.END)
-                if student_data[42] is not None:
-                    driving_test_number.insert(0, student_data[42])
+                if student_data[41] is not None:
+                    driving_test_number.insert(0, student_data[41])
                 else:
                     driving_test_number.insert(0, '')
                 driving_test_number.configure(state='readonly')

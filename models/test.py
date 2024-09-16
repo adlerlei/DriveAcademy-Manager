@@ -25,32 +25,31 @@ def get_student_data(identifier, value):
 
 
 # 更新學員資料
-def update_student_data(data, uid):
+def update_student_data(student_data, uid):
     conn = sqlite3.connect(database_path)
-    cursor = conn.cursor() 
-    if uid == 1: # 場考 , 道考
-        cursor.execute('''
-            UPDATE student SET
-                road_test_date = :road_test_date, -- 路試日期38
-                driving_test_group = :driving_test_group, -- 組別39
-                road_test_items_type = :road_test_items_type, -- 路考項目40
-                driving_test_number = :driving_test_number -- 號碼42
-            WHERE id = :id
-        ''', data)
-        messagebox.showinfo('訊息', '已加入 道考 名冊！')
-    elif uid == 2: # 筆試
-        cursor.execute('''
-            UPDATE student SET
-                written_exam_date = :written_exam_date, -- 筆試日期36
-                driving_test_code = :driving_test_code, -- 代碼44
-                driving_test_session = :driving_test_session, -- 場次43
-                driving_test_number = :driving_test_number -- 號碼42
-            WHERE id = :id
-        ''', data)
-        messagebox.showinfo('訊息', '已加入 筆試 名冊')
+    cursor = conn.cursor()
 
-    conn.commit()
-    conn.close()
+    try:
+        cursor.execute('''
+            UPDATE student SET
+                register_number = ?,
+                road_test_date = ?,
+                road_test_items_type = ?
+            WHERE id = ?
+        ''', (
+            student_data['register_number'],
+            student_data['road_test_date'],
+            student_data['road_test_items_type'],
+            student_data['id']
+        ))
+
+        conn.commit()
+        print(f"Data updated successfully for student ID: {student_data['id']}")
+    except sqlite3.Error as e:
+        print(f"An error occurred: {e}")
+    finally:
+        conn.close()
+
 
 # 場考清冊匯出csv
 def export_driving_test_data(database_path):
@@ -71,7 +70,7 @@ def export_driving_test_data(database_path):
             return
 
         cursor.execute("""
-            SELECT s.student_term_class_code, s.register_term, s.national_id_no, s.birth_date, s.driving_test_group, 
+            SELECT s.register_term, s.national_id_no, s.birth_date, s.driving_test_group, 
                    s.road_test_date, s.driving_test_number, s.road_test_items_type
             FROM student s
             WHERE s.road_test_date IS NOT NULL
@@ -82,14 +81,7 @@ def export_driving_test_data(database_path):
         with open(file_path, 'w', newline='', encoding='utf-8-sig') as csvfile:
             writer = csv.writer(csvfile)
             for row in data:
-                student_term_class_code = row[0]
-                if student_term_class_code:
-                    # 找到第一個字母的位置
-                    alpha_index = next((i for i, c in enumerate(student_term_class_code) if c.isalpha()), None)
-                    if alpha_index is not None:
-                        # 保留到字母（包括字母）
-                        student_term_class_code = student_term_class_code[:alpha_index+1]
-                processed_row = [student_term_class_code] + [str(item) if item is not None else '' for item in row[1:]]
+                processed_row = [str(item) if item is not None else '' for item in row]
                 writer.writerow(processed_row)
 
         messagebox.showinfo("成功", f"文件已成功匯出至 {file_path}")

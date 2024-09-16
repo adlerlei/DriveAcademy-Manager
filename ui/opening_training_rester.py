@@ -5,7 +5,6 @@ from models.training import *
 import customtkinter as ctk
 from tkinter import messagebox
 
-
 # 檢測學員資料庫 id 欄位來判定是否修改或新增
 current_student_id = None
 
@@ -25,7 +24,6 @@ def opening_training_roster(content):
     # 監聽 名冊號碼 register_number 輸入值
     def register_number_data_changed(choice):
         global counter, current_choice  # 使用全域變數
-        # print("事件觸發了")
         
         # 檢查當前選擇的值是否改變
         if current_choice != choice:
@@ -33,27 +31,28 @@ def opening_training_roster(content):
             counter = 1  # 重置計數器
         
         batch_value = batch.get()
-        value = '0' + choice + batch_value + f'{counter:03d}'  # 格式化數字為三位數
+        value = '0' + choice + batch_value + f'{counter:03d}'  # 格式化數字為位數
         register_number.delete(0, ctk.END)
         register_number.insert(0, value)
         counter += 1  # 計數器遞增
 
-
     # 顯示 / 搜尋 學員編號
     label(opening_training_roster, text='學員編號').grid(row=0, column=0, sticky='ws', padx=(10,0), pady=(10,0))
-    student_number = entry(opening_training_roster,  placeholder_text = "輸入學員編號查詢")
+    student_number = entry(opening_training_roster,  placeholder_text = "編號查詢")
     student_number.grid(row=1, column=0, sticky='wen', padx=(10,0))
-    student_number.bind("<KeyRelease>", lambda event: populate_student_data('student_number', student_number.get()))
+    student_number.bind("<FocusOut>", lambda event: check_and_populate('student_number', student_number.get()))
 
-    # 學員姓名
+    # 顯示 / 搜尋 學員姓名
     label(opening_training_roster, text='學員姓名').grid(row=0, column=1, sticky='ws', padx=(10,0), pady=(10,0))
-    student_name = display_entry_value(opening_training_roster)
+    student_name = entry(opening_training_roster, placeholder_text="姓名查詢")
     student_name.grid(row=1, column=1, sticky='wen', padx=(10,0))
+    student_name.bind("<FocusOut>", lambda event: check_and_populate('student_name', student_name.get()))
 
-    # 學員身分證號碼
+    # 顯示 / 搜尋 學員身分證號碼
     label(opening_training_roster, text='身分證號').grid(row=0, column=2, sticky='ws', padx=(10,0), pady=(10,0))
-    national_id_no = display_entry_value(opening_training_roster)
+    national_id_no = entry(opening_training_roster, placeholder_text="身分證查詢")
     national_id_no.grid(row=1, column=2, sticky='wen', padx=(10,0))
+    national_id_no.bind("<FocusOut>", lambda event: check_and_populate('national_id_no', national_id_no.get()))
 
     # 出生日期
     label(opening_training_roster, text='出生日期').grid(row=0, column=3, sticky='ws', padx=(10,0), pady=(10,0))
@@ -124,7 +123,7 @@ def opening_training_roster(content):
     exam_code.set('')
     exam_name.set('')
 
-    # 來源下拉選單監聽 code 改變時，自動更新 name 名稱
+    # 來源拉選單監聽 code 改變時，自動更新 name 名稱
     def on_exam_code_changed(select_code, exam_name, exam_dict):
         select_name = exam_dict.get(select_code, "")
         exam_name.set(select_name)
@@ -190,7 +189,7 @@ def opening_training_roster(content):
         'student_name', # 學員姓名
         'exam_code', # 來源 編號
         'transmission_type_code', # 手自排 編號
-        'instructor_number', # 教練 編號
+        'instructor_number', # 教練編號
         'gender', # 學員性別
         'birth_date', # 出生日期
         'national_id_no', # 學員 身分證號碼
@@ -252,124 +251,117 @@ def opening_training_roster(content):
     opening_training_roster.grid_columnconfigure(3, weight=1)
     
     # 邏輯功能 - 搜尋學員資料並顯示在 entry 
-    def populate_student_data(identifier, value):
-
-        # 監聽學員編號輸入欄位如果為空，清除學員資料
-        if identifier == 'student_number' and value == '':
-            keep_entries = [register_term] # 保留名冊號碼
-            clear_entries_and_comboboxes(opening_training_roster, keep_entries)
+    def check_and_populate(identifier, value):
+        if value == '':
+            clear_all_fields()
         else:
-            global current_student_id
-            student_data = get_student_data(identifier, value)
-            if student_data:
-                # 獲取學員資料庫 id 序列
-                current_student_id = student_data[0]
-                # 學員姓名
-                student_name.configure(state='normal')
-                student_name.delete(0, ctk.END)
-                student_name.insert(0, student_data[6])
-                student_name.configure(state='readonly')
-                # 身分證
-                national_id_no.configure(state='normal')
-                national_id_no.delete(0, ctk.END)
-                national_id_no.insert(0, student_data[10])
-                national_id_no.configure(state='readonly')
-                # 出生日期
-                birth_date.configure(state='normal')
-                birth_date.delete(0, ctk.END)
-                birth_date.insert(0, student_data[9])
-                birth_date.configure(state='readonly')
-                # 學照日期
-                learner_permit_date.configure(state='normal')
-                learner_permit_date.delete(0, ctk.END)
+            populate_student_data(identifier, value)
+
+    def clear_all_fields():
+        global current_student_id
+        clear_entries_and_comboboxes(opening_training_roster, [register_term])
+        current_student_id = None
+
+    def populate_student_data(identifier, value):
+        global current_student_id
+        student_data = get_student_data(identifier, value)
+        print("Student Data:", student_data)  # 调试输出
+        if student_data:
+            current_student_id = student_data[0]
+            student_number.delete(0, ctk.END)
+            student_number.insert(0, student_data[5])
+            student_name.delete(0, ctk.END)
+            student_name.insert(0, student_data[6])
+            national_id_no.delete(0, ctk.END)
+            national_id_no.insert(0, student_data[10])
+            birth_date.configure(state='normal')
+            birth_date.delete(0, ctk.END)
+            birth_date.insert(0, student_data[9])
+            birth_date.configure(state='readonly')
+            learner_permit_date.configure(state='normal')
+            learner_permit_date.delete(0, ctk.END)
+            # if len(student_data) > 26:  # 确保索引有效
+            #     learner_permit_date.insert(0, student_data[26])
+            # learner_permit_date.configure(state='readonly')
+            # register_number.configure(state='normal')
+            # register_number.delete(0, ctk.END)
+            if student_data[26] is not None:
                 learner_permit_date.insert(0, student_data[26])
-                learner_permit_date.configure(state='readonly')
-                # 名冊號碼
-                register_number.configure(state='normal')
-                register_number.delete(0, ctk.END)
-                if student_data[34] is not None:
-                    register_number.insert(0, student_data[34])
-                    messagebox.showinfo('提示用戶', '該學員已經存在名冊號碼')
-                else:
-                    register_number.insert(0, '')
-                # register_number.configure(state='readonly')
+            else:
+                learner_permit_date.insert(0, '')
 
-                # 期別
-                if student_data[35] is not None:
-                    register_term.set(student_data[35])
-                else:
-                    register_term.set('')
+            if student_data[34] is not None:
+                register_number.insert(0, student_data[34])
+                messagebox.showinfo('提示用戶', '該學員已經存在名冊號碼')
+            else:
+                register_number.insert(0, '')
 
-                # 來源
-                if student_data[29] is not None:
-                    exam_code.set(student_data[29])
-                else:
-                    exam_code.set('')
-                # 來源名稱
-                if student_data[30] is not None:
-                    exam_name.set(student_data[30])
-                else:
-                    exam_name.set('')
-                # 手自排
-                if student_data[31] is not None:
-                    transmission_type_code.set(student_data[31])
-                else:
-                    transmission_type_code.set('')
-                # 手自排名稱
-                if student_data[32] is not None:
-                    transmission_type_name.set(student_data[32])
-                else:
-                    transmission_type_name.set('')
-                # 指導教練編號
-                if student_data[14] is not None:
-                    instructor_number.set(student_data[14])
-                else:
-                    instructor_number.set('')
-                # 指導教練名稱
-                if student_data[15] is not None:
-                    instructor_name.set(student_data[15])
-                else:
-                    instructor_name.set('')
-                # 性別
-                gender.configure(state='normal')
-                gender.delete(0, ctk.END)
-                gender.insert(0, student_data[16])
-                gender.configure(state='readonly')
-                # 梯次
-                batch.configure(state='normal')
-                batch.delete(0, ctk.END)
-                batch.insert(0, student_data[7])
-                batch.configure(state='readonly')
-                # 名冊梯次
-                register_batch.configure(state='normal')
-                register_batch.delete(0, ctk.END)
-                register_batch.insert(0, student_data[7])
-                register_batch.configure(state='readonly')
-                # 訓練班別代號
-                training_type_code.configure(state='normal')
-                training_type_code.delete(0, ctk.END)
-                training_type_code.insert(0, student_data[3])
-                training_type_code.configure(state='readonly')
-                # 訓練班別名稱
-                training_type_name.configure(state='normal')
-                training_type_name.delete(0, ctk.END)
-                training_type_name.insert(0, student_data[4])
-                training_type_name.configure(state='readonly')
-                # 戶籍地址 郵遞區號
-                r_address_zip_code.configure(state='normal')
-                r_address_zip_code.delete(0, ctk.END)
-                r_address_zip_code.insert(0, student_data[19])
-                r_address_zip_code.configure(state='readonly')
-                # 戶籍地址 縣市區域
-                r_address_city.configure(state='normal')
-                r_address_city.delete(0, ctk.END)
-                r_address_city.insert(0, student_data[20])
-                r_address_city.configure(state='readonly')
-                # 戶籍地址 地址
-                r_address.configure(state='normal')
-                r_address.delete(0, ctk.END)
-                r_address.insert(0, student_data[21])
-                r_address.configure(state='readonly')
+            if student_data[35] is not None:
+                register_term.set(student_data[35])
+            else:
+                register_term.set('')
+
+            if student_data[29] is not None:
+                exam_code.set(student_data[29])
+            else:
+                exam_code.set('')
+            if student_data[30] is not None:
+                exam_name.set(student_data[30])
+            else:
+                exam_name.set('')
+            if student_data[31] is not None:
+                transmission_type_code.set(student_data[31])
+            else:
+                transmission_type_code.set('')
+            if student_data[32] is not None:
+                transmission_type_name.set(student_data[32])
+            else:
+                transmission_type_name.set('')
+            if student_data[14] is not None:
+                instructor_number.set(student_data[14])
+            else:
+                instructor_number.set('')
+            if student_data[15] is not None:
+                instructor_name.set(student_data[15])
+            else:
+                instructor_name.set('')
+            gender.configure(state='normal')
+            gender.delete(0, ctk.END)
+            gender.insert(0, student_data[16])
+            gender.configure(state='readonly')
+            batch.configure(state='normal')
+            batch.delete(0, ctk.END)
+            batch.insert(0, student_data[7])
+            batch.configure(state='readonly')
+            register_batch.configure(state='normal')
+            register_batch.delete(0, ctk.END)
+
+            if student_data[8] is not None:
+                register_batch.insert(0, student_data[8])
+            else:
+                register_batch.insert(0, '')
+            register_batch.configure(state='readonly')
+
+            training_type_code.configure(state='normal')
+            training_type_code.delete(0, ctk.END)
+            training_type_code.insert(0, student_data[3])
+            training_type_code.configure(state='readonly')
+            training_type_name.configure(state='normal')
+            training_type_name.delete(0, ctk.END)
+            training_type_name.insert(0, student_data[4])
+            training_type_name.configure(state='readonly')
+            r_address_zip_code.configure(state='normal')
+            r_address_zip_code.delete(0, ctk.END)
+            r_address_zip_code.insert(0, student_data[19])
+            r_address_zip_code.configure(state='readonly')
+            r_address_city.configure(state='normal')
+            r_address_city.delete(0, ctk.END)
+            r_address_city.insert(0, student_data[20])
+            r_address_city.configure(state='readonly')
+            r_address.configure(state='normal')
+            r_address.delete(0, ctk.END)
+            r_address.insert(0, student_data[21])
+            r_address.configure(state='readonly')
 
 
     # 獲取輸入欄位信息
@@ -377,33 +369,31 @@ def opening_training_roster(content):
         uid = 1
         global current_student_id
         student_data = {
-            # 獲取輸入欄位呈現資料列表 treeview
-            'register_number': register_number.get(), # 名冊號碼
-            'batch': batch.get(), # 梯次
-            'register_batch': register_batch.get(), # 名冊梯次
-            'student_number': student_number.get(), # 學員編號
-            'student_name': student_name.get(), # 姓名
-            'gender': gender.get(), # 性別
-            'birth_date': birth_date.get(), # 生日
-            'national_id_no': national_id_no.get(), # 身分證字號
-            'r_address_zip_code': r_address_zip_code.get(), # 戶籍地址 郵遞區號
-            'r_address_city': r_address_city.get(), # 戶籍地址 縣市區域
-            'r_address': r_address.get(), # 戶籍地址 地址
-            'learner_permit_date': learner_permit_date.get(), # 學照日期
-            'exam_code': exam_code.get(), # 來源編號
-            'exam_name': exam_name.get(), # 來源類型
-            'register_term': register_term.get(), # 期別
-            'transmission_type_code': transmission_type_code.get(), # 手自排
-            'transmission_type_name': transmission_type_name.get(), # 手自排
-            'instructor_number': instructor_number.get(), # 教練編號
-            'instructor_name': instructor_name.get(), # 教練名稱
-            'r_address_city_road': r_address_city.get() + r_address.get(), # 將縣市區域加上地址組合
-            'training_type_code': training_type_code.get(), # 訓練班別代號
+            'register_number': register_number.get(),
+            'batch': batch.get(),
+            'register_batch': register_batch.get(),
+            'student_number': student_number.get(),
+            'student_name': student_name.get(),
+            'gender': gender.get(),
+            'birth_date': birth_date.get(),
+            'national_id_no': national_id_no.get(),
+            'r_address_zip_code': r_address_zip_code.get(),
+            'r_address_city': r_address_city.get(),
+            'r_address': r_address.get(),
+            'learner_permit_date': learner_permit_date.get(),
+            'exam_code': exam_code.get(),
+            'exam_name': exam_name.get(),
+            'register_term': register_term.get(),
+            'transmission_type_code': transmission_type_code.get(),
+            'transmission_type_name': transmission_type_name.get(),
+            'instructor_number': instructor_number.get(),
+            'instructor_name': instructor_name.get(),
+            'r_address_city_road': r_address_city.get() + r_address.get(),
+            'training_type_code': training_type_code.get(),
             'id': current_student_id
         }
 
 
-        # 驗證 名冊期別，來源，手自排，教練 輸入欄位是否為空
         required_fields = [ 
             'exam_code',
             'exam_name',
@@ -426,7 +416,6 @@ def opening_training_roster(content):
         update_student_data(student_data, uid=uid)
         clear_entries_and_comboboxes(opening_training_roster)
 
-        # 讀取 save_student_data 的資料寫入 treeview
         data_list.insert('', 'end', values = (
             student_data['register_number'],
             student_data['batch'],
@@ -441,7 +430,7 @@ def opening_training_roster(content):
             student_data['r_address_zip_code'],
             student_data['r_address_city_road'],
             student_data['learner_permit_date'],
-            student_data['training_type_code'] # 添加訓練班別代號
+            student_data['training_type_code']
         ))
 
 

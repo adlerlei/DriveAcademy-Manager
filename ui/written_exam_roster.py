@@ -166,10 +166,14 @@ def written_exam_roster(content):
                 student_name.insert(0, student_data[6])
                 student_name.configure(state='readonly')
                 # 名冊號碼
-                register_number.configure(state='normal')
-                register_number.delete(0, ctk.END)
-                register_number.insert(0, student_data[34])
-                register_number.configure(state='readonly')
+                if student_data[34] is not None:
+                    register_number.insert(0, student_data[34])
+                else:
+                    register_number.insert(0, '')
+                # register_number.configure(state='normal')
+                # register_number.delete(0, ctk.END)
+                # register_number.insert(0, student_data[34])
+                # register_number.configure(state='readonly')
                 # 身分證號碼
                 national_id_no.configure(state='normal')
                 national_id_no.delete(0, ctk.END)
@@ -214,18 +218,18 @@ def written_exam_roster(content):
                 # 代碼
                 driving_test_code.configure(state='normal')
                 driving_test_code.delete(0, ctk.END)
-                if student_data[44] is not None:
+                if student_data[43] is not None:
                     driving_test_code.insert(0, '')
                 # 場次
                 driving_test_session.configure(state='normal')
                 driving_test_session.delete(0, ctk.END)
-                if student_data[43] is not None:
+                if student_data[42] is not None:
                     driving_test_session.insert(0, '')
                 # 號碼
                 driving_test_number.configure(state='normal')
                 driving_test_number.delete(0, ctk.END)
-                if student_data[42] is not None:
-                    driving_test_number.insert(0, student_data[42])
+                if student_data[41] is not None:
+                    driving_test_number.insert(0, student_data[41])
                 else:
                     driving_test_number.insert(0, '')
                 driving_test_number.configure(state='readonly')

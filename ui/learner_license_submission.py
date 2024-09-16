@@ -20,24 +20,27 @@ def learner_license_submission(content):
     
     # 顯示 / 搜尋 學員編號
     label(learner_license_submission, text='學員編號').grid(row=0, column=0, sticky='ws', padx=(10,0), pady=(10,0))
-    student_number = entry(learner_license_submission, placeholder_text='輸入學員編號查詢')
+    student_number = entry(learner_license_submission, placeholder_text='編號查詢')
     student_number.grid(row=1, column=0, sticky='wen', padx=(10,0))
-    student_number.bind("<KeyRelease>", lambda event: populate_student_data('student_number', student_number.get()))
+    student_number.bind("<KeyRelease>", lambda event: check_and_populate('student_number', student_number.get()))
 
-    # 顯示學員姓名
+    # 顯示 / 搜尋 學員姓名
     label(learner_license_submission, text='學員姓名').grid(row=0, column=1, sticky='ws', padx=(10,0), pady=(10,0))
-    student_name = display_entry_value(learner_license_submission)
+    student_name = entry(learner_license_submission, placeholder_text='姓名查詢')
     student_name.grid(row=1, column=1, sticky='wen', padx=(10,0))
+    student_name.bind("<KeyRelease>", lambda event: check_and_populate('student_name', student_name.get()))
 
-    # 顯示學員身分證號碼
+    # 顯示 / 搜尋 學員身分證號碼
     label(learner_license_submission, text='身分證號').grid(row=0, column=2, sticky='ws', padx=(10,0), pady=(10,0))
-    national_id_no = display_entry_value(learner_license_submission)
+    national_id_no = entry(learner_license_submission, placeholder_text='身分證號查詢')
     national_id_no.grid(row=1, column=2, sticky='wen', padx=(10,0))
+    national_id_no.bind("<KeyRelease>", lambda event: check_and_populate('national_id_no', national_id_no.get()))
 
-    # 顯示學員電話
+    # 顯示 / 搜尋 學員電話
     label(learner_license_submission, text='聯絡電話').grid(row=0, column=3, sticky='ws', padx=(10,0), pady=(10,0))
-    mobile_phone = display_entry_value(learner_license_submission)
+    mobile_phone = entry(learner_license_submission, placeholder_text='手機查詢')
     mobile_phone.grid(row=1, column=3, sticky='wen', padx=10)
+    mobile_phone.bind("<KeyRelease>", lambda event: check_and_populate('mobile_phone', mobile_phone.get()))
 
     # 顯示學員出生日期
     label(learner_license_submission, text='出生日期').grid(row=2, column=0, sticky='ws', padx=(10,0), pady=(10,0))
@@ -122,6 +125,17 @@ def learner_license_submission(content):
     learner_license_submission.grid_columnconfigure(3, weight=1)
 
     # 邏輯功能
+    def check_and_populate(identifier, value):
+        if value == '':
+            clear_all_fields()
+        else:
+            populate_student_data(identifier, value)
+
+    def clear_all_fields():
+        global current_student_id
+        clear_entries_and_comboboxes(learner_license_submission, [submission_date])
+        current_student_id = None
+
     # 搜尋學員資料庫並且在 entry 顯示學員資料
     def populate_student_data(identifier, value):
         global current_student_id
@@ -129,21 +143,33 @@ def learner_license_submission(content):
         if student_data:
             # 獲取學員資料庫 id 序列
             current_student_id = student_data[0]
+            # 學員編號
+            student_number.delete(0, ctk.END)
+            student_number.insert(0, student_data[5])
+            # 學員姓名
+            student_name.delete(0, ctk.END)
+            student_name.insert(0, student_data[6])
             # 身分證號
-            national_id_no.configure(state='normal')
             national_id_no.delete(0, ctk.END)
             national_id_no.insert(0, student_data[10])
-            national_id_no.configure(state='readonly')
+            # 聯絡手機
+            mobile_phone.delete(0, ctk.END)
+            mobile_phone.insert(0, student_data[11])
             # 出生日期
             birth_date.configure(state='normal')
             birth_date.delete(0, ctk.END)
             birth_date.insert(0, student_data[9])
             birth_date.configure(state='readonly')
-            # 學員姓名
-            student_name.configure(state='normal')
-            student_name.delete(0, ctk.END)
-            student_name.insert(0, student_data[6])
-            student_name.configure(state='readonly')
+            # E-mail
+            email.configure(state='normal')
+            email.delete(0, ctk.END)
+            email.insert(0, student_data[17])
+            email.configure(state='readonly')
+            # 備註
+            remarks.configure(state='normal')
+            remarks.delete(0, ctk.END)
+            remarks.insert(0, student_data[18])
+            remarks.configure(state='readonly')
             # 戶籍地址 郵遞區號
             r_address_zip_code.configure(state='normal')
             r_address_zip_code.delete(0, ctk.END)
@@ -159,23 +185,7 @@ def learner_license_submission(content):
             r_address.delete(0, ctk.END)
             r_address.insert(0, student_data[21])
             r_address.configure(state='readonly')
-            # 聯絡手機
-            mobile_phone.configure(state='normal')
-            mobile_phone.delete(0, ctk.END)
-            mobile_phone.insert(0, student_data[11])
-            mobile_phone.configure(state='readonly')
-            # E-mail
-            email.configure(state='normal')
-            email.delete(0, ctk.END)
-            email.insert(0, student_data[17])
-            email.configure(state='readonly')
-            # 備註
-            remarks.configure(state='normal')
-            remarks.delete(0, ctk.END)
-            remarks.insert(0, student_data[18])
-            remarks.configure(state='readonly')
 
- 
     # 獲取輸入欄位信息
     def save_student_data():
         uid = 0
