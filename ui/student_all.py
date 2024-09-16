@@ -76,6 +76,8 @@ def student_all(content):
     label(student_all, text='學員姓名').grid(row=6, column=0, sticky='ws', padx=(10,0), pady=(20,0))
     student_name = entry(student_all)
     student_name.grid(row=7, column=0, sticky='wen', padx=(10,0))
+    # 搜尋學員姓名
+    # student_name.bind("<KeyRelease>", lambda event: populate_student_data('student_name', student_name.get()))
     # student_name.bind("<KeyRelease>", lambda event: populate_student_data('student_name', student_name.get()))
 
 
@@ -151,7 +153,7 @@ def student_all(content):
     instructor_number.set('')
     instructor_name.set('')
 
-    # 指導教練下拉選單監聽 number 改變時，自動更新 name 名稱
+    # 指導教練下拉選單監聽 number 改變時，自動��新 name 名稱
     def on_instructor_number_changed(selected_number, instructor_name, instructor_dict):
         selected_name = instructor_dict.get(selected_number, "")
         instructor_name.set(selected_name)
@@ -405,7 +407,7 @@ def student_all(content):
         #                 'r_address_zip_code', 'r_address_city', 'r_address', 'email']
         # for field in required_fields:
         #     if not student_data[field]:
-        #         messagebox.showwarning('提示', f'{validation_fields[field]} 欄位不能為空！')
+        #         messagebox.showwarning('提���', f'{validation_fields[field]} 欄位不能為空！')
         #         return
 
         if current_student_id is None:

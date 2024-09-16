@@ -165,4 +165,10 @@ cython_debug/
 #  and can be added to the global gitignore or merged into this file.  For a more nuclear
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
-resources/.DS_Store
+
+# macOS系統文件
+.DS_Store
+**/.DS_Store
+
+# VS Code 设置
+.vscode/settings.json

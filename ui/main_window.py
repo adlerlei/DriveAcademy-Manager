@@ -1,5 +1,5 @@
 from tkinter import *
-import customtkinter as ck
+import customtkinter as ctk
 from utils.config import app_icon
 from utils.widget import frame, disable_menu_btn
 from ui.admin_login import admin_login
@@ -7,9 +7,9 @@ from .menu_list import menu_list
 
 
 def main_window():
-    root = ck.CTk()
+    root = ctk.CTk()
     root.title("DriveAcademyManager V1.0")
-    ck.set_appearance_mode("Light")
+    ctk.set_appearance_mode("Light")
 
     root.geometry("1600x900")
     root.minsize(1024, 800)
