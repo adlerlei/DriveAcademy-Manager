@@ -71,7 +71,8 @@ def export_selected_data(treeview, submission_date_entry):
     file_date_name = submission_date_entry.get()
     # print("file_date_name:", file_date_name)
     # 獲取所選行
-    selected_items = treeview.selection()
+    # selected_items = treeview.selection()
+    selected_items = treeview.get_children() # 直接取得所有行
     if not selected_items:
         messagebox.showwarning("警告", "請先選擇要匯出的行!")
         return
