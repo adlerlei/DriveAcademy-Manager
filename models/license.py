@@ -65,7 +65,7 @@ def generate_csv_filename(submission_date):
     # 根據你的固定格式生成文件名稱
     return f"400032{submission_date}.txt"
 
-# 匯出 txt 文件按鈕觸發
+# 匯出 txt 文件按鈕觸發.
 def export_selected_data(treeview, submission_date_entry):
     # print("submission_date_entry:", submission_date_entry)
     file_date_name = submission_date_entry.get()
