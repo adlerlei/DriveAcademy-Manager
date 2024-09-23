@@ -20,51 +20,19 @@ def annual_plan_term(content):
         term_class_code.delete(0, END)
         term_class_code.insert(0, value)
 
-    # 處理訓練班別第一個下拉選單training_type_code的選擇變化
-    # def on_combobox_changed(event): 
-    #     # 獲取第一個下拉選單的當前選擇
-    #     selected_code = training_type_code.get()
-    #     # 根據選擇更新第二個下拉選單的值
-    #     match selected_code:
-    #         case '1':
-    #             training_type_name.delete(0, END)
-    #             training_type_name.insert(0, '普通小型車班')
-    #         case '2':
-    #             training_type_name.delete(0, END)
-    #             training_type_name.insert(0, '大貨車班')
-    #         case '3':
-    #             training_type_name.delete(0, END)
-    #             training_type_name.insert(0, '大客車班')
-    #         case '4':
-    #             training_type_name.delete(0, END)
-    #             training_type_name.insert(0, '聯結車班')
-    #         case '5':
-    #             training_type_name.delete(0, END)
-    #             training_type_name.insert(0, '職業小型車班')
-    #         case '6':
-    #             training_type_name.delete(0, END)
-    #             training_type_name.insert(0, '普通重機車班')
-    #         case '7':
-    #             training_type_name.delete(0, END)
-    #             training_type_name.insert(0, '大型重機車班')
-    #         case '8':
-    #             training_type_name.delete(0, END)
-    #             training_type_name.insert(0, '小型車逕升大客車班')
 
     # 訓練班別
     training_type_codes = ['1', '2', '3', '4', '5', '6', '7', '8']
     training_type_names = ['普通小型車班', '大貨車班', '大客車班', '聯結車班', '職業小型車班', '普通重機車班', '大型重機車班', '小型車逕升大客車班']
     training_type_dict_c = dict(zip(training_type_codes, training_type_names))
     training_type_dict_n = dict(zip(training_type_names, training_type_codes))
-    label(annual_plan_term, text='訓練班別').grid(row=0, column=0, sticky='ws', padx=(10,0), pady=(10,0))
+    label(annual_plan_term, text='✍🏻 訓練班別').grid(row=0, column=0, sticky='ws', padx=(10,0), pady=(10,0))
     training_type_code = combobox(annual_plan_term, values=training_type_codes, command=lambda x: on_training_type_code_changed(x, training_type_name, training_type_dict_c))
     training_type_code.grid(row=1, column=0, sticky='wen', padx=(10,0))
     training_type_name = combobox(annual_plan_term, values=training_type_names, command=lambda x: on_training_type_name_changed(x, training_type_code, training_type_dict_n))
-    # training_type_name.insert(0, '普通小型車班') # 預設顯示 (1, 普通小型車班)
     training_type_name.grid(row=1, column=1, sticky='wen', padx=(10,0))
 
     # 綁定函數到第一個下拉選單的選擇變化事件
-    # training_type_code.bind("<<ComboboxSelected>>", on_combobox_changed)
     def on_training_type_code_changed(selected_code, training_type_name, training_type_dict):
         selected_name = training_type_dict.get(selected_code, "")
         training_type_name.set(selected_name)
@@ -74,36 +42,36 @@ def annual_plan_term(content):
         training_type_code.set(selected_code)
 
     # 梯次
-    label(annual_plan_term, text='梯次').grid(row=2, column=0, sticky='ws', padx=(10,0))
+    label(annual_plan_term, text='✍🏻 梯次').grid(row=2, column=0, sticky='ws', padx=(10,0))
     batch = combobox(annual_plan_term, values=['A', 'B'])
     batch.grid(row=3, column=0, columnspan=2, sticky='wen', padx=(10,0))
     batch.set('')
     
     # 期別
-    label(annual_plan_term, text='期別').grid(row=4, column=0, sticky='ws',padx=(10,0), pady=(20,0))
+    label(annual_plan_term, text='✍🏻 期別').grid(row=4, column=0, sticky='ws',padx=(10,0), pady=(20,0))
     term = entry(annual_plan_term)
     term.grid(row=5, column=0, columnspan=2, sticky='wen', padx=(10,0))
 
     # 年度
-    label(annual_plan_term, text='年度').grid(row=0, column=2, sticky='ws',padx=(10,0), pady=(20,0))
+    label(annual_plan_term, text='✍🏻 年度').grid(row=0, column=2, sticky='ws',padx=(10,0), pady=(20,0))
     year = entry(annual_plan_term)
     year.grid(row=1, column=2, sticky='wen', padx=(10,0))
 
     # 上課期別代碼 
     label(annual_plan_term, text='上課期別代碼').grid(row=0, column=3, padx=(10,0), sticky='ws')
-    term_class_code = entry(annual_plan_term)
+    term_class_code = entry(annual_plan_term, placeholder_text='此欄位自動生成，無須輸入！')
     term_class_code.grid(row=1, column=3, sticky='wen', padx=10)
 
     # 監聽 term 輸入值，並且再次設定 term_class_code 值
     term.bind("<KeyRelease>", on_value_changed)
     
     # 開訓日期
-    label(annual_plan_term, text='開訓日期').grid(row=2, column=2, sticky='ws',padx=(10,0), pady=(20,0))
+    label(annual_plan_term, text='✍🏻 開訓日期').grid(row=2, column=2, sticky='ws',padx=(10,0), pady=(20,0))
     start_date = entry(annual_plan_term)
     start_date.grid(row=3, column=2, columnspan=2, sticky='wen', padx=10)
     
     # 結訓日期
-    label(annual_plan_term, text='結訓日期').grid(row=4, column=2, sticky='ws',padx=(10,0), pady=(20,0))
+    label(annual_plan_term, text='✍🏻 結訓日期').grid(row=4, column=2, sticky='ws',padx=(10,0), pady=(20,0))
     end_date = entry(annual_plan_term) 
     end_date.grid(row=5, column=2, columnspan=2, sticky='wen', padx=10)
 
@@ -131,10 +99,6 @@ def annual_plan_term(content):
             keep_entries = [training_type_code, training_type_name]
             # 新增成功後，清空輸入欄位 
             clear_entries_and_comboboxes(annual_plan_term, keep_entries)
-            # 重新設定預設值
-            # training_type_code.set('1')
-            # training_type_name.delete(0, END)
-            # training_type_name.insert(0,'普通小型車班')
             # 即時更新 Treeview
             fetch_and_populate_treeview(data_list)
 

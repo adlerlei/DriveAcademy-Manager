@@ -29,7 +29,7 @@ def student_all(content):
     training_type_dict_c = dict(zip(training_type_codes, training_type_names))
     training_type_dict_n = dict(zip(training_type_names, training_type_codes))
     training_type_dict = dict(zip(training_type_codes, training_type_names))
-    label(student_all, text='訓練班別').grid(row=0, column=0, sticky='ws', padx=(10,0), pady=(10,0))
+    label(student_all, text='✍🏻 訓練班別').grid(row=0, column=0, sticky='ws', padx=(10,0), pady=(10,0))
     training_type_code = combobox(student_all, values=training_type_codes, command=lambda x: on_training_type_code_changed(x, training_type_name, training_type_dict_c))
     training_type_code.grid(row=1, column=0, sticky='wen', padx=(10,0))
     training_type_name = combobox(student_all, values=training_type_names, command=lambda x: on_training_type_name_changed(x, training_type_code, training_type_dict_n))
@@ -48,7 +48,7 @@ def student_all(content):
     license_type_names = ['自用小客車', '職業小客車', '自用大貨車', '職業大貨車', '自用大客車', '職業大客車', '自用聯結車', '職業聯結車']
     license_type_dict_c = dict(zip(license_type_codes, license_type_names))
     license_type_dict_n = dict(zip(license_type_names, license_type_codes))
-    label(student_all, text='考照類別').grid(row=2, column=0, sticky='ws', padx=(10,0), pady=(20,0))
+    label(student_all, text='✍🏻 考照類別').grid(row=2, column=0, sticky='ws', padx=(10,0), pady=(20,0))
     license_type_code = combobox(student_all,  values=license_type_codes, command=lambda x: on_license_type_code_changed(x, license_type_name, license_type_dict_c))
     license_type_code.grid(row=3, column=0, sticky='wen', padx=(10,0))
     license_type_name = combobox(student_all, values=license_type_names, command=lambda x: on_license_type_name_changed(x, license_type_code, license_type_dict_n))
@@ -65,34 +65,34 @@ def student_all(content):
 
 
     # 學員編號
-    label(student_all, text='學員編號').grid(row=4, column=0, sticky='ws', padx=(10,0), pady=(20,0))
+    label(student_all, text='✍🏻 學員編號').grid(row=4, column=0, sticky='ws', padx=(10,0), pady=(20,0))
     student_number = entry(student_all, placeholder_text='編號查詢')
     student_number.grid(row=5, column=0, sticky='wen', padx=(10,0))
     student_number.bind("<FocusOut>", lambda event: check_and_populate('student_number', student_number.get()))
 
 
     # 梯次
-    label(student_all, text='梯次').grid(row=4, column=1, sticky='ws',padx=(10,0), pady=(20,0))
+    label(student_all, text='✍🏻 梯次').grid(row=4, column=1, sticky='ws',padx=(10,0), pady=(20,0))
     batch = combobox(student_all, values=['A', 'B'])
     batch.grid(row=5, column=1, sticky='wen', padx=(10,0))
     batch.set('')
 
 
     # 學員姓名
-    label(student_all, text='學員姓名').grid(row=6, column=0, sticky='ws', padx=(10,0), pady=(20,0))
+    label(student_all, text='✍🏻 學員姓名').grid(row=6, column=0, sticky='ws', padx=(10,0), pady=(20,0))
     student_name = entry(student_all, placeholder_text='姓名查詢')
     student_name.grid(row=7, column=0, sticky='wen', padx=(10,0))
     student_name.bind("<FocusOut>", lambda event: check_and_populate('student_name', student_name.get()))
 
     # 身分證號碼
-    label(student_all, text='身分證號碼').grid(row=6, column=1, sticky='ws', padx=(10,0), pady=(20,0))
+    label(student_all, text='✍🏻 身分證號碼').grid(row=6, column=1, sticky='ws', padx=(10,0), pady=(20,0))
     national_id_no = entry(student_all, placeholder_text='身分證號查詢')
     national_id_no.grid(row=7, column=1, sticky='wen', padx=(10,0))
     national_id_no.bind("<FocusOut>", lambda event: check_and_populate('national_id_no', national_id_no.get()))
 
 
     # 出生日期
-    label(student_all, text='出生日期').grid(row=8, column=0, sticky='ws', padx=(10,0), pady=(20,0))
+    label(student_all, text='✍🏻 出生日期').grid(row=8, column=0, sticky='ws', padx=(10,0), pady=(20,0))
     birth_date = entry(student_all)
     birth_date.grid(row=9, column=0, sticky='wen', padx=(10,0))
 
@@ -106,7 +106,7 @@ def student_all(content):
 
     # 戶籍地址
     r_address_zip_code_lists, r_address_city_lists, r_address_dict = address_data()
-    label(student_all, text='戶籍址').grid(row=10, column=0, sticky='ws', padx=(10,0), pady=(20,0))
+    label(student_all, text='✍🏻 戶籍地址').grid(row=10, column=0, sticky='ws', padx=(10,0), pady=(20,0))
     r_address_zip_code = combobox(student_all, values=r_address_zip_code_lists, command=lambda x: on_r_address_zip_change(x, r_address_city, r_address_dict))
     r_address_zip_code.grid(row=11, column=0, sticky='wen', padx=(10,0))
     r_address_city = combobox(student_all, values=r_address_city_lists, command=lambda x: on_r_address_city_change(x, r_address_zip_code, r_address_dict))
@@ -168,7 +168,7 @@ def student_all(content):
 
 
     # 信箱
-    label(student_all, text='信箱').grid(row=6, column=2, sticky='ws', padx=(10,0), pady=(20,0))
+    label(student_all, text='✍🏻 電子郵件').grid(row=6, column=2, sticky='ws', padx=(10,0), pady=(20,0))
     email = entry(student_all)
     email.grid(row=7, column=2, columnspan=2, sticky='wen', padx=10)
 
@@ -228,7 +228,7 @@ def student_all(content):
     # 學員資料顯示在輸入欄位�� 
     def check_and_populate(identifier, value):
         global is_searching
-        if not is_adding_new and value and len(value) >= 3:  # 只有当输入至少3个字符时才搜索
+        if not is_adding_new and value and len(value) >= 1:  # 只有当输入至少3个字符时才搜索
             is_searching = True
             populate_student_data(identifier, value)
         elif not is_adding_new and not value:
@@ -375,7 +375,7 @@ def student_all(content):
 
         # 驗證必填欄位是否空
         required_fields = ['training_type_code', 'training_type_name', 'license_type_code', 'license_type_name', 
-                        'student_number', 'student_name', 'batch', 'national_id_no', 'birth_date','r_address_zip_code', 'r_address_city', 'r_address', 'email']
+                        'student_number', 'student_name', 'batch', 'national_id_no', 'birth_date','r_address_zip_code', 'r_address_city', 'r_address','email']
         for field in required_fields:
             if not student_data[field]:
                 messagebox.showwarning('提示', f'{validation_fields[field]} 欄位不能為空！')
@@ -403,7 +403,7 @@ def student_all(content):
             messagebox.showwarning('提示', '請先查詢並選擇要修改的學員資料。')
             return
         
-        confirm = messagebox.askyesno('確', '確定要修改此學員資料嗎？')
+        confirm = messagebox.askyesno('確定', '確定要修改此學員資料嗎？')
         if not confirm:
             return
         
@@ -436,9 +436,10 @@ def student_all(content):
         
         update_student_data(student_data)
         
-        messagebox.showinfo('成功', '學員資料已成功更新。')
-        
         # 更新成功后，保持编辑状态
+        # 清空字段，但保留某些字段
+        keep_entries = [training_type_code, training_type_name, license_type_code, license_type_name]
+        clear_entries_and_comboboxes(student_all, keep_entries)
         is_editing = True
 
     # 刪除按鈕的事件處理函數
@@ -451,7 +452,10 @@ def student_all(content):
                 is_editing = False
                 current_student_id = None
 
-                clear_entries_and_comboboxes(student_all)
+                # clear_entries_and_comboboxes(student_all)
+                # 清空字段，但保留某些字段
+                keep_entries = [training_type_code, training_type_name, license_type_code, license_type_name]
+                clear_entries_and_comboboxes(student_all, keep_entries)
 
         else:
             messagebox.showwarning('提示', '請先輸入要刪除的學員資料！')

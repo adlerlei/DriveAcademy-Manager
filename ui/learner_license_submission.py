@@ -37,7 +37,7 @@ def learner_license_submission(content):
     national_id_no.bind("<KeyRelease>", lambda event: check_and_populate('national_id_no', national_id_no.get()))
 
     # 顯示 / 搜尋 學員電話
-    label(learner_license_submission, text='聯絡電話').grid(row=0, column=3, sticky='ws', padx=(10,0), pady=(10,0))
+    label(learner_license_submission, text='手機').grid(row=0, column=3, sticky='ws', padx=(10,0), pady=(10,0))
     mobile_phone = entry(learner_license_submission, placeholder_text='手機查詢')
     mobile_phone.grid(row=1, column=3, sticky='wen', padx=10)
     mobile_phone.bind("<KeyRelease>", lambda event: check_and_populate('mobile_phone', mobile_phone.get()))
