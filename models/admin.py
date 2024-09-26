@@ -1,4 +1,5 @@
-# 管理員註冊 / 登錄
+# 管理員註冊 / 登錄 功能邏輯頁面
+# 對應介面 ui/admin_login.py 和 ui/admin_register.py
 import sqlite3
 import os
 from tkinter import messagebox

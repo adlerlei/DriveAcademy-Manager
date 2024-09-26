@@ -1,4 +1,6 @@
-# M2補訓名冊 不需要匯出文件功能
+# M2補訓名冊 介面 
+# 該介面不需要匯出文件功能
+# 對應介面 models/m2retraining.py
 from utils.widget import *
 from utils.config import *
 from models.m2retraining import * 

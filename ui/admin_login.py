@@ -1,3 +1,5 @@
+# 管理員登入 介面
+# 對應資料庫邏輯介面 models/admin.py
 from tkinter import messagebox
 from utils.config import *
 from utils.widget import *
@@ -7,7 +9,6 @@ from models.admin import login_validation
 from .menu_list import menu_list
 
 
-# 管理員登入介面
 def admin_login(menu,content):
     clear_frame(content)
     

@@ -1,4 +1,5 @@
-# 學照統一送件（匯出 txt 文件）其餘皆為 csv 文件
+# 學照統一送件 介面
+# 該介面需匯出 txt 文件，其餘介面需要匯出皆為 csv 文件
 from utils.widget import *
 from utils.config import *
 from models.license import *

@@ -1,4 +1,5 @@
-# 期別新增 - 年度計畫表與期別新增
+# 年度期別計畫 介面
+# 對應資料庫邏輯介面 models/annual_plan.py
 from utils.widget import *
 from utils.config import *
 from tkinter import messagebox
@@ -26,7 +27,7 @@ def annual_plan_term(content):
     training_type_names = ['普通小型車班', '大貨車班', '大客車班', '聯結車班', '職業小型車班', '普通重機車班', '大型重機車班', '小型車逕升大客車班']
     training_type_dict_c = dict(zip(training_type_codes, training_type_names))
     training_type_dict_n = dict(zip(training_type_names, training_type_codes))
-    label(annual_plan_term, text='✍🏻 訓練班別').grid(row=0, column=0, sticky='ws', padx=(10,0), pady=(10,0))
+    label(annual_plan_term, text='訓練班別').grid(row=0, column=0, sticky='ws', padx=(10,0), pady=(10,0))
     training_type_code = combobox(annual_plan_term, values=training_type_codes, command=lambda x: on_training_type_code_changed(x, training_type_name, training_type_dict_c))
     training_type_code.grid(row=1, column=0, sticky='wen', padx=(10,0))
     training_type_name = combobox(annual_plan_term, values=training_type_names, command=lambda x: on_training_type_name_changed(x, training_type_code, training_type_dict_n))
@@ -42,18 +43,18 @@ def annual_plan_term(content):
         training_type_code.set(selected_code)
 
     # 梯次
-    label(annual_plan_term, text='✍🏻 梯次').grid(row=2, column=0, sticky='ws', padx=(10,0))
+    label(annual_plan_term, text='梯次').grid(row=2, column=0, sticky='ws', padx=(10,0))
     batch = combobox(annual_plan_term, values=['A', 'B'])
     batch.grid(row=3, column=0, columnspan=2, sticky='wen', padx=(10,0))
     batch.set('')
     
     # 期別
-    label(annual_plan_term, text='✍🏻 期別').grid(row=4, column=0, sticky='ws',padx=(10,0), pady=(20,0))
+    label(annual_plan_term, text='期別').grid(row=4, column=0, sticky='ws',padx=(10,0), pady=(20,0))
     term = entry(annual_plan_term)
     term.grid(row=5, column=0, columnspan=2, sticky='wen', padx=(10,0))
 
     # 年度
-    label(annual_plan_term, text='✍🏻 年度').grid(row=0, column=2, sticky='ws',padx=(10,0), pady=(20,0))
+    label(annual_plan_term, text='年度').grid(row=0, column=2, sticky='ws',padx=(10,0), pady=(20,0))
     year = entry(annual_plan_term)
     year.grid(row=1, column=2, sticky='wen', padx=(10,0))
 
@@ -66,12 +67,12 @@ def annual_plan_term(content):
     term.bind("<KeyRelease>", on_value_changed)
     
     # 開訓日期
-    label(annual_plan_term, text='✍🏻 開訓日期').grid(row=2, column=2, sticky='ws',padx=(10,0), pady=(20,0))
+    label(annual_plan_term, text='開訓日期').grid(row=2, column=2, sticky='ws',padx=(10,0), pady=(20,0))
     start_date = entry(annual_plan_term)
     start_date.grid(row=3, column=2, columnspan=2, sticky='wen', padx=10)
     
     # 結訓日期
-    label(annual_plan_term, text='✍🏻 結訓日期').grid(row=4, column=2, sticky='ws',padx=(10,0), pady=(20,0))
+    label(annual_plan_term, text='結訓日期').grid(row=4, column=2, sticky='ws',padx=(10,0), pady=(20,0))
     end_date = entry(annual_plan_term)
     end_date.grid(row=5, column=2, columnspan=2, sticky='wen', padx=10)
 

@@ -1,10 +1,11 @@
+# 管理員註冊 介面
+# 對應資料庫邏輯介面 models/admin.py 
 from tkinter import messagebox
 from utils.config import *
 from utils.widget import *
 from models.admin import register_insert_data
 
 
-#  admin 註冊介面
 def admin_register(menu, content):
     clear_frame(content)
     

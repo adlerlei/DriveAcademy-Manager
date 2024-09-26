@@ -1,10 +1,9 @@
-# 補訓名冊
+# M2 補訓名冊 功能邏輯介面
+# 對應介面 ui/m2_retraining_roster_creation.py
 import sqlite3
 import os
-# import csv
 from tkinter import messagebox
 from tkinter import filedialog
-# 導入 re 模組,用於處理字符串的正則表達式操作
 import re
 
 # 資料庫路徑

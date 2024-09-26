@@ -1,4 +1,5 @@
-# 筆試，場考，道考
+# 筆試，場考，道考 功能邏輯介面
+# 對應介面 ui/road_test_roster.py , written_exam_roster.py , driving_test_roster.py
 import sqlite3
 import os
 import csv

@@ -1,4 +1,5 @@
-# 路考清冊(場考)
+# 場考清冊作業 介面
+# 對應介面 models/test.py
 from utils.widget import *
 from utils.config import *
 from models.test import *

@@ -1,4 +1,5 @@
-# 結訓名冊
+# 結訓名冊作業 介面
+# 對應資料庫邏輯介面 models/training.py
 from utils.widget import *
 from utils.config import * 
 from models.training import *

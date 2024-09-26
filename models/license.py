@@ -1,4 +1,5 @@
-# 學照日期送件，登錄
+# 學照日期送件，登錄 功能邏輯介面
+# 對應計面 ui/learner_license_date_registration.py , learner_license_submission.py
 import sqlite3
 import os
 from tkinter import messagebox

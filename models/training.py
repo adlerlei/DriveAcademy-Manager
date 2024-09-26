@@ -1,10 +1,10 @@
-# 開訓結訓名冊
+# 開訓結訓名冊 功能邏輯介面
+# 對應介面 ui/opening_training_rester.py , closing_training_roster.py
 import sqlite3
 import os
 # import csv
 from tkinter import messagebox
 from tkinter import filedialog
-# 導入 re 模組,用於處理字符串的正則表達式操作
 import re
 
 # 資料庫路徑

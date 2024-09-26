@@ -1,3 +1,4 @@
+# 選單列表 介面
 from utils.widget import menu_btn, menu_logo, disable_all_menu_buttons
 from utils.config import *
 from .annual_plan_term import annual_plan_term

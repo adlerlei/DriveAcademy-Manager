@@ -1,4 +1,4 @@
- # 教練資料作業 新增 - 修改 - 刪除 - 查詢
+ # 教練資料作業 介面
 from utils.widget import *
 from utils.config import *
 from models.instructor import *

@@ -1,4 +1,4 @@
-# 學照登錄介面
+# 學照日期登錄介面
 from utils.widget import *
 from utils.config import * 
 from models.license import *

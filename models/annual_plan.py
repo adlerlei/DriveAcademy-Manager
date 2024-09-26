@@ -1,4 +1,5 @@
-# 期別新增 - 年度計畫表與期別新增
+# 年度期別計畫 功能邏輯介面
+# 對應介面 ui/annual_plan_term.py
 import sqlite3
 import os
 from tkinter import messagebox

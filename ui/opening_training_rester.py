@@ -1,4 +1,5 @@
-# 開訓名冊
+# 開訓名冊作業 介面
+# 對應資料庫邏輯介面 models/training.py
 from utils.widget import *
 from utils.config import * 
 from models.training import *
@@ -280,11 +281,7 @@ def opening_training_roster(content):
             birth_date.configure(state='readonly')
             learner_permit_date.configure(state='normal')
             learner_permit_date.delete(0, ctk.END)
-            # if len(student_data) > 26:  # 确保索引有效
-            #     learner_permit_date.insert(0, student_data[26])
-            # learner_permit_date.configure(state='readonly')
-            # register_number.configure(state='normal')
-            # register_number.delete(0, ctk.END)
+
             if student_data[26] is not None:
                 learner_permit_date.insert(0, student_data[26])
             else:

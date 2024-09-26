@@ -1,3 +1,4 @@
+# 主視窗 介面
 from tkinter import *
 import customtkinter as ctk
 from utils.config import app_icon
