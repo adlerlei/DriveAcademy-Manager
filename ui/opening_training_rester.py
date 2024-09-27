@@ -266,7 +266,6 @@ def opening_training_roster(content):
     def populate_student_data(identifier, value):
         global current_student_id
         student_data = get_student_data(identifier, value)
-        print("Student Data:", student_data)  # 调试输出
         if student_data:
             current_student_id = student_data[0]
             student_number.delete(0, ctk.END)

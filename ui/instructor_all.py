@@ -36,7 +36,7 @@ def instructor_all(content):
     birth_date.grid(row=1, column=2, sticky='wen', padx=10)
 
     # 教練證號碼
-    label(instructor_all, text="教練證號碼").grid(row=0, column=3, sticky='ws', padx=(10,0), pady=(10,0))
+    label(instructor_all, text="教練證號").grid(row=0, column=3, sticky='ws', padx=(10,0), pady=(10,0))
     instructor_number = entry(instructor_all)
     instructor_number.grid(row=1, column=3, sticky='wen', padx=(10,0))
 

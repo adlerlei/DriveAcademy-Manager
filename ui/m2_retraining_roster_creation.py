@@ -6,7 +6,6 @@ from utils.config import *
 from models.m2retraining import * 
 import customtkinter as ctk
 from tkinter import messagebox
-import sqlite3
 from tkinter import ttk
 
 # 檢測學員資料庫 id 欄位來判定是否修改或新增
@@ -27,19 +26,19 @@ def m2_retraining_roster_creation(content):
 
     # 顯示 / 搜尋 學員編號
     label(m2_retraining_roster_creation, text='學員編號').grid(row=0, column=0, sticky='ws', padx=(10,0), pady=(10,0))
-    student_number = entry(m2_retraining_roster_creation,  placeholder_text = "編號查詢")
+    student_number = entry(m2_retraining_roster_creation,  placeholder_text = " 🔎")
     student_number.grid(row=1, column=0, sticky='wen', padx=(10,0))
     student_number.bind("<KeyRelease>", lambda event: check_and_populate('student_number', student_number.get()))
     
     # 顯示 / 搜尋 學員姓名
     label(m2_retraining_roster_creation, text='學員姓名').grid(row=0, column=1, sticky='ws', padx=(10,0), pady=(10,0))
-    student_name = entry(m2_retraining_roster_creation, placeholder_text="姓名查詢")
+    student_name = entry(m2_retraining_roster_creation, placeholder_text=" 🔎")
     student_name.grid(row=1, column=1, sticky='wen', padx=(10,0))
     student_name.bind("<KeyRelease>", lambda event: check_and_populate('student_name', student_name.get()))
 
     # 顯示 / 搜尋 身分證號碼
     label(m2_retraining_roster_creation, text='身分證號').grid(row=0, column=2, sticky='ws', padx=(10,0), pady=(10,0))
-    national_id_no = entry(m2_retraining_roster_creation, placeholder_text="身分證查詢")
+    national_id_no = entry(m2_retraining_roster_creation, placeholder_text=" 🔎")
     national_id_no.grid(row=1, column=2, sticky='wen', padx=(10,0))
     national_id_no.bind("<KeyRelease>", lambda event: check_and_populate('national_id_no', national_id_no.get()))
 
@@ -387,5 +386,5 @@ def m2_retraining_roster_creation(content):
         ))
 
     # 按鈕
-    add_btn(m2_retraining_roster_creation, text='加入開訓名冊', command=save_student_data).grid(row=12, column=2, sticky='wen', padx=(10, 0), pady=(20, 0))
-    print_btn(m2_retraining_roster_creation, text='列印開訓名', command=None).grid(row=12, column=3, sticky='wen', padx=10, pady=(20, 0))
+    add_btn(m2_retraining_roster_creation, text='加入M2補訓', command=save_student_data).grid(row=12, column=2, sticky='wen', padx=(10, 0), pady=(20, 0))
+    print_btn(m2_retraining_roster_creation, text='列印M2補訓名冊', command=None).grid(row=12, column=3, sticky='wen', padx=10, pady=(20, 0))

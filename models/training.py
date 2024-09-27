@@ -68,16 +68,15 @@ def get_student_data(identifier, value):
     query = f"SELECT * FROM student WHERE {identifier} = ?"
     cursor.execute(query, (value,))
     result = cursor.fetchone()
-    
-    conn.close()
 
+    conn.close()
     return result
 
 
 # 更新學員資料
 def update_student_data(data, uid):
     conn = sqlite3.connect(database_path)
-    cursor = conn.cursor() 
+    cursor = conn.cursor()
 
     # 處理名冊號碼並生成 student_term_class_code
     register_number = data.get('register_number', '')
@@ -166,7 +165,7 @@ def export_selected_data(treeview):
         # 獲取教練身分證號碼和出生日期
         conn = sqlite3.connect(database_path)
         cursor = conn.cursor()
-        cursor.execute("SELECT national_id_no, birth_date FROM instructor WHERE number = ?", (instructor_number,))
+        cursor.execute("SELECT instructor_number, birth_date FROM instructor WHERE number = ?", (instructor_number,))
         instructor_data = cursor.fetchone()
         conn.close()
 
@@ -181,8 +180,6 @@ def export_selected_data(treeview):
     if register_number is not None:
         # 找到第一個字母的位置
         alpha_index = next((i for i, c in enumerate(register_number) if c.isalpha()), None)
-        # year_from_data = register_number
-        # file_name = generate_csv_filename(year_from_data, training_type_code)
         if alpha_index is not None:
             # 保留到字母（包括字母）用於文件名
             register_number_for_filename = register_number[:alpha_index+1]
