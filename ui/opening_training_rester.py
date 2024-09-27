@@ -39,21 +39,21 @@ def opening_training_roster(content):
 
     # 顯示 / 搜尋 學員編號
     label(opening_training_roster, text='學員編號').grid(row=0, column=0, sticky='ws', padx=(10,0), pady=(10,0))
-    student_number = entry(opening_training_roster,  placeholder_text = "編號查詢")
+    student_number = entry(opening_training_roster,  placeholder_text = " 🔎")
     student_number.grid(row=1, column=0, sticky='wen', padx=(10,0))
-    student_number.bind("<FocusOut>", lambda event: check_and_populate('student_number', student_number.get()))
+    student_number.bind("<KeyRelease>", lambda event: check_and_populate('student_number', student_number.get()))
 
     # 顯示 / 搜尋 學員姓名
     label(opening_training_roster, text='學員姓名').grid(row=0, column=1, sticky='ws', padx=(10,0), pady=(10,0))
-    student_name = entry(opening_training_roster, placeholder_text="姓名查詢")
+    student_name = entry(opening_training_roster, placeholder_text=" 🔎")
     student_name.grid(row=1, column=1, sticky='wen', padx=(10,0))
-    student_name.bind("<FocusOut>", lambda event: check_and_populate('student_name', student_name.get()))
+    student_name.bind("<KeyRelease>", lambda event: check_and_populate('student_name', student_name.get()))
 
     # 顯示 / 搜尋 學員身分證號碼
     label(opening_training_roster, text='身分證號').grid(row=0, column=2, sticky='ws', padx=(10,0), pady=(10,0))
-    national_id_no = entry(opening_training_roster, placeholder_text="身分證查詢")
+    national_id_no = entry(opening_training_roster, placeholder_text=" 🔎")
     national_id_no.grid(row=1, column=2, sticky='wen', padx=(10,0))
-    national_id_no.bind("<FocusOut>", lambda event: check_and_populate('national_id_no', national_id_no.get()))
+    national_id_no.bind("<KeyRelease>", lambda event: check_and_populate('national_id_no', national_id_no.get()))
 
     # 出生日期
     label(opening_training_roster, text='出生日期').grid(row=0, column=3, sticky='ws', padx=(10,0), pady=(10,0))
@@ -67,7 +67,7 @@ def opening_training_roster(content):
 
     # 名冊號碼
     label(opening_training_roster, text='名冊號碼').grid(row=2, column=1, sticky='ws', padx=(10,0), pady=(10,0))
-    register_number = entry(opening_training_roster)
+    register_number = entry(opening_training_roster, placeholder_text='此欄位自動生成，無須輸入')
     register_number.grid(row=3, column=1, sticky='wen',padx=(10,0))
 
     # 期別 ( 抓取年度計畫期別新增 "期別" 使用下拉選單呈現選擇) 不需要從資料庫讀取，但需要寫入資料庫

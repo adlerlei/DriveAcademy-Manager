@@ -169,7 +169,7 @@ def entry(
     font = create_font(),
     fg_color = '#d9d9d9',
     text_color = '#8b8c89',
-    placeholder_text_color = '#a0a0a0',  # 添加這個參數，設置一個默認值
+    placeholder_text_color = '#a78a7f',  # 添加這個參數，設置一個默認值
     **kwargs
 ):
     return ck.CTkEntry(

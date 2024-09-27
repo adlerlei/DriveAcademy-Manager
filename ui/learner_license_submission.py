@@ -21,25 +21,25 @@ def learner_license_submission(content):
     
     # 顯示 / 搜尋 學員編號
     label(learner_license_submission, text='學員編號').grid(row=0, column=0, sticky='ws', padx=(10,0), pady=(10,0))
-    student_number = entry(learner_license_submission, placeholder_text='編號查詢')
+    student_number = entry(learner_license_submission, placeholder_text=' 🔎')
     student_number.grid(row=1, column=0, sticky='wen', padx=(10,0))
     student_number.bind("<KeyRelease>", lambda event: check_and_populate('student_number', student_number.get()))
 
     # 顯示 / 搜尋 學員姓名
     label(learner_license_submission, text='學員姓名').grid(row=0, column=1, sticky='ws', padx=(10,0), pady=(10,0))
-    student_name = entry(learner_license_submission, placeholder_text='姓名查詢')
+    student_name = entry(learner_license_submission, placeholder_text=' 🔎')
     student_name.grid(row=1, column=1, sticky='wen', padx=(10,0))
     student_name.bind("<KeyRelease>", lambda event: check_and_populate('student_name', student_name.get()))
 
     # 顯示 / 搜尋 學員身分證號碼
     label(learner_license_submission, text='身分證號').grid(row=0, column=2, sticky='ws', padx=(10,0), pady=(10,0))
-    national_id_no = entry(learner_license_submission, placeholder_text='身分證號查詢')
+    national_id_no = entry(learner_license_submission, placeholder_text=' 🔎')
     national_id_no.grid(row=1, column=2, sticky='wen', padx=(10,0))
     national_id_no.bind("<KeyRelease>", lambda event: check_and_populate('national_id_no', national_id_no.get()))
 
     # 顯示 / 搜尋 學員電話
-    label(learner_license_submission, text='手機').grid(row=0, column=3, sticky='ws', padx=(10,0), pady=(10,0))
-    mobile_phone = entry(learner_license_submission, placeholder_text='手機查詢')
+    label(learner_license_submission, text='聯絡手機').grid(row=0, column=3, sticky='ws', padx=(10,0), pady=(10,0))
+    mobile_phone = entry(learner_license_submission, placeholder_text=' 🔎')
     mobile_phone.grid(row=1, column=3, sticky='wen', padx=10)
     mobile_phone.bind("<KeyRelease>", lambda event: check_and_populate('mobile_phone', mobile_phone.get()))
 

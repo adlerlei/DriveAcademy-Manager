@@ -68,7 +68,7 @@ def student_all(content):
 
     # 學員編號
     label(student_all, text='學員編號').grid(row=4, column=0, sticky='ws', padx=(10,0), pady=(20,0))
-    student_number = entry(student_all, placeholder_text='編號查詢')
+    student_number = entry(student_all, placeholder_text=' 🔎')
     student_number.grid(row=5, column=0, sticky='wen', padx=(10,0))
     student_number.bind("<FocusOut>", lambda event: check_and_populate('student_number', student_number.get()))
 
@@ -82,13 +82,13 @@ def student_all(content):
 
     # 學員姓名
     label(student_all, text='學員姓名').grid(row=6, column=0, sticky='ws', padx=(10,0), pady=(20,0))
-    student_name = entry(student_all, placeholder_text='姓名查詢')
+    student_name = entry(student_all, placeholder_text=' 🔎')
     student_name.grid(row=7, column=0, sticky='wen', padx=(10,0))
     student_name.bind("<FocusOut>", lambda event: check_and_populate('student_name', student_name.get()))
 
     # 身分證號碼
     label(student_all, text='身分證號碼').grid(row=6, column=1, sticky='ws', padx=(10,0), pady=(20,0))
-    national_id_no = entry(student_all, placeholder_text='身分證號查詢')
+    national_id_no = entry(student_all, placeholder_text=' 🔎')
     national_id_no.grid(row=7, column=1, sticky='wen', padx=(10,0))
     national_id_no.bind("<FocusOut>", lambda event: check_and_populate('national_id_no', national_id_no.get()))
 
@@ -101,7 +101,7 @@ def student_all(content):
 
     # 行動電話
     label(student_all, text='手機').grid(row=8, column=1, sticky='ws', padx=(10,0), pady=(20,0))
-    mobile_phone = entry(student_all, placeholder_text='手機查詢')
+    mobile_phone = entry(student_all, placeholder_text=' 🔎')
     mobile_phone.grid(row=9, column=1, sticky='wen', padx=(10,0))
     mobile_phone.bind("<FocusOut>", lambda event: check_and_populate('mobile_phone', mobile_phone.get()))
 

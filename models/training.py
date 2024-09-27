@@ -48,10 +48,6 @@ def get_instructor_data():
 def get_term_data():
     conn = sqlite3.connect(database_path)
     cursor = conn.cursor()
-
-    # DISTINCT 是 SQL 查詢語句中的一個關鍵字，用於去除查詢結果中的重複值。
-    # 當你在一個資料表中查詢某個欄位時，如果該欄位中有重複的數據，使用 DISTINCT 關鍵字可以確保查詢結果中每個值都是唯一的
-    # cursor.execute("SELECT term FROM annual_plan")
     cursor.execute("SELECT DISTINCT term FROM annual_plan")
     term_data = cursor.fetchall()
 
