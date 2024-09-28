@@ -39,19 +39,19 @@ def closing_training_roster(content):
 
     # 顯示 / 搜尋 學員編號
     label(closing_training_roster, text='學員編號').grid(row=0, column=0, sticky='ws', padx=(10,0), pady=(10,0))
-    student_number = entry(closing_training_roster,  placeholder_text = "編號查詢")
+    student_number = entry(closing_training_roster,  placeholder_text = " 🔎")
     student_number.grid(row=1, column=0, sticky='wen', padx=(10,0))
     student_number.bind("<KeyRelease>", lambda event: check_and_populate('student_number', student_number.get()))
 
     # 顯示 / 搜尋 學員姓名
     label(closing_training_roster, text='學員姓名').grid(row=0, column=1, sticky='ws', padx=(10,0), pady=(10,0))
-    student_name = entry(closing_training_roster, placeholder_text="姓名查詢")
+    student_name = entry(closing_training_roster, placeholder_text=" 🔎")
     student_name.grid(row=1, column=1, sticky='wen', padx=(10,0))
     student_name.bind("<KeyRelease>", lambda event: check_and_populate('student_name', student_name.get()))
 
     # 顯示 / 搜尋 學員身分證號碼
     label(closing_training_roster, text='身分證號').grid(row=0, column=2, sticky='ws', padx=(10,0), pady=(10,0))
-    national_id_no = entry(closing_training_roster, placeholder_text="身分證查詢")
+    national_id_no = entry(closing_training_roster, placeholder_text=" 🔎")
     national_id_no.grid(row=1, column=2, sticky='wen', padx=(10,0))
     national_id_no.bind("<KeyRelease>", lambda event: check_and_populate('national_id_no', national_id_no.get()))
 
@@ -62,7 +62,7 @@ def closing_training_roster(content):
 
     # 學照日期
     label(closing_training_roster, text='學照日期').grid(row=2, column=0, sticky='ws', padx=(10,0), pady=(10,0))
-    learner_permit_date = display_entry_value(closing_training_roster)
+    learner_permit_date = entry(closing_training_roster)
     learner_permit_date.grid(row=3, column=0, sticky='wen',padx=(10,0))
 
     # 名冊號碼
@@ -164,7 +164,7 @@ def closing_training_roster(content):
         'student_name', # 學員姓名
         'dropout', # 退訓
         'transmission_type_code', # 手自排 編號
-        'instructor_number', # 教練 編號
+        'instructor_number', # 指導教練 編號
         'gender', # 學員性別
         'birth_date', # 出生日期
         'national_id_no', # 學員 身分證號碼
@@ -180,7 +180,7 @@ def closing_training_roster(content):
     data_list.heading('student_name', text='學員姓名')
     data_list.heading('dropout', text='退訓')
     data_list.heading('transmission_type_code', text='手自排')
-    data_list.heading('instructor_number', text='教練編號')
+    data_list.heading('instructor_number', text='教練')
     data_list.heading('gender', text='性別')
     data_list.heading('birth_date', text='出生日期')
     data_list.heading('national_id_no', text='身分證號')
@@ -262,15 +262,11 @@ def closing_training_roster(content):
             else:
                 learner_permit_date.delete(0, ctk.END)
                 learner_permit_date.insert(0, '')
-            # learner_permit_date.configure(state='normal')
-            # learner_permit_date.delete(0, ctk.END)
-            # learner_permit_date.insert(0, student_data[26])
-            # learner_permit_date.configure(state='readonly')
             # 名冊號碼
             if student_data[34] is not None:
                 register_number.delete(0, ctk.END)
                 register_number.insert(0, student_data[34])
-                messagebox.showinfo('提示', '該學員已經存在名冊號碼')
+                # messagebox.showinfo('提示', '該學員已經存在名冊號碼')
             else:
                 register_number.delete(0, ctk.END)
             # 期別
@@ -366,7 +362,7 @@ def closing_training_roster(content):
             'register_term': register_term.get(), # 期別
             'transmission_type_code': transmission_type_code.get(), # 手自排
             'transmission_type_name': transmission_type_name.get(), # 手自排
-            'instructor_number': instructor_number.get(), # 教練編號
+            'instructor_number': instructor_number.get(), # 指導教練編號
             'instructor_name': instructor_name.get(), # 教練名稱
             'r_address_city_road': r_address_city.get() + r_address.get(), # 將縣市區域加上地址組合
             'id': current_student_id
@@ -400,7 +396,7 @@ def closing_training_roster(content):
             student_data['batch'],
             student_data['student_number'],
             student_data['student_name'],
-            student_data['dropout'],
+            student_data['dropout'], 
             student_data['transmission_type_code'],
             student_data['instructor_number'],
             student_data['gender'],
@@ -414,4 +410,4 @@ def closing_training_roster(content):
     # 按鈕
     btn(closing_training_roster, text='加入結訓名冊', command=save_student_data).grid(row=10, column=1, sticky='wen', padx=(10, 0))
     print_btn(closing_training_roster, text='列印結訓名冊', command=None).grid(row=10, column=2, sticky='wen', padx=(10, 0))
-    export_btn(closing_training_roster, text='匯出文件', command=None).grid(row=10, column=3, sticky='wen', padx=10)
+    export_btn(closing_training_roster, text='匯出文件', command=lambda: export_selected_data(data_list)).grid(row=10, column=3, sticky='wen', padx=10)

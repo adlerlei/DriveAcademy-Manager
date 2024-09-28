@@ -25,26 +25,26 @@ def driving_test_roster(content):
 
     # 顯示 / 搜尋 學員編號
     label(driving_test_roster, text='學員編號').grid(row=0, column=0, sticky='ws', padx=(10,0), pady=(10,0))
-    student_number = entry(driving_test_roster,  placeholder_text = "編號查詢")
+    student_number = entry(driving_test_roster,  placeholder_text = " 🔎")
     student_number.grid(row=1, column=0, sticky='wen', padx=(10,0))
-    student_number.bind("<FocusOut>", lambda event: check_and_populate('student_number', student_number.get()))
+    student_number.bind("<KeyRelease>", lambda event: check_and_populate('student_number', student_number.get()))
     
     # 顯示 / 搜尋 學員
     label(driving_test_roster, text='學員姓名').grid(row=0, column=1, sticky='ws', padx=(10,0), pady=(10,0))
-    student_name = entry(driving_test_roster, placeholder_text="姓名查詢")
+    student_name = entry(driving_test_roster, placeholder_text=" 🔎")
     student_name.grid(row=1, column=1, sticky='wen', padx=(10,0))
-    student_name.bind("<FocusOut>", lambda event: check_and_populate('student_name', student_name.get()))
+    student_name.bind("<KeyRelease>", lambda event: check_and_populate('student_name', student_name.get()))
 
     # 名冊號碼
     label(driving_test_roster, text='名冊號碼').grid(row=0, column=2, sticky='ws', padx=(10,0), pady=(10,0))
-    register_number = display_entry_value(driving_test_roster)
+    register_number = entry(driving_test_roster)
     register_number.grid(row=1, column=2, sticky='wen', padx=(10,0))
 
     # 顯示 / 搜尋 身分號碼
     label(driving_test_roster, text='身分證號碼').grid(row=0, column=3, sticky='ws', padx=(10,0), pady=(10,0))
-    national_id_no = entry(driving_test_roster, placeholder_text="身分證查詢")
+    national_id_no = entry(driving_test_roster, placeholder_text=" 🔎")
     national_id_no.grid(row=1, column=3, sticky='wen',padx=10)
-    national_id_no.bind("<FocusOut>", lambda event: check_and_populate('national_id_no', national_id_no.get()))
+    national_id_no.bind("<KeyRelease>", lambda event: check_and_populate('national_id_no', national_id_no.get()))
 
     # 出生日期
     label(driving_test_roster, text='出生日期').grid(row=2, column=0, sticky='ws', padx=(10,0), pady=(10,0))
@@ -60,7 +60,7 @@ def driving_test_roster(content):
     
     # 期別
     label(driving_test_roster, text='期別').grid(row=2, column=3, sticky='ws', padx=(10,0), pady=(10,0))
-    register_term = display_entry_value(driving_test_roster)
+    register_term = entry(driving_test_roster)
     register_term.grid(row=3, column=3, sticky='wen',padx=10)
 
     # 梯次
@@ -246,6 +246,7 @@ def driving_test_roster(content):
             'road_test_date': road_test_date.get(),
             'road_test_items_type': road_test_items_type.get(),
             'driving_test_number': str(current_driving_test_number),
+            # 'driving_test_number': driving_test_number.get(),
             'id': current_student_id,
             'student_number': student_number.get(),
             'batch': batch.get(),

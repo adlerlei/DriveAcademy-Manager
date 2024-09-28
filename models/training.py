@@ -159,7 +159,9 @@ def export_selected_data(treeview):
         exam_code = str(item_values[4])  # 獲取來源類別編號
         transmission_type_code = str(item_values[5])  # 獲取手自排類別編號
         instructor_number = str(item_values[6]).zfill(3) # 獲取教練編號
-        training_type_code = str(item_values[13]) # 獲取訓練班別代號
+        training_type_code = ""
+        if len(item_values) > 13:
+            training_type_code = str(item_values[13])  # 獲取訓練班別代號
         # student_term_class_code = str(item_values[45])
 
         # 獲取教練身分證號碼和出生日期

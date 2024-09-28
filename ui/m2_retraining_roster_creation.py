@@ -49,17 +49,17 @@ def m2_retraining_roster_creation(content):
 
     # 學照日期
     label(m2_retraining_roster_creation, text='學照日期').grid(row=2, column=0, sticky='ws', padx=(10,0), pady=(10,0))
-    learner_permit_date = display_entry_value(m2_retraining_roster_creation)
+    learner_permit_date = entry(m2_retraining_roster_creation)
     learner_permit_date.grid(row=3, column=0, sticky='wen',padx=(10,0))
 
     # 名冊號碼
     label(m2_retraining_roster_creation, text='名冊號碼').grid(row=2, column=1, sticky='ws', padx=(10,0), pady=(10,0))
-    register_number = display_entry_value(m2_retraining_roster_creation)
+    register_number = entry(m2_retraining_roster_creation)
     register_number.grid(row=3, column=1, sticky='wen',padx=(10,0))
 
     # 期別
     label(m2_retraining_roster_creation, text='期別').grid(row=2, column=2, sticky='ws', padx=(10,0), pady=(10,0))
-    register_term = display_entry_value(m2_retraining_roster_creation)
+    register_term = entry(m2_retraining_roster_creation)
     register_term.grid(row=3, column=2, sticky='wen',padx=(10,0))
 
     # 性別
@@ -241,10 +241,6 @@ def m2_retraining_roster_creation(content):
                 learner_permit_date.delete(0, ctk.END)
                 learner_permit_date.insert(0, '')
 
-            # register_number.configure(state='normal')
-            # register_number.delete(0, ctk.END)
-            # register_number.insert(0, student_data[34])
-            # register_number.configure(state='readonly')
             if student_data[34] is not None:
                 register_number.delete(0, ctk.END)
                 register_number.insert(0, student_data[34])
@@ -252,10 +248,6 @@ def m2_retraining_roster_creation(content):
                 register_number.delete(0, ctk.END)
                 register_number.insert(0, '')
 
-            # register_term.configure(state='normal')
-            # register_term.delete(0, ctk.END)
-            # register_term.insert(0, student_data[35])
-            # register_term.configure(state='readonly')
             if student_data[35] is not None:
                 register_term.delete(0, ctk.END)
                 register_term.insert(0, student_data[35])

@@ -25,24 +25,26 @@ def  road_test_roster(content):
 
     # 學員編號
     label(road_test_roster, text='學員編號').grid(row=0, column=0, sticky='ws', padx=(10,0), pady=(10,0))
-    student_number = entry(road_test_roster,  placeholder_text = "輸入學員編號")
+    student_number = entry(road_test_roster,  placeholder_text = " 🔎")
     student_number.grid(row=1, column=0, sticky='wen', padx=(10,0))
     student_number.bind("<KeyRelease>", lambda event: populate_student_data('student_number', student_number.get()))
     
     # 學員姓名
     label(road_test_roster, text='學員姓名').grid(row=0, column=1, sticky='ws', padx=(10,0), pady=(10,0))
-    student_name = display_entry_value(road_test_roster)
+    student_name = entry(road_test_roster, placeholder_text=" 🔎")
     student_name.grid(row=1, column=1, sticky='wen', padx=(10,0))
+    student_name.bind("<KeyRelease>", lambda event: populate_student_data('student_name', student_name.get()))
 
     # 名冊號碼
     label(road_test_roster, text='名冊號碼').grid(row=0, column=2, sticky='ws', padx=(10,0), pady=(10,0))
-    register_number = display_entry_value(road_test_roster)
+    register_number = entry(road_test_roster)
     register_number.grid(row=1, column=2, sticky='wen', padx=(10,0))
 
     # 身分證號碼
     label(road_test_roster, text='身分證號碼').grid(row=0, column=3, sticky='ws', padx=(10,0), pady=(10,0))
-    national_id_no = display_entry_value(road_test_roster)
+    national_id_no = entry(road_test_roster, placeholder_text=" 🔎")
     national_id_no.grid(row=1, column=3, sticky='wen',padx=10)
+    national_id_no.bind("<KeyRelease>", lambda event: populate_student_data('national_id_no', national_id_no.get()))
 
     # 出生日期
     label(road_test_roster, text='出生日期').grid(row=2, column=0, sticky='ws', padx=(10,0), pady=(10,0))

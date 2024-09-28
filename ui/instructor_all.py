@@ -21,7 +21,7 @@ def instructor_all(content):
 
     # 教練編號
     label(instructor_all, text="教練編號").grid(row=0, column=0, sticky='ws', padx=(10,0), pady=(10,0))
-    number = entry(instructor_all, placeholder_text='編號查詢')
+    number = entry(instructor_all, placeholder_text=' 🔎')
     number.grid(row=1, column=0, sticky='wen', padx=(10,0))
     number.bind("<KeyRelease>", lambda event: populate_instructor_data('number', number.get()))
 

@@ -85,7 +85,7 @@ def export_driving_test_data(database_path):
                 processed_row = [str(item) if item is not None else '' for item in row]
                 writer.writerow(processed_row)
 
-        messagebox.showinfo("成功", f"文件已成功匯出至 {file_path}")
+        messagebox.showinfo("成功", f"文件已成功匯出")
 
     except Exception as e:
         messagebox.showerror("錯誤", f"匯出文件發生錯誤：{str(e)}")

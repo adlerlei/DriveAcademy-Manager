@@ -190,7 +190,7 @@ def opening_training_roster(content):
         'student_name', # 學員姓名
         'exam_code', # 來源 編號
         'transmission_type_code', # 手自排 編號
-        'instructor_number', # 教練編號
+        'instructor_number', # 指導教練 編號
         'gender', # 學員性別
         'birth_date', # 出生日期
         'national_id_no', # 學員 身分證號碼
@@ -207,7 +207,7 @@ def opening_training_roster(content):
     data_list.heading('student_name', text='學員姓名')
     data_list.heading('exam_code', text='來源') 
     data_list.heading('transmission_type_code', text='手自排')
-    data_list.heading('instructor_number', text='教練編號')
+    data_list.heading('instructor_number', text='教練')
     data_list.heading('gender', text='性別')
     data_list.heading('birth_date', text='出生日期')
     data_list.heading('national_id_no', text='身分證號')
@@ -288,7 +288,7 @@ def opening_training_roster(content):
 
             if student_data[34] is not None:
                 register_number.insert(0, student_data[34])
-                messagebox.showinfo('提示用戶', '該學員已經存在名冊號碼')
+                # messagebox.showinfo('提示用戶', '該學員已經存在名冊號碼')
             else:
                 register_number.insert(0, '')
 
@@ -301,34 +301,42 @@ def opening_training_roster(content):
                 exam_code.set(student_data[29])
             else:
                 exam_code.set('')
+
             if student_data[30] is not None:
                 exam_name.set(student_data[30])
             else:
                 exam_name.set('')
+
             if student_data[31] is not None:
                 transmission_type_code.set(student_data[31])
             else:
                 transmission_type_code.set('')
+
             if student_data[32] is not None:
                 transmission_type_name.set(student_data[32])
             else:
                 transmission_type_name.set('')
+
             if student_data[14] is not None:
                 instructor_number.set(student_data[14])
             else:
                 instructor_number.set('')
+
             if student_data[15] is not None:
                 instructor_name.set(student_data[15])
             else:
                 instructor_name.set('')
+
             gender.configure(state='normal')
             gender.delete(0, ctk.END)
             gender.insert(0, student_data[16])
             gender.configure(state='readonly')
+
             batch.configure(state='normal')
             batch.delete(0, ctk.END)
             batch.insert(0, student_data[7])
             batch.configure(state='readonly')
+
             register_batch.configure(state='normal')
             register_batch.delete(0, ctk.END)
 
@@ -342,18 +350,22 @@ def opening_training_roster(content):
             training_type_code.delete(0, ctk.END)
             training_type_code.insert(0, student_data[3])
             training_type_code.configure(state='readonly')
+
             training_type_name.configure(state='normal')
             training_type_name.delete(0, ctk.END)
             training_type_name.insert(0, student_data[4])
             training_type_name.configure(state='readonly')
+
             r_address_zip_code.configure(state='normal')
             r_address_zip_code.delete(0, ctk.END)
             r_address_zip_code.insert(0, student_data[19])
             r_address_zip_code.configure(state='readonly')
+
             r_address_city.configure(state='normal')
             r_address_city.delete(0, ctk.END)
             r_address_city.insert(0, student_data[20])
             r_address_city.configure(state='readonly')
+
             r_address.configure(state='normal')
             r_address.delete(0, ctk.END)
             r_address.insert(0, student_data[21])
