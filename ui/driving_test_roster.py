@@ -14,6 +14,7 @@ is_searching = False  # 添加这行
 
 def driving_test_roster(content):
     global current_driving_test_number, is_adding_new, is_searching  # 修改这行
+    current_driving_test_number = 0 # 每次載入介面時，考試號碼歸零
     clear_frame(content)
     
     driving_test_roster = frame(content)
