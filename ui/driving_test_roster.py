@@ -185,10 +185,6 @@ def driving_test_roster(content):
             else:
                 register_number.delete(0, ctk.END)
                 register_number.insert(0, '')
-            # register_number.configure(state='normal')
-            # register_number.delete(0, ctk.END)
-            # register_number.insert(0, student_data[34])
-            # register_number.configure(state='readonly')
             # 身分證號碼
             national_id_no.delete(0, ctk.END)
             national_id_no.insert(0, student_data[10])
@@ -238,12 +234,6 @@ def driving_test_roster(content):
     def save_student_data():
         global current_student_id, current_driving_test_number, is_adding_new
         is_adding_new = True  # 设置标志，表示正在添加新学员
-        
-        # 检查是否有必要的数据
-        # if not student_number.get() or not student_name.get() or not national_id_no.get():
-        #     messagebox.showwarning('警告', '請先搜尋學員資料！')
-        #     is_adding_new = False  # 重置标志
-        #     return
 
         current_driving_test_number += 1
         
