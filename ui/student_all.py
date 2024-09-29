@@ -330,7 +330,7 @@ def student_all(content):
         road_test_date.configure(state='normal')
         road_test_date.delete(0, ctk.END)
         if student_data[38]:
-            road_test_date.insert(0, student_data[38])
+            road_test_date.insert(0, student_data[37])
         else:
             road_test_date.insert(0, '')
         road_test_date.configure(state='readonly')

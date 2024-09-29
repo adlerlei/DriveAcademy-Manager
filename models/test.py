@@ -35,19 +35,20 @@ def update_student_data(student_data, uid):
             UPDATE student SET
                 register_number = ?,
                 road_test_date = ?,
-                road_test_items_type = ?
+                road_test_items_type = ?,
+                driving_test_group = ?
             WHERE id = ?
         ''', (
             student_data['register_number'],
             student_data['road_test_date'],
             student_data['road_test_items_type'],
+            student_data['driving_test_group'],
             student_data['id']
         ))
 
         conn.commit()
-        print(f"Data updated successfully for student ID: {student_data['id']}")
     except sqlite3.Error as e:
-        print(f"An error occurred: {e}")
+        messagebox.showerror("錯誤", f"更新學員資料發生錯誤：{str(e)}")
     finally:
         conn.close()
 

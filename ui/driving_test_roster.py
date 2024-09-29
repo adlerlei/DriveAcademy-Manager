@@ -74,10 +74,15 @@ def driving_test_roster(content):
     road_test_date = entry(driving_test_roster) 
     road_test_date.grid(row=5, column=1, sticky='wen',padx=(10,0))
 
+    # 組別
+    label(driving_test_roster, text='組別').grid(row=4, column=2, sticky='ws', padx=(10,0), pady=(10,0))
+    driving_test_group = entry(driving_test_roster)
+    driving_test_group.grid(row=5, column=2, sticky='wen', padx=(10,0))
+
     # 號碼
-    label(driving_test_roster, text='號碼').grid(row=6, column=1, sticky='ws', padx=(10,0), pady=(10,0))
+    label(driving_test_roster, text='號碼').grid(row=4, column=3, sticky='ws', padx=(10,0), pady=(10,0))
     driving_test_number = display_entry_value(driving_test_roster)
-    driving_test_number.grid(row=7, column=1, sticky='wen',padx=(10,0))
+    driving_test_number.grid(row=5, column=3, sticky='wen',padx=(10,0))
 
     # 路考項目
     label(driving_test_roster, text='路考項目').grid(row=6, column=0, sticky='ws', padx=(10,0), pady=(10,0))
@@ -94,6 +99,7 @@ def driving_test_roster(content):
         'birth_date', # 出生日期
         'national_id_no', # 身分證號碼
         'road_test_date', # 路試日期
+        'driving_test_group', # 組別
         'road_test_items_type', # 路考項目
     )
     data_list = ttk.Treeview(driving_test_roster, show='headings', column=columns)
@@ -107,6 +113,7 @@ def driving_test_roster(content):
     data_list.column('birth_date', width=50, anchor='w')
     data_list.column('national_id_no', width=50, anchor='w')
     data_list.column('road_test_date', width=50, anchor='w')
+    data_list.column('driving_test_group', width=50, anchor='w')
     data_list.column('road_test_items_type', width=50, anchor='w')
     
     data_list.heading('driving_test_number', text='號碼')
@@ -117,6 +124,7 @@ def driving_test_roster(content):
     data_list.heading('birth_date', text='出生日期')
     data_list.heading('national_id_no', text='身分證號碼')
     data_list.heading('road_test_date', text='路試日期')
+    data_list.heading('driving_test_group', text='組別')
     data_list.heading('road_test_items_type', text='路考項目')
 
     data_list.grid(row=9, column=0, columnspan=4, sticky='wen', padx=10, pady=(20,0))
@@ -206,10 +214,7 @@ def driving_test_roster(content):
             else:
                 register_term.delete(0, ctk.END)
                 register_term.insert(0, '')
-            # register_term.configure(state='normal')
-            # register_term.delete(0, ctk.END)
-            # register_term.insert(0, student_data[35])
-            # register_term.configure(state='readonly')
+
             # 梯次
             batch.configure(state='normal')
             batch.delete(0, ctk.END)
@@ -235,10 +240,10 @@ def driving_test_roster(content):
         is_adding_new = True  # 设置标志，表示正在添加新学员
         
         # 检查是否有必要的数据
-        if not student_number.get() or not student_name.get() or not national_id_no.get():
-            messagebox.showwarning('警告', '請先搜尋並填寫學員資料！')
-            is_adding_new = False  # 重置标志
-            return
+        # if not student_number.get() or not student_name.get() or not national_id_no.get():
+        #     messagebox.showwarning('警告', '請先搜尋學員資料！')
+        #     is_adding_new = False  # 重置标志
+        #     return
 
         current_driving_test_number += 1
         
@@ -247,13 +252,13 @@ def driving_test_roster(content):
             'road_test_date': road_test_date.get(),
             'road_test_items_type': road_test_items_type.get(),
             'driving_test_number': str(current_driving_test_number),
-            # 'driving_test_number': driving_test_number.get(),
             'id': current_student_id,
             'student_number': student_number.get(),
             'batch': batch.get(),
             'student_name': student_name.get(),
             'birth_date': birth_date.get(),
             'national_id_no': national_id_no.get(),
+            'driving_test_group': driving_test_group.get(),
         }
 
         if current_student_id is None:
@@ -279,18 +284,19 @@ def driving_test_roster(content):
             student_data['birth_date'],
             student_data['national_id_no'],
             student_data['road_test_date'],
+            student_data['driving_test_group'],
             student_data['road_test_items_type']
         ))
 
         # 清空输入字段，但保留某些字段
-        keep_entries = [road_test_date, road_test_items_type, driving_test_number]
+        keep_entries = [road_test_date, road_test_items_type, driving_test_number, driving_test_group]
         clear_entries_and_comboboxes(driving_test_roster, keep_entries)
         current_student_id = None
         is_adding_new = False  # 重置标志
 
     # 新增按鈕
-    add_btn(driving_test_roster, text='新增場考清冊', command=save_student_data).grid(row=8, column=1, sticky='wen', padx=(10,0), pady=(20,0))
+    add_btn(driving_test_roster, text='新增場考清冊', command=save_student_data).grid(row=7, column=1, sticky='wen', padx=(10,0))
     # 列印按鈕
-    print_btn(driving_test_roster, text='列印場考清冊', command=lambda: None).grid(row=8, column=2, sticky='wen', padx=(10,0), pady=(20,0))
+    print_btn(driving_test_roster, text='列印場考清冊', command=lambda: None).grid(row=7, column=2, sticky='wen', padx=(10,0))
     # 匯出按鈕
-    export_btn(driving_test_roster, text='匯出 場考清冊 文件', command=lambda: export_driving_test_data(database_path)).grid(row=8, column=3, sticky='wen', padx=10, pady=(20,0))
+    export_btn(driving_test_roster, text='匯出 場考清冊 文件', command=lambda: export_driving_test_data(database_path)).grid(row=7, column=3, sticky='wen', padx=10)
