@@ -56,7 +56,7 @@ def update_student_data(student_data, uid):
 
 
 # 場考清冊匯出csv 
-def export_driving_test_data(database_path):
+def export_driving_test_data(database_path, student_ids):  # 修改此行，新增 student_ids 參數
     try:
         # 连接到数据库
         conn = sqlite3.connect(database_path)
@@ -78,15 +78,20 @@ def export_driving_test_data(database_path):
         if not file_path:
             return
 
-        # 查询所有学员的路考数据
-        cursor.execute("""
+        # 查询指定学员的路考数据
+        query = f"""
             SELECT register_number, national_id_no, birth_date, driving_test_group, 
                    road_test_date, driving_test_number, road_test_items_type, batch, training_type_code
             FROM student
-            WHERE road_test_date IS NOT NULL
+            WHERE id IN ({','.join('?' for _ in student_ids)})  -- 修改此行以查詢指定學員
+            AND road_test_date IS NOT NULL
             ORDER BY driving_test_number
-        """)
+        """
+        cursor.execute(query, student_ids)  # 修改此行以傳入 student_ids
         data = cursor.fetchall()
+        if not data:
+            messagebox.showerror("錯誤", "場考清冊學員資料為空")
+            return
 
         # 写入CSV文件
         with open(file_path, 'w', newline='', encoding='utf-8-sig') as csvfile:
@@ -104,7 +109,8 @@ def export_driving_test_data(database_path):
 
                 writer.writerow([final_register_number, row[1], row[2], row[3], row[4], row[5], row[6]])
 
-        messagebox.showinfo("成功", f"文件已成功匯出至 {file_path}")
+        # messagebox.showinfo("成功", f"文件已成功匯出至 {file_path}")
+        messagebox.showinfo("成功", "文件已成功匯出")
 
     except Exception as e:
         messagebox.showerror("錯誤", f"匯出文件發生錯誤：{str(e)}")
