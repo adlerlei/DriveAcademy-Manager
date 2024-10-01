@@ -58,7 +58,7 @@ def get_student_data(identifier, value):
     
     conn.close()
 
-    return result
+    return result 
 
 
 # 創建 TXT 自動生成文件名稱

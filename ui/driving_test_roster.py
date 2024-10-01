@@ -282,7 +282,7 @@ def driving_test_roster(content):
         keep_entries = [road_test_date, road_test_items_type, driving_test_number, driving_test_group]
         clear_entries_and_comboboxes(driving_test_roster, keep_entries)
         current_student_id = None
-        is_adding_new = False  # 重置标志
+        is_adding_new = False  # 重置
 
     # 新增按鈕
     add_btn(driving_test_roster, text='新增場考清冊', command=save_student_data).grid(row=7, column=1, sticky='wen', padx=(10,0))

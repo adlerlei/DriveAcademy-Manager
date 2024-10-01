@@ -64,7 +64,7 @@ def export_driving_test_data(database_path):
 
         if not latest_term_class_code:
             messagebox.showerror("錯誤", "未找到有效的上課期別代碼")
-            return
+            return 
 
         filename = f"400032{latest_term_class_code}_E.csv"
         file_path = filedialog.asksaveasfilename(defaultextension=".csv", initialfile=filename)
@@ -95,6 +95,7 @@ def export_driving_test_data(database_path):
         if conn:
             conn.close()
 
+# 筆試清冊匯出csv
 def export_written_exam_roster(database_path):
     try:
         conn = sqlite3.connect(database_path)
