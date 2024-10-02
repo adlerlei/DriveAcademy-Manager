@@ -31,25 +31,26 @@ def written_exam_roster(content):
 
     # 學員編號
     label(written_exam_roster, text='學員編號').grid(row=0, column=0, sticky='ws', padx=(10,0), pady=(10,0))
-    student_number = entry(written_exam_roster,  placeholder_text = "輸入學員編號")
+    student_number = entry(written_exam_roster,  placeholder_text = " 🔎")
     student_number.grid(row=1, column=0, sticky='wen', padx=(10,0))
     student_number.bind("<KeyRelease>", lambda event: populate_student_data('student_number', student_number.get()))
     
     # 學員姓名
     label(written_exam_roster, text='學員姓名').grid(row=0, column=1, sticky='ws', padx=(10,0), pady=(10,0))
-    student_name = display_entry_value(written_exam_roster)
+    student_name = entry(written_exam_roster, placeholder_text=" 🔎")
     student_name.grid(row=1, column=1, sticky='wen', padx=(10,0))
+    student_name.bind("<KeyRelease>", lambda event: populate_student_data('student_name', student_name.get()))
 
     # 名冊號碼
     label(written_exam_roster, text='名冊號碼').grid(row=0, column=2, sticky='ws', padx=(10,0), pady=(10,0))
-    register_number = display_entry_value(written_exam_roster)
+    register_number = entry(written_exam_roster)
     register_number.grid(row=1, column=2, sticky='wen', padx=(10,0))
 
     # 身分證號碼
     label(written_exam_roster, text='身分證號碼').grid(row=0, column=3, sticky='ws', padx=(10,0), pady=(10,0))
-    national_id_no = display_entry_value(written_exam_roster)
+    national_id_no = entry(written_exam_roster, placeholder_text=" 🔎")
     national_id_no.grid(row=1, column=3, sticky='wen',padx=10)
-
+    national_id_no.bind("<KeyRelease>", lambda event: populate_student_data('national_id_no', national_id_no.get()))
     # 出生日期
     label(written_exam_roster, text='出生日期').grid(row=2, column=0, sticky='ws', padx=(10,0), pady=(10,0))
     birth_date = display_entry_value(written_exam_roster)
@@ -77,35 +78,33 @@ def written_exam_roster(content):
     written_exam_date = entry(written_exam_roster)
     written_exam_date.grid(row=5, column=1, sticky='wen',padx=(10,0))
 
-    # 組別
-    # label(written_exam_roster, text='組別').grid(row=4, column=2, sticky='ws', padx=(10,0), pady=(10,0))
-    # driving_test_group = entry(written_exam_roster)
-    # driving_test_group.grid(row=5, column=2, sticky='wen',padx=(10,0))
+    # 場次
+    label(written_exam_roster, text='場次').grid(row=4, column=2, sticky='ws', padx=(10,0), pady=(10,0))
+    driving_test_session = entry(written_exam_roster)
+    driving_test_session.grid(row=5, column=2, sticky='wen',padx=(10,0))
+
+    # 號碼
+    label(written_exam_roster, text='號碼').grid(row=4, column=3, sticky='ws', padx=(10,0), pady=(10,0))
+    driving_test_number = entry(written_exam_roster)
+    driving_test_number.grid(row=5, column=3, sticky='wen',padx=(10,0))
 
     # 代碼
     label(written_exam_roster, text='代碼').grid(row=6, column=0, sticky='ws', padx=(10,0), pady=(10,0))
     driving_test_code = entry(written_exam_roster)
     driving_test_code.grid(row=7, column=0, sticky='wen',padx=(10,0))
 
-    # 場次
-    label(written_exam_roster, text='場次').grid(row=6, column=1, sticky='ws', padx=(10,0), pady=(10,0))
-    driving_test_session = entry(written_exam_roster)
-    driving_test_session.grid(row=7, column=1, sticky='wen',padx=(10,0))
-
-    # 號碼
-    label(written_exam_roster, text='號碼').grid(row=6, column=2, sticky='ws', padx=(10,0), pady=(10,0))
-    driving_test_number = entry(written_exam_roster)
-    driving_test_number.grid(row=7, column=2, sticky='wen',padx=(10,0))
-
     # treeview
     columns = (
-        'driving_test_number', # 考試號碼42
+        'driving_test_number', # 號碼
         'register_number', # 名冊號碼
         'batch', # 梯次
         'student_number', # 學員編號
         'student_name', # 學員姓名
         'national_id_no', # 身分證號碼
         'birth_date', # 出生日期
+        'driving_test_session', # 場次
+        'written_exam_date', # 筆試日期
+        'driving_test_code', # 代碼
     )
     data_list = ttk.Treeview(written_exam_roster, show='headings', column=columns)
     
@@ -116,6 +115,9 @@ def written_exam_roster(content):
     data_list.column('student_name', width=50, anchor='w')
     data_list.column('national_id_no', width=50, anchor='w')
     data_list.column('birth_date', width=50, anchor='w')
+    data_list.column('written_exam_date', width=50, anchor='w')
+    data_list.column('driving_test_session', width=50, anchor='w')
+    data_list.column('driving_test_code', width=50, anchor='w')
     
     data_list.heading('driving_test_number', text='號碼')
     data_list.heading('register_number', text='名冊號碼')
@@ -124,6 +126,9 @@ def written_exam_roster(content):
     data_list.heading('student_name', text='學員姓名')
     data_list.heading('national_id_no', text='身分證號碼')
     data_list.heading('birth_date', text='出生日期')
+    data_list.heading('written_exam_date', text='筆試日期')
+    data_list.heading('driving_test_session', text='場次')
+    data_list.heading('driving_test_code', text='代碼')
 
     data_list.grid(row=9, column=0, columnspan=4, sticky='wen', padx=10, pady=(20,0))
 
@@ -170,10 +175,6 @@ def written_exam_roster(content):
                     register_number.insert(0, student_data[34])
                 else:
                     register_number.insert(0, '')
-                # register_number.configure(state='normal')
-                # register_number.delete(0, ctk.END)
-                # register_number.insert(0, student_data[34])
-                # register_number.configure(state='readonly')
                 # 身分證號碼
                 national_id_no.configure(state='normal')
                 national_id_no.delete(0, ctk.END)
@@ -304,10 +305,9 @@ def written_exam_roster(content):
 
 
     # 新增按鈕
-    add_btn(written_exam_roster, text='新增筆試清冊', command=save_student_data).grid(row=8, column=1, sticky='wen', padx=(10,0), pady=(20,0))
+    add_btn(written_exam_roster, text='新增筆試清冊', command=save_student_data).grid(row=7, column=1, sticky='wen', padx=(10,0))
     # 列印按鈕
     # print_btn(written_exam_roster, text='列印筆試清冊', command=on_print_button_click).grid(row=8, column=2, sticky='wen', padx=(10,0), pady=(20,0))
-    print_btn(written_exam_roster, text='列印筆試清冊', command=print_html_report).grid(row=8, column=2, sticky='wen', padx=(10,0), pady=(20,0))
-
+    print_btn(written_exam_roster, text='列印筆試清冊', command=print_html_report).grid(row=7, column=2, sticky='wen', padx=(10,0))
     # 匯出按鈕
-    export_btn(written_exam_roster, text='匯出 筆試清冊 文件', command=lambda: export_written_exam_roster(database_path)).grid(row=8, column=3, sticky='wen', padx=10, pady=(20,0))
+    export_btn(written_exam_roster, text='匯出 筆試清冊 文件', command=lambda: export_written_exam_roster(database_path)).grid(row=7, column=3, sticky='wen', padx=10)

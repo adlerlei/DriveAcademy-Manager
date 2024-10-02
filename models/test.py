@@ -138,13 +138,6 @@ def export_written_exam_roster(database_path):
         if not file_path:
             return
 
-        # cursor.execute("""
-        #     SELECT s.student_term_class_code, s.register_term, s.national_id_no, s.birth_date, s.driving_test_group, 
-        #            s.written_exam_date, s.driving_test_number
-        #     FROM student s
-        #     WHERE s.written_exam_date IS NOT NULL
-        #     ORDER BY s.register_term, s.driving_test_number
-        # """)
         cursor.execute("""
             SELECT s.student_term_class_code, s.national_id_no, s.birth_date, s.driving_test_group, 
                    s.written_exam_date, s.driving_test_number

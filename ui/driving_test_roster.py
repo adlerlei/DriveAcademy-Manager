@@ -296,4 +296,4 @@ def driving_test_roster(content):
     # 列印按鈕
     print_btn(driving_test_roster, text='列印場考清冊', command=lambda: None).grid(row=7, column=2, sticky='wen', padx=(10,0))
     # 匯出按鈕
-    export_btn(driving_test_roster, text='匯出 場考清冊 文件', command=lambda: export_driving_test_data(database_path, get_all_added_student_ids())).grid(row=7, column=3, sticky='wen', padx=10)
+    export_btn(driving_test_roster, text='匯出 場考清冊 文件', command=lambda: export_driving_test_data(database_path, get_all_added_student_ids())).grid(row=7, column=3, sticky='wen', padx=(10,0))
