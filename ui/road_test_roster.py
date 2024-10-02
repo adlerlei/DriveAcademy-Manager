@@ -57,8 +57,6 @@ def  road_test_roster(content):
     training_type_code.grid(row=3, column=1, sticky='wen',padx=(10,0))
     training_type_name = display_entry_value(road_test_roster)
     training_type_name.grid(row=3, column=2, sticky='wen',padx=(10,0))
-    # combobox(road_test_roster, values=['1']).grid(row=6, column=0, sticky='wen',padx=10)
-    # combobox(road_test_roster, values=['普通小型車班']).grid(row=6, column=1, sticky='wen',padx=10)
     
     # 期別
     label(road_test_roster, text='期別').grid(row=2, column=3, sticky='ws', padx=(10,0), pady=(10,0))
@@ -89,11 +87,6 @@ def  road_test_roster(content):
     label(road_test_roster, text='路考項目').grid(row=6, column=0, sticky='ws', padx=(10,0), pady=(10,0))
     road_test_items_type = combobox(road_test_roster, values=['1', '2', '3'])
     road_test_items_type.grid(row=7, column=0, sticky='wen',padx=(10,0))
-
-    # # 號碼
-    # label(road_test_roster, text='號碼').grid(row=6, column=1, sticky='ws', padx=(10,0), pady=(10,0))
-    # driving_test_number = display_entry_value(road_test_roster)
-    # driving_test_number.grid(row=7, column=1, sticky='wen',padx=(10,0))
 
     # treeview
     columns = (
@@ -153,8 +146,10 @@ def  road_test_roster(content):
     # 邏輯功能 - 搜尋學員資料並顯示在 entry 
     def populate_student_data(identifier, value):
 
-        # 監聽學員編號輸入欄位如果為空，清除學員資料
-        if identifier == 'student_number' and value == '':
+        # 監聽 學員編號 學員姓名 身份證 輸入欄位如果為空，清除學員資料
+        if (identifier == 'student_number' and value == '') or \
+           (identifier == 'national_id_no' and value == '') or \
+           (identifier == 'student_name' and value ==''):
             # 不保留任何欄位值，全部清除
             clear_entries_and_comboboxes(road_test_roster)
         else:
@@ -167,17 +162,23 @@ def  road_test_roster(content):
                 student_name.configure(state='normal')
                 student_name.delete(0, ctk.END)
                 student_name.insert(0, student_data[6])
-                student_name.configure(state='readonly')
+                # student_name.configure(state='readonly')
                 # 名冊號碼
-                if student_data[34] is not None:
-                    register_number.insert(0, student_data[34])
-                else:
-                    register_number.insert(0, '')
+                register_number.configure(state='normal')
+                register_number.delete(0, ctk.END)
+                register_number.insert(0, student_data[34])
+                #register_number.configure(state='readonly')
+                # if student_data[34] is not None:
+                #     register_number.delete(0, ctk.END)
+                #     register_number.insert(0, student_data[34])
+                # else:
+                #     register_number.insert(0, '')
+                # register_number.configure(state='readonly')
                 # 身分證號碼
                 national_id_no.configure(state='normal')
                 national_id_no.delete(0, ctk.END)
                 national_id_no.insert(0, student_data[10])
-                national_id_no.configure(state='readonly')
+                # national_id_no.configure(state='readonly')
                 # 出生日期
                 birth_date.configure(state='normal')
                 birth_date.delete(0, ctk.END)
@@ -213,7 +214,6 @@ def  road_test_roster(content):
                     road_test_date.insert(0, student_data[37])
                 else:
                     road_test_date.insert(0, '')
-                    # road_test_date.configure(state='readonly')
                 # 組別
                 driving_test_group.configure(state='normal')
                 driving_test_group.delete(0, ctk.END)
@@ -221,7 +221,6 @@ def  road_test_roster(content):
                     driving_test_group.insert(0, student_data[38])
                 else:
                     driving_test_group.insert(0, '')
-                # driving_test_group.configure(state='readonly')
                 # 路考項目
                 if student_data[39] is not None:
                     road_test_items_type.set(student_data[39])
@@ -239,7 +238,6 @@ def  road_test_roster(content):
 
     # 獲取輸入欄位信息
     def save_student_data():
-        uid = 1
         global current_student_id
 
         # 偵測號碼自動增加流水號
@@ -266,7 +264,7 @@ def  road_test_roster(content):
             messagebox.showwarning('警告', '請先搜尋學員資料！')
             return
         
-        update_student_data(student_data, uid=uid)
+        update_student_data(student_data, uid=1)
         clear_entries_and_comboboxes(road_test_roster)
 
         # 讀取 save_student_data 的資料寫入 treeview

@@ -5,13 +5,10 @@ from utils.config import *
 from models.test import *
 import customtkinter as ctk
 from tkinter import messagebox
-
 import webbrowser
 import pyautogui
 import time
-
 import os
-import webbrowser
 
 # 檢測學員資料庫 id 欄位來判定是否修改或新增
 current_student_id = None
@@ -31,7 +28,7 @@ def written_exam_roster(content):
 
     # 學員編號
     label(written_exam_roster, text='學員編號').grid(row=0, column=0, sticky='ws', padx=(10,0), pady=(10,0))
-    student_number = entry(written_exam_roster,  placeholder_text = " 🔎")
+    student_number = entry(written_exam_roster, placeholder_text=" 🔎")
     student_number.grid(row=1, column=0, sticky='wen', padx=(10,0))
     student_number.bind("<KeyRelease>", lambda event: populate_student_data('student_number', student_number.get()))
     
@@ -49,44 +46,45 @@ def written_exam_roster(content):
     # 身分證號碼
     label(written_exam_roster, text='身分證號碼').grid(row=0, column=3, sticky='ws', padx=(10,0), pady=(10,0))
     national_id_no = entry(written_exam_roster, placeholder_text=" 🔎")
-    national_id_no.grid(row=1, column=3, sticky='wen',padx=10)
+    national_id_no.grid(row=1, column=3, sticky='wen', padx=10)
     national_id_no.bind("<KeyRelease>", lambda event: populate_student_data('national_id_no', national_id_no.get()))
+
     # 出生日期
     label(written_exam_roster, text='出生日期').grid(row=2, column=0, sticky='ws', padx=(10,0), pady=(10,0))
     birth_date = display_entry_value(written_exam_roster)
-    birth_date.grid(row=3, column=0, sticky='wen',padx=(10,0))
+    birth_date.grid(row=3, column=0, sticky='wen', padx=(10,0))
 
     # 訓練班別
     label(written_exam_roster, text='訓練班別').grid(row=2, column=1, sticky='ws', padx=(10,0), pady=(10,0))
     training_type_code = display_entry_value(written_exam_roster)
-    training_type_code.grid(row=3, column=1, sticky='wen',padx=(10,0))
+    training_type_code.grid(row=3, column=1, sticky='wen', padx=(10,0))
     training_type_name = display_entry_value(written_exam_roster)
-    training_type_name.grid(row=3, column=2, sticky='wen',padx=(10,0))
+    training_type_name.grid(row=3, column=2, sticky='wen', padx=(10,0))
     
     # 期別
     label(written_exam_roster, text='期別').grid(row=2, column=3, sticky='ws', padx=(10,0), pady=(10,0))
     register_term = display_entry_value(written_exam_roster)
-    register_term.grid(row=3, column=3, sticky='wen',padx=10)
+    register_term.grid(row=3, column=3, sticky='wen', padx=10)
 
     # 梯次
     label(written_exam_roster, text='梯次').grid(row=4, column=0, sticky='ws', padx=(10,0), pady=(10,0))
     batch = display_entry_value(written_exam_roster)
-    batch.grid(row=5, column=0, sticky='wen',padx=(10,0))
+    batch.grid(row=5, column=0, sticky='wen', padx=(10,0))
 
     # 筆試日期
     label(written_exam_roster, text='筆試日期').grid(row=4, column=1, sticky='ws', padx=(10,0), pady=(10,0))
     written_exam_date = entry(written_exam_roster)
-    written_exam_date.grid(row=5, column=1, sticky='wen',padx=(10,0))
+    written_exam_date.grid(row=5, column=1, sticky='wen', padx=(10,0))
 
     # 場次
     label(written_exam_roster, text='場次').grid(row=4, column=2, sticky='ws', padx=(10,0), pady=(10,0))
     driving_test_session = entry(written_exam_roster)
-    driving_test_session.grid(row=5, column=2, sticky='wen',padx=(10,0))
+    driving_test_session.grid(row=5, column=2, sticky='wen', padx=(10,0))
 
     # 號碼
     label(written_exam_roster, text='號碼').grid(row=4, column=3, sticky='ws', padx=(10,0), pady=(10,0))
     driving_test_number = entry(written_exam_roster)
-    driving_test_number.grid(row=5, column=3, sticky='wen',padx=(10,0))
+    driving_test_number.grid(row=5, column=3, sticky='wen', padx=(10,0))
 
     # 代碼
     label(written_exam_roster, text='代碼').grid(row=6, column=0, sticky='ws', padx=(10,0), pady=(10,0))
@@ -150,83 +148,62 @@ def written_exam_roster(content):
     written_exam_roster.grid_columnconfigure(1, weight=1)
     written_exam_roster.grid_columnconfigure(2, weight=1)
     written_exam_roster.grid_columnconfigure(3, weight=1)
-    
 
     # 邏輯功能 - 搜尋學員資料並顯示在 entry
     def populate_student_data(identifier, value):
-        
-        # 監聽學員編號輸入欄位如果為空，清除學員資料
+        global current_student_id
         if identifier == 'student_number' and value == '':
-            # 不保留任何欄位值，全部清除
             clear_entries_and_comboboxes(written_exam_roster)
         else:
-            global current_student_id
             student_data = get_student_data(identifier, value)
             if student_data:
-                # 獲取學員資料庫 id 序列
                 current_student_id = student_data[0]
-                # 學員姓名
                 student_name.configure(state='normal')
                 student_name.delete(0, ctk.END)
                 student_name.insert(0, student_data[6])
                 student_name.configure(state='readonly')
-                # 名冊號碼
                 if student_data[34] is not None:
+                    register_number.delete(0, ctk.END)
                     register_number.insert(0, student_data[34])
                 else:
+                    register_number.delete(0, ctk.END)
                     register_number.insert(0, '')
-                # 身分證號碼
                 national_id_no.configure(state='normal')
                 national_id_no.delete(0, ctk.END)
                 national_id_no.insert(0, student_data[10])
                 national_id_no.configure(state='readonly')
-                # 出生日期
                 birth_date.configure(state='normal')
                 birth_date.delete(0, ctk.END)
                 birth_date.insert(0, student_data[9])
                 birth_date.configure(state='readonly')
-                # 訓練班別代號
                 training_type_code.configure(state='normal')
                 training_type_code.delete(0, ctk.END)
                 training_type_code.insert(0, student_data[3])
                 training_type_code.configure(state='readonly')
-                # 訓練班別名稱
                 training_type_name.configure(state='normal')
                 training_type_name.delete(0, ctk.END)
                 training_type_name.insert(0, student_data[4])
                 training_type_name.configure(state='readonly')
-                # 期別
                 register_term.configure(state='normal')
                 register_term.delete(0, ctk.END)
                 if student_data[35] is not None:
                     register_term.insert(0, student_data[35])
                 else:
                     register_term.insert(0, '')
-                register_number.configure(state='readonly')
-                # 梯次
                 batch.configure(state='normal')
                 batch.delete(0, ctk.END)
                 batch.insert(0, student_data[7])
                 batch.configure(state='readonly')
-                # 筆試日期
                 written_exam_date.configure(state='normal')
                 written_exam_date.delete(0, ctk.END)
                 if student_data[36] is not None:
                     written_exam_date.insert(0, student_data[36])
                 else:
                     written_exam_date.insert(0, '')
-                    # written_exam_date.configure(state='readonly')
-                # 代碼
-                driving_test_code.configure(state='normal')
-                driving_test_code.delete(0, ctk.END)
-                if student_data[43] is not None:
-                    driving_test_code.insert(0, '')
-                # 場次
                 driving_test_session.configure(state='normal')
                 driving_test_session.delete(0, ctk.END)
                 if student_data[42] is not None:
-                    driving_test_session.insert(0, '')
-                # 號碼
+                    driving_test_session.insert(0, student_data[42])
                 driving_test_number.configure(state='normal')
                 driving_test_number.delete(0, ctk.END)
                 if student_data[41] is not None:
@@ -235,29 +212,23 @@ def written_exam_roster(content):
                     driving_test_number.insert(0, '')
                 driving_test_number.configure(state='readonly')
 
-
     # 獲取輸入欄位信息
     def save_student_data():
         global current_student_id
-        uid = 2
-
-        # 偵測號碼自動增加流水號
         current_number[0] += 1
 
         student_data = {
-            # 'driving_test_number': driving_test_number.get(),
-            # 使用 current_number 自動生成的號碼
-            'driving_test_number': str(current_number[0]), # 號碼42
-            'register_number': register_number.get(), # 名冊號碼34
-            'batch': batch.get(), # 梯次7
-            'student_number': student_number.get(), # 學員編號
-            'student_name': student_name.get(), # 學員姓名
-            'national_id_no': national_id_no.get(), # 身分證字號
-            'birth_date': birth_date.get(), # 出生日期
-            'driving_test_session': driving_test_session.get(), # 場次
-            'written_exam_date': written_exam_date.get(), # 筆試日期
-            'driving_test_code': driving_test_code.get(), # 代碼
-            'training_type_code': training_type_code.get(), # 訓練班別代號
+            'driving_test_number': str(current_number[0]),  # 號碼
+            'register_number': register_number.get(),  # 名冊號碼
+            'batch': batch.get(),  # 梯次
+            'student_number': student_number.get(),  # 學員編號
+            'student_name': student_name.get(),  # 學員姓名
+            'national_id_no': national_id_no.get(),  # 身分證字號
+            'birth_date': birth_date.get(),  # 出生日期
+            'driving_test_session': driving_test_session.get(),  # 場次
+            'written_exam_date': written_exam_date.get(),  # 筆試日期
+            'driving_test_code': driving_test_code.get(),  # 代碼
+            'training_type_code': training_type_code.get(),  # 訓練班別代號
             'id': current_student_id
         }
 
@@ -265,7 +236,7 @@ def written_exam_roster(content):
             messagebox.showwarning('警告', '請先搜尋學員資料')
             return
         
-        update_student_data(student_data, uid=uid)
+        update_student_data(student_data, uid=2)
         clear_entries_and_comboboxes(written_exam_roster)
 
         # 讀取 save_student_data 的資料寫入 treeview
@@ -276,10 +247,12 @@ def written_exam_roster(content):
             student_data['student_number'],
             student_data['student_name'],
             student_data['national_id_no'],
-            student_data['birth_date']
+            student_data['birth_date'],
+            student_data['driving_test_session'],
+            student_data['written_exam_date'],
+            student_data['driving_test_code']
         ))
 
-    
     def print_html_report():
         # 獲取當前腳本的目錄 (ui 目錄)
         base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # 獲取父目錄
@@ -302,12 +275,9 @@ def written_exam_roster(content):
         # 模擬鍵盤操作確認打印 (Enter)
         pyautogui.press('enter')
 
-
-
     # 新增按鈕
     add_btn(written_exam_roster, text='新增筆試清冊', command=save_student_data).grid(row=7, column=1, sticky='wen', padx=(10,0))
     # 列印按鈕
-    # print_btn(written_exam_roster, text='列印筆試清冊', command=on_print_button_click).grid(row=8, column=2, sticky='wen', padx=(10,0), pady=(20,0))
     print_btn(written_exam_roster, text='列印筆試清冊', command=print_html_report).grid(row=7, column=2, sticky='wen', padx=(10,0))
     # 匯出按鈕
     export_btn(written_exam_roster, text='匯出 筆試清冊 文件', command=lambda: export_written_exam_roster(database_path)).grid(row=7, column=3, sticky='wen', padx=10)

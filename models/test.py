@@ -30,29 +30,55 @@ def update_student_data(student_data, uid):
     conn = sqlite3.connect(database_path)
     cursor = conn.cursor()
 
-    try:
-        cursor.execute('''
-            UPDATE student SET
-                register_number = ?,
-                road_test_date = ?,
-                road_test_items_type = ?,
-                driving_test_group = ?,
-                driving_test_number = ?  -- 添加此行以更新driving_test_number
-            WHERE id = ?
-        ''', (
-            student_data['register_number'],
-            student_data['road_test_date'],
-            student_data['road_test_items_type'],
-            student_data['driving_test_group'],
-            student_data['driving_test_number'],  # 确保传入driving_test_number
-            student_data['id']
-        ))
+    if uid == 1:
+        try:
+            cursor.execute('''
+                UPDATE student SET
+                    register_number = ?,
+                    road_test_date = ?,
+                    road_test_items_type = ?,
+                    driving_test_group = ?,
+                    driving_test_number = ?  -- 號碼41
+                WHERE id = ?
+            ''', (
+                student_data['register_number'], # 名冊號碼34
+                student_data['road_test_date'], # 路試日期37
+                student_data['road_test_items_type'], # 路考項目39
+                student_data['driving_test_group'], # 組別38
+                student_data['driving_test_number'],  # 號碼41
+                student_data['id']
+            ))
 
-        conn.commit()
-    except sqlite3.Error as e:
-        messagebox.showerror("錯誤", f"更新學員資料發生錯誤：{str(e)}")
-    finally:
-        conn.close()
+            conn.commit() # 
+        except sqlite3.Error as e:
+            messagebox.showerror("錯誤", f"更新UID1學員資料發生錯誤：{str(e)}")
+        finally:
+            conn.close()
+    elif uid ==2:
+        try:
+            cursor.execute('''
+                UPDATE student SET
+                    register_number = ?, -- 名冊號碼
+                    written_exam_date = ?, -- 筆試日期
+                    driving_test_number = ?, -- 號碼41
+                    driving_test_session = ?, -- 場次42
+                    driving_test_code = ? -- 代碼43
+                WHERE id = ?
+            ''', (
+                student_data['register_number'], # 名冊號碼34
+                student_data['written_exam_date'], # 筆試日期36
+                student_data['driving_test_number'],  # 號碼41
+                student_data['driving_test_session'], # 場次42
+                student_data['driving_test_code'], # 代碼43
+                student_data['id']
+            ))
+
+            conn.commit() # 
+        except sqlite3.Error as e:
+            messagebox.showerror("錯誤", f"更新UID2學員資料發生錯誤 : {str(e)}")
+        finally:
+            conn.close()
+        
 
 
 # 場考清冊匯出csv 
@@ -146,6 +172,9 @@ def export_written_exam_roster(database_path):
             ORDER BY s.driving_test_number
         """)
         data = cursor.fetchall()
+        if not data:
+            messagebox.showerror("錯誤", "筆試清冊學員資料為空")
+            return
 
         with open(file_path, 'w', newline='', encoding='utf-8-sig') as csvfile:
             writer = csv.writer(csvfile)

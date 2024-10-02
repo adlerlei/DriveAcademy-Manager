@@ -83,7 +83,7 @@ def update_student_data(data, uid):
     training_type_code = data.get('training_type_code', '')
     student_term_class_code = ''
     
-    if register_number and training_type_code:
+    if register_number and training_type_code: 
         # 生成完整的 student_term_class_code
         student_term_class_code = f"{training_type_code}{register_number}"
 

@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS student (
     learner_permit_date VARCHAR, -- 學照日期26
     learner_permit_number VARCHAR, -- 學照號碼27
     submission_date VARCHAR, -- 送件日期28
-    exam_code VARCHAR, -- 來源編號29
+    exam_code VARCHAR, -- 來源編號29 
     exam_name VARCHAR, -- 來源名稱30
     transmission_type_code VARCHAR, -- 手自排類別編號31
     transmission_type_name VARCHAR, -- 手自排類別名稱32

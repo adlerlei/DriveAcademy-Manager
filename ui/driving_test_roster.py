@@ -24,13 +24,13 @@ def driving_test_roster(content):
     driving_test_roster.columnconfigure(3, weight=1)
     driving_test_roster.place(relwidth=1, relheight=1)
 
-    # 顯示 / 搜尋 學員編號
+    # 學員編號
     label(driving_test_roster, text='學員編號').grid(row=0, column=0, sticky='ws', padx=(10,0), pady=(10,0))
     student_number = entry(driving_test_roster,  placeholder_text = " 🔎")
     student_number.grid(row=1, column=0, sticky='wen', padx=(10,0))
     student_number.bind("<KeyRelease>", lambda event: check_and_populate('student_number', student_number.get()))
     
-    # 顯示 / 搜尋 學員
+    # 學員姓名
     label(driving_test_roster, text='學員姓名').grid(row=0, column=1, sticky='ws', padx=(10,0), pady=(10,0))
     student_name = entry(driving_test_roster, placeholder_text=" 🔎")
     student_name.grid(row=1, column=1, sticky='wen', padx=(10,0))
