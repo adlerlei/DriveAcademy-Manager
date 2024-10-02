@@ -80,15 +80,20 @@ def  road_test_roster(content):
     driving_test_group = entry(road_test_roster)
     driving_test_group.grid(row=5, column=2, sticky='wen',padx=(10,0))
 
+    # 號碼
+    label(road_test_roster, text='號碼').grid(row=4, column=3, sticky='ws', padx=(10,0), pady=(10,0))
+    driving_test_number = display_entry_value(road_test_roster)
+    driving_test_number.grid(row=5, column=3, sticky='wen',padx=(10,0))
+
     # 路考項目
     label(road_test_roster, text='路考項目').grid(row=6, column=0, sticky='ws', padx=(10,0), pady=(10,0))
     road_test_items_type = combobox(road_test_roster, values=['1', '2', '3'])
     road_test_items_type.grid(row=7, column=0, sticky='wen',padx=(10,0))
 
-    # 號碼
-    label(road_test_roster, text='號碼').grid(row=6, column=1, sticky='ws', padx=(10,0), pady=(10,0))
-    driving_test_number = display_entry_value(road_test_roster)
-    driving_test_number.grid(row=7, column=1, sticky='wen',padx=(10,0))
+    # # 號碼
+    # label(road_test_roster, text='號碼').grid(row=6, column=1, sticky='ws', padx=(10,0), pady=(10,0))
+    # driving_test_number = display_entry_value(road_test_roster)
+    # driving_test_number.grid(row=7, column=1, sticky='wen',padx=(10,0))
 
     # treeview
     columns = (
@@ -168,11 +173,6 @@ def  road_test_roster(content):
                     register_number.insert(0, student_data[34])
                 else:
                     register_number.insert(0, '')
-                # register_number.configure(state='readonly')
-                # register_number.configure(state='normal')
-                # register_number.delete(0, ctk.END)
-                # register_number.insert(0, student_data[34])
-                # register_number.configure(state='readonly')
                 # 身分證號碼
                 national_id_no.configure(state='normal')
                 national_id_no.delete(0, ctk.END)
@@ -283,6 +283,6 @@ def  road_test_roster(content):
         ))
 
     # 新增按鈕
-    add_btn(road_test_roster, text='新增道考清冊', command=save_student_data).grid(row=8, column=2, sticky='wen', padx=(10,0), pady=(20,0))
+    add_btn(road_test_roster, text='新增道考清冊', command=save_student_data).grid(row=7, column=2, sticky='wen', padx=(10,0))
     # 列印按鈕
-    print_btn(road_test_roster, text='列印道考清冊', command=lambda: None).grid(row=8, column=3, sticky='wen', padx=10, pady=(20,0))
+    print_btn(road_test_roster, text='列印道考清冊', command=lambda: None).grid(row=7, column=3, sticky='wen', padx=(10,0))
