@@ -10,8 +10,8 @@ import pyautogui
 import time
 import os
 
-# 檢測學員資料庫 id 欄位來判定是否修改或新增
-current_student_id = None
+
+current_student_id = None # 檢測學員資料庫 id 欄位來判定是否修改或新增
 
 def written_exam_roster(content):
     clear_frame(content)
@@ -214,7 +214,8 @@ def written_exam_roster(content):
 
     # 獲取輸入欄位信息
     def save_student_data():
-        global current_student_id
+        global current_student_id, is_adding_new
+        is_adding_new = True # 設置標誌表示正在添加新學員
         current_number[0] += 1
 
         student_data = {
@@ -234,6 +235,7 @@ def written_exam_roster(content):
 
         if current_student_id is None:
             messagebox.showwarning('警告', '請先搜尋學員資料')
+            is_adding_new = False # 重製新增學員標誌
             return
         
         update_student_data(student_data, uid=2)
@@ -273,7 +275,7 @@ def written_exam_roster(content):
         time.sleep(2)
         
         # 模擬鍵盤操作確認打印 (Enter)
-        pyautogui.press('enter')
+        # pyautogui.press('enter')
 
     # 新增按鈕
     add_btn(written_exam_roster, text='新增筆試清冊', command=save_student_data).grid(row=7, column=1, sticky='wen', padx=(10,0))

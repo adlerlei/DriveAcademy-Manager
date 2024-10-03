@@ -33,14 +33,14 @@ def update_student_data(data, uid):
             WHERE id = :id
         ''', data)
         
-        messagebox.showinfo('訊息', '學照登錄完成！')
+        # messagebox.showinfo('訊息', '學照登錄完成！')
     elif uid == 0:
         cursor.execute('''
             UPDATE student SET
                 submission_date = :submission_date
             WHERE id = :id
         ''', data)
-        messagebox.showinfo('訊息', '學照送件完成！')
+        # messagebox.showinfo('訊息', '學照送件完成！')
 
     conn.commit()
     conn.close()

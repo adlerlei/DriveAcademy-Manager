@@ -240,5 +240,5 @@ def learner_license_submission(content):
             ))
         
     # 學照資料送件
-    btn(learner_license_submission, text='送件', command = save_student_data).grid(row=7, column=2, sticky='wen', padx=(10,0))
+    btn(learner_license_submission, text='學照統一送件', command = save_student_data).grid(row=7, column=2, sticky='wen', padx=(10,0))
     export_btn(learner_license_submission, text='匯出文件', command=lambda: export_selected_data(data_list, submission_date)).grid(row=7, column=3, sticky='wen', padx=10)

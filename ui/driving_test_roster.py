@@ -6,14 +6,14 @@ from models.test import *
 import customtkinter as ctk
 from tkinter import messagebox
 
-# 檢測學員資料庫 id 欄位來判定是否修改或新增
-current_student_id = None
-current_driving_test_number = 0
-is_adding_new = False  # 添加这行
-is_searching = False  # 添加这行
+
+current_student_id = None # 檢測學員資料庫 id 欄位來判定是否修改或新增
+current_driving_test_number = 0 # 考試號碼監聽
+is_adding_new = False  # 監聽是否新增學員
+is_searching = False  
 
 def driving_test_roster(content):
-    global current_driving_test_number, is_adding_new, is_searching  # 修改这行
+    global current_driving_test_number, is_adding_new, is_searching
     current_driving_test_number = 0 # 每次載入介面時，考試號碼歸零
     clear_frame(content)
     
@@ -81,7 +81,7 @@ def driving_test_roster(content):
 
     # 號碼
     label(driving_test_roster, text='號碼').grid(row=4, column=3, sticky='ws', padx=(10,0), pady=(10,0))
-    driving_test_number = display_entry_value(driving_test_roster)
+    driving_test_number = entry(driving_test_roster, placeholder_text='此欄位自動生成，無須輸入')
     driving_test_number.grid(row=5, column=3, sticky='wen',padx=(10,0))
 
     # 路考項目
@@ -90,7 +90,7 @@ def driving_test_roster(content):
     road_test_items_type.grid(row=7, column=0, sticky='wen',padx=(10,0))
 
     # treeview
-    columns = (
+    columns = ( 
         'driving_test_number', # 考試號碼42
         'student_number', # 學員編號
         'register_number', # 名冊號碼
@@ -151,7 +151,7 @@ def driving_test_roster(content):
     # 邏輯功能
     def check_and_populate(identifier, value):
         global is_searching, is_adding_new
-        if not is_adding_new and value and len(value) >= 3:  # 只有当输入至少3个字符时才搜索
+        if not is_adding_new and value and len(value) >= 3: # 監聽至少輸入3個字符串才搜尋
             is_searching = True
             populate_student_data(identifier, value)
         elif not is_adding_new and not value:
@@ -210,7 +210,6 @@ def driving_test_roster(content):
             else:
                 register_term.delete(0, ctk.END)
                 register_term.insert(0, '')
-
             # 梯次
             batch.configure(state='normal')
             batch.delete(0, ctk.END)
@@ -220,21 +219,16 @@ def driving_test_roster(content):
             if student_data[37]:
                 road_test_date.delete(0, ctk.END)
                 road_test_date.insert(0, student_data[37])
-            # 路考目
+            # 路考項目
             if student_data[39]:
                 road_test_items_type.set(student_data[39])
-            # 號碼
-            driving_test_number.configure(state='normal')
-            driving_test_number.delete(0, ctk.END)
-            if student_data[41]:
-                driving_test_number.insert(0, student_data[41])
-            driving_test_number.configure(state='readonly')
 
     # 獲取輸入欄位信息
     def save_student_data():
         global current_student_id, current_driving_test_number, is_adding_new
-        is_adding_new = True  # 设置标志，表示正在添加新学员
+        is_adding_new = True  # 設置標誌表示正在添加新學員
 
+        # 偵測號碼自動增加流水號
         current_driving_test_number += 1
         
         student_data = {
@@ -253,12 +247,12 @@ def driving_test_roster(content):
 
         if current_student_id is None:
             messagebox.showwarning('警告', '請先搜尋學員資料！')
-            is_adding_new = False  # 重置标志
+            is_adding_new = False  # 重製新增學員標誌
             return
         
         update_student_data(student_data, uid=1)
         
-        # 更新显示的考试号码
+        # 更新顯示的考試號碼
         driving_test_number.configure(state='normal')
         driving_test_number.delete(0, ctk.END)
         driving_test_number.insert(0, str(current_driving_test_number))
