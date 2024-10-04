@@ -1,172 +1,31 @@
-<style>
-    .header-row {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 5px; /* 減少頂部和底部的間距 */
-    }
-    .header-item {
-        flex: 1;
-    }
-    .table-title {
-        font-size: large;
-        font-weight: bold;
-    }
-    table {
-        font-size: xx-small;
-        line-height: 1; /* 減少行高 */
-    }
-    td, th {
-        padding: 2px 5px; /* 減少上下padding，保持左右padding */
-        height: 15px; /* 設定固定高度 */
-        /*overflow: hidden;  如果內容超出，則隱藏 */
-        white-space: nowrap; /* 防止文字換行 */
-    }
-    @page {
-            size: A4 landscape;
-            /* margin: 0; */
-        }
-        @media print {
-            body {
-                width: 297mm;
-                height: 210mm;
-                /* margin: 20;
-                padding: 20; */
-            }
-            /* 隱藏所有默認的頁首頁尾 */
-            * {
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
-            }
-            /* 移除所有邊距 */
-            /* @page {
-                margin: 20;
-            } */
-            /* 隱藏 URL 和頁碼 */
-            body::after {
-                content: none !important;
-            }
-            /* 隱藏瀏覽器默認的頁眉和頁腳 */
-            body {
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
-            }
-        }
-        /* 確保內容不會被頁面邊緣切斷 */
-        .content {
-            padding: 10mm;
-            box-sizing: border-box;
-        }
-</style>
-
-<div class="header-row">
-    <div class="header-item, table-title">交通部公路 局</div>
-    <div class="header-item, table-title" style="margin-left: 40px">監理所 ( 站 ) 汽車駕駛人考驗記錄清冊</div>
-    <div class="header-item" style="text-align: right; font-size: x-small">班名：佑名駕訓班</div>
-    <div class="header-item" style="text-align-last: right;font-size: x-small">考驗別：普通小型車班</div>
-</div>
-<div class="header-row">
-    <div class="header-item" style="font-size: x-small">期別：第 199 期 - B 梯次 - 第 01 組</div>
-    <div class="header-item" style="text-align: right;font-size: x-small">筆試日期： 113/08/10 - 第 10 組</div>
-</div>
-
-<table border="1" style="border-collapse: collapse; width: 100%; font-size: xx-small; text-align: center">
-    <tr>
-        <th style="padding: 5px">序號</th>
-        <th style="padding: 5px">姓名</th>
-        <th style="padding: 5px">出生日期</th>
-        <th style="padding: 5px">筆試</th>
-        <th style="padding: 5px">路試</th>
-        <th style="padding: 5px">身分證字號</th>
-        <th style="padding: 5px">備註</th>
-        <th style="padding: 5px">序號</th>
-        <th style="padding: 5px">姓名</th>
-        <th style="padding: 5px">出生日期</th>
-        <th style="padding: 5px">筆試</th>
-        <th style="padding: 5px">路試</th>
-        <th style="padding: 5px">身分證字號</th>
-        <th style="padding: 5px">備註</th>
-    </tr>
-
-    <tr>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px"></td>
-        <td style="padding: 5px"></td>
-    </tr>
-</table>
-
-<!-- 下方表格 -->
-<style>
-    .exam-summary-table {
-        width: 100%;
-        border-collapse: collapse;
-        font-size: 12px;
-    }
-    .exam-summary-table th, .exam-summary-table td {
-        border: 1px solid black;
-        padding: 4px;
-        text-align: center;
-        vertical-align: middle;
-    }
-    .exam-summary-table th {
-        /*background-color: #f0f0f0;*/
-        font-weight: bold;
-    }
-</style>
-
-<table class="exam-summary-table" style="margin-top: 20px;">
-    <tr>
-        <th colspan="2">報名審核</th>
-        <th colspan="6">筆試</th>
-        <th colspan="6">路試</th>
-        <th colspan="2">發照</th>
-        <th rowspan="2">課長</th>
-    </tr>
-    <tr>
-        <th>人數</th>
-        <th>審核員</th>
-        <th>應考人數</th>
-        <th>及格人數</th>
-        <th>不及格人數</th>
-        <th>缺考人數</th>
-        <th>主考</th>
-        <th>監考</th>
-        <th>應考人數</th>
-        <th>及格人數</th>
-        <th>不及格人數</th>
-        <th>缺考人數</th>
-        <th>主考</th>
-        <th>監考</th>
-        <th>張數</th>
-        <th>人員</th>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-</table>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>筆試清冊列印</title>
+        <link rel="stylesheet" href="bulma/css/bulma.min.css">
+    </head>
+    <body>
+      <div class="container is-widescreen max-width">
+          <div class="grid">
+           <div class="cell">交通部公路 局</div>
+           <div class="cell">監理所 ( 站 ) 汽車駕駛人考驗紀錄清冊</div>
+           <div class="cell">班名：佑名駕訓班</div>
+           <div class="cell">考驗別：普通小型車班</div>
+       </div>
+      </div>
+        <table class="table is-bordered is-striped">
+            <thead>
+                <tr>
+                    <th>序號</th>
+                    <th>姓名</th>
+                    <th>出生日期</th>
+                    <th>筆試</th>
+                    <th>路試</th>
+                    <th>身份證字號</th>
+                    <th>備註</th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>
