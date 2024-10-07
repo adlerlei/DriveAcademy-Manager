@@ -1,0 +1,10 @@
+body{
+    margin: 0 px;
+    padding: 0 px;
+}
+.maxFull {
+    width: 100%;
+    height: auto;
+    background-color: aliceblue;
+    margin: 4 px;
+}

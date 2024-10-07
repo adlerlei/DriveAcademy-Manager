@@ -275,7 +275,7 @@ def written_exam_roster(content):
         time.sleep(2)
         
         # 模擬鍵盤操作確認打印 (Enter)
-        pyautogui.press('enter')
+        # pyautogui.press('enter')
 
     # 新增按鈕
     add_btn(written_exam_roster, text='新增筆試清冊', command=save_student_data).grid(row=7, column=1, sticky='wen', padx=(10,0))
