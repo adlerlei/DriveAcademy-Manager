@@ -4,26 +4,31 @@
         <meta charset="UTF-8" />
         <title>筆試清冊列印</title>
         <link rel="stylesheet" href="bulma/css/bulma.min.css" />
+        <style>
+            .no-shadow {
+                box-shadow: none; /* 移除陰影 */
+            }
+        </style>
     </head>
     <body>
         <div class="container is-fluid">
             <!-- is-align-items-flex-end 文字靠 div 下方對齊-->
             <div class="columns is-flex is-align-items-flex-end mb-0">
-                <div class="column has-text-left is-size-5 has-text-weight-bold">交通部公路 局</div>
-                <div class="column has-text-left is-size-5 has-text-weight-bold">
-                    監理所 ( 站 ) 汽車駕駛人考驗記錄清冊
+                <div class="is-2 column has-text-left is-size-6 has-text-weight-bold">交通部公路 局</div>
+                <div class="is-6 column has-text-left is-size-6 has-text-weight-bold">
+                    監理所(站)汽車駕駛人考驗記錄清冊
                 </div>
-                <div class="column has-text-right">班名：佑名駕訓班</div>
-                <div class="column has-text-right">考驗別：普通小型車班</div>
+                <div class="is-2 column has-text-right is-size-7">班名：佑名駕訓班</div>
+                <div class="is-2 column has-text-right is-size-7">考驗別：普通小型車班</div>
             </div>
             <div class="columns is-align-items-flex-end">
-                <div class="column has-text-left">期別：第 199 期 - B 梯次 - 第 01 組</div>
-                <div class="column has-text-right">筆試日期：113/08/10 - 第 10 組</div>
+                <div class="column has-text-left is-size-7">期別：第 199 期 - B 梯次 - 第 01 組</div>
+                <div class="column has-text-right is-size-7">筆試日期：113/08/10 - 第 10 組</div>
             </div>
         </div>
         <div class="column">
             <!-- is-fullwidth 讓表格全螢幕寬度 -->
-            <table class="table is-bordered is-striped is-fullwidth">
+            <table class="table is-bordered is-striped is-fullwidth is-size-7">
                 <thead>
                     <tr>
                         <th>序號</th>
@@ -64,58 +69,56 @@
                 </tbody>
             </table>
             <!-- 下方表格 -->
-            <div class="container is-fluid">
-                <table class="table is-bordered is-striped is-fullwidth">
-                    <thead>
-                        <tr>
-                            <th colspan="2" class="has-text-centered">報名審核</th>
-                            <th colspan="6" class="has-text-centered">筆試</th>
-                            <th colspan="6" class="has-text-centered">路試</th>
-                            <th colspan="2" class="has-text-centered">發照</th>
-                            <th rowspan="2" class="has-text-centered is-vcentered">課長</th>
-                        </tr>
-                        <tr>
-                            <th>人數</th>
-                            <th>審核員</th>
-                            <th>應考人數</th>
-                            <th>及格人數</th>
-                            <th>不及格人數</th>
-                            <th>缺考人數</th>
-                            <th>主考</th>
-                            <th>監考</th>
-                            <th>應考人數</th>
-                            <th>及格人數</th>
-                            <th>不及格人數</th>
-                            <th>缺考人數</th>
-                            <th>主考</th>
-                            <th>監考</th>
-                            <th>張數</th>
-                            <th>人員</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+            <table class="table is-bordered is-striped is-fullwidth is-size-7">
+                <thead>
+                    <tr>
+                        <th colspan="2" class="has-text-centered">報名審核</th>
+                        <th colspan="6" class="has-text-centered">筆試</th>
+                        <th colspan="6" class="has-text-centered">路試</th>
+                        <th colspan="2" class="has-text-centered">發照</th>
+                        <th rowspan="2" class="has-text-centered is-vcentered">課長</th>
+                    </tr>
+                    <tr>
+                        <th>人數</th>
+                        <th>審核員</th>
+                        <th>應考人數</th>
+                        <th>及格人數</th>
+                        <th>不及格人數</th>
+                        <th>缺考人數</th>
+                        <th>主考</th>
+                        <th>監考</th>
+                        <th>應考人數</th>
+                        <th>及格人數</th>
+                        <th>不及格人數</th>
+                        <th>缺考人數</th>
+                        <th>主考</th>
+                        <th>監考</th>
+                        <th>張數</th>
+                        <th>人員</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </body>
 </html>

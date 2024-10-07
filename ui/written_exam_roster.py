@@ -212,7 +212,7 @@ def written_exam_roster(content):
                     driving_test_number.insert(0, '')
                 driving_test_number.configure(state='readonly')
 
-    # 獲取輸入欄位信息
+    # 獲取輸入欄位信息 
     def save_student_data():
         global current_student_id, is_adding_new
         is_adding_new = True # 設置標誌表示正在添加新學員
@@ -256,11 +256,12 @@ def written_exam_roster(content):
         ))
 
     def print_html_report():
-        # 獲取當前腳本的目錄 (ui 目錄)
+        # 獲取當前腳本的目錄 (ui 目錄) 
         base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # 獲取父目錄
         
         # 動態生成 HTML 文件的完整路徑
         html_path = os.path.join(base_dir, "print", "written_exam_roster.html")
+        # html_path = os.path.join(base_dir, "print", "test.html")
         
         # 打開 HTML 文件
         webbrowser.open_new_tab(html_path)
@@ -275,7 +276,7 @@ def written_exam_roster(content):
         time.sleep(2)
         
         # 模擬鍵盤操作確認打印 (Enter)
-        # pyautogui.press('enter')
+        pyautogui.press('enter')
 
     # 新增按鈕
     add_btn(written_exam_roster, text='新增筆試清冊', command=save_student_data).grid(row=7, column=1, sticky='wen', padx=(10,0))
