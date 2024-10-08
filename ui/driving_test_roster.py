@@ -41,7 +41,7 @@ def driving_test_roster(content):
     register_number = entry(driving_test_roster)
     register_number.grid(row=1, column=2, sticky='wen', padx=(10,0))
 
-    # 顯示 / 搜尋 身分號碼
+    # 身分證號碼
     label(driving_test_roster, text='身分證號碼').grid(row=0, column=3, sticky='ws', padx=(10,0), pady=(10,0))
     national_id_no = entry(driving_test_roster, placeholder_text=" 🔎")
     national_id_no.grid(row=1, column=3, sticky='wen',padx=10)

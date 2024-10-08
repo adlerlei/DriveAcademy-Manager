@@ -93,7 +93,7 @@ def export_driving_test_data(database_path, student_ids):  # 修改此行，新�
         term_class_code = cursor.fetchone()[0]
 
         if not term_class_code:
-            messagebox.showerror("錯誤", "未找到有效的上課期別代碼")
+            messagebox.showerror("錯誤", "未找到有效的上課期别代码")
             return
 
         # 创建文件名
@@ -147,50 +147,60 @@ def export_driving_test_data(database_path, student_ids):  # 修改此行，新�
 
 
 # 筆試清冊匯出csv
-def export_written_exam_roster(database_path):
+def export_written_exam_roster(database_path, student_ids):
     try:
+        # 連接到數據庫
         conn = sqlite3.connect(database_path)
         cursor = conn.cursor()
 
+        # 獲取最新的上課期別代碼
         cursor.execute("SELECT MAX(term_class_code) FROM annual_plan")
-        latest_term_class_code = cursor.fetchone()[0]
+        term_class_code = cursor.fetchone()[0]
 
-        if not latest_term_class_code:
+        if not term_class_code:
             messagebox.showerror("錯誤", "未找到有效的上課期別代碼")
             return
 
-        filename = f"400032{latest_term_class_code}_D.csv"
-        file_path = filedialog.asksaveasfilename(defaultextension=".csv", initialfile=filename)
+        # 創建文件名
+        file_name = f"400032{term_class_code}_D.csv"
+
+        # 打開文件保存對話框
+        file_path = filedialog.asksaveasfilename(defaultextension=".csv", initialfile=file_name)
         if not file_path:
             return
 
-        cursor.execute("""
-            SELECT s.student_term_class_code, s.national_id_no, s.birth_date, s.driving_test_group, 
-                   s.written_exam_date, s.driving_test_number
-            FROM student s
-            WHERE s.written_exam_date IS NOT NULL
-            ORDER BY s.driving_test_number
-        """)
+        # 查詢指定學員的筆試試卷數據
+        query = f"""
+            SELECT student_term_class_code, national_id_no, birth_date, driving_test_group, 
+                   written_exam_date, driving_test_number, training_type_code
+            FROM student
+            WHERE id IN ({','.join('?' for _ in student_ids)})
+            AND written_exam_date IS NOT NULL
+            ORDER BY driving_test_number
+        """
+        cursor.execute(query, student_ids)
         data = cursor.fetchall()
         if not data:
             messagebox.showerror("錯誤", "筆試清冊學員資料為空")
             return
-
+        
+        # 寫入CSV文件
         with open(file_path, 'w', newline='', encoding='utf-8-sig') as csvfile:
             writer = csv.writer(csvfile)
             for row in data:
-                student_term_class_code = row[0]
-                if student_term_class_code:
-                    # 找到第一個字母的位置
-                    alpha_index = next((i for i, c in enumerate(student_term_class_code) if c.isalpha()), None)
-                    if alpha_index is not None:
-                        # 保留到字母（包括字母）
-                        student_term_class_code = student_term_class_code[:alpha_index+1]
-                processed_row = [student_term_class_code] + [str(item) if item is not None else '' for item in row[1:]]
-                writer.writerow(processed_row)
+                student_term_class_code = row[0]  # 名冊號碼
+                training_type_code = row[6]  # 訓練班別代號
 
-        # messagebox.showinfo("成功", f"文件已成功匯出至 {file_path}")
-        messagebox.showinfo("成功", f"文件已成功匯出")
+                # 移除名冊號碼開頭的 "1" 和末尾的數字
+                modified_register_number = re.sub(r'^1', '', student_term_class_code)
+                modified_register_number = re.sub(r'\d+$', '', modified_register_number)
+
+                # 組合訓練班別代號和名冊號碼
+                final_register_number = f"{training_type_code}{modified_register_number}"
+                
+                writer.writerow([final_register_number, row[1], row[2], row[3], row[4], row[5]])
+
+        messagebox.showinfo("成功", "文件已成功匯出")
 
     except Exception as e:
         messagebox.showerror("錯誤", f"匯出文件發生錯誤：{str(e)}")
