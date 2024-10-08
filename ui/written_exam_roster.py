@@ -209,8 +209,14 @@ def written_exam_roster(content):
                 if student_data[41] is not None:
                     driving_test_number.insert(0, student_data[41])
                 else:
-                    driving_test_number.insert(0, '')
+                    driving_test_number.insert(0, '') 
                 driving_test_number.configure(state='readonly')
+                # 代碼
+                if student_data[43] is not None:
+                    driving_test_code.insert(0, student_data[43])
+                else:
+                    driving_test_code.insert(0, '')
+                driving_test_code.configure(state='readonly')
 
     # 獲取輸入欄位信息 
     def save_student_data():
