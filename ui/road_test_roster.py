@@ -287,13 +287,14 @@ def  road_test_roster(content):
         is_adding_new = False # 重置
 
     # 新增此函式以獲取所有新增到 treeview 的學員 ID
-    def get_all_added_student_ids():
-        all_ids = [] # 用於存儲所有新增學員的 ID
-        for item in data_list.get_children(): # 獲取所有項目
-            all_ids.append(data_list.item(item)['values'][0]) # 假設學員 ID 在第一列
-        return all_ids
+    # def get_all_added_student_ids():
+    #     all_ids = [] # 用於存儲所有新增學員的 ID
+    #     for item in data_list.get_children(): # 獲取所有項目
+    #         all_ids.append(data_list.item(item)['values'][0]) # 假設學員 ID 在第一列
+    #     return all_ids
 
     # 新增按鈕
-    add_btn(road_test_roster, text='新增道考清冊', command=save_student_data).grid(row=7, column=2, sticky='wen', padx=(10,0))
+    add_btn(road_test_roster, text='新增道考清冊', command=save_student_data).grid(row=7, column=1, sticky='wen', padx=(10,0))
     # 列印按鈕
-    print_btn(road_test_roster, text='列印道考清冊', command=lambda: None).grid(row=7, column=3, sticky='wen', padx=(10,0))
+    print_btn(road_test_roster, text='列印道考清冊 (監理站用)', command=lambda: None).grid(row=7, column=2, sticky='wen', padx=(10,0))
+    print_btn(road_test_roster, text='列印道考清冊 (駕訓班用)', command=lambda: None).grid(row=7, column=3, sticky='wen', padx=(10,0))
