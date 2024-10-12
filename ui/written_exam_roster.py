@@ -263,7 +263,8 @@ def written_exam_roster(content):
             'driving_test_session': driving_test_session.get(),  # 場次
             'written_exam_date': written_exam_date.get(),  # 筆試日期
             'driving_test_code': driving_test_code.get(),  # 代碼
-            'training_type_code': training_type_code.get(),  # 訓練班別代號      
+            'training_type_code': training_type_code.get(),  # 訓練班別代號
+            'training_type_name': training_type_name.get(),  # 訓練班別名稱      
         }
 
         if current_student_id is None:
@@ -282,12 +283,12 @@ def written_exam_roster(content):
         # 讀取 save_student_data 的資料寫入 treeview
         data_list.insert('', 'end', values=(
             student_data['driving_test_number'],
+            student_data['student_name'],
+            student_data['birth_date'],
+            student_data['national_id_no'],
             student_data['register_number'],
             student_data['batch'],
             student_data['student_number'],
-            student_data['student_name'],
-            student_data['national_id_no'],
-            student_data['birth_date'],
             student_data['driving_test_session'],
             student_data['written_exam_date'],
             student_data['driving_test_code']
@@ -306,33 +307,78 @@ def written_exam_roster(content):
             all_ids.append(data_list.item(item)['values'][0])  # 假設學員 ID 在第一列
         return all_ids
 
-    def print_html_report():
-        # 獲取當前腳本的目錄 (ui 目錄) 
-        base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # 獲取父目錄
+    def get_treeview_data():
+        data = []
+        for item in data_list.get_children():
+            values = data_list.item(item)['values']
+            data.append({
+                'driving_test_number': values[0],
+                'student_name': values[1],
+                'birth_date': values[2],
+                'national_id_no': values[3],
+                'register_number': values[4],
+                # 'birth_date': values[6],
+                # 'driving_test_session': values[7],
+                # 'written_exam_date': values[8],
+                # 'driving_test_code': values[9]
+            })
+        return data
+
+    def print_html_report(for_dmv=True):
+        base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        template_dir = os.path.join(base_dir, "print")
+        env = Environment(loader=FileSystemLoader(template_dir))
+        template = env.get_template("written_exam_roster.html")
+
+        data = get_treeview_data()
+        if not data:
+            messagebox.showwarning("警告", "沒有數據可以打印")
+            return
+        elif not for_dmv:
+            for item in data:
+                item['national_id_no'] = '0000'
+
+        # 获取其他需要的数据
+        class_name = "佑名駕訓班"  # 请替换为实际的班名
+        exam_type = "普通小型車班"  # 请替换为实际的考验别
+        period = "第 199 期 - B 梯次 - 第 01 組"  # 请替换为实际的期别
+        exam_date = "113/08/10 - 第 10 組"  # 请替换为实际的筆試日期
+
+        html_content = template.render(
+            students=data,
+            class_name=class_name,
+            exam_type=exam_type,
+            period=period,
+            exam_date=exam_date
+        )
+
+        # 如果沒有數據，不生成 HTML 文件
+        if not data:
+            return
+
+        temp_html_path = os.path.join(base_dir, "print", "temp_written_exam_roster.html")
+        with open(temp_html_path, 'w', encoding='utf-8') as f:
+            f.write(html_content)
+
+        webbrowser.open_new_tab(f'file://{temp_html_path}')
         
-        # 動態生成 HTML 文件的完整路徑
-        html_path = os.path.join(base_dir, "print", "written_exam_roster.html")
-        # html_path = os.path.join(base_dir, "print", "test.html")
-        
-        # 打開 HTML 文件
-        webbrowser.open_new_tab(html_path)
-        
-        # 等待瀏覽器加載
-        time.sleep(3) 
-        
+         # 等待瀏覽器加載
+        time.sleep(3)
         # 模擬鍵盤操作觸發打印 (Ctrl+P)
         pyautogui.hotkey('ctrl', 'p')
-        
         # 等待打印窗口出現
         time.sleep(2)
-        
         # 模擬鍵盤操作確認打印 (Enter)
         pyautogui.press('enter')
+
+        # 删除临时文件
+        time.sleep(1)  # 等待打印完成
+        os.remove(temp_html_path)
 
     # 新增按鈕
     add_btn(written_exam_roster, text='新增筆試清冊', command=save_student_data).grid(row=7, column=1, sticky='wen', padx=(10,0))
     # 列印按鈕
-    print_btn(written_exam_roster, text='列印筆試清冊 (監理站用)', command=print_html_report).grid(row=7, column=2, sticky='wen', padx=(10,0))
-    print_btn(written_exam_roster, text='列印筆試清冊 (駕訓班用)', command=lambda: None).grid(row=7, column=3, sticky='wen', padx=(10,0))
+    print_btn(written_exam_roster, text='列印筆試清冊 (監理站用)', command=lambda: print_html_report(for_dmv=True)).grid(row=7, column=2, sticky='wen', padx=(10,0))
+    print_btn(written_exam_roster, text='列印筆試清冊 (駕訓班用)', command=lambda: print_html_report(for_dmv=False)).grid(row=7, column=3, sticky='wen', padx=(10,0))
     # 匯出按鈕
     export_btn(written_exam_roster, text='匯出 筆試清冊 文件', command=lambda: export_written_exam_roster(database_path, get_all_added_student_ids())).grid(row=8, column=0, columnspan=4, sticky='wen', padx=(10,0), pady=10)
