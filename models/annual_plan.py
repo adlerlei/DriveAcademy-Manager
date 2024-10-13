@@ -27,7 +27,7 @@ def insert_annual_plan_data(year, term, term_class_code, batch, training_type_co
     messagebox.showinfo("成功", "已新增期別資料！")
 
 
-# 讀取年度計畫表資料
+# 讀取年度計畫表資料寫入 treeview
 def fetch_and_populate_treeview(treeview):
     # 連接到資料庫
     conn = sqlite3.connect(database_path)
@@ -46,6 +46,15 @@ def fetch_and_populate_treeview(treeview):
 
     # 關閉資料庫連線
     conn.close()
+
+# 讀取年度計畫表資料供 written_exam_roster.py 使用
+def annual_plan_data():
+    conn = sqlite3.connect(database_path)
+    c = conn.cursor()
+    c.execute("SELECT * FROM annual_plan")
+    results = c.fetchall()
+    conn.close()
+    return results
 
 
 # 匯出 csv 文件按鈕觸發

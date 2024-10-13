@@ -3,6 +3,7 @@
 from utils.widget import *
 from utils.config import *
 from models.test import *
+from models.annual_plan import annual_plan_data
 import customtkinter as ctk
 from tkinter import messagebox
 import webbrowser
@@ -317,10 +318,6 @@ def written_exam_roster(content):
                 'birth_date': values[2],
                 'national_id_no': values[3],
                 'register_number': values[4],
-                # 'birth_date': values[6],
-                # 'driving_test_session': values[7],
-                # 'written_exam_date': values[8],
-                # 'driving_test_code': values[9]
             })
         return data
 
@@ -328,7 +325,12 @@ def written_exam_roster(content):
         base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         template_dir = os.path.join(base_dir, "print")
         env = Environment(loader=FileSystemLoader(template_dir))
-        template = env.get_template("written_exam_roster.html")
+        
+        # 根據 for_dmv 的值選擇不同的模板
+        if for_dmv:
+            template = env.get_template("written_exam_roster.html")
+        else:
+            template = env.get_template("written_exam_roster_駕訓班公告.html")
 
         data = get_treeview_data()
         if not data:
@@ -338,11 +340,15 @@ def written_exam_roster(content):
             for item in data:
                 item['national_id_no'] = '0000'
 
+        # 讀取年度計畫表資料供 exam_type 使用
+        results = annual_plan_data()
+
         # 获取其他需要的数据
+        exam_date = written_exam_date.get()
         class_name = "佑名駕訓班"  # 请替换为实际的班名
-        exam_type = "普通小型車班"  # 请替换为实际的考验别
-        period = "第 199 期 - B 梯次 - 第 01 組"  # 请替换为实际的期别
-        exam_date = "113/08/10 - 第 10 組"  # 请替换为实际的筆試日期
+        exam_type = results[0][6]
+        period = f"第 {results[0][2]} 期 {'&nbsp;'*2} {results[0][4]} 梯次 {'&nbsp;'*2} 第 {driving_test_session.get()} 組"  # 请替换为实际的期别
+        exam_date = f"{written_exam_date.get()}{'&nbsp;'*10}午  {'&nbsp;'*2} 第{'&nbsp;'*10}組"
 
         html_content = template.render(
             students=data,
@@ -352,17 +358,13 @@ def written_exam_roster(content):
             exam_date=exam_date
         )
 
-        # 如果沒有數據，不生成 HTML 文件
-        if not data:
-            return
-
         temp_html_path = os.path.join(base_dir, "print", "temp_written_exam_roster.html")
         with open(temp_html_path, 'w', encoding='utf-8') as f:
             f.write(html_content)
 
         webbrowser.open_new_tab(f'file://{temp_html_path}')
         
-         # 等待瀏覽器加載
+        # 等待瀏覽器加載
         time.sleep(3)
         # 模擬鍵盤操作觸發打印 (Ctrl+P)
         pyautogui.hotkey('ctrl', 'p')
