@@ -108,17 +108,17 @@ def learner_license_date_registration(content):
     )
     data_list = ttk.Treeview(learner_license_date_registration, columns=columns, show='headings')
 
-    data_list.heading('learner_permit_date', text='學照日期')  
-    data_list.heading('learner_permit_number', text='學照號碼')  
-    data_list.heading('license_type_code', text='考照類別')  
-    data_list.heading('student_number', text='學員編號')  
-    data_list.heading('student_name', text='學員姓名')  
-    data_list.heading('birth_date', text='出生日期')  
-    data_list.heading('national_id_no', text='身分證號')  
-    data_list.heading('mobile_phone', text='手機')  
-    data_list.heading('r_address_zip_code', text='區號')
-    data_list.heading('r_address_city', text='縣市區')
-    data_list.heading('r_address', text='戶籍地址')  
+    data_list.heading('learner_permit_date', text='學照日期', anchor='center')  
+    data_list.heading('learner_permit_number', text='學照號碼', anchor='center')  
+    data_list.heading('license_type_code', text='考照類別', anchor='center')  
+    data_list.heading('student_number', text='學員編號', anchor='center')  
+    data_list.heading('student_name', text='學員姓名', anchor='center')  
+    data_list.heading('birth_date', text='出生日期', anchor='center')  
+    data_list.heading('national_id_no', text='身分證號', anchor='center')  
+    data_list.heading('mobile_phone', text='手機', anchor='center')  
+    data_list.heading('r_address_zip_code', text='區號', anchor='center')
+    data_list.heading('r_address_city', text='縣市區', anchor='center')
+    data_list.heading('r_address', text='戶籍地址', anchor='center')  
 
     data_list.column('learner_permit_date', width=50, anchor='center')  
     data_list.column('learner_permit_number', width=50, anchor='center')  
@@ -132,7 +132,7 @@ def learner_license_date_registration(content):
     data_list.column('r_address_city', width=50, anchor='center')
     data_list.column('r_address', width=250, anchor='center')  
 
-    data_list.grid(row=8, column=0, columnspan=4, sticky='wen', padx=10, pady=(20,0))
+    data_list.grid(row=8, column=0, columnspan=4, sticky='wens', padx=10, pady=10)
 
     # 創建水平捲軸
     h_scrollbar = ttk.Scrollbar(learner_license_date_registration, orient="horizontal", command=data_list.xview)
@@ -147,7 +147,7 @@ def learner_license_date_registration(content):
     v_scrollbar.grid(row=8, column=4, rowspan=2, sticky="ns", pady=10)
 
     # 配置行和列的權重，使其在窗口調整大小時自動調整
-    learner_license_date_registration.grid_rowconfigure(14, weight=1)
+    learner_license_date_registration.grid_rowconfigure(8, weight=1)
     learner_license_date_registration.grid_columnconfigure(0, weight=1)
     learner_license_date_registration.grid_columnconfigure(1, weight=1)
     learner_license_date_registration.grid_columnconfigure(2, weight=1)

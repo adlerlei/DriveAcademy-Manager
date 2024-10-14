@@ -49,15 +49,15 @@ def instructor_all(content):
     ]
     data_list = ttk.Treeview(instructor_all, columns=treeview_values, show='headings')
 
-    data_list.heading('number', text='教練編號')
-    data_list.heading('name', text='姓名')
-    data_list.heading('birth_date', text='出生日期')
-    data_list.heading('instructor_number', text='教練證號')
+    data_list.heading('number', text='教練編號', anchor='center')
+    data_list.heading('name', text='姓名', anchor='center')
+    data_list.heading('birth_date', text='出生日期', anchor='center')
+    data_list.heading('instructor_number', text='教練證號', anchor='center')
 
-    data_list.column('number', width=50, anchor=CENTER)
-    data_list.column('name', width=70, anchor=CENTER)
-    data_list.column('birth_date', width=70, anchor=CENTER)
-    data_list.column('instructor_number', width=70, anchor=CENTER)
+    data_list.column('number', width=50, anchor='center')
+    data_list.column('name', width=70, anchor='center')
+    data_list.column('birth_date', width=70, anchor='center')
+    data_list.column('instructor_number', width=70, anchor='center')
 
     data_list.grid(row=4, column=0, columnspan=4, sticky='nsew', padx=10, pady=10)
     
@@ -74,7 +74,7 @@ def instructor_all(content):
     v_scrollbar.grid(row=4, column=4, rowspan=2, sticky="ns", pady=10)
 
     # 配置行和列的權重，使其在窗口調整大小時自動調整
-    instructor_all.grid_rowconfigure(14, weight=1)
+    instructor_all.grid_rowconfigure(4, weight=1)
     instructor_all.grid_columnconfigure(0, weight=1)
     instructor_all.grid_columnconfigure(1, weight=1)
     instructor_all.grid_columnconfigure(2, weight=1)

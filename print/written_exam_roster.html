@@ -2,7 +2,7 @@
 <html lang="zh-TW">
     <head>
         <meta charset="UTF-8" />
-        <title>筆試清冊列印</title>
+        <title>筆試清冊列印(監理所用)</title>
         <link rel="stylesheet" href="bulma/css/bulma.min.css" />
     </head>
     <body>
@@ -65,7 +65,7 @@
 
                             {# 右側表格 #}
                             {% set right_index = i + left_limit %}
-                            {% if right_index < students|length %}
+                            {% if right_index < page_students|length %}
                                 {{ render_student(page_students[right_index]) }}
                             {% else %}
                                 {% for _ in range(7) %}<td></td>{% endfor %}

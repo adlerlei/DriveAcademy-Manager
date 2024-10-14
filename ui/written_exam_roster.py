@@ -113,29 +113,29 @@ def written_exam_roster(content):
     )
     data_list = ttk.Treeview(written_exam_roster, show='headings', column=columns)
     
-    data_list.column('driving_test_number', width=50, anchor='w')
-    data_list.column('register_number', width=50, anchor='w')
-    data_list.column('batch', width=50, anchor='w')
-    data_list.column('student_number', width=50, anchor='w')
-    data_list.column('student_name', width=50, anchor='w')
-    data_list.column('national_id_no', width=50, anchor='w')
-    data_list.column('birth_date', width=50, anchor='w')
-    data_list.column('written_exam_date', width=50, anchor='w')
-    data_list.column('driving_test_session', width=50, anchor='w')
-    data_list.column('driving_test_code', width=50, anchor='w')
+    data_list.column('driving_test_number', width=10, anchor='center')
+    data_list.column('register_number', width=50, anchor='center')
+    data_list.column('batch', width=10, anchor='center')
+    data_list.column('student_number', width=60, anchor='center')
+    data_list.column('student_name', width=50, anchor='center')
+    data_list.column('national_id_no', width=60, anchor='center')
+    data_list.column('birth_date', width=50, anchor='center')
+    data_list.column('written_exam_date', width=50, anchor='center')
+    data_list.column('driving_test_session', width=50, anchor='center')
+    data_list.column('driving_test_code', width=50, anchor='center')
     
-    data_list.heading('driving_test_number', text='號碼')
-    data_list.heading('register_number', text='名冊號碼')
-    data_list.heading('batch', text='梯次')
-    data_list.heading('student_number', text='學員編號')
-    data_list.heading('student_name', text='學員姓名')
-    data_list.heading('national_id_no', text='身分證號碼')
-    data_list.heading('birth_date', text='出生日期')
-    data_list.heading('written_exam_date', text='筆試日期')
-    data_list.heading('driving_test_session', text='場次')
-    data_list.heading('driving_test_code', text='代碼')
+    data_list.heading('driving_test_number', text='號碼', anchor='center')
+    data_list.heading('register_number', text='名冊號碼', anchor='center')
+    data_list.heading('batch', text='梯次', anchor='center')
+    data_list.heading('student_number', text='學員編號', anchor='center')
+    data_list.heading('student_name', text='學員姓名', anchor='center')
+    data_list.heading('national_id_no', text='身分證號碼', anchor='center')
+    data_list.heading('birth_date', text='出生日期', anchor='center')
+    data_list.heading('written_exam_date', text='筆試日期', anchor='center')
+    data_list.heading('driving_test_session', text='場次', anchor='center')
+    data_list.heading('driving_test_code', text='代碼', anchor='center')
 
-    data_list.grid(row=9, column=0, columnspan=4, sticky='wen', padx=10, pady=(20,0))
+    data_list.grid(row=9, column=0, columnspan=4, sticky='nsew', padx=10, pady=10)
 
     # 創建水平捲軸
     h_scrollbar = ttk.Scrollbar(written_exam_roster, orient="horizontal", command=data_list.xview)
@@ -150,7 +150,7 @@ def written_exam_roster(content):
     v_scrollbar.grid(row=9, column=4, rowspan=2, sticky="ns", pady=10)
 
     # 配置行和列的權重，使其在窗口調整大小時自動調整
-    written_exam_roster.grid_rowconfigure(14, weight=1)
+    written_exam_roster.grid_rowconfigure(9, weight=1)
     written_exam_roster.grid_columnconfigure(0, weight=1)
     written_exam_roster.grid_columnconfigure(1, weight=1)
     written_exam_roster.grid_columnconfigure(2, weight=1)
@@ -224,24 +224,24 @@ def written_exam_roster(content):
             batch.insert(0, student_data[7])
             batch.configure(state='readonly')
             # 筆試日期
-            if student_data[36] is not None:
-                written_exam_date.delete(0, ctk.END)
-                written_exam_date.insert(0, student_data[36])
+            # if student_data[36] is not None:
+            #     written_exam_date.delete(0, ctk.END)
+            #     written_exam_date.insert(0, student_data[36])
             # 場次
-            driving_test_session.configure(state='normal')
-            driving_test_session.delete(0, ctk.END)
-            driving_test_session.insert(0, student_data[42])
+            # driving_test_session.configure(state='normal')
+            # driving_test_session.delete(0, ctk.END)
+            # driving_test_session.insert(0, student_data[42])
             # 號碼
-            driving_test_number.configure(state='normal')
-            driving_test_number.delete(0, ctk.END)
-            driving_test_number.insert(0, student_data[41])
-            driving_test_number.configure(state='readonly')
+            # driving_test_number.configure(state='normal')
+            # driving_test_number.delete(0, ctk.END)
+            # driving_test_number.insert(0, student_data[41])
+            # driving_test_number.configure(state='readonly')
             # 代碼
-            if student_data[43] is not None:
-                driving_test_code.insert(0, student_data[43])
-            else:
-                driving_test_code.insert(0, '')
-            driving_test_code.configure(state='readonly')
+            # if student_data[43] is not None:
+            #     driving_test_code.insert(0, student_data[43])
+            # else:
+            #     driving_test_code.insert(0, '')
+            # driving_test_code.configure(state='readonly')
             
 
     # 獲取輸入欄位信息 
@@ -284,12 +284,12 @@ def written_exam_roster(content):
         # 讀取 save_student_data 的資料寫入 treeview
         data_list.insert('', 'end', values=(
             student_data['driving_test_number'],
-            student_data['student_name'],
-            student_data['birth_date'],
-            student_data['national_id_no'],
             student_data['register_number'],
             student_data['batch'],
             student_data['student_number'],
+            student_data['student_name'],
+            student_data['national_id_no'],
+            student_data['birth_date'],
             student_data['driving_test_session'],
             student_data['written_exam_date'],
             student_data['driving_test_code']

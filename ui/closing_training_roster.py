@@ -174,19 +174,19 @@ def closing_training_roster(content):
     )
     data_list = ttk.Treeview(closing_training_roster, show='headings', column = columns)
     
-    data_list.heading('register_number', text='名冊號碼')
-    data_list.heading('batch', text='梯次')
-    data_list.heading('student_number', text='學員編號')
-    data_list.heading('student_name', text='學員姓名')
-    data_list.heading('dropout', text='退訓')
-    data_list.heading('transmission_type_code', text='手自排')
-    data_list.heading('instructor_number', text='教練')
-    data_list.heading('gender', text='性別')
-    data_list.heading('birth_date', text='出生日期')
-    data_list.heading('national_id_no', text='身分證號')
-    data_list.heading('r_address_zip_code', text='區號')
-    data_list.heading('r_address_city_road', text='戶籍地址')
-    data_list.heading('learner_permit_date', text='學照日期')
+    data_list.heading('register_number', text='名冊號碼', anchor='center')
+    data_list.heading('batch', text='梯次', anchor='center')
+    data_list.heading('student_number', text='學員編號', anchor='center')
+    data_list.heading('student_name', text='學員姓名', anchor='center')
+    data_list.heading('dropout', text='退訓', anchor='center')
+    data_list.heading('transmission_type_code', text='手自排', anchor='center')
+    data_list.heading('instructor_number', text='教練', anchor='center')
+    data_list.heading('gender', text='性別', anchor='center')
+    data_list.heading('birth_date', text='出生日期', anchor='center')
+    data_list.heading('national_id_no', text='身分證號', anchor='center')
+    data_list.heading('r_address_zip_code', text='區號', anchor='center')
+    data_list.heading('r_address_city_road', text='戶籍地址', anchor='center')
+    data_list.heading('learner_permit_date', text='學照日期', anchor='center')
 
     data_list.column('register_number', width=50, anchor='center')
     data_list.column('batch', width=50, anchor='center')
@@ -202,7 +202,7 @@ def closing_training_roster(content):
     data_list.column('r_address_city_road', width=250, anchor='center')
     data_list.column('learner_permit_date', width=50, anchor='center')
     
-    data_list.grid(row=11, column=0, columnspan=4, sticky='wen', padx=10, pady=(20,0))
+    data_list.grid(row=11, column=0, columnspan=4, sticky='wens', padx=10, pady=10)
 
     # 創建水平捲軸
     h_scrollbar = ttk.Scrollbar(closing_training_roster, orient="horizontal", command=data_list.xview)
@@ -217,7 +217,7 @@ def closing_training_roster(content):
     v_scrollbar.grid(row=11, column=4, rowspan=2, sticky="ns", pady=10)
 
     # 配置行和列的權重，使其在窗口調整大小時自動調整
-    closing_training_roster.grid_rowconfigure(14, weight=1)
+    closing_training_roster.grid_rowconfigure(11, weight=1)
     closing_training_roster.grid_columnconfigure(0, weight=1)
     closing_training_roster.grid_columnconfigure(1, weight=1)
     closing_training_roster.grid_columnconfigure(2, weight=1)

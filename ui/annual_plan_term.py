@@ -121,14 +121,14 @@ def annual_plan_term(content):
     data_list.column("上課期別代碼", width=50, anchor='center')
     
 
-    data_list.heading("訓練班別名稱", text="訓練班別名稱")
-    data_list.heading("年度", text="年度")
-    data_list.heading("期別編號", text="期別編號")
-    data_list.heading("開訓日期", text="開訓日期")
-    data_list.heading("結訓日期", text="結訓日期")
-    data_list.heading("上課期別代碼", text="上課期別代碼")
+    data_list.heading("訓練班別名稱", text="訓練班別名稱", anchor='center')
+    data_list.heading("年度", text="年度", anchor='center')
+    data_list.heading("期別編號", text="期別編號", anchor='center')
+    data_list.heading("開訓日期", text="開訓日期", anchor='center')
+    data_list.heading("結訓日期", text="結訓日期", anchor='center')
+    data_list.heading("上課期別代碼", text="上課期別代碼", anchor='center')
     
-    data_list.grid(row=8, column=0, columnspan=4, sticky='wens', padx=10)
+    data_list.grid(row=8, column=0, columnspan=4, sticky='wens', padx=10, pady=10)
 
     # 創建水平捲軸
     h_scrollbar = ttk.Scrollbar(annual_plan_term, orient="horizontal", command=data_list.xview)
@@ -143,7 +143,7 @@ def annual_plan_term(content):
     v_scrollbar.grid(row=8, column=4, rowspan=2, sticky="ns", pady=10)
 
     # 配置行和列的權重，使其在窗口調整大小時自動調整
-    annual_plan_term.grid_rowconfigure(14, weight=1)
+    annual_plan_term.grid_rowconfigure(8, weight=1)
     annual_plan_term.grid_columnconfigure(0, weight=1)
     annual_plan_term.grid_columnconfigure(1, weight=1)
     annual_plan_term.grid_columnconfigure(2, weight=1)

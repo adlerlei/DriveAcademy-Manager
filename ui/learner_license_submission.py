@@ -86,14 +86,14 @@ def learner_license_submission(content):
     )
     data_list = ttk.Treeview(learner_license_submission, columns = columns, show='headings')
 
-    data_list.heading('national_id_no', text='身分證號')
-    data_list.heading('birth_date', text='出生日期')
-    data_list.heading('student_name', text='學員姓名')
-    data_list.heading('r_address_zip_code', text='區號')
-    data_list.heading('r_address_city', text='縣市區')
-    data_list.heading('r_address', text='戶籍地址')
-    data_list.heading('mobile_phone', text='手機')
-    data_list.heading('email', text='E-mail')
+    data_list.heading('national_id_no', text='身分證號', anchor='center')
+    data_list.heading('birth_date', text='出生日期', anchor='center')
+    data_list.heading('student_name', text='學員姓名', anchor='center')
+    data_list.heading('r_address_zip_code', text='區號', anchor='center')
+    data_list.heading('r_address_city', text='縣市區', anchor='center')
+    data_list.heading('r_address', text='戶籍地址', anchor='center')
+    data_list.heading('mobile_phone', text='手機', anchor='center')
+    data_list.heading('email', text='E-mail', anchor='center')
     
     data_list.column('national_id_no', width=50, anchor='center')
     data_list.column('birth_date', width=50, anchor='center')
@@ -104,7 +104,7 @@ def learner_license_submission(content):
     data_list.column('mobile_phone', width=50, anchor='center')
     data_list.column('email', width=250, anchor='center')
     
-    data_list.grid(row=8, column=0, columnspan=4, sticky='wen', padx=10, pady=(20,0))
+    data_list.grid(row=8, column=0, columnspan=4, sticky='wens', padx=10, pady=10)
 
     # 創建水平捲軸
     h_scrollbar = ttk.Scrollbar(learner_license_submission, orient="horizontal", command=data_list.xview)
@@ -119,7 +119,7 @@ def learner_license_submission(content):
     v_scrollbar.grid(row=8, column=4, rowspan=2, sticky="ns", pady=10)
 
     # 配置行和列的權重，使其在窗口調整大小時自動調整
-    learner_license_submission.grid_rowconfigure(14, weight=1)
+    learner_license_submission.grid_rowconfigure(8, weight=1)
     learner_license_submission.grid_columnconfigure(0, weight=1)
     learner_license_submission.grid_columnconfigure(1, weight=1)
     learner_license_submission.grid_columnconfigure(2, weight=1)

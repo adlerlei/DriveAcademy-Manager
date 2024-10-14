@@ -2,7 +2,7 @@
 <html lang="zh-TW">
     <head>
         <meta charset="UTF-8" />
-        <title>筆試清冊列印</title>
+        <title>筆試清冊列印(駕訓班公告)</title>
         <link rel="stylesheet" href="bulma/css/bulma.min.css" />
     </head>
     <body>
@@ -23,7 +23,7 @@
         </div>
         <div class="column">
             {% if students %}
-            {% set students_per_page = 90 %}
+            {% set students_per_page = 40 %}
             {% set pages = (students|length + students_per_page - 1) // students_per_page %}
             
             {% for page in range(pages) %}
@@ -55,8 +55,8 @@
                     {% set start_index = page * students_per_page %}
                     {% set end_index = start_index + students_per_page %}
                     {% set page_students = students[start_index:end_index] %}
-                    {% set left_limit = 45 %}
-                    {% set rows = [page_students|length, 45]|min %}
+                    {% set left_limit = 20 %}
+                    {% set rows = [page_students|length, 20]|min %}
                     
                     {% for i in range(rows) %}
                         <tr>
@@ -83,6 +83,7 @@
             {% else %}
             <p>沒有可顯示的數據。</p>
             {% endif %}
+            <!-- 下方表格取消 -->
         </div>
     </body>
 </html>
