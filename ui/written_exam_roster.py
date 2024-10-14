@@ -23,9 +23,6 @@ def written_exam_roster(content):
     current_driving_test_number = 0 # 每次載入介面時，考試號碼歸零
     clear_frame(content)
 
-    # # 添加列表變數來跟蹤 treeview 號碼流水號自動增加
-    # current_number = [0]
-
     written_exam_roster = frame(content)
     written_exam_roster.columnconfigure(0, weight=1)
     written_exam_roster.columnconfigure(1, weight=1)
@@ -342,6 +339,7 @@ def written_exam_roster(content):
 
         # 讀取年度計畫表資料供 exam_type 使用
         results = annual_plan_data()
+        print(results)
 
         # 获取其他需要的数据
         exam_date = written_exam_date.get()

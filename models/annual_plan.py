@@ -42,7 +42,7 @@ def fetch_and_populate_treeview(treeview):
 
     # 插入數據到 Treeview
     for row in results:
-        treeview.insert("", "end", text=str(row[0]), values=(row[7], row[2], row[3], row[8], row[9], row[4], row[5]))
+        treeview.insert("", "end", text=str(row[0]), values=(row[7], row[2], row[3]+row[5], row[8], row[9], row[4], row[5]))
 
     # 關閉資料庫連線
     conn.close()
