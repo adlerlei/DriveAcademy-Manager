@@ -326,7 +326,7 @@ def written_exam_roster(content):
         template_dir = os.path.join(base_dir, "print")
         env = Environment(loader=FileSystemLoader(template_dir))
         
-        # 根據 for_dmv 的值選擇不同的模板
+        # 根據 for_dmv 的值選擇不同的模板 
         if for_dmv:
             template = env.get_template("written_exam_roster.html")
         else:

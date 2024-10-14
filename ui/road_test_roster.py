@@ -12,15 +12,11 @@ current_student_id = None # 檢測學員資料庫 id 欄位來判定是否修改
 current_driving_test_number = 0 # 考試號碼監聽
 is_adding_new = False # 監聽是否新增學員
 is_searchint = False 
-# current_number = [0]
 
 def  road_test_roster(content):
     global current_driving_test_number, is_adding_new, is_searchint
     current_driving_test_number = 0 # 每次載入界面時，考試號碼歸零
     clear_frame(content)
-
-    # 添加列表變數來跟蹤 treeview 號碼流水號自動增加
-    # current_number = [0]
 
     road_test_roster = frame(content)
     road_test_roster.columnconfigure(0, weight=1)
@@ -258,7 +254,6 @@ def  road_test_roster(content):
             return
         
         update_student_data(student_data, uid=1)
-        # clear_entries_and_comboboxes(road_test_roster)
 
         # 更新顯示的考試號碼
         driving_test_number.configure(state='normal')
@@ -280,18 +275,11 @@ def  road_test_roster(content):
             student_data['road_test_items_type']
         ))
 
-        # 清空輸入字段，但保留某些字段
+        # 清空輸入字段，但保留某些字段 
         keep_entries = [road_test_date, road_test_items_type, driving_test_number, driving_test_group]
         clear_entries_and_comboboxes(road_test_roster, keep_entries)
         current_student_id = None
         is_adding_new = False # 重置
-
-    # 新增此函式以獲取所有新增到 treeview 的學員 ID
-    # def get_all_added_student_ids():
-    #     all_ids = [] # 用於存儲所有新增學員的 ID
-    #     for item in data_list.get_children(): # 獲取所有項目
-    #         all_ids.append(data_list.item(item)['values'][0]) # 假設學員 ID 在第一列
-    #     return all_ids
 
     # 新增按鈕
     add_btn(road_test_roster, text='新增道考清冊', command=save_student_data).grid(row=7, column=1, sticky='wen', padx=(10,0))

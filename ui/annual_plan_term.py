@@ -76,39 +76,7 @@ def annual_plan_term(content):
     end_date = entry(annual_plan_term)
     end_date.grid(row=5, column=2, columnspan=2, sticky='wen', padx=10)
 
-    # 新增按鈕觸發
-    def add_btn_click():
-        year_value = year.get()
-        term_value = term.get()
-        term_class_code_value = term_class_code.get()
-        batch_value = batch.get()
-        training_type_code_value = training_type_code.get()
-        training_type_name_value = training_type_name.get()
-        start_date_value = start_date.get()
-        end_date_value = end_date.get()
-
-        # 驗證輸入欄位
-        if not all([year_value, term_value, term_class_code_value, batch_value, training_type_code_value, training_type_name_value, start_date_value, end_date_value]):
-            messagebox.showerror('錯誤', '所有欄位不可為空')
-            return
-
-        # 新增資料到資料庫
-        else:
-            insert_annual_plan_data(year_value, term_value, term_class_code_value, batch_value, training_type_code_value, training_type_name_value, start_date_value, end_date_value)
-            
-            # 需要保留的 entry 列表，clear_entries_and_comboboxes 函式中的參數之一 ###
-            keep_entries = [training_type_code, training_type_name]
-            # 新增成功後，清空輸入欄位 
-            clear_entries_and_comboboxes(annual_plan_term, keep_entries)
-            # 即時更新 Treeview
-            fetch_and_populate_treeview(data_list)
-
-    
-    # 新增，刪除，匯出文件 按鈕
-    add_btn(annual_plan_term, text='新增', command=add_btn_click).grid(row=6, column=1, sticky='wen', padx=(10,0), pady=20)
-    delete_btn(annual_plan_term, text='刪除', command=lambda: delete_btn_click(data_list)).grid(row=6, column=2, sticky='wen', padx=(10,0), pady=20)
-    export_btn(annual_plan_term, text='匯出文件', command=lambda: export_selected_data(data_list)).grid(row=6, column=3, sticky='wen', padx=10, pady=20)
-    
+    # 將輸入欄位寫入 treeview
     # 列表框 - 期別新增 - 年度計畫表與期別新增
     data_list = ttk.Treeview(annual_plan_term, show='headings', 
                              columns=('訓練班別名稱', '年度', '期別編號', '開訓日期', '結訓日期', '上課期別代碼'), height=25)
@@ -151,3 +119,36 @@ def annual_plan_term(content):
         
     # 調用函數填充 Treeview（進入介面時會直接抓取資料庫呈現資料列表）
     fetch_and_populate_treeview(data_list)
+
+    # 新增按鈕觸發
+    def add_btn_click():
+        year_value = year.get()
+        term_value = term.get()
+        term_class_code_value = term_class_code.get()
+        batch_value = batch.get()
+        training_type_code_value = training_type_code.get()
+        training_type_name_value = training_type_name.get()
+        start_date_value = start_date.get()
+        end_date_value = end_date.get()
+
+        # 驗證輸入欄位
+        if not all([year_value, term_value, term_class_code_value, batch_value, training_type_code_value, training_type_name_value, start_date_value, end_date_value]):
+            messagebox.showerror('錯誤', '所有欄位不可為空')
+            return
+
+        # 新增資料到資料庫
+        else:
+            insert_annual_plan_data(year_value, term_value, term_class_code_value, batch_value, training_type_code_value, training_type_name_value, start_date_value, end_date_value)
+            
+            # 需要保留的 entry 列表，clear_entries_and_comboboxes 函式中的參數之一 ###
+            keep_entries = [training_type_code, training_type_name]
+            # 新增成功後，清空輸入欄位 
+            clear_entries_and_comboboxes(annual_plan_term, keep_entries)
+            # 即時更新 Treeview
+            fetch_and_populate_treeview(data_list)
+
+    
+    # 新增，刪除，匯出文件 按鈕
+    add_btn(annual_plan_term, text='新增', command=add_btn_click).grid(row=6, column=1, sticky='wen', padx=(10,0), pady=20)
+    delete_btn(annual_plan_term, text='刪除', command=lambda: delete_btn_click(data_list)).grid(row=6, column=2, sticky='wen', padx=(10,0), pady=20)
+    export_btn(annual_plan_term, text='匯出文件', command=lambda: export_selected_data(data_list)).grid(row=6, column=3, sticky='wen', padx=10, pady=20)
