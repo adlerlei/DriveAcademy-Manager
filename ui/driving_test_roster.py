@@ -3,8 +3,14 @@
 from utils.widget import *
 from utils.config import *
 from models.test import *
+from models.annual_plan import annual_plan_data
 import customtkinter as ctk
 from tkinter import messagebox
+import webbrowser
+import pyautogui
+import time
+import os
+from jinja2 import Environment, FileSystemLoader
 
 
 current_student_id = None # 檢測學員資料庫 id 欄位來判定是否修改或新增
@@ -284,11 +290,80 @@ def driving_test_roster(content):
         for item in data_list.get_children():  # 獲取所有項目
             all_ids.append(data_list.item(item)['values'][0])  # 假設學員 ID 在第一列
         return all_ids
+    
+    def get_treeview_data():
+        data = []
+        for item in data_list.get_children():
+            values = data_list.item(item)['values']
+            data.append({
+                'driving_test_number': values[0],
+                'student_name': values[1],
+                'birth_date': values[2],
+                'national_id_no': values[3],
+                'register_number': values[4],
+            })
+        return data
+
+    def print_html_report(for_dmv=True):
+        base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        template_dir = os.path.join(base_dir, "print")
+        env = Environment(loader=FileSystemLoader(template_dir))
+        
+        # 根據 for_dmv 的值選擇不同的模板 
+        if for_dmv:
+            template = env.get_template("driving_test_roster.html")
+        else:
+            template = env.get_template("driving_test_roster_駕訓班公告.html")
+
+        data = get_treeview_data()
+        if not data:
+            messagebox.showwarning("警告", "沒有數據可以打印")
+            return
+        elif not for_dmv:
+            for item in data:
+                item['national_id_no'] = '0000'
+
+        # 讀取年度計畫表資料供 exam_type 使用
+        results = annual_plan_data()
+
+        # 获取其他需要的数据
+        exam_date = road_test_date.get()
+        class_name = "佑名駕訓班"  # 请替换为实际的班名
+        exam_type = results[0][6]
+        period = f"第 {results[0][2]} 期 {'&nbsp;'*2} {results[0][4]} 梯次 {'&nbsp;'*2} 第 {driving_test_group.get()} 組"  # 请替换为实际的期别
+        exam_date = f"{road_test_date.get()}{'&nbsp;'*10}午  {'&nbsp;'*2} 第{'&nbsp;'*10}組"
+
+        html_content = template.render(
+            students=data,
+            class_name=class_name,
+            exam_type=exam_type,
+            period=period,
+            exam_date=exam_date
+        )
+
+        temp_html_path = os.path.join(base_dir, "print", "temp_written_exam_roster.html")
+        with open(temp_html_path, 'w', encoding='utf-8') as f:
+            f.write(html_content)
+
+        webbrowser.open_new_tab(f'file://{temp_html_path}')
+        
+        # 等待瀏覽器加載
+        time.sleep(3)
+        # 模擬鍵盤操作觸發打印 (Ctrl+P)
+        pyautogui.hotkey('ctrl', 'p')
+        # 等待打印窗口出現
+        time.sleep(2)
+        # 模擬鍵盤操作確認打印 (Enter)
+        # pyautogui.press('enter')
+
+        # 删除临时文件
+        time.sleep(1)  # 等待打印完成
+        os.remove(temp_html_path)
 
     # 新增按鈕
     add_btn(driving_test_roster, text='新增場考清冊', command=save_student_data).grid(row=7, column=1, sticky='wen', padx=(10,0))
     # 列印按鈕
-    print_btn(driving_test_roster, text='列印場考清冊 (監理站用)', command=lambda: None).grid(row=7, column=2, sticky='wen', padx=(10,0))
-    print_btn(driving_test_roster, text='列印場考清冊 (駕訓班用)', command=lambda: None).grid(row=7, column=3, sticky='wen', padx=(10,0))
+    print_btn(driving_test_roster, text='列印場考清冊 (監理站用)', command=lambda:print_html_report(for_dmv=True)).grid(row=7, column=2, sticky='wen', padx=(10,0))
+    print_btn(driving_test_roster, text='列印場考清冊 (駕訓班用)', command=lambda:print_html_report(for_dmv=False)).grid(row=7, column=3, sticky='wen', padx=(10,0))
     # 匯出按鈕
     export_btn(driving_test_roster, text='匯出 場考清冊 文件', command=lambda: export_driving_test_data(database_path, get_all_added_student_ids())).grid(row=8, column=0, columnspan=4, sticky='wen', padx=(10,0), pady=10)
