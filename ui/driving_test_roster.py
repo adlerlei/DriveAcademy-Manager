@@ -297,10 +297,10 @@ def driving_test_roster(content):
             values = data_list.item(item)['values']
             data.append({
                 'driving_test_number': values[0],
-                'student_name': values[1],
-                'birth_date': values[2],
-                'national_id_no': values[3],
-                'register_number': values[4],
+                'student_name': values[4],
+                'birth_date': values[5],
+                'national_id_no': values[6],
+                'register_number': values[2],
             })
         return data
 
