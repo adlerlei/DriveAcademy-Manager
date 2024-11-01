@@ -5,7 +5,13 @@ from utils.config import *
 from models.test import *
 import customtkinter as ctk
 from tkinter import messagebox
+<<<<<<< HEAD
 
+=======
+ 
+# 檢測學員資料庫 id 欄位來判定是否修改或新增
+current_student_id = None
+>>>>>>> cursor_ai
 
 current_student_id = None # 檢測學員資料庫 id 欄位來判定是否修改或新增
 current_driving_test_number = 0 # 考試號碼監聽

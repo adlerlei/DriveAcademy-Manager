@@ -65,8 +65,13 @@ def get_student_data(identifier, value):
     conn = sqlite3.connect(database_path)
     cursor = conn.cursor()
     
-    query = f"SELECT * FROM student WHERE {identifier} = ?"
-    cursor.execute(query, (value,))
+    if identifier in ['student_number', 'student_name', 'national_id_no']:
+        query = f"SELECT * FROM student WHERE {identifier} LIKE ?"
+        cursor.execute(query, (f"%{value}%",))
+    else:
+        query = f"SELECT * FROM student WHERE {identifier} = ?"
+        cursor.execute(query, (value,))
+    
     result = cursor.fetchone()
 
     conn.close()

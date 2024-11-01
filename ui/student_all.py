@@ -68,7 +68,11 @@ def student_all(content):
 
     # 學員編號
     label(student_all, text='學員編號').grid(row=4, column=0, sticky='ws', padx=(10,0), pady=(20,0))
+<<<<<<< HEAD
     student_number = entry(student_all, placeholder_text=' 🔎')
+=======
+    student_number = entry(student_all, placeholder_text='編號查詢')
+>>>>>>> cursor_ai
     student_number.grid(row=5, column=0, sticky='wen', padx=(10,0))
     student_number.bind("<FocusOut>", lambda event: check_and_populate('student_number', student_number.get()))
 
@@ -82,6 +86,7 @@ def student_all(content):
 
     # 學員姓名
     label(student_all, text='學員姓名').grid(row=6, column=0, sticky='ws', padx=(10,0), pady=(20,0))
+<<<<<<< HEAD
     student_name = entry(student_all, placeholder_text=' 🔎')
     student_name.grid(row=7, column=0, sticky='wen', padx=(10,0))
     student_name.bind("<FocusOut>", lambda event: check_and_populate('student_name', student_name.get()))
@@ -91,6 +96,18 @@ def student_all(content):
     national_id_no = entry(student_all, placeholder_text=' 🔎')
     national_id_no.grid(row=7, column=1, sticky='wen', padx=(10,0))
     national_id_no.bind("<FocusOut>", lambda event: check_and_populate('national_id_no', national_id_no.get()))
+=======
+    student_name = entry(student_all, placeholder_text='姓名查詢')
+    student_name.grid(row=7, column=0, sticky='wen', padx=(10,0))
+    student_name.bind("<KeyRelease>", lambda event: populate_student_data('student_name', student_name.get()))
+
+
+    # 身分證號碼
+    label(student_all, text='身分證號碼').grid(row=6, column=1, sticky='ws', padx=(10,0), pady=(20,0))
+    national_id_no = entry(student_all, placeholder_text='身分證查詢')
+    national_id_no.grid(row=7, column=1, sticky='wen', padx=(10,0))
+    national_id_no.bind("<KeyRelease>", lambda event: populate_student_data('national_id_no', national_id_no.get()))
+>>>>>>> cursor_ai
 
 
     # 出生日期
@@ -101,9 +118,15 @@ def student_all(content):
 
     # 行動電話
     label(student_all, text='手機').grid(row=8, column=1, sticky='ws', padx=(10,0), pady=(20,0))
+<<<<<<< HEAD
     mobile_phone = entry(student_all, placeholder_text=' 🔎')
     mobile_phone.grid(row=9, column=1, sticky='wen', padx=(10,0))
     mobile_phone.bind("<FocusOut>", lambda event: check_and_populate('mobile_phone', mobile_phone.get()))
+=======
+    mobile_phone = entry(student_all, placeholder_text='手機查詢')
+    mobile_phone.grid(row=9, column=1, sticky='wen', padx=(10,0))
+    mobile_phone.bind("<KeyRelease>", lambda event: populate_student_data('mobile_phone', mobile_phone.get()))
+>>>>>>> cursor_ai
 
 
     # 戶籍地址
@@ -173,6 +196,11 @@ def student_all(content):
     label(student_all, text='電子郵件').grid(row=6, column=2, sticky='ws', padx=(10,0), pady=(20,0))
     email = entry(student_all)
     email.grid(row=7, column=2, columnspan=2, sticky='wen', padx=10)
+<<<<<<< HEAD
+=======
+    email.bind("<KeyRelease>", lambda event: populate_student_data('email', email.get()))
+
+>>>>>>> cursor_ai
 
     # 備註
     label(student_all, text='備註').grid(row=8, column=2, sticky='ws', padx=(10,0), pady=(20,0))
@@ -227,6 +255,7 @@ def student_all(content):
     creation_date.grid(row=17, column=1, sticky='wen', padx=(10,0))
 
 
+<<<<<<< HEAD
     # 學員資料顯示在輸入欄位�� 
     def check_and_populate(identifier, value):
         global is_searching
@@ -300,6 +329,59 @@ def student_all(content):
         else:
             learner_permit_date.insert(0, '')
         learner_permit_date.configure(state='readonly')
+=======
+    # 學員資料顯示在輸入欄位上 
+    def populate_student_data(identifier, value):
+        global is_editing, current_student_id
+        # 監聽學員編號輸入欄位如果為空，清除學員資料
+        if value == '':
+            clear_entries_and_comboboxes(student_all)
+            is_editing = False
+            current_student_id = None
+        else:
+            student_data = get_student_data(identifier, value)
+            if student_data:
+                is_editing = True
+                current_student_id = student_data[0]
+          
+                # 保存当前触发搜索的字段值
+                current_field_value = value
+          
+                # 填充数据
+                training_type_code.set(student_data[3])
+                training_type_name.set(student_data[4])
+                license_type_code.set(student_data[1])
+                license_type_name.set(student_data[2])
+                student_number.delete(0, ctk.END)
+                student_number.insert(0, student_data[5])
+                batch.set(student_data[7])
+                student_name.delete(0, ctk.END)
+                student_name.insert(0, student_data[6])
+                national_id_no.delete(0, ctk.END)
+                national_id_no.insert(0, student_data[10])
+                birth_date.delete(0, ctk.END)
+                birth_date.insert(0, student_data[9])
+                mobile_phone.delete(0, ctk.END)
+                mobile_phone.insert(0, student_data[11])
+                r_address_zip_code.set(student_data[19])
+                r_address_city.set(student_data[20])
+                r_address.delete(0, ctk.END)
+                r_address.insert(0, student_data[21])
+                home_phone.delete(0, ctk.END)
+                home_phone.insert(0, student_data[12])
+                gender.set(student_data[16])
+                education.set(student_data[13])
+                instructor_number.set(student_data[14])
+                instructor_name.set(student_data[15])
+                email.delete(0, ctk.END)
+                email.insert(0, student_data[17])
+                remarks.delete(0, ctk.END)
+                remarks.insert(0, student_data[18])
+                m_address_zip_code.set(student_data[22])
+                m_address_city.set(student_data[23])
+                m_address.delete(0, ctk.END)
+                m_address.insert(0, student_data[24])
+>>>>>>> cursor_ai
 
         # 学照号码
         learner_permit_number.configure(state='normal')
@@ -310,6 +392,7 @@ def student_all(content):
             learner_permit_number.insert(0, '')
         learner_permit_number.configure(state='readonly')
 
+<<<<<<< HEAD
         # 是否退训
         dropout.configure(state='normal')
         dropout.delete(0, ctk.END)
@@ -325,6 +408,32 @@ def student_all(content):
         if student_data[34]:
             register_number.insert(0, student_data[34])
         register_number.configure(state='readonly')
+=======
+                # 學照號碼
+                learner_permit_number.configure(state='normal')
+                learner_permit_number.delete(0, ctk.END)
+                if student_data[27]:
+                    learner_permit_number.insert(0, student_data[27])
+                else:
+                    learner_permit_number.insert(0, '')
+                learner_permit_number.configure(state='readonly')
+
+                # 是否退訓 
+                dropout.configure(state='normal')
+                dropout.delete(0, ctk.END)
+                if student_data[33]:
+                    dropout.insert(0, student_data[33])
+                else:
+                    dropout.insert(0, '')
+                dropout.configure(state='readonly')
+
+                # 名冊號碼
+                register_number.configure(state='normal')
+                register_number.delete(0, ctk.END)
+                if student_data[34]:
+                    register_number.insert(0, student_data[34])
+                register_number.configure(state='readonly')
+>>>>>>> cursor_ai
 
         # 路试日期
         road_test_date.configure(state='normal')
@@ -335,6 +444,7 @@ def student_all(content):
             road_test_date.insert(0, '')
         road_test_date.configure(state='readonly')
 
+<<<<<<< HEAD
         # 建档日期
         creation_date.configure(state='normal')
         creation_date.delete(0, ctk.END)
@@ -343,6 +453,31 @@ def student_all(content):
         else:
             creation_date.insert(0, '')
         creation_date.configure(state='readonly')
+=======
+                # 建檔日期
+                creation_date.configure(state='normal')
+                creation_date.delete(0, ctk.END)
+                creation_date.insert(0, student_data[46])
+                creation_date.configure(state='readonly')
+
+                # 恢复当前触发搜索的字段值
+                if identifier == 'student_number':
+                    student_number.delete(0, ctk.END)
+                    student_number.insert(0, current_field_value)
+                elif identifier == 'student_name':
+                    student_name.delete(0, ctk.END)
+                    student_name.insert(0, current_field_value)
+                elif identifier == 'national_id_no':
+                    national_id_no.delete(0, ctk.END)
+                    national_id_no.insert(0, current_field_value)
+                elif identifier == 'mobile_phone':
+                    mobile_phone.delete(0, ctk.END)
+                    mobile_phone.insert(0, current_field_value)
+            else:
+                # 如果没有查询到学生资料,则重置 is_editing 和 current_student_id
+                is_editing = False
+                current_student_id = None    
+>>>>>>> cursor_ai
 
     # 獲取輸入欄位信息
     def get_data_and_insert():
@@ -383,7 +518,7 @@ def student_all(content):
                 messagebox.showwarning('提示', f'{validation_fields[field]} 欄位不能為空！')
                 is_adding_new = False  # 重置标志
                 return
-        
+
         # 如果是編輯模式，提示使用者無法新增
         if is_editing:
             messagebox.showinfo('提示', '無法新增學員，請使用 "修改" 功能。')
@@ -435,6 +570,7 @@ def student_all(content):
             'm_address': m_address.get(),
             'id': current_student_id
         }
+<<<<<<< HEAD
         
         update_student_data(student_data)
         
@@ -443,6 +579,17 @@ def student_all(content):
         keep_entries = [training_type_code, training_type_name, license_type_code, license_type_name]
         clear_entries_and_comboboxes(student_all, keep_entries)
         is_editing = True
+=======
+
+        if current_student_id is None:
+            messagebox.showwarning('提示', '請先查詢並選擇要修改的學員資料。')
+            return
+        else:
+            update_student_data(student_data)
+
+        clear_entries_and_comboboxes(student_all)
+ 
+>>>>>>> cursor_ai
 
     # 刪除按鈕的事件處理函數
     def delete_student():
@@ -462,7 +609,24 @@ def student_all(content):
         else:
             messagebox.showwarning('提示', '請先輸入要刪除的學員資料！')
 
+<<<<<<< HEAD
     # 修改按钮配置
     add_btn(student_all, text='新增', command=get_data_and_insert).grid(row=13, column=1, sticky='wen', padx=(10,0), pady=20)
     modify_btn(student_all, text='修改', command=update_student).grid(row=13, column=2, sticky='wen', padx=(10,0), pady=20)
     delete_btn(student_all, text='刪除', command=delete_student).grid(row=13, column=3, sticky='wen', padx=10, pady=20)
+=======
+
+    # 清除所有欄位
+    def clear_all_fields():
+        clear_entries_and_comboboxes(student_all)
+        global is_editing, current_student_id
+        is_editing = False
+        current_student_id = None
+
+
+    # 按鈕配置
+    clear_btn(student_all, text='清除', command=clear_all_fields).grid(row=13, column=0, sticky='wen', padx=(10,0), pady=(50,40))
+    add_btn(student_all, text='新增', command=get_data_and_insert).grid(row=13, column=1, sticky='wen', padx=(10,0), pady=(50,40))
+    modify_btn(student_all, text='修改', command=update_student).grid(row=13, column=2, sticky='wen', padx=(10,0), pady=(50,40))
+    delete_btn(student_all, text='刪除', command=delete_student).grid(row=13, column=3, sticky='wen', padx=10, pady=(50,40))
+>>>>>>> cursor_ai
