@@ -1,90 +1,57 @@
 <!doctype html>
 <html lang="zh-TW">
-    <head>
-        <meta charset="UTF-8" />
-        <title>開訓名冊列印(駕訓班公告)</title>
-        <link rel="stylesheet" href="bulma/css/bulma.min.css" />
-    </head>
-    <body>
-        <div class="container is-fluid">
-            <div class="columns is-flex is-align-items-flex-end mb-0">
-                <div class="is-2 column has-text-left is-size-6 has-text-weight-bold">交通部公路 局</div>
-                <div class="is-6 column has-text-left is-size-6 has-text-weight-bold">
-                    監理所(站)汽車駕駛人考驗記錄清冊
-                </div>
-                <div class="is-2 column has-text-right is-size-7">班名：佑名駕訓班</div>
-                <div class="is-2 column has-text-right is-size-7">考驗別：{{ exam_type }}</div>
-            </div>
-            <div class="columns is-align-items-flex-end">
-                <div class="column has-text-left is-size-7">期別：{{ period }}</div>
-                <div class="column has-text-right is-size-7">場考日期：{{ exam_date }}</div>
-            </div>
-        </div>
-        <div class="column">
-            {% if students %}
-            {% set students_per_page = 40 %}
-            {% set pages = (students|length + students_per_page - 1) // students_per_page %}
-            
-            {% for page in range(pages) %}
-            <table class="table is-bordered is-striped is-fullwidth is-size-7">
-                <thead>
-                    <tr>
-                        {% for i in range(2) %}
-                            <th>序號</th>
-                            <th>姓名</th>
-                            <th>出生日期</th>
-                            <th>筆試</th>
-                            <th>場考</th>
-                            <th>道考</th>			
-                            <th>身份證字號</th>
-                            <th>備註</th>
-                        {% endfor %}
-                    </tr>
-                </thead>
-                <tbody>
-                    {% macro render_student(student) %}
-                        <td>{{ student.driving_test_number }}</td>
-                        <td>{{ student.student_name }}</td>
-                        <td>{{ student.birth_date }}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>{{ student.national_id_no }}</td>
-                        <td>{{ student.register_number }}</td>
-                    {% endmacro %}
 
-                    {% set start_index = page * students_per_page %}
-                    {% set end_index = start_index + students_per_page %}
-                    {% set page_students = students[start_index:end_index] %}
-                    {% set left_limit = 20 %}
-                    {% set rows = [page_students|length, 20]|min %}
-                    
-                    {% for i in range(rows) %}
-                        <tr>
-                            {# 左側表格 #}
-                            {{ render_student(page_students[i]) }}
+<head>
+    <meta charset="UTF-8" />
+    <title>開訓名冊列印(監理所用)</title>
+    <link rel="stylesheet" href="bulma/css/bulma.min.css" />
+</head>
 
-                            {# 右側表格 #}
-                            {% set right_index = i + left_limit %}
-                            {% if right_index < page_students|length %}
-                                {{ render_student(page_students[right_index]) }}
-                            {% else %}
-                                {% for _ in range(7) %}<td></td>{% endfor %}
-                            {% endif %}
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            
-            {% if not loop.last %}
-            <div style="page-break-after: always;"></div>
-            {% endif %}
-            
-            {% endfor %}
-            {% else %}
-            <p>沒有可顯示的數據。</p>
-            {% endif %}
-            <!-- 下方表格取消 -->
-        </div>
-    </body>
+<body>
+    <div class="column is-size-7 pb-0">
+        <table class="table is-bordered is-fullwidth">
+            <tr>
+                <td>佑名駕訓班</td>
+                <td>普通小型車班第 203 期</td>
+                <td>A 梯次學員開訓名冊</td>
+                <td>開訓日期：113年11月30號</td>
+                <td>結訓日期：114年05月03號</td>
+            </tr>
+        </table>
+    </div>
+    <div class="column is-size-7 pt-0">
+        <table class="table is-bordered is-striped is-fullwidth">
+        <thead>
+            <tr>
+                <th class="is-vcentered has-text-centered" rowspan="2">學號</th>
+                <th class="is-vcentered has-text-centered" rowspan="2">姓名</th>
+                <th class="is-vcentered has-text-centered" rowspan="2">性別</th>
+                <th class="has-text-centered" colspan="3">出生</th>
+                <th class="is-vcentered has-text-centered" rowspan="2">身分證字號</th>
+                <th class="is-vcentered has-text-centered" rowspan="2">地址</th>
+                <th class="is-vcentered has-text-centered" rowspan="2">備註</th>
+            </tr>
+            <tr>
+                <th class="has-text-centered">年</th>
+                <th class="has-text-centered">月</th>
+                <th class="has-text-centered">日</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+</body>
+
 </html>
