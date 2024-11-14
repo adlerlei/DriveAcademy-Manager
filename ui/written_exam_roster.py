@@ -1,4 +1,4 @@
-# 筆試清冊作業 介面
+# 筆試清冊作業 介面 
 # 對應資料庫邏輯介面 models/test.py
 from utils.widget import *
 from utils.config import *
@@ -352,7 +352,7 @@ def written_exam_roster(content):
         # 等待打印窗口出現
         time.sleep(2)
         # 模擬鍵盤操作確認打印 (Enter)
-        # pyautogui.press('enter')
+        pyautogui.press('enter')
 
         # 删除临时文件
         time.sleep(1)  # 等待打印完成

@@ -3,8 +3,16 @@
 from utils.widget import *
 from utils.config import * 
 from models.training import *
+from models.annual_plan import annual_plan_data
 import customtkinter as ctk
 from tkinter import messagebox
+import webbrowser
+import pyautogui
+import time
+import os
+from jinja2 import Environment, FileSystemLoader
+import webbrowser
+import time
 
 # 檢測學員資料庫 id 欄位來判定是否修改或新增
 current_student_id = None
@@ -441,8 +449,103 @@ def opening_training_roster(content):
             student_data['training_type_code']
         ))
 
+    # 新增函示以獲取所有新增到 treeview 的學員 ID
+    def get_all_added_student_ids():
+        all_ids = []  # 用於存儲所有新增學員的 ID
+        for item in data_list.get_children():  # 獲取所有項目
+            all_ids.append(data_list.item(item)['values'][0])  # 假設學員 ID 在第一列
+        return all_ids
+    
+    # 獲取輸入欄位中需要顯示在列印頁面上的信息:
+    def get_treeview_data():
+        data = []
+        for item in data_list.get_children():
+            values = data_list.item(item)['values']
+            data.append({
+                # 學員編號
+                'student_number': values[2],
+                # 學員姓名
+                'student_name': values[3],
+                # 性別
+                'gender': values[7],
+                # 出生年月日
+                'birth_date': values[8],
+                # 身分證字號
+                'national_id_no': values[9],
+                # 地址
+                'r_address_city_road': values[11],
+                # 名冊號碼
+                'register_number': values[0],
+            })
+        return data
+    
+    # 列印函式
+    def print_html_report(for_dmv=True):
+        base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        template_dir = os.path.join(base_dir, "print")
+        env = Environment(loader=FileSystemLoader(template_dir))
+
+        # 根據 for_dmv 的值選擇不同的列印模板
+        if for_dmv:
+            template = env.get_template("opening_training_rester.html")
+        else:
+            template = env.get_template("opening_training_rester_駕訓班公告.html")
+
+        data = get_treeview_data()
+        if not data:
+            messagebox.showwarning("警告", "沒有數據可以打印")
+            return
+        elif not for_dmv:
+            for item in data:
+                item['national_id_no'] = '0000'
+
+        # 讀取年度計畫表資
+        results = annual_plan_data()
+
+        # 獲取 annual_plan 資料表的 training_type_name, term, batch, start_date, end_date 數據
+        class_name = "佑名駕訓班"  # 请替换为实际的班名
+        training_type_name = results[0][6] 
+        term = results[0][2]
+        batch = results[0][4]
+        start_date = results[0][7]
+        end_date = results[0][8]
+
+        html_content = template.render(
+            students=data,
+            class_name=class_name,
+            training_type_name=training_type_name,
+            term=term,
+            batch=batch,
+            start_date=start_date,
+            end_date=end_date
+        )
+
+        temp_html_path = os.path.join(base_dir, "print", "temp_opening_training_rester.html")
+        with open(temp_html_path, 'w', encoding='utf-8') as f:
+            f.write(html_content)
+
+        webbrowser.open_new_tab(f'file://{temp_html_path}')
+
+        # 等待瀏覽器加載
+        time.sleep(5)
+        # 模擬鍵盤操作觸發打印 (Ctrl+P)
+        # pyautogui.hotkey('ctrl', 'p')
+        pyautogui.hotkey('command', 'p')
+        # 等待打印窗口出現
+        time.sleep(5)
+        # 模擬鍵盤操作確認打印 (Enter)
+        pyautogui.press('enter')
+
+        # 删除临时文件
+        time.sleep(1)  # 等待打印完成
+        os.remove(temp_html_path)
+
+
+
+        
 
     # 按鈕
     btn(opening_training_roster, text='加入開訓名冊', command=save_student_data).grid(row=11, column=2, sticky='wen', padx=(10, 0))
-    print_btn(opening_training_roster, text='列印開訓名冊', command=None).grid(row=11, column=3, sticky='wen', padx=10)
-    export_btn(opening_training_roster, text='匯出文件', command=lambda: export_selected_data(data_list)).grid(row=12, column=0, columnspan=4, sticky='wen', pady=(20,0), padx=10)
+    print_btn(opening_training_roster, text='列印開訓名冊(駕訓班用)', command=lambda: print_html_report(for_dmv=False)).grid(row=12, column=0, columnspan=2, sticky='wen', padx=(10,0), pady=10)
+    print_btn(opening_training_roster, text='列印開訓名冊(監理站用)', command=lambda: print_html_report(for_dmv=True)).grid(row=12, column=2, columnspan=2, sticky='wen', padx=10, pady=10)
+    export_btn(opening_training_roster, text='匯出文件', command=lambda: export_selected_data(data_list)).grid(row=11, column=3, sticky='wen', padx=10)
