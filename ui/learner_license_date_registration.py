@@ -26,25 +26,15 @@ def learner_license_date_registration(content):
 
     # 顯示 / 搜尋 學員編號
     label(learner_license_date_registration, text='學員編號').grid(row=0, column=0, sticky='ws', padx=(10,0), pady=(10,0))
-<<<<<<< HEAD
-    student_number = entry(learner_license_date_registration, placeholder_text=" 🔎")
-=======
     student_number = entry(learner_license_date_registration, placeholder_text="編號查詢")
->>>>>>> cursor_ai
     student_number.grid(row=1, column=0, sticky='wen', padx=(10,0))
     student_number.bind("<KeyRelease>", lambda event: check_and_populate('student_number', student_number.get()))
 
     # 顯示 / 搜尋 學員姓名
     label(learner_license_date_registration, text='學員姓名').grid(row=0, column=1, sticky='ws', padx=(10,0), pady=(10,0))
-<<<<<<< HEAD
-    student_name = entry(learner_license_date_registration, placeholder_text=" 🔎")
-    student_name.grid(row=1, column=1, sticky='wen', padx=(10,0))
-    student_name.bind("<KeyRelease>", lambda event: check_and_populate('student_name', student_name.get()))
-=======
     student_name = entry(learner_license_date_registration, placeholder_text="姓名查詢")
     student_name.grid(row=1, column=1, sticky='wen', padx=(10,0))
     student_name.bind("<KeyRelease>", lambda event: populate_student_data('student_name', student_name.get()))
->>>>>>> cursor_ai
 
     # 顯示考照類別
     label(learner_license_date_registration, text='考照類別').grid(row=0, column=2, sticky='ws', padx=(10,0), pady=(10,0))
@@ -55,27 +45,15 @@ def learner_license_date_registration(content):
 
     # 顯示 / 搜尋 學員身分證號碼
     label(learner_license_date_registration, text='身分證號').grid(row=2, column=0, sticky='ws', padx=(10,0), pady=(10,0))
-<<<<<<< HEAD
-    national_id_no = entry(learner_license_date_registration, placeholder_text=" 🔎")
-    national_id_no.grid(row=3, column=0, sticky='wen', padx=(10,0))
-    national_id_no.bind("<KeyRelease>", lambda event: check_and_populate('national_id_no', national_id_no.get()))
-=======
     national_id_no = entry(learner_license_date_registration, placeholder_text="身分證查詢")
     national_id_no.grid(row=3, column=0, sticky='wen', padx=(10,0))
     national_id_no.bind("<KeyRelease>", lambda event: populate_student_data('national_id_no', national_id_no.get()))
->>>>>>> cursor_ai
 
     # 顯示聯絡手機
     label(learner_license_date_registration, text='聯絡手機').grid(row=2, column=1, sticky='ws', padx=(10,0), pady=(10,0))
-<<<<<<< HEAD
-    mobile_phone = entry(learner_license_date_registration, placeholder_text=" 🔎")
-    mobile_phone.grid(row=3, column=1, sticky='wen', padx=(10,0))
-    mobile_phone.bind("<KeyRelease>", lambda event: check_and_populate('mobile_phone', mobile_phone.get()))
-=======
     mobile_phone = entry(learner_license_date_registration, placeholder_text="手機查詢")
     mobile_phone.grid(row=3, column=1, sticky='wen', padx=(10,0))
     mobile_phone.bind("<KeyRelease>", lambda event: populate_student_data('mobile_phone', mobile_phone.get()))
->>>>>>> cursor_ai
 
     # 顯示學員出生日期
     label(learner_license_date_registration, text='出生日期').grid(row=2, column=2, sticky='ws', padx=(10,0), pady=(10,0))
@@ -190,62 +168,6 @@ def learner_license_date_registration(content):
     # 搜尋學員資料庫並且在 entry 顯示學員資料
     def populate_student_data(identifier, value):
         global current_student_id
-<<<<<<< HEAD
-        student_data = get_student_data(identifier, value)
-        if student_data:
-            # 獲取學員資料庫 id 序列
-            current_student_id = student_data[0]
-            # 學員編號
-            student_number.delete(0, ctk.END)
-            student_number.insert(0, student_data[5])
-            # 學員姓名
-            student_name.delete(0, ctk.END)
-            student_name.insert(0, student_data[6])
-            # 身分證號
-            national_id_no.delete(0, ctk.END)
-            national_id_no.insert(0, student_data[10])
-            # 聯絡手機
-            mobile_phone.configure(state='normal')
-            mobile_phone.delete(0, ctk.END)
-            mobile_phone.insert(0, student_data[11])
-            mobile_phone.configure(state='readonly')
-            # 出生日期
-            birth_date.configure(state='normal')
-            birth_date.delete(0, ctk.END)
-            birth_date.insert(0, student_data[9])
-            birth_date.configure(state='readonly')
-            # 考照類別 代號
-            license_type_code.configure(state='normal')
-            license_type_code.delete(0, ctk.END)
-            license_type_code.insert(0, student_data[1])
-            license_type_code.configure(state='readonly')
-            # 考照類別 名稱
-            license_type_name.configure(state='normal')
-            license_type_name.delete(0, ctk.END)
-            license_type_name.insert(0, student_data[2])
-            license_type_name.configure(state='readonly')
-            # 備註
-            remarks.configure(state='normal')
-            remarks.delete(0, ctk.END)
-            remarks.insert(0, student_data[18])
-            remarks.configure(state='readonly')
-            # 戶籍地址 郵遞區號
-            r_address_zip_code.configure(state='normal')
-            r_address_zip_code.delete(0, ctk.END)
-            r_address_zip_code.insert(0, student_data[19])
-            r_address_zip_code.configure(state='readonly')
-            # 戶籍地址 縣市區域
-            r_address_city.configure(state='normal')
-            r_address_city.delete(0, ctk.END)
-            r_address_city.insert(0, student_data[20])
-            r_address_city.configure(state='readonly') 
-            # 戶籍地址 地址
-            r_address.configure(state='normal')
-            r_address.delete(0, ctk.END)
-            r_address.insert(0, student_data[21])
-            r_address.configure(state='readonly')
-
-=======
         # 監聽學員編號輸入欄位如果為空，清除學員資料
         if value == '':
             clear_entries_and_comboboxes(learner_license_date_registration)
@@ -313,7 +235,6 @@ def learner_license_date_registration(content):
                 # 如果沒有查詢到學生資料，則重置 current_student_id
                 current_student_id = None
 
->>>>>>> cursor_ai
     # 獲取輸入欄位信息
     def save_student_data():
         uid = 1
