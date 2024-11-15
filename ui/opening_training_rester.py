@@ -461,20 +461,35 @@ def opening_training_roster(content):
         data = []
         for item in data_list.get_children():
             values = data_list.item(item)['values']
+            # 獲取原始日期字符串
+            birth_date = str(values[8]) if values[8] is not None else ''
+            
+            # 轉換日期格式
+            if birth_date and len(birth_date) >= 6:  # 允許年份位數變化
+                # 從後往前取值，因為月日固定是最後4位
+                day = birth_date[-2:]  # 最後2位是日
+                month = birth_date[-4:-2]  # 倒數第3-4位是月
+                year = birth_date[:-4]  # 剩下的都是年
+                
+                # 驗證月份和日期的有效性
+                if month.isdigit() and day.isdigit() and 1 <= int(month) <= 12 and 1 <= int(day) <= 31:
+                    print(f"轉換後的日期: {year}年{month}月{day}日")  # 調試輸出
+                else:
+                    year, month, day = '-', '-', '-'
+                    print("無效的月份或日期")
+            else:
+                year, month, day = '-', '-', '-'
+                print("日期格式不符合要求")
+            
             data.append({
-                # 學員編號
                 'student_number': values[2],
-                # 學員姓名
                 'student_name': values[3],
-                # 性別
                 'gender': values[7],
-                # 出生年月日
-                'birth_date': values[8],
-                # 身分證字號
+                'birth_year': year,
+                'birth_month': month,
+                'birth_day': day,
                 'national_id_no': values[9],
-                # 地址
                 'r_address_city_road': values[11],
-                # 名冊號碼
                 'register_number': values[0],
             })
         return data
@@ -509,6 +524,7 @@ def opening_training_roster(content):
         batch = results[0][4]
         start_date = results[0][7]
         end_date = results[0][8]
+        
 
         html_content = template.render(
             students=data,
@@ -529,12 +545,14 @@ def opening_training_roster(content):
         # 等待瀏覽器加載
         time.sleep(3) 
         # 模擬鍵盤操作觸發打印 (Ctrl+P)
-        # pyautogui.hotkey('ctrl', 'p')
-        pyautogui.hotkey('command', 'p')
+        # 每個按鍵之間延遲0.1秒
+        pyautogui.hotkey('ctrl', 'p', interval=0.1)
+        # 每個按鍵之間延遲0.1秒
+        # pyautogui.hotkey('command', 'p', interval=0.1)
         # 等待打印窗口出現
         time.sleep(2)
         # 模擬鍵盤操作確認打印 (Enter)
-        pyautogui.press('enter')
+        # pyautogui.press('enter')
 
         # 删除临时文件
         time.sleep(1)  # 等待打印完成
