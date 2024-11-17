@@ -294,9 +294,9 @@ def opening_training_roster(content):
             else:
                 learner_permit_date.insert(0, '')
 
+            register_number.delete(0, ctk.END)
             if student_data[34] is not None:
                 register_number.insert(0, student_data[34])
-                # messagebox.showinfo('提示用戶', '該學員已經存在名冊號碼')
             else:
                 register_number.insert(0, '')
 
@@ -473,13 +473,12 @@ def opening_training_roster(content):
                 
                 # 驗證月份和日期的有效性
                 if month.isdigit() and day.isdigit() and 1 <= int(month) <= 12 and 1 <= int(day) <= 31:
-                    print(f"轉換後的日期: {year}年{month}月{day}日")  # 調試輸出
+                    # 正確的日期格式，不需要輸出
+                    pass
                 else:
                     year, month, day = '-', '-', '-'
-                    print("無效的月份或日期")
             else:
                 year, month, day = '-', '-', '-'
-                print("日期格式不符合要求")
             
             data.append({
                 'student_number': values[2],
@@ -500,7 +499,7 @@ def opening_training_roster(content):
         template_dir = os.path.join(base_dir, "print")
         env = Environment(loader=FileSystemLoader(template_dir))
 
-        # 根據 for_dmv 的值選擇不同的列印模板
+        # 根據 for_dmv 的值選擇不的列印模板
         if for_dmv:
             template = env.get_template("opening_training_rester.html")
         else:
