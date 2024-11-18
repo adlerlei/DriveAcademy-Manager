@@ -1,57 +1,64 @@
-<!doctype html>
+<!doctype html> 
 <html lang="zh-TW">
 
 <head>
     <meta charset="UTF-8" />
-    <title>開訓名冊列印(監理所用)</title>
+    <title>開訓名冊列印(駕訓班用)</title>
     <link rel="stylesheet" href="bulma/css/bulma.min.css" />
 </head>
 
 <body>
+    {% for page in students|batch(25) %}
+    {% if not loop.first %}
+    <div style="page-break-before: always;"></div>
+    {% endif %}
     <div class="column is-size-7 pb-0">
         <table class="table is-bordered is-fullwidth">
             <tr>
                 <td>佑名駕訓班</td>
-                <td>普通小型車班第 203 期</td>
-                <td>A 梯次學員開訓名冊</td>
-                <td>開訓日期：113年11月30號</td>
-                <td>結訓日期：114年05月03號</td>
+                <td>{{ training_type_name }} &nbsp;{{ term }} &nbsp;期</td>
+                <td>{{ batch }} 梯次學員開訓名冊</td>
+                <td>開訓日期：{{ start_date }}</td>
+                <td>結訓日期：{{ end_date }}</td>
             </tr>
         </table>
     </div>
     <div class="column is-size-7 pt-0">
         <table class="table is-bordered is-striped is-fullwidth">
-        <thead>
-            <tr>
-                <th class="is-vcentered has-text-centered" rowspan="2">學號</th>
-                <th class="is-vcentered has-text-centered" rowspan="2">姓名</th>
-                <th class="is-vcentered has-text-centered" rowspan="2">性別</th>
-                <th class="has-text-centered" colspan="3">出生</th>
-                <th class="is-vcentered has-text-centered" rowspan="2">身分證字號</th>
-                <th class="is-vcentered has-text-centered" rowspan="2">地址</th>
-                <th class="is-vcentered has-text-centered" rowspan="2">備註</th>
-            </tr>
-            <tr>
-                <th class="has-text-centered">年</th>
-                <th class="has-text-centered">月</th>
-                <th class="has-text-centered">日</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-        </tbody>
-    </table>
+            <thead>
+                <tr>
+                    <th class="is-vcentered has-text-centered" rowspan="2">學號</th>
+                    <th class="is-vcentered has-text-centered" rowspan="2">姓名</th>
+                    <th class="is-vcentered has-text-centered" rowspan="2">性別</th>
+                    <th class="has-text-centered" colspan="3">出生</th>
+                    <th class="is-vcentered has-text-centered" rowspan="2">身分證字號</th>
+                    <th class="is-vcentered has-text-centered" rowspan="2">地址</th>
+                    <th class="is-vcentered has-text-centered" rowspan="2">備註</th>
+                </tr>
+                <tr>
+                    <th class="has-text-centered">年</th>
+                    <th class="has-text-centered">月</th>
+                    <th class="has-text-centered">日</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in page %}
+                <tr>
+                    <td class="has-text-centered">{{ student.register_number }}</td>
+                    <td class="has-text-centered">{{ student.student_name }}</td>
+                    <td class="has-text-centered">{{ student.gender }}</td>
+                    <td class="has-text-centered">{{ student.birth_year }}</td>
+                    <td class="has-text-centered">{{ student.birth_month }}</td>
+                    <td class="has-text-centered">{{ student.birth_day }}</td>
+                    <td class="has-text-centered">{{ student.national_id_no }}</td>
+                    <td class="has-text-centered">{{ student.r_address_city_road }}</td>
+                    <td class="has-text-centered">{{ student.learner_permit_date }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
+    {% endfor %}
 </body>
 
 </html>

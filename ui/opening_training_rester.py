@@ -432,7 +432,7 @@ def opening_training_roster(content):
             if not student_data[field]:
                 messagebox.showwarning('提示', f'{validation_fields[field]} 欄位不能為空！')
                 return
-            
+
         if current_student_id is None:
             messagebox.showwarning('提示', '請先搜尋學員資料！')
             return
@@ -458,7 +458,7 @@ def opening_training_roster(content):
             student_data['training_type_code']
         ))
 
-    
+
     # 獲取輸入欄位中需要顯示在列印頁面上的信息:
     def get_treeview_data():
         data = []
@@ -466,7 +466,7 @@ def opening_training_roster(content):
             values = data_list.item(item)['values']
             # 獲取原始日期字符串
             birth_date = str(values[8]) if values[8] is not None else ''
-            
+      
             # 轉換日期格式
             if birth_date and len(birth_date) >= 6:  # 允許年份位數變化
                 # 從後往前取值，因為月日固定是最後4位
@@ -483,7 +483,7 @@ def opening_training_roster(content):
             else:
                 year, month, day = '-', '-', '-'
 
-            
+
             data.append({
                 # 'student_number': values[2], # 學員編號
                 'register_number': values[0], # 名冊號碼
@@ -497,7 +497,7 @@ def opening_training_roster(content):
                 'learner_permit_date': values[12], # 學照登錄日期
             })
         return data
-    
+
     # 列印函式
     def print_html_report(for_dmv=True):
         base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -542,7 +542,7 @@ def opening_training_roster(content):
             end_month = end_date[-4:-2]
             end_day = end_date[-2:]
             end_date = f"{end_year} 年 {end_month} 月 {end_day} 日"
-        
+
 
         html_content = template.render(
             students=data,
@@ -578,9 +578,6 @@ def opening_training_roster(content):
         time.sleep(1)  # 等待打印完成
         os.remove(temp_html_path)
 
-
-
-        
 
     # 按鈕
     btn(opening_training_roster, text='加入開訓名冊', command=save_student_data).grid(row=11, column=2, sticky='wen', padx=(10, 0))
