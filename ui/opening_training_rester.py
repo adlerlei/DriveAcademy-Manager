@@ -409,6 +409,14 @@ def opening_training_roster(content):
             'id': current_student_id
         }
 
+        # 格式化 learner_permit_date 日期
+        formatted_learner_permit_date = student_data['learner_permit_date']
+        if formatted_learner_permit_date and len(formatted_learner_permit_date) >= 6:
+            year = formatted_learner_permit_date[:-4]
+            month = formatted_learner_permit_date[-4:-2]
+            day = formatted_learner_permit_date[-2:]
+            formatted_learner_permit_date = f"{year} / {month} / {day}"
+
 
         required_fields = [ 
             'exam_code',
@@ -445,16 +453,11 @@ def opening_training_roster(content):
             student_data['national_id_no'],
             student_data['r_address_zip_code'],
             student_data['r_address_city_road'],
-            student_data['learner_permit_date'],
+            # student_data['learner_permit_date'],
+            formatted_learner_permit_date,  # 使用格式化後的日期
             student_data['training_type_code']
         ))
 
-    # 新增函示以獲取所有新增到 treeview 的學員 ID
-    def get_all_added_student_ids():
-        all_ids = []  # 用於存儲所有新增學員的 ID
-        for item in data_list.get_children():  # 獲取所有項目
-            all_ids.append(data_list.item(item)['values'][0])  # 假設學員 ID 在第一列
-        return all_ids
     
     # 獲取輸入欄位中需要顯示在列印頁面上的信息:
     def get_treeview_data():
@@ -479,17 +482,19 @@ def opening_training_roster(content):
                     year, month, day = '-', '-', '-'
             else:
                 year, month, day = '-', '-', '-'
+
             
             data.append({
-                'student_number': values[2],
-                'student_name': values[3],
-                'gender': values[7],
-                'birth_year': year,
-                'birth_month': month,
-                'birth_day': day,
-                'national_id_no': values[9],
-                'r_address_city_road': values[11],
-                'register_number': values[0],
+                # 'student_number': values[2], # 學員編號
+                'register_number': values[0], # 名冊號碼
+                'student_name': values[3], # 學員姓名
+                'gender': values[7], # 性別
+                'birth_year': year, # 生日-年
+                'birth_month': month, # 生日-月
+                'birth_day': day, # 生日-日
+                'national_id_no': values[9], # 身分證字號
+                'r_address_city_road': values[11], # 地址
+                'learner_permit_date': values[12], # 學照登錄日期
             })
         return data
     
@@ -513,16 +518,30 @@ def opening_training_roster(content):
             for item in data:
                 item['national_id_no'] = '0000'
 
-        # 讀取年度計畫表資
+        # 讀取年度計畫表資料信息
         results = annual_plan_data()
 
         # 獲取 annual_plan 資料表的 training_type_name, term, batch, start_date, end_date 數據
         class_name = "佑名駕訓班"  # 请替换为实际的班名
-        training_type_name = results[0][6] 
-        term = results[0][2]
-        batch = results[0][4]
-        start_date = results[0][7]
-        end_date = results[0][8]
+        training_type_name = results[0][6] # 訓練班別名稱
+        term = results[0][2] # 期別
+        batch = results[0][4] # 梯次
+        start_date = results[0][7] # 開訓日期
+        end_date = results[0][8] # 結訓日期
+
+        # 將開訓日期的值拆分成年月日
+        if start_date and len(start_date) >= 6:
+            start_year = start_date[:-4]
+            start_month = start_date[-4:-2]
+            start_day = start_date[-2:]
+            start_date = f"{start_year} 年 {start_month} 月 {start_day} 日"
+
+        # 將結訓日期的值拆分成年月日
+        if end_date and len(end_date) >= 6:
+            end_year = end_date[:-4]
+            end_month = end_date[-4:-2]
+            end_day = end_date[-2:]
+            end_date = f"{end_year} 年 {end_month} 月 {end_day} 日"
         
 
         html_content = template.render(
@@ -532,8 +551,10 @@ def opening_training_roster(content):
             term=term,
             batch=batch,
             start_date=start_date,
-            end_date=end_date
+            end_date=end_date,
+            learner_permit_date=learner_permit_date
         )
+
 
         temp_html_path = os.path.join(base_dir, "print", "temp_opening_training_rester.html")
         with open(temp_html_path, 'w', encoding='utf-8') as f:

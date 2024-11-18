@@ -44,7 +44,7 @@
             <tbody>
                 {% for student in page %}
                 <tr>
-                    <td class="has-text-centered">{{ student.student_number }}</td>
+                    <td class="has-text-centered">{{ student.register_number }}</td>
                     <td class="has-text-centered">{{ student.student_name }}</td>
                     <td class="has-text-centered">{{ student.gender }}</td>
                     <td class="has-text-centered">{{ student.birth_year }}</td>
@@ -52,7 +52,7 @@
                     <td class="has-text-centered">{{ student.birth_day }}</td>
                     <td class="has-text-centered">{{ student.national_id_no }}</td>
                     <td class="has-text-centered">{{ student.r_address_city_road }}</td>
-                    <td class="has-text-centered"></td>
+                    <td class="has-text-centered">{{ student.learner_permit_date }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
