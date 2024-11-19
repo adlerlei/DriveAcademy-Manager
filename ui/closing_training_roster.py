@@ -384,6 +384,14 @@ def closing_training_roster(content):
             'id': current_student_id
         }
 
+        # 格式化 learner_permit_date 日期
+        formatted_learner_permit_date = student_data['learner_permit_date']
+        if formatted_learner_permit_date and len(formatted_learner_permit_date) >= 6:
+            year = formatted_learner_permit_date[:-4]
+            month = formatted_learner_permit_date[-4:-2]
+            day = formatted_learner_permit_date[-2:]
+            formatted_learner_permit_date = f"{year} / {month} / {day}"
+
         # 驗證 名冊期別，來源，手自排，教練 輸入欄位是否為空
         required_fields = [
             'dropout',
@@ -420,7 +428,8 @@ def closing_training_roster(content):
             student_data['national_id_no'],
             student_data['r_address_zip_code'],
             student_data['r_address_city_road'],
-            student_data['learner_permit_date']
+            # student_data['learner_permit_date'],
+            formatted_learner_permit_date  # 使用格式化後的日期
         ))
 
     # 獲取輸入欄位中需要顯示在列印頁面上的信息:
