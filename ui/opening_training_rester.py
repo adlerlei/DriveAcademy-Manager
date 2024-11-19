@@ -563,16 +563,13 @@ def opening_training_roster(content):
         webbrowser.open_new_tab(f'file://{temp_html_path}')
 
         # 等待瀏覽器加載
-        time.sleep(3) 
+        time.sleep(3)
         # 模擬鍵盤操作觸發打印 (Ctrl+P)
-        # 每個按鍵之間延遲0.1秒
         pyautogui.hotkey('ctrl', 'p', interval=0.1)
-        # 每個按鍵之間延遲0.1秒
-        # pyautogui.hotkey('command', 'p', interval=0.1)
         # 等待打印窗口出現
         time.sleep(2)
         # 模擬鍵盤操作確認打印 (Enter)
-        # pyautogui.press('enter')
+        pyautogui.press('enter')
 
         # 删除临时文件
         time.sleep(1)  # 等待打印完成

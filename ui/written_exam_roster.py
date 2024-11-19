@@ -348,7 +348,7 @@ def written_exam_roster(content):
         # 等待瀏覽器加載
         time.sleep(3)
         # 模擬鍵盤操作觸發打印 (Ctrl+P)
-        pyautogui.hotkey('ctrl', 'p')
+        pyautogui.hotkey('ctrl', 'p', interval=0.1)
         # 等待打印窗口出現
         time.sleep(2)
         # 模擬鍵盤操作確認打印 (Enter)

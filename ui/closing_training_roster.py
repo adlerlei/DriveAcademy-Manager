@@ -537,15 +537,12 @@ def closing_training_roster(content):
 
         # 等待瀏覽器加載
         time.sleep(3) 
-        # 模擬鍵盤操作觸發打印 (Ctrl+P)
         # 每個按鍵之間延遲0.1秒
         pyautogui.hotkey('ctrl', 'p', interval=0.1)
-        # 每個按鍵之間延遲0.1秒
-        # pyautogui.hotkey('command', 'p', interval=0.1)
         # 等待打印窗口出現
         time.sleep(2)
         # 模擬鍵盤操作確認打印 (Enter)
-        # pyautogui.press('enter')
+        pyautogui.press('enter')
 
         # 删除临时文件
         time.sleep(1)  # 等待打印完成
@@ -556,6 +553,3 @@ def closing_training_roster(content):
     export_btn(closing_training_roster, text='匯出文件', command=lambda: export_selected_data(data_list)).grid(row=11, column=1, sticky='wen', padx=(10, 0), pady=10)
     print_btn(closing_training_roster, text='列印結訓名冊(監理所用)', command=lambda: print_html_report(for_dmv=True)).grid(row=11, column=2, sticky='wen', padx=(10, 0), pady=10)
     print_btn(closing_training_roster, text='列印結訓名冊(駕訓班用)', command=lambda: print_html_report(for_dmv=False)).grid(row=11, column=3, sticky='wen', padx=10, pady=10)
-    # btn(closing_training_roster, text='加入結訓名冊', command=save_student_data).grid(row=10, column=1, sticky='wen', padx=(10, 0))
-    # print_btn(closing_training_roster, text='列印結訓名冊', command=None).grid(row=10, column=2, sticky='wen', padx=(10, 0))
-    # export_btn(closing_training_roster, text='匯出文件', command=lambda: export_selected_data(data_list)).grid(row=10, column=3, sticky='wen', padx=10)
