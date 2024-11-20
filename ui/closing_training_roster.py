@@ -413,7 +413,7 @@ def closing_training_roster(content):
 
         update_student_data(student_data, uid=uid)
         clear_entries_and_comboboxes(closing_training_roster)
-
+ 
         # 讀取 save_student_data 的資料寫入 treeview
         data_list.insert('', 'end', values = (
             student_data['register_number'],
