@@ -291,7 +291,7 @@ def driving_test_roster(content):
             all_ids.append(data_list.item(item)['values'][0])  # 假設學員 ID 在第一列
         return all_ids
     
-    def get_treeview_data():
+    def get_treeview_data(): 
         data = []
         for item in data_list.get_children():
             values = data_list.item(item)['values']
@@ -367,3 +367,8 @@ def driving_test_roster(content):
     print_btn(driving_test_roster, text='列印場考清冊 (駕訓班用)', command=lambda:print_html_report(for_dmv=False)).grid(row=7, column=3, sticky='wen', padx=(10,0))
     # 匯出按鈕
     export_btn(driving_test_roster, text='匯出 場考清冊 文件', command=lambda: export_driving_test_data(database_path, get_all_added_student_ids())).grid(row=8, column=0, columnspan=4, sticky='wen', padx=(10,0), pady=10)
+
+    # 列印紀錄
+    # 上午 / 下午 下拉選單
+    time_of_day = combobox(driving_test_roster, values=['上午', '下午'])
+    print_btn(driving_test_roster, text='列印紀錄', command=None).grid(row=11, column=2, columnspan=2, sticky='wen', padx=(10,0), pady=10)
