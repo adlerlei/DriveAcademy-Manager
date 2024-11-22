@@ -11,10 +11,6 @@ import pyautogui
 import time
 import os
 from jinja2 import Environment, FileSystemLoader
-import logging
-
-# 配置日誌
-logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
 current_student_id = None # 檢測學員資料庫 id 欄位來判定是否修改或新增
@@ -443,11 +439,11 @@ def driving_test_roster(content):
             # 等待瀏覽器加載
             time.sleep(3)
             # 模擬鍵盤操作觸發打印 (Ctrl+P)
-            pyautogui.hotkey('command', 'p', interval=0.1)
+            pyautogui.hotkey('ctrl', 'p', interval=0.1)
             # 等待打印窗口出現
             time.sleep(2)
             # 模擬鍵盤操作確認打印 (Enter)
-            # pyautogui.press('enter')
+            pyautogui.press('enter')
 
             # 删除临时文件
             time.sleep(1)  # 等待打印完成

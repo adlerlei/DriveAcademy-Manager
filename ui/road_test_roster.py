@@ -96,6 +96,17 @@ def  road_test_roster(content):
     road_test_items_type = combobox(road_test_roster, values=['1', '2', '3'])
     road_test_items_type.grid(row=7, column=0, sticky='wen',padx=(10,0))
 
+    # 列印紀錄下拉選單 上午 / 下午
+    morning = combobox(road_test_roster, values=['上午', '下午'])
+    morning.grid(row=11, column=0, sticky='wen', padx=(10,0), pady=10)
+
+    # 列印紀錄 開始號碼 / 結束號碼
+    start_number = entry(road_test_roster, placeholder_text='開始號碼')
+    start_number.grid(row=11, column=1, sticky='wen', padx=(10,0), pady=10)
+    # 結束號碼
+    end_number = entry(road_test_roster, placeholder_text='結束號碼')
+    end_number.grid(row=11, column=2, sticky='wen', padx=(10,0), pady=10)
+
     # treeview
     columns = (
         'driving_test_number', # 考試號碼42
@@ -144,8 +155,8 @@ def  road_test_roster(content):
     data_list.configure(yscrollcommand=v_scrollbar.set)
 
     # 使用 grid 布局管理器來排列 Treeview 和捲軸
-    h_scrollbar.grid(row=15, column=0, columnspan=4, sticky="ew", padx=10)
-    v_scrollbar.grid(row=14, column=4, rowspan=2, sticky="ns", pady=10)
+    h_scrollbar.grid(row=10, column=0, columnspan=4, sticky="ew", padx=10)
+    v_scrollbar.grid(row=9, column=4, rowspan=2, sticky="ns", pady=10)
 
     # 配置行和列的權重，使其在窗口調整大小時自動調整
     road_test_roster.grid_rowconfigure(9, weight=1)
@@ -237,6 +248,12 @@ def  road_test_roster(content):
         global current_student_id, current_driving_test_number, is_adding_new
         is_adding_new = True # 設置標誌表示正在添加新學員
 
+        # 檢查是否已搜尋學員資料
+        if current_student_id is None:
+            messagebox.showwarning('警告', '請輸入學員資料！')
+            is_adding_new = False  # 重製新增學員標誌
+            return
+
         # 偵測號碼自動增加流水號
         current_driving_test_number += 1
 
@@ -253,11 +270,6 @@ def  road_test_roster(content):
             'national_id_no': national_id_no.get(),
             'driving_test_group': driving_test_group.get(),
         }
-
-        if current_student_id is None:
-            messagebox.showwarning('警告', '請先搜尋學員資料！')
-            is_adding_new = False # 重製新增學員標誌
-            return
         
         update_student_data(student_data, uid=1)
 
@@ -363,8 +375,85 @@ def  road_test_roster(content):
         time.sleep(1)  # 等待打印完成
         os.remove(temp_html_path)
 
+    # 列印考試號碼邏輯功能
+    def print_score_sheet():
+        base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        template_dir = os.path.join(base_dir, "print")
+        env = Environment(loader=FileSystemLoader(template_dir))
+        template = env.get_template("r_score_sheet.html")
+
+        data = get_treeview_data()
+        if not data:
+            messagebox.showwarning("警告", "沒有數據可以打印")
+            return
+
+        # 場考日期
+        exam_date = road_test_date.get()
+        # 上午或下午
+        selected_morning = morning.get()
+        # 組別
+        group = driving_test_group.get()
+        # 開始號碼
+        start_num = start_number.get()
+        # 結束號碼
+        end_num = end_number.get()
+        # 號碼
+        test_driving_test_number = driving_test_number.get()
+        # 學員姓名
+        name = student_name.get()
+
+        # 轉換 exam_date 格式 為 年月日
+        exam_date = f"{exam_date[:3]}年{exam_date[3:5]}月{exam_date[5:7]}日"
+
+
+        if not start_num.isdigit() or not end_num.isdigit():
+            messagebox.showwarning("警告", "請輸入有效的開始號碼和結束號碼")
+            return
+
+        start_num = int(start_num)
+        end_num = int(end_num)
+
+        # 篩選符合條件的數據
+        filtered_data = [item for item in data if start_num <= int(item['driving_test_number']) <= end_num]
+
+        if not filtered_data:
+            messagebox.showwarning("警告", "沒有符合條件的數據")
+            return
+
+        # logging.debug(f"Filtered Data: {filtered_data}")
+
+        html_content = template.render(
+            students=filtered_data,                 # 學員資料
+            exam_date=exam_date,                    # 考試日期
+            period=selected_morning,                # 上午或下午
+            group=group,                            # 組別
+            test_driving_test_number=test_driving_test_number,  # 號碼
+            name=name,                              # 學員姓名
+        )
+
+        temp_html_path = os.path.join(base_dir, "print", "temp_score_sheet.html")
+        with open(temp_html_path, 'w', encoding='utf-8') as f:
+            f.write(html_content)
+
+        webbrowser.open_new_tab(f'file://{temp_html_path}')
+        
+        # 等待瀏覽器加載
+        time.sleep(3)
+        # 模擬鍵盤操作觸發打印 (Ctrl+P)
+        pyautogui.hotkey('ctrl', 'p', interval=0.1)
+        # 等待打印窗口出現
+        time.sleep(2)
+        # 模擬鍵盤操作確認打印 (Enter)
+        pyautogui.press('enter')
+
+        # 删除临时文件
+        time.sleep(1)  # 等待打印完成
+        os.remove(temp_html_path)
+
     # 新增按鈕
     add_btn(road_test_roster, text='新增道考清冊', command=save_student_data).grid(row=7, column=1, sticky='wen', padx=(10,0))
     # 列印按鈕
     print_btn(road_test_roster, text='列印道考清冊 (監理站用)', command=lambda: print_html_report(for_dmv=True)).grid(row=7, column=2, sticky='wen', padx=(10,0))
     print_btn(road_test_roster, text='列印道考清冊 (駕訓班用)', command=lambda: print_html_report(for_dmv=False)).grid(row=7, column=3, sticky='wen', padx=(10,0))
+    # 列印紀錄按鈕
+    print_btn(road_test_roster, text='列印紀錄', command=lambda: print_score_sheet()).grid(row=11, column=3, sticky='wen', padx=(10,0), pady=10)
