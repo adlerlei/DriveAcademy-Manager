@@ -64,37 +64,50 @@
         @media print {
             .page {
                 page-break-after: always;
+
+                box-sizing: border-box;
             }
-        }
-        .page {
-            width: 210mm; /* A4 寬度 */
-            height: 297mm; /* A4 高度 */
-            box-sizing: border-box;
-            padding: 20mm;
-        }
-        .page:last-child {
-            page-break-after: never;
+            .page:last-child {
+                page-break-after: avoid;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>成績單</h1>
-    <p>時段: {{ period }}</p>
     {% for student in students %}
     <div class="page">
         <!-- 場考日期、時段、組別 -->
-        <div class="columns">
-            <div class="column">場考日期：{{ exam_date }}</div>
-            <div class="column">時段：{{ period }}</div>
-            <div class="column">第 {{ group }} 組</div>
+        <div class="columns has-text-weight-bold is-size-5" style="margin-top:70px;">
+            <div class="column">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                場考日期：{{ exam_date }}
+                &nbsp;&nbsp;
+                {{ period }}
+                &nbsp;&nbsp;
+                第 {{ group }} 組
+            </div>
+            <!-- <div class="column is-6 has-text-right">場考日期：{{ exam_date }}</div>
+            <div class="column is-2 has-text-centered">{{ period }}</div>
+            <div class="column is-3 has-text-left">第 {{ group }} 組</div>
+            <div class="column is-0"></div> -->
         </div>
         <!-- 編號和姓名 -->
-        <div class="columns">
-            <div class="column">編號：{{ student.driving_test_number }}</div>
-            <div class="column">姓名：{{ student.student_name }}</div>
+        <div class="columns has-text-weight-bold is-size-5">
+            <div class="column">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                編號：{{ student.driving_test_number }}
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                姓名：{{ student.student_name }}
+            </div>
+            <!-- <div class="column is-2"></div>
+            <div class="column is-4 has-text-left">編號：{{ student.driving_test_number }}</div>
+            <div class="column is-4 has-text-left">姓名：{{ student.student_name }}</div>
+            <div class="column is-2"></div> -->
         </div>
         <!-- 如果需要，可以添加更多學員相關資訊 -->
     </div>
     {% endfor %}
+
 </body>
 </html>

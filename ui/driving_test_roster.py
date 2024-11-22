@@ -321,6 +321,7 @@ def driving_test_roster(content):
             })
         return data
 
+    # 列印場考清冊邏輯功能
     def print_html_report(for_dmv=True):
         base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         template_dir = os.path.join(base_dir, "print")
@@ -379,7 +380,6 @@ def driving_test_roster(content):
 
     # 列印考試號碼邏輯功能
     def print_score_sheet():
-        try:
             base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
             template_dir = os.path.join(base_dir, "print")
             env = Environment(loader=FileSystemLoader(template_dir))
@@ -405,13 +405,9 @@ def driving_test_roster(content):
             # 學員姓名
             name = student_name.get()
 
-            logging.debug(f"Exam Date: {exam_date}")
-            logging.debug(f"Period: {selected_morning}")
-            logging.debug(f"Group: {group}")
-            logging.debug(f"Start Number: {start_num}")
-            logging.debug(f"End Number: {end_num}")
-            logging.debug(f"Test Driving Test Number: {test_driving_test_number}")
-            logging.debug(f"Student Name: {name}")
+            # 轉換 exam_date 格式 為 年月日
+            exam_date = f"{exam_date[:3]}年{exam_date[3:5]}月{exam_date[5:7]}日"
+
 
             if not start_num.isdigit() or not end_num.isdigit():
                 messagebox.showwarning("警告", "請輸入有效的開始號碼和結束號碼")
@@ -427,7 +423,7 @@ def driving_test_roster(content):
                 messagebox.showwarning("警告", "沒有符合條件的數據")
                 return
 
-            logging.debug(f"Filtered Data: {filtered_data}")
+            # logging.debug(f"Filtered Data: {filtered_data}")
 
             html_content = template.render(
                 students=filtered_data,                 # 學員資料
@@ -451,19 +447,11 @@ def driving_test_roster(content):
             # 等待打印窗口出現
             time.sleep(2)
             # 模擬鍵盤操作確認打印 (Enter)
-            pyautogui.press('enter')
+            # pyautogui.press('enter')
 
             # 删除临时文件
             time.sleep(1)  # 等待打印完成
             os.remove(temp_html_path)
-
-            logging.info("Print score sheet successfully.")
-        except Exception as e:
-            logging.error(f"An error occurred in print_score_sheet: {e}")
-            messagebox.showerror("錯誤", f"列印失敗: {e}")
-
-    # 列印紀錄按鈕
-    print_btn(driving_test_roster, text='列印紀錄', command=print_score_sheet).grid(row=11, column=3, sticky='wen', padx=(10,0), pady=10)
 
 
     # 新增按鈕
