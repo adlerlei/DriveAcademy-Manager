@@ -60,7 +60,7 @@ def get_term_data():
     return term_list
 
 
-# 根據指定的條件查詢學員資料
+# 根據指定的條件查詢學員資料 
 def get_student_data(identifier, value):
     conn = sqlite3.connect(database_path)
     cursor = conn.cursor()

@@ -116,7 +116,7 @@ def opening_training_roster(content):
     r_address = display_entry_value(opening_training_roster)
     r_address.grid(row=7, column=2, columnspan=2, sticky='wen',padx=10)
     
-    # 來源 下拉選單 ################################################
+    # 來源 下拉選單 ################################################ 
     exam_codes = ['A','B','C','G','Z']
     exam_names = ['新考','晉考','換考','吊扣註銷重考','臨時駕駛執照']
     # 使用 zip 函數生成字典來填充 exam_code
@@ -141,6 +141,44 @@ def opening_training_roster(content):
     def on_exam_name_changed(select_name, exam_code, exam_dict):
         select_code = exam_dict.get(select_name, "")
         exam_code.set(select_code)
+    # 來源 下拉選單 ################################################
+    
+    # 從資料庫抓取 exam_code 和 exam_name
+    # exam_codes = []
+    # exam_names = []
+    # exam_dict_c = {}
+    # exam_dict_n = {}
+
+    # conn = sqlite3.connect(database_path)
+    # cursor = conn.cursor()
+    # cursor.execute("SELECT DISTINCT exam_code, exam_name FROM student")
+    # for row in cursor.fetchall():
+    #     exam_code = row[0]
+    #     exam_name = row[1]
+    #     if exam_code and exam_name:  # 確保 exam_code 和 exam_name 不為空
+    #         exam_codes.append(exam_code)
+    #         exam_names.append(exam_name)
+    #         exam_dict_c[exam_code] = exam_name
+    #         exam_dict_n[exam_name] = exam_code
+    # conn.close()
+
+    # label(opening_training_roster, text='來源').grid(row=8, column=0, sticky='ws', padx=(10,0), pady=(50,0))
+    # exam_code = combobox(opening_training_roster, values=exam_codes, command=lambda x: on_exam_code_changed(x, exam_name, exam_dict_c))
+    # exam_code.grid(row=9, column=0, sticky='wen', padx=(10,0))
+    # exam_name = combobox(opening_training_roster, values=exam_names, command=lambda x: on_exam_name_changed(x, exam_code, exam_dict_n))
+    # exam_name.grid(row=9, column=1, sticky='wen', padx=(10,0))
+    # exam_code.set('')
+    # exam_name.set('')
+
+    # # 來源拉選單監聽 code 改變時，自動更新 name 名稱
+    # def on_exam_code_changed(select_code, exam_name, exam_dict):
+    #     select_name = exam_dict.get(select_code, "")
+    #     exam_name.set(select_name)
+
+    # # 來源下拉選單監聽 name 改變時，自動更新 code 名稱
+    # def on_exam_name_changed(select_name, exam_code, exam_dict):
+    #     select_code = exam_dict.get(select_name, "")
+    #     exam_code.set(select_code)
     # 來源 下拉選單 END ##############################################
 
     # 手自排 下拉選單
