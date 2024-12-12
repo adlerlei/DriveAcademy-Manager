@@ -252,6 +252,7 @@ def student_all(content):
         student_data = get_student_data(identifier, value)
         
         if student_data is None:
+            messagebox.showwarning('提示', "未找到學員資料")
             return
         
         is_editing = True
@@ -271,8 +272,13 @@ def student_all(content):
         national_id_no.insert(0, student_data[10])
         birth_date.delete(0, ctk.END)
         birth_date.insert(0, student_data[9])
-        mobile_phone.delete(0, ctk.END)
-        mobile_phone.insert(0, student_data[11])
+        # mobile_phone.delete(0, ctk.END)
+        # mobile_phone.insert(0, student_data[11])
+        if student_data[11]:
+            mobile_phone.insert(0, student_data[11])
+        else:
+            mobile_phone.insert(0, '')
+            
         r_address_zip_code.set(student_data[19])
         r_address_city.set(student_data[20])
         r_address.delete(0, ctk.END)
