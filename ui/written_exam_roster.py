@@ -180,49 +180,110 @@ def written_exam_roster(content):
         if student_data:
             # 獲取學員資料庫 id 序列
             current_student_id = student_data[0]
-            # 學員編號
-            student_number.delete(0, ctk.END)
-            student_number.insert(0, student_data[5])
+
             # 學員姓名
+        if student_data[6]:
             student_name.delete(0, ctk.END)
-            student_name.insert(0, student_data[6])
-            # 名冊號碼
-            if student_data[34] is not None:
-                register_number.delete(0, ctk.END)
-                register_number.insert(0, student_data[34])
-            else:
-                register_number.delete(0, ctk.END)
-                register_number.insert(0, '')
-            # 身分證號碼    
+            student_name.insert(0, str(student_data[6]))  # 加入 str()
+        else:
+            student_name.delete(0, ctk.END)
+
+        # 名冊號碼
+        if student_data[34]:
+            register_number.delete(0, ctk.END)
+            register_number.insert(0, str(student_data[34]))  # 加入 str()
+        else:
+            register_number.delete(0, ctk.END)
+
+        # 身分證號碼    
+        if student_data[10]:
             national_id_no.delete(0, ctk.END)
-            national_id_no.insert(0, student_data[10])
-            # 出生日期
+            national_id_no.insert(0, str(student_data[10]))  # 加入 str()
+        else:
+            national_id_no.delete(0, ctk.END)
+
+        # 出生日期
+        if student_data[9]:
             birth_date.configure(state='normal')
             birth_date.delete(0, ctk.END)
-            birth_date.insert(0, student_data[9])
+            birth_date.insert(0, str(student_data[9]))  # 加入 str()
             birth_date.configure(state='readonly')
-            # 訓練班別代號  
+        else:
+            birth_date.configure(state='normal')
+            birth_date.delete(0, ctk.END)
+            birth_date.configure(state='readonly')
+
+        # 訓練班別代號  
+        if student_data[3]:
             training_type_code.configure(state='normal')
             training_type_code.delete(0, ctk.END)
-            training_type_code.insert(0, student_data[3])
+            training_type_code.insert(0, str(student_data[3]))  # 加入 str()
             training_type_code.configure(state='readonly')
-            # 訓練班別名稱
+        else:
+            training_type_code.configure(state='normal')
+            training_type_code.delete(0, ctk.END)
+            training_type_code.configure(state='readonly')
+            
+        # 訓練班別名稱
+        if student_data[4]:
             training_type_name.configure(state='normal')
             training_type_name.delete(0, ctk.END)
-            training_type_name.insert(0, student_data[4])
+            training_type_name.insert(0, str(student_data[4]))  # 加入 str()
             training_type_name.configure(state='readonly')
-            # 期別
-            if student_data[35] is not None:
-                register_term.delete(0, ctk.END)
-                register_term.insert(0, student_data[35])
-            else:
-                register_term.delete(0, ctk.END)
-                register_term.insert(0, '')
-            # 梯次
-            batch.configure(state='normal')
-            batch.delete(0, ctk.END)
-            batch.insert(0, student_data[7])
-            batch.configure(state='readonly')
+        else:
+            training_type_name.configure(state='normal')
+            training_type_name.delete(0, ctk.END)
+            training_type_name.configure(state='readonly')
+
+        # 期別
+        if student_data[35]:
+            register_term.delete(0, ctk.END)
+            register_term.insert(0, str(student_data[35]))  # 加入 str()
+        else:
+            register_term.delete(0, ctk.END)
+            # # 學員編號
+            # student_number.delete(0, ctk.END)
+            # student_number.insert(0, student_data[5])
+            # # 學員姓名
+            # student_name.delete(0, ctk.END)
+            # student_name.insert(0, student_data[6])
+            # # 名冊號碼
+            # if student_data[34] is not None:
+            #     register_number.delete(0, ctk.END)
+            #     register_number.insert(0, student_data[34])
+            # else:
+            #     register_number.delete(0, ctk.END)
+            #     register_number.insert(0, '')
+            # # 身分證號碼    
+            # national_id_no.delete(0, ctk.END)
+            # national_id_no.insert(0, student_data[10])
+            # # 出生日期
+            # birth_date.configure(state='normal')
+            # birth_date.delete(0, ctk.END)
+            # birth_date.insert(0, student_data[9])
+            # birth_date.configure(state='readonly')
+            # # 訓練班別代號  
+            # training_type_code.configure(state='normal')
+            # training_type_code.delete(0, ctk.END)
+            # training_type_code.insert(0, student_data[3])
+            # training_type_code.configure(state='readonly')
+            # # 訓練班別名稱
+            # training_type_name.configure(state='normal')
+            # training_type_name.delete(0, ctk.END)
+            # training_type_name.insert(0, student_data[4])
+            # training_type_name.configure(state='readonly')
+            # # 期別
+            # if student_data[35] is not None:
+            #     register_term.delete(0, ctk.END)
+            #     register_term.insert(0, student_data[35])
+            # else:
+            #     register_term.delete(0, ctk.END)
+            #     register_term.insert(0, '')
+            # # 梯次
+            # batch.configure(state='normal')
+            # batch.delete(0, ctk.END)
+            # batch.insert(0, student_data[7])
+            # batch.configure(state='readonly')
             
 
     # 獲取輸入欄位信息 

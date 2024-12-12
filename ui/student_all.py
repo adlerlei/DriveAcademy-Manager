@@ -252,6 +252,7 @@ def student_all(content):
         student_data = get_student_data(identifier, value)
         
         if student_data is None:
+            messagebox.showwarning('提示', "未找到學員資料")
             return
         
         is_editing = True
