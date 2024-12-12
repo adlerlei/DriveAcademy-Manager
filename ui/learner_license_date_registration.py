@@ -169,58 +169,74 @@ def learner_license_date_registration(content):
     def populate_student_data(identifier, value):
         global current_student_id
         student_data = get_student_data(identifier, value)
+        # 如果没有找到数据，直接返回
+        if not student_data:
+            return
+        
         if student_data:
             # 獲取學員資料庫 id 序列
             current_student_id = student_data[0]
+
             # 學員編號
             student_number.delete(0, ctk.END)
-            student_number.insert(0, student_data[5])
+            student_number.insert(0, str(student_data[5]) if student_data[5] else '')
+
             # 學員姓名
             student_name.delete(0, ctk.END)
-            student_name.insert(0, student_data[6])
+            student_name.insert(0, str(student_data[6]) if student_data[6] else '')
+
             # 身分證號
             national_id_no.delete(0, ctk.END)
-            national_id_no.insert(0, student_data[10])
+            national_id_no.insert(0, str(student_data[10]) if student_data[10] else '')
+
             # 聯絡手機
             mobile_phone.configure(state='normal')
             mobile_phone.delete(0, ctk.END)
-            mobile_phone.insert(0, student_data[11])
+            mobile_phone.insert(0, str(student_data[11]) if student_data[11] else '')
             mobile_phone.configure(state='readonly')
+
             # 出生日期
             birth_date.configure(state='normal')
             birth_date.delete(0, ctk.END)
-            birth_date.insert(0, student_data[9])
+            birth_date.insert(0, str(student_data[9]) if student_data[9] else '')
             birth_date.configure(state='readonly')
+
             # 考照類別 代號
             license_type_code.configure(state='normal')
             license_type_code.delete(0, ctk.END)
-            license_type_code.insert(0, student_data[1])
+            license_type_code.insert(0, str(student_data[1]) if student_data[1] else '')
             license_type_code.configure(state='readonly')
+
             # 考照類別 名稱
             license_type_name.configure(state='normal')
             license_type_name.delete(0, ctk.END)
-            license_type_name.insert(0, student_data[2])
+            license_type_name.insert(0, str(student_data[2]) if student_data[2] else '')
             license_type_name.configure(state='readonly')
+
             # 備註
             remarks.configure(state='normal')
             remarks.delete(0, ctk.END)
-            remarks.insert(0, student_data[18])
+            remarks.insert(0, str(student_data[18]) if student_data[18] else '')
             remarks.configure(state='readonly')
+
             # 戶籍地址 郵遞區號
             r_address_zip_code.configure(state='normal')
             r_address_zip_code.delete(0, ctk.END)
-            r_address_zip_code.insert(0, student_data[19])
+            r_address_zip_code.insert(0, str(student_data[19]) if student_data[19] else '')
             r_address_zip_code.configure(state='readonly')
+
             # 戶籍地址 縣市區域
             r_address_city.configure(state='normal')
             r_address_city.delete(0, ctk.END)
-            r_address_city.insert(0, student_data[20])
-            r_address_city.configure(state='readonly') 
+            r_address_city.insert(0, str(student_data[20]) if student_data[20] else '')
+            r_address_city.configure(state='readonly')
+
             # 戶籍地址 地址
             r_address.configure(state='normal')
             r_address.delete(0, ctk.END)
-            r_address.insert(0, student_data[21])
+            r_address.insert(0, str(student_data[21]) if student_data[21] else '')
             r_address.configure(state='readonly')
+
 
     # 獲取輸入欄位信息
     def save_student_data():

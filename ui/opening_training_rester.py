@@ -34,7 +34,7 @@ def opening_training_roster(content):
     def register_number_data_changed(choice):
         global counter, current_choice  # 使用全域變數
         
-        # 檢查當前選擇的值是否改變
+        # 檢查當前選擇的值是��改變
         if current_choice != choice:
             current_choice = choice
             counter = 1  # 重置計數器
@@ -80,7 +80,7 @@ def opening_training_roster(content):
 
     # 期別 ( 抓取年度計畫期別新增 "期別" 使用下拉選單呈現選擇) 不需要從資料庫讀取，但需要寫入資料庫
     term_data = get_term_data()
-    label(opening_training_roster, text='期別').grid(row=2, column=2, sticky='ws', padx=(10,0), pady=(10,0))
+    label(opening_training_roster, text='期���').grid(row=2, column=2, sticky='ws', padx=(10,0), pady=(10,0))
     register_term = combobox(opening_training_roster, values=term_data, command=register_number_data_changed)
     register_term.grid(row=3, column=2, sticky='wen',padx=(10,0))
     register_term.set('')  # 初始值設為空
@@ -142,44 +142,6 @@ def opening_training_roster(content):
         select_code = exam_dict.get(select_name, "")
         exam_code.set(select_code)
     # 來源 下拉選單 ################################################
-    
-    # 從資料庫抓取 exam_code 和 exam_name
-    # exam_codes = []
-    # exam_names = []
-    # exam_dict_c = {}
-    # exam_dict_n = {}
-
-    # conn = sqlite3.connect(database_path)
-    # cursor = conn.cursor()
-    # cursor.execute("SELECT DISTINCT exam_code, exam_name FROM student")
-    # for row in cursor.fetchall():
-    #     exam_code = row[0]
-    #     exam_name = row[1]
-    #     if exam_code and exam_name:  # 確保 exam_code 和 exam_name 不為空
-    #         exam_codes.append(exam_code)
-    #         exam_names.append(exam_name)
-    #         exam_dict_c[exam_code] = exam_name
-    #         exam_dict_n[exam_name] = exam_code
-    # conn.close()
-
-    # label(opening_training_roster, text='來源').grid(row=8, column=0, sticky='ws', padx=(10,0), pady=(50,0))
-    # exam_code = combobox(opening_training_roster, values=exam_codes, command=lambda x: on_exam_code_changed(x, exam_name, exam_dict_c))
-    # exam_code.grid(row=9, column=0, sticky='wen', padx=(10,0))
-    # exam_name = combobox(opening_training_roster, values=exam_names, command=lambda x: on_exam_name_changed(x, exam_code, exam_dict_n))
-    # exam_name.grid(row=9, column=1, sticky='wen', padx=(10,0))
-    # exam_code.set('')
-    # exam_name.set('')
-
-    # # 來源拉選單監聽 code 改變時，自動更新 name 名稱
-    # def on_exam_code_changed(select_code, exam_name, exam_dict):
-    #     select_name = exam_dict.get(select_code, "")
-    #     exam_name.set(select_name)
-
-    # # 來源下拉選單監聽 name 改變時，自動更新 code 名稱
-    # def on_exam_name_changed(select_name, exam_code, exam_dict):
-    #     select_code = exam_dict.get(select_name, "")
-    #     exam_code.set(select_code)
-    # 來源 下拉選單 END ##############################################
 
     # 手自排 下拉選單
     transmission_type_codes = ['M','A','S']
@@ -314,108 +276,35 @@ def opening_training_roster(content):
         student_data = get_student_data(identifier, value)
         if student_data:
             current_student_id = student_data[0]
-            student_number.delete(0, ctk.END)
-            student_number.insert(0, student_data[5])
-            student_name.delete(0, ctk.END)
-            student_name.insert(0, student_data[6])
-            national_id_no.delete(0, ctk.END)
-            national_id_no.insert(0, student_data[10])
-            birth_date.configure(state='normal')
-            birth_date.delete(0, ctk.END)
-            birth_date.insert(0, student_data[9])
-            birth_date.configure(state='readonly')
-            learner_permit_date.configure(state='normal')
-            learner_permit_date.delete(0, ctk.END)
+            
+            def set_entry(entry_widget, data_index, readonly=False):
+                entry_widget.configure(state='normal')
+                entry_widget.delete(0, ctk.END)
+                entry_widget.insert(0, str(student_data[data_index]) if student_data[data_index] is not None else '')
+                if readonly:
+                    entry_widget.configure(state='readonly')
 
-            if student_data[26] is not None:
-                learner_permit_date.insert(0, student_data[26])
-            else:
-                learner_permit_date.insert(0, '')
-
-            register_number.delete(0, ctk.END)
-            if student_data[34] is not None:
-                register_number.insert(0, student_data[34])
-            else:
-                register_number.insert(0, '')
-
-            if student_data[35] is not None:
-                register_term.set(student_data[35])
-            else:
-                register_term.set('')
-
-            if student_data[29] is not None:
-                exam_code.set(student_data[29])
-            else:
-                exam_code.set('')
-
-            if student_data[30] is not None:
-                exam_name.set(student_data[30])
-            else:
-                exam_name.set('')
-
-            if student_data[31] is not None:
-                transmission_type_code.set(student_data[31])
-            else:
-                transmission_type_code.set('')
-
-            if student_data[32] is not None:
-                transmission_type_name.set(student_data[32])
-            else:
-                transmission_type_name.set('')
-
-            if student_data[14] is not None:
-                instructor_number.set(student_data[14])
-            else:
-                instructor_number.set('')
-
-            if student_data[15] is not None:
-                instructor_name.set(student_data[15])
-            else:
-                instructor_name.set('')
-
-            gender.configure(state='normal')
-            gender.delete(0, ctk.END)
-            gender.insert(0, student_data[16])
-            gender.configure(state='readonly')
-
-            batch.configure(state='normal')
-            batch.delete(0, ctk.END)
-            batch.insert(0, student_data[7])
-            batch.configure(state='readonly')
-
-            register_batch.configure(state='normal')
-            register_batch.delete(0, ctk.END)
-
-            if student_data[8] is not None:
-                register_batch.insert(0, student_data[8])
-            else:
-                register_batch.insert(0, '')
-            register_batch.configure(state='readonly')
-
-            training_type_code.configure(state='normal')
-            training_type_code.delete(0, ctk.END)
-            training_type_code.insert(0, student_data[3])
-            training_type_code.configure(state='readonly')
-
-            training_type_name.configure(state='normal')
-            training_type_name.delete(0, ctk.END)
-            training_type_name.insert(0, student_data[4])
-            training_type_name.configure(state='readonly')
-
-            r_address_zip_code.configure(state='normal')
-            r_address_zip_code.delete(0, ctk.END)
-            r_address_zip_code.insert(0, student_data[19])
-            r_address_zip_code.configure(state='readonly')
-
-            r_address_city.configure(state='normal')
-            r_address_city.delete(0, ctk.END)
-            r_address_city.insert(0, student_data[20])
-            r_address_city.configure(state='readonly')
-
-            r_address.configure(state='normal')
-            r_address.delete(0, ctk.END)
-            r_address.insert(0, student_data[21])
-            r_address.configure(state='readonly')
+            set_entry(student_number, 5)
+            set_entry(student_name, 6)
+            set_entry(national_id_no, 10)
+            set_entry(birth_date, 9, readonly=True)
+            set_entry(learner_permit_date, 26)
+            set_entry(register_number, 34)
+            register_term.set(str(student_data[35]) if student_data[35] is not None else '')
+            exam_code.set(str(student_data[29]) if student_data[29] is not None else '')
+            exam_name.set(str(student_data[30]) if student_data[30] is not None else '')
+            transmission_type_code.set(str(student_data[31]) if student_data[31] is not None else '')
+            transmission_type_name.set(str(student_data[32]) if student_data[32] is not None else '')
+            instructor_number.set(str(student_data[14]) if student_data[14] is not None else '')
+            instructor_name.set(str(student_data[15]) if student_data[15] is not None else '')
+            set_entry(gender, 16, readonly=True)
+            set_entry(batch, 7, readonly=True)
+            set_entry(register_batch, 8, readonly=True)
+            set_entry(training_type_code, 3, readonly=True)
+            set_entry(training_type_name, 4, readonly=True)
+            set_entry(r_address_zip_code, 19, readonly=True)
+            set_entry(r_address_city, 20, readonly=True)
+            set_entry(r_address, 21, readonly=True)
 
 
     # 獲取輸入欄位信息

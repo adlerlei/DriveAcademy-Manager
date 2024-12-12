@@ -244,101 +244,107 @@ def m2_retraining_roster_creation(content):
         current_student_id = None
 
     # 搜尋學員資料庫並且在 entry 顯示學員資料
+
     def populate_student_data(identifier, value):
         global current_student_id
         student_data = get_student_data(identifier, value)
+        # 如果没有找到数据，直接返回
+        if not student_data:
+            return
+        
         if student_data:
             current_student_id = student_data[0]
+
+            # 學員編號
             student_number.delete(0, ctk.END)
-            student_number.insert(0, student_data[5])
+            student_number.insert(0, str(student_data[5]) if student_data[5] else '')
+
+            # 學員姓名
             student_name.delete(0, ctk.END)
-            student_name.insert(0, student_data[6])
+            student_name.insert(0, str(student_data[6]) if student_data[6] else '')
+
+            # 身分證號
             national_id_no.delete(0, ctk.END)
-            national_id_no.insert(0, student_data[10])
+            national_id_no.insert(0, str(student_data[10]) if student_data[10] else '')
+
+            # 出生日期
             birth_date.configure(state='normal')
             birth_date.delete(0, ctk.END)
-            birth_date.insert(0, student_data[9])
+            birth_date.insert(0, str(student_data[9]) if student_data[9] else '')
             birth_date.configure(state='readonly')
 
             # 學照日期
-            if student_data[26] is not None:
-                learner_permit_date.delete(0, ctk.END)
-                learner_permit_date.insert(0, student_data[26])
-            else:
-                learner_permit_date.delete(0, ctk.END)
-                learner_permit_date.insert(0, '')
+            learner_permit_date.delete(0, ctk.END)
+            learner_permit_date.insert(0, str(student_data[26]) if student_data[26] is not None else '')
 
-            if student_data[34] is not None:
-                register_number.delete(0, ctk.END)
-                register_number.insert(0, student_data[34])
-            else:
-                register_number.delete(0, ctk.END)
-                register_number.insert(0, '')
+            # 名冊號碼
+            register_number.delete(0, ctk.END)
+            register_number.insert(0, str(student_data[34]) if student_data[34] is not None else '')
 
-            if student_data[35] is not None:
-                register_term.delete(0, ctk.END)
-                register_term.insert(0, student_data[35])
-            else:
-                register_term.delete(0, ctk.END)
-                register_term.insert(0, '')
+            # 期別
+            register_term.delete(0, ctk.END)
+            register_term.insert(0, str(student_data[35]) if student_data[35] is not None else '')
 
-
+            # 性別
             gender.configure(state='normal')
             gender.delete(0, ctk.END)
-            gender.insert(0, student_data[16])
+            gender.insert(0, str(student_data[16]) if student_data[16] else '')
             gender.configure(state='readonly')
+
+            # 梯次
             batch.configure(state='normal')
             batch.delete(0, ctk.END)
-            batch.insert(0, student_data[7])
+            batch.insert(0, str(student_data[7]) if student_data[7] else '')
             batch.configure(state='readonly')
+
+            # 訓練班別代號
             training_type_code.configure(state='normal')
             training_type_code.delete(0, ctk.END)
-            training_type_code.insert(0, student_data[3])
+            training_type_code.insert(0, str(student_data[3]) if student_data[3] else '')
             training_type_code.configure(state='readonly')
+
+            # 訓練班別名稱
             training_type_name.configure(state='normal')
             training_type_name.delete(0, ctk.END)
-            training_type_name.insert(0, student_data[4])
+            training_type_name.insert(0, str(student_data[4]) if student_data[4] else '')
             training_type_name.configure(state='readonly')
+
+            # 戶籍地址 郵遞區號
             r_address_zip_code.configure(state='normal')
             r_address_zip_code.delete(0, ctk.END)
-            r_address_zip_code.insert(0, student_data[19])
+            r_address_zip_code.insert(0, str(student_data[19]) if student_data[19] else '')
             r_address_zip_code.configure(state='readonly')
+
+            # 戶籍地址 縣市區域
             r_address_city.configure(state='normal')
             r_address_city.delete(0, ctk.END)
-            r_address_city.insert(0, student_data[20])
+            r_address_city.insert(0, str(student_data[20]) if student_data[20] else '')
             r_address_city.configure(state='readonly')
+
+            # 戶籍地址 地址
             r_address.configure(state='normal')
             r_address.delete(0, ctk.END)
-            r_address.insert(0, student_data[21])
+            r_address.insert(0, str(student_data[21]) if student_data[21] else '')
             r_address.configure(state='readonly')
-            
+
             # 來源
-            if student_data[29] is not None:
-                exam_code.set(student_data[29])
-            else:
-                exam_code.set('')
+            exam_code.set(str(student_data[29]) if student_data[29] is not None else '')
+
             # 來源名稱
-            if student_data[30] is not None:
-                exam_name.set(student_data[30])
-            else:
-                exam_name.set('')
-            
-            # 設置其他字段的值（如來源、手自排、教練等）
-            if student_data[31] is not None:
-                transmission_type_code.set(student_data[31])
-            if student_data[32] is not None:
-                transmission_type_name.set(student_data[32])
-            if student_data[14] is not None:
-                instructor_number.set(student_data[14])
-            if student_data[15] is not None:
-                instructor_name.set(student_data[15])
+            exam_name.set(str(student_data[30]) if student_data[30] is not None else '')
+
+            # 設置其他字段的值
+            transmission_type_code.set(str(student_data[31]) if student_data[31] is not None else '')
+            transmission_type_name.set(str(student_data[32]) if student_data[32] is not None else '')
+            instructor_number.set(str(student_data[14]) if student_data[14] is not None else '')
+            instructor_name.set(str(student_data[15]) if student_data[15] is not None else '')
+
+            # 考試類型名稱
             if len(student_data) > 43:
-                if student_data[40] is not None:
-                    exam_type_name.set(student_data[40])
-                else:
-                    exam_type_name.set('')
+                exam_type_name.set(str(student_data[40]) if student_data[40] is not None else '')
             else:
                 exam_type_name.set('')  # 如果没有这个字段，设置为空字符串
+
 
     # 獲取輸入欄位信息
     def save_student_data():

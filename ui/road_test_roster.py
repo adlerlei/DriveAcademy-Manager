@@ -183,64 +183,108 @@ def  road_test_roster(content):
     # 邏輯功能 - 搜尋學員資料並顯示在 entry 
     def populate_student_data(identifier, value):
         global current_student_id, is_searching
+
         if not is_searching:
             return
+        
         student_data = get_student_data(identifier, value)
+
+        if not student_data:  # 如果没有找到数据，直接返回
+            return
+        
         if student_data:
             # 獲取學員資料庫 id 序列
             current_student_id = student_data[0]
+
             # 學員編號
-            student_number.delete(0, ctk.END)
-            student_number.insert(0, student_data[5])
+            if student_data[5]:
+                student_number.delete(0, ctk.END)
+                student_number.insert(0, str(student_data[5]))
+            else:
+                student_number.delete(0, ctk.END)
+
             # 學員姓名
-            student_name.delete(0, ctk.END)
-            student_name.insert(0, student_data[6]) 
+            if student_data[6]:
+                student_name.delete(0, ctk.END)
+                student_name.insert(0, str(student_data[6]))
+            else:
+                student_name.delete(0, ctk.END)
+
             # 名冊號碼
-            # 名冊號碼
-            if student_data[34] is not None:
+            register_number.configure(state='normal')
+            if student_data[34]:
                 register_number.delete(0, ctk.END)
-                register_number.insert(0, student_data[34])
+                register_number.insert(0, str(student_data[34]))
             else:
                 register_number.delete(0, ctk.END)
-                register_number.insert(0, '')
+            register_number.configure(state='readonly')
+
             # 身分證號碼
-            national_id_no.delete(0, ctk.END)
-            national_id_no.insert(0, student_data[10])
-            # national_id_no.configure(state='readonly')
+            if student_data[10]:
+                national_id_no.delete(0, ctk.END)
+                national_id_no.insert(0, str(student_data[10]))
+            else:
+                national_id_no.delete(0, ctk.END)
+
             # 出生日期
             birth_date.configure(state='normal')
-            birth_date.delete(0, ctk.END)
-            birth_date.insert(0, student_data[9])
+            if student_data[9]:
+                birth_date.delete(0, ctk.END)
+                birth_date.insert(0, str(student_data[9]))
+            else:
+                birth_date.delete(0, ctk.END)
             birth_date.configure(state='readonly')
+
             # 訓練班別代號
             training_type_code.configure(state='normal')
-            training_type_code.delete(0, ctk.END)
-            training_type_code.insert(0, student_data[3])
+            if student_data[3]:
+                training_type_code.delete(0, ctk.END)
+                training_type_code.insert(0, str(student_data[3]))
+            else:
+                training_type_code.delete(0, ctk.END)
             training_type_code.configure(state='readonly')
+
             # 訓練班別名稱
             training_type_name.configure(state='normal')
-            training_type_name.delete(0, ctk.END)
-            training_type_name.insert(0, student_data[4])
+            if student_data[4]:
+                training_type_name.delete(0, ctk.END)
+                training_type_name.insert(0, str(student_data[4]))
+            else:
+                training_type_name.delete(0, ctk.END)
             training_type_name.configure(state='readonly')
+
             # 期別
-            if student_data[35] is not None:
+            register_term.configure(state='normal')
+            if student_data[35]:
                 register_term.delete(0, ctk.END)
-                register_term.insert(0, student_data[35])
+                register_term.insert(0, str(student_data[35]))
             else:
                 register_term.delete(0, ctk.END)
-                register_term.insert(0, '')
+            register_term.configure(state='readonly')
+
             # 梯次
             batch.configure(state='normal')
-            batch.delete(0, ctk.END)
-            batch.insert(0, student_data[7])
+            if student_data[7]:
+                batch.delete(0, ctk.END)
+                batch.insert(0, str(student_data[7]))
+            else:
+                batch.delete(0, ctk.END)
             batch.configure(state='readonly')
+
             # 路試日期
+            road_test_date.configure(state='normal')
             if student_data[37]:
                 road_test_date.delete(0, ctk.END)
-                road_test_date.insert(0, student_data[37])
+                road_test_date.insert(0, str(student_data[37]))
+            else:
+                road_test_date.delete(0, ctk.END)
+            road_test_date.configure(state='readonly')
+
             # 路考項目
             if student_data[39]:
-                road_test_items_type.set(student_data[39])
+                road_test_items_type.set(str(student_data[39]))
+            else:
+                road_test_items_type.set('')
                                     
 
     # 獲取輸入欄位信息
@@ -375,7 +419,7 @@ def  road_test_roster(content):
         time.sleep(1)  # 等待打印完成
         os.remove(temp_html_path)
 
-    # 列印考試號碼邏輯功能
+    # ���印考試號碼邏輯功能
     def print_score_sheet():
         base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         template_dir = os.path.join(base_dir, "print")
