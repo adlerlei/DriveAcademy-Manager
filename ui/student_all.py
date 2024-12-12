@@ -227,7 +227,7 @@ def student_all(content):
     creation_date.grid(row=17, column=1, sticky='wen', padx=(10,0))
 
 
-    # 學員資料顯示在輸入欄位�� 
+    # 學員資料顯示在輸入欄位
     def check_and_populate(identifier, value):
         global is_searching
         if not is_adding_new and value and len(value) >= 1:  # 只有当输入至少3个字符时才搜索
@@ -257,92 +257,203 @@ def student_all(content):
         is_editing = True
         current_student_id = student_data[0]
         
-        # 填充所有字段
-        training_type_code.set(student_data[3])
-        training_type_name.set(student_data[4])
-        license_type_code.set(student_data[1])
-        license_type_name.set(student_data[2])
-        student_number.delete(0, ctk.END)
-        student_number.insert(0, student_data[5])
-        batch.set(student_data[7])
-        student_name.delete(0, ctk.END)
-        student_name.insert(0, student_data[6])
-        national_id_no.delete(0, ctk.END)
-        national_id_no.insert(0, student_data[10])
-        birth_date.delete(0, ctk.END)
-        birth_date.insert(0, student_data[9])
-        mobile_phone.delete(0, ctk.END)
-        mobile_phone.insert(0, student_data[11])
-        r_address_zip_code.set(student_data[19])
-        r_address_city.set(student_data[20])
-        r_address.delete(0, ctk.END)
-        r_address.insert(0, student_data[21])
-        home_phone.delete(0, ctk.END)
-        home_phone.insert(0, student_data[12])
-        gender.set(student_data[16])
-        education.set(student_data[13])
-        instructor_number.set(student_data[14])
-        instructor_name.set(student_data[15])
-        email.delete(0, ctk.END)
-        email.insert(0, student_data[17])
-        remarks.delete(0, ctk.END)
-        remarks.insert(0, student_data[18])
-        m_address_zip_code.set(student_data[22])
-        m_address_city.set(student_data[23])
-        m_address.delete(0, ctk.END)
-        m_address.insert(0, student_data[24])
-
-        # 学照日期
-        learner_permit_date.configure(state='normal')
-        learner_permit_date.delete(0, ctk.END)
-        if student_data[26]:
-            learner_permit_date.insert(0, student_data[26])
+        # 填充所有欄位信息
+        # 訓練班別代號
+        if student_data[3]:
+            training_type_code.set(str(student_data[3]))
         else:
-            learner_permit_date.insert(0, '')
+            training_type_code.set('')
+
+        # 訓練班別名稱
+        if student_data[4]:
+            training_type_name.set(student_data[4])
+        else:
+            training_type_name.set('')
+
+        # 考照類別代號
+        if student_data[1]:
+            license_type_code.set(student_data[1])
+        else:
+            license_type_code.set('')
+
+        # 考照類別名稱
+        if student_data[2]:
+            license_type_name.set(student_data[2])
+        else:
+            license_type_name.set('')
+
+        # 學員編號
+        if student_data[5]:
+            student_number.delete(0, ctk.END)
+            student_number.insert(0, str(student_data[5]))
+        else:
+            student_number.delete(0, ctk.END)
+
+        # 梯次
+        if student_data[7]:
+            batch.set(student_data[7])
+        else:
+            batch.set('')
+
+        # 學員姓名
+        if student_data[6]:
+            student_name.delete(0, ctk.END)
+            student_name.insert(0, str(student_data[6]))
+        else:
+            student_name.delete(0, ctk.END)
+
+        # 身分證號碼
+        if student_data[10]:
+            national_id_no.delete(0, ctk.END)
+            national_id_no.insert(0, str(student_data[10]))
+        else:
+            national_id_no.delete(0, ctk.END)
+
+        # 出生日期
+        if student_data[9]:
+            birth_date.delete(0, ctk.END)
+            birth_date.insert(0, str(student_data[9]))
+        else:
+            birth_date.delete(0, ctk.END)
+
+        # 行動電話
+        if student_data[11]:
+            mobile_phone.delete(0, ctk.END)
+            mobile_phone.insert(0, str(student_data[11]))
+        else:
+            mobile_phone.delete(0, ctk.END)
+        
+        # 戶籍地址郵遞區號
+        if student_data[19]:    
+            r_address_zip_code.set(student_data[19])
+        else:
+            r_address_zip_code.set('')
+
+        # 戶籍地址城市
+        if student_data[20]:
+            r_address_city.set(student_data[20])
+        else:
+            r_address_city.set('')
+
+        # 戶籍地址
+        if student_data[21]:
+            r_address.delete(0, ctk.END)
+            r_address.insert(0, str(student_data[21]))
+        else:
+            r_address.delete(0, ctk.END)
+
+        # 家用電話
+        if student_data[12]:
+            home_phone.delete(0, ctk.END)
+            home_phone.insert(0, str(student_data[12]))
+        else:
+            home_phone.delete(0, ctk.END)
+
+        # 性別
+        if student_data[16]:
+            gender.set(student_data[16])
+        else:
+            gender.set('')
+
+        # 學歷
+        if student_data[13]:
+            education.set(student_data[13])
+        else:
+            education.set('')
+
+        # 指導教練編號
+        if student_data[14]:
+            instructor_number.set(student_data[14])
+        else:
+            instructor_number.set('')
+
+        # 信箱
+        if student_data[17]:
+            email.delete(0, ctk.END)
+            email.insert(0, str(student_data[17]))
+        else:
+            email.delete(0, ctk.END)
+
+        # 備註
+        if student_data[18]:
+            remarks.delete(0, ctk.END)
+            remarks.insert(0, str(student_data[18]))
+        else:
+            remarks.delete(0, ctk.END)
+
+        # 通訊地址郵遞區號
+        if student_data[22]:
+            m_address_zip_code.set(student_data[22])
+        else:
+            m_address_zip_code.set('')
+
+        # 通訊地址城市
+        if student_data[23]:
+            m_address_city.set(student_data[23])
+        else:
+            m_address_city.set('')
+
+        # 通訊地址
+        if student_data[24]:
+            m_address.delete(0, ctk.END)
+            m_address.insert(0, str(student_data[24]))
+        else:
+            m_address.delete(0, ctk.END)
+
+        # 學照日期
+        learner_permit_date.configure(state='normal')
+        if student_data[26]:
+            learner_permit_date.delete(0, ctk.END)
+            learner_permit_date.insert(0, str(student_data[26]))
+        else:
+            learner_permit_date.delete(0, ctk.END)
         learner_permit_date.configure(state='readonly')
 
-        # 学照号码
+        # 學照號碼
         learner_permit_number.configure(state='normal')
-        learner_permit_number.delete(0, ctk.END)
         if student_data[27]:
-            learner_permit_number.insert(0, student_data[27])
+            learner_permit_number.delete(0, ctk.END)
+            learner_permit_number.insert(0, str(student_data[27]))
         else:
-            learner_permit_number.insert(0, '')
+            learner_permit_date.delete(0, ctk.END)
         learner_permit_number.configure(state='readonly')
 
         # 是否退训
         dropout.configure(state='normal')
-        dropout.delete(0, ctk.END)
         if student_data[33]:
-            dropout.insert(0, student_data[33])
+            dropout.delete(0, ctk.END)
+            dropout.insert(0, str(student_data[33]))
         else:
-            dropout.insert(0, '')
+            dropout.delete(0, ctk.END)
         dropout.configure(state='readonly')
                 
         # 名册号码
         register_number.configure(state='normal')
-        register_number.delete(0, ctk.END)
         if student_data[34]:
-            register_number.insert(0, student_data[34])
+            register_number.delete(0, ctk.END)
+            register_number.insert(0, str(student_data[34]))
+        else:
+            register_number.delete(0, ctk.END)
         register_number.configure(state='readonly')
 
         # 路试日期
         road_test_date.configure(state='normal')
-        road_test_date.delete(0, ctk.END)
         if student_data[38]:
-            road_test_date.insert(0, student_data[37])
+            road_test_date.delete(0, ctk.END)
+            road_test_date.insert(0, str(student_data[37]))
         else:
-            road_test_date.insert(0, '')
+            road_test_date.delete(0, ctk.END)
         road_test_date.configure(state='readonly')
 
         # 建档日期
         creation_date.configure(state='normal')
-        creation_date.delete(0, ctk.END)
         if len(student_data) > 45 and student_data[45]:
-            creation_date.insert(0, student_data[45])
+            creation_date.delete(0, ctk.END)
+            creation_date.insert(0, str(student_data[45]))
         else:
-            creation_date.insert(0, '')
+            creation_date.delete(0, ctk.END)
         creation_date.configure(state='readonly')
+
 
     # 獲取輸入欄位信息
     def get_data_and_insert():
