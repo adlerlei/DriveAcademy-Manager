@@ -272,8 +272,7 @@ def student_all(content):
         national_id_no.insert(0, student_data[10])
         birth_date.delete(0, ctk.END)
         birth_date.insert(0, student_data[9])
-        # mobile_phone.delete(0, ctk.END)
-        # mobile_phone.insert(0, student_data[11])
+
         if student_data[11]:
             mobile_phone.insert(0, student_data[11])
         else:
