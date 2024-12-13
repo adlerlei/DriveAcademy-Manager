@@ -80,7 +80,7 @@ def opening_training_roster(content):
 
     # 期別 ( 抓取年度計畫期別新增 "期別" 使用下拉選單呈現選擇) 不需要從資料庫讀取，但需要寫入資料庫
     term_data = get_term_data()
-    label(opening_training_roster, text='期���').grid(row=2, column=2, sticky='ws', padx=(10,0), pady=(10,0))
+    label(opening_training_roster, text='期別').grid(row=2, column=2, sticky='ws', padx=(10,0), pady=(10,0))
     register_term = combobox(opening_training_roster, values=term_data, command=register_number_data_changed)
     register_term.grid(row=3, column=2, sticky='wen',padx=(10,0))
     register_term.set('')  # 初始值設為空

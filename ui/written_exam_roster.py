@@ -249,7 +249,7 @@ def written_exam_roster(content):
         }
 
         if current_student_id is None:
-            messagebox.showwarning('警告', '��先搜尋學員資料')
+            messagebox.showwarning('警告', '請先搜尋學員資料')
             is_adding_new = False # 重製新增學員標誌
             return
         
