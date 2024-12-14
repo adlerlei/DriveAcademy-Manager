@@ -7,17 +7,17 @@ from PIL import Image
 
 menu_buttons = []  # 創建一個全局列表來存儲按鈕實例
 # 選單logo
-def menu_logo(menu, load_image, text=""):
-    logo_image = load_image("resources/img/logo.png")
-    logo_img = ck.CTkImage(light_image=logo_image, size=(250,250))
-    return ck.CTkLabel(menu, text=text, image=logo_img, compound='top')
+# def menu_logo(menu, load_image, text=""):
+#     logo_image = load_image("resources/img/logo.png")
+#     logo_img = ck.CTkImage(light_image=logo_image, size=(250,250))
+#     return ck.CTkLabel(menu, text=text, image=logo_img, compound='top')
 
 
 # 選單按鈕
-def menu_btn(frame, text, menu_icon_path, height=40, fg_color="#669bbc", font = create_font(), command=None):
-    menu_icon = Image.open(f"resources/img/menu/{menu_icon_path}")
-    menu_icon_ctk = ck.CTkImage(light_image=menu_icon)
-    button = ck.CTkButton(frame, text=text, height=height, fg_color=fg_color, font=font, image=menu_icon_ctk, command=command, state='disabled')
+def menu_btn(frame, text, height=40, fg_color="#669bbc", font = create_font(), command=None):
+    # menu_icon = Image.open(f"resources/img/menu/{menu_icon_path}")
+    # menu_icon_ctk = ck.CTkImage(light_image=menu_icon)
+    button = ck.CTkButton(frame, text=text, height=height, fg_color=fg_color, font=font, command=command, state='disabled')
     button.grid(sticky='nsew')
     return button
 

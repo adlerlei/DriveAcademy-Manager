@@ -1,7 +1,7 @@
 # 主視窗 介面
 from tkinter import *
 import customtkinter as ctk
-from utils.config import app_icon
+# from utils.config import app_icon
 from utils.widget import frame, disable_menu_btn
 from ui.admin_login import admin_login
 from .menu_list import menu_list
@@ -27,12 +27,12 @@ def main_window():
     # root.resizable(False, False)
     
     # 變更系統 icon
-    app_icon(root)
+    # app_icon(root)
     
     # 左方選單導覽列
     menu = frame( root , fg_color = "#669bbc" )
     menu.columnconfigure((0), weight=1, uniform='a')
-    menu.rowconfigure((1,2,3,4,5,6,7,8,9,10), weight=1 , uniform='a')
+    menu.rowconfigure((1,2,3,4,5,6,7,8,9,10,11), weight=1 , uniform='a')
     # 固定分配空間比例
     menu.place(x=0, y=0, relwidth=0.2, relheight=1)
     
