@@ -12,7 +12,7 @@ def main_window():
     ctk.set_appearance_mode("Light")
 
     # root.geometry("1600x900")  # 設置視窗的初始大小為 1600x900 像素
-    # root.minsize(1024, 800)     # 設置視窗的最小大小為 1024x800 像素
+    root.minsize(1024, 800)     # 設置視窗的最小大小為 1024x800 像素
     # root.maxsize(1920, 1080)    # 設置視窗的最大大小為 1920x1080 像素
     root.resizable(True, True)   # 允許用戶調整視窗的大小
         
