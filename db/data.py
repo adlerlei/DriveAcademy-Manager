@@ -1,10 +1,10 @@
 import sqlite3
 import csv
 
+
 conn = sqlite3.connect('driving_school.db')
 c = conn.cursor()
 
-# Create table
 sql_script = """
 -- 創建期別新增資料表
 CREATE TABLE IF NOT EXISTS annual_plan (

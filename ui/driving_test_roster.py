@@ -1,5 +1,4 @@
 # 場考清冊作業 介面
-# 對應介面 models/test.py
 from utils.widget import *
 from utils.config import *
 from models.test import *
@@ -383,14 +382,14 @@ def driving_test_roster(content):
             for item in data:
                 item['national_id_no'] = '0000'
 
-        # 讀取年度計畫表資料供 exam_type 使��
+        # 讀取年度計畫表資料供 exam_type 
         results = annual_plan_data()
 
         # 获取其他需要的数据
         exam_date = road_test_date.get()
-        class_name = "佑名駕訓班"  # 请替换为实际的班名
+        class_name = "佑名駕訓班"
         exam_type = results[0][6]
-        period = f"第 {results[0][2]} 期 {'&nbsp;'*2} {results[0][4]} 梯次 {'&nbsp;'*2} 第 {driving_test_group.get()} 組"  # 请替换为实际的期别
+        period = f"第 {results[0][2]} 期 {'&nbsp;'*2} {results[0][4]} 梯次 {'&nbsp;'*2} 第 {driving_test_group.get()} 組"
         exam_date = f"{road_test_date.get()}{'&nbsp;'*10}午  {'&nbsp;'*2} 第{'&nbsp;'*10}組"
 
         html_content = template.render(

@@ -1,6 +1,4 @@
 # 道考清冊作業 介面
-# 對應資料庫邏輯介面 models/test.py
-# 該介面不需要匯出文件功能
 from utils.widget import *
 from utils.config import *
 from models.test import *

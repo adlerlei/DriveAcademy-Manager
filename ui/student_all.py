@@ -1,5 +1,4 @@
 # 學員資料作業 介面
-# 對應介面 models/student.py
 from utils.widget import *
 from utils.config import *
 from models.student import *

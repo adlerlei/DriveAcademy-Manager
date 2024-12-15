@@ -1,5 +1,4 @@
 # 教練資料作業 功能邏輯介面
-# 對應介面 ui/instructor_all.py
 import sqlite3
 import os
 from tkinter import messagebox

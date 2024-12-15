@@ -1,5 +1,4 @@
 # 結訓名冊作業 介面
-# 對應資料庫邏輯介面 models/training.py
 from utils.widget import *
 from utils.config import * 
 from models.training import *
@@ -29,21 +28,6 @@ def closing_training_roster(content):
     closing_training_roster.columnconfigure(2, weight=1)
     closing_training_roster.columnconfigure(3, weight=1)
     closing_training_roster.place(relwidth=1, relheight=1)
-
-    # 監聽 名冊號碼 register_number 輸入值
-    # def register_number_data_changed(choice):
-    #     global counter, current_choice  # 使用全域變數
-        
-    #     # 檢查當前選擇的值是否改變
-    #     if current_choice != choice:
-    #         current_choice = choice
-    #         counter = 1  # 重置計數器
-        
-    #     batch_value = batch.get()
-    #     value = '0' + choice + batch_value + f'{counter:03d}'  # 格式化數字為三位數
-    #     register_number.delete(0, ctk.END)
-    #     register_number.insert(0, value)
-    #     counter += 1  # 計數器遞增
 
     # 顯示 / 搜尋 學員編號
     label(closing_training_roster, text='學員編號').grid(row=0, column=0, sticky='ws', padx=(10,0), pady=(10,0))
@@ -78,12 +62,6 @@ def closing_training_roster(content):
     register_number = entry(closing_training_roster, placeholder_text='此欄位自動生成，無須輸入')
     register_number.grid(row=3, column=1, sticky='wen',padx=(10,0))
 
-    # 期別 ( 抓取年度計畫期別新增 "期別" 使用下拉選單呈現選擇) 不需要從資料庫讀取，但需要寫入資料庫
-    # term_data = get_term_data()
-    # label(closing_training_roster, text='期別').grid(row=2, column=2, sticky='ws', padx=(10,0), pady=(10,0))
-    # register_term = combobox(closing_training_roster, values=term_data, command=register_number_data_changed)
-    # register_term.grid(row=3, column=2, sticky='wen',padx=(10,0))
-    # register_term.set('')  # 初始值設為空
     label(closing_training_roster, text='期別').grid(row=2, column=2, sticky='ws', padx=(10,0), pady=(10,0))
     register_term = entry(closing_training_roster)
     register_term.grid(row=3, column=2, sticky='wen',padx=(10,0))
@@ -144,7 +122,9 @@ def closing_training_roster(content):
     transmission_type_names = ['手排','自排','特製車']
     transmission_type_dict_c = dict(zip(transmission_type_codes, transmission_type_names))
     transmission_type_dict_n = dict(zip(transmission_type_names, transmission_type_codes))
+
     label(closing_training_roster, text='手自排').grid(row=8, column=2, sticky='ws', padx=(10,0), pady=(50,0))
+
     transmission_type_code = combobox(closing_training_roster, values=transmission_type_codes, command=lambda x:on_transmission_type_code_changed(x, transmission_type_name, transmission_type_dict_c))
     transmission_type_code.grid(row=9, column=2, sticky='wen', padx=(10,0))
     transmission_type_name = combobox(closing_training_roster, values=transmission_type_names, command=lambda x:on_transmission_type_name_changes(x, transmission_type_code, transmission_type_dict_n))
@@ -455,7 +435,6 @@ def closing_training_roster(content):
 
 
             data.append({
-                # 'student_number': values[2], # 學員編號
                 'register_number': values[0], # 名冊號碼
                 'student_name': values[3], # 學員姓名
                 'gender': values[7], # 性別

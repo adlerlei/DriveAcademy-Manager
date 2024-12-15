@@ -1,5 +1,4 @@
 # 開訓名冊作業 介面
-# 對應資料庫邏輯介面 models/training.py
 from utils.widget import *
 from utils.config import * 
 from models.training import *
@@ -34,7 +33,7 @@ def opening_training_roster(content):
     def register_number_data_changed(choice):
         global counter, current_choice  # 使用全域變數
         
-        # 檢查當前選擇的值是��改變
+        # 檢查當前選擇的值是否改變
         if current_choice != choice:
             current_choice = choice
             counter = 1  # 重置計數器
@@ -380,7 +379,6 @@ def opening_training_roster(content):
             student_data['national_id_no'],
             student_data['r_address_zip_code'],
             student_data['r_address_city_road'],
-            # student_data['learner_permit_date'],
             formatted_learner_permit_date,  # 使用格式化後的日期
             student_data['training_type_code']
         ))
@@ -412,7 +410,6 @@ def opening_training_roster(content):
 
 
             data.append({
-                # 'student_number': values[2], # 學員編號
                 'register_number': values[0], # 名冊號碼
                 'student_name': values[3], # 學員姓名
                 'gender': values[7], # 性別

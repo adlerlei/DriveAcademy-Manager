@@ -1,5 +1,4 @@
 # 筆試清冊作業 介面 
-# 對應資料庫邏輯介面 models/test.py
 from utils.widget import *
 from utils.config import *
 from models.test import *

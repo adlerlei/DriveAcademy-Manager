@@ -1,10 +1,8 @@
 # M2 補訓名冊 功能邏輯介面
-# 對應介面 ui/m2_retraining_roster_creation.py
 import sqlite3
 import os
 from tkinter import messagebox
-from tkinter import filedialog
-import re
+
 
 # 資料庫路徑
 database_path = os.path.join(os.path.dirname(__file__), '..', 'db', 'driving_school.db')
@@ -34,26 +32,6 @@ def get_instructor_data():
         instructor_dict[item[0]] = item[1]
 
     return instructor_numbers, instructor_names, instructor_dict
-
-
-# # 抓取期別資料表下拉選單值
-# def get_term_data():
-#     conn = sqlite3.connect(database_path)
-#     cursor = conn.cursor()
-
-#     # DISTINCT 是 SQL 查詢語句中的一個關鍵字，用於去除查詢結果中的重複值。
-#     # 當你在一個資料表中查詢某個欄位時，如果該欄位中有重複的數據，使用 DISTINCT 關鍵字可以確保查詢結果中每個值都是唯一的
-#     # cursor.execute("SELECT term FROM annual_plan")
-#     cursor.execute("SELECT DISTINCT term FROM annual_plan")
-#     term_data = cursor.fetchall()
-
-#     conn.close()
-
-#     term_list = []
-#     for item in term_data:
-#         term_list.append(item[0])
-
-#     return term_list
 
 
 # 根據指定的條件查詢學員資料

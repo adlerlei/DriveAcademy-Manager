@@ -1,5 +1,4 @@
 # 學照統一送件 介面
-# 該介面需匯出 txt 文件，其餘介面需要匯出皆為 csv 文件
 from utils.widget import *
 from utils.config import *
 from models.license import *
@@ -240,7 +239,6 @@ def learner_license_submission(content):
         keep_entries = [submission_date]
         # 清空但保留特定 entry
         clear_entries_and_comboboxes(learner_license_submission, keep_entries)
-        # clear_entries_and_comboboxes 函式結束 ################
 
 
         # 讀取 save_student_data 函式中的 key , 將新登錄的學員資料添加到 Treeview 中

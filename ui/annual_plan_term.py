@@ -1,5 +1,4 @@
 # 年度期別計畫 介面
-# 對應資料庫邏輯介面 models/annual_plan.py
 from utils.widget import *
 from utils.config import *
 from tkinter import messagebox
@@ -79,7 +78,7 @@ def annual_plan_term(content):
     # 將輸入欄位寫入 treeview
     # 設置 Treeview 全局樣式
     style = ttk.Style()
-    style.configure("Treeview", rowheight=25)  # 調整所有 Treeview 的行高
+    style.configure("Treeview", rowheight=25)
     # 列表框 - 期別新增 - 年度計畫表與期別新增
     data_list = ttk.Treeview(annual_plan_term, show='headings', 
                              columns=('訓練班別名稱', '年度', '期別編號', '開訓日期', '結訓日期', '上課期別代碼'), height=25)

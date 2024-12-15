@@ -1,6 +1,4 @@
 # M2補訓名冊 介面 
-# 該介面不需要匯出文件功能
-# 對應介面 models/m2retraining.py
 from utils.widget import *
 from utils.config import *
 from models.m2retraining import * 
@@ -343,7 +341,7 @@ def m2_retraining_roster_creation(content):
             if len(student_data) > 43:
                 exam_type_name.set(str(student_data[40]) if student_data[40] is not None else '')
             else:
-                exam_type_name.set('')  # 如果没有这个字段，设置为空字符串
+                exam_type_name.set('')
 
 
     # 獲取輸入欄位信息
@@ -416,7 +414,6 @@ def m2_retraining_roster_creation(content):
             student_data['r_address_zip_code'],
             student_data['r_address_city_road'],
             student_data['exam_type_name']
-            # student_data['training_type_code']
         ))
 
     ## 列印功能 ##########
@@ -447,7 +444,6 @@ def m2_retraining_roster_creation(content):
  
 
             data.append({
-                # 'student_number': values[2], # 學員編號
                 'register_number': values[0], # 名冊號碼
                 'student_name': values[3], # 學員姓名
                 'gender': values[9], # 性別
@@ -557,93 +553,6 @@ def m2_retraining_roster_creation(content):
         time.sleep(1)  # 等待打印完成
         os.remove(temp_html_path)
         
-        # pyautogui.hotkey('ctrl', 'shift', 'p', interval=0.1)  # 打开打印设置
-        # time.sleep(2)
-        # pyautogui.press('tab', presses=2, interval=0.1)  # 移动到纸张大小选项
-        # pyautogui.press('down', presses=1, interval=0.1)  # 选择A4纸张
-        # pyautogui.press('tab', presses=2, interval=0.1)  # 移动到方向选项
-        # pyautogui.press('down', presses=1, interval=0.1)  # 选择横向
-        # pyautogui.press('enter')  # 确认设置
-        # pyautogui.press('enter')
-
-
-
-    # 列印函式
-    # def print_html_report(for_dmv=True):
-    #     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    #     template_dir = os.path.join(base_dir, "print")
-    #     env = Environment(loader=FileSystemLoader(template_dir))
-
-    #     # 根據 for_dmv 的值選擇不的列印模板
-    #     if for_dmv:
-    #         template = env.get_template("m2.html")
-    #     else:
-    #         template = env.get_template("m2_駕訓班公告.html")
-
-    #     data = get_treeview_data()
-    #     if not data:
-    #         messagebox.showwarning("警告", "沒有數據可以打印")
-    #         return
-    #     elif not for_dmv:
-    #         for item in data:
-    #             item['national_id_no'] = '0000'
-
-    #     # 讀取年度計畫表資料信息
-    #     results = annual_plan_data()
-
-    #     # 獲取 annual_plan 資料表的 training_type_name, term, batch, start_date, end_date 數據
-    #     class_name = "佑名駕訓班"  # 请替换为实际的班名
-    #     training_type_name = results[0][6] # 訓練班別名稱
-    #     term = results[0][2] # 期別
-    #     batch = results[0][4] # 梯次
-    #     start_date = results[0][7] # 開訓日期
-    #     end_date = results[0][8] # 結訓日期
-
-    #     # 將開訓日期的值拆分成年月日
-    #     if start_date and len(start_date) >= 6:
-    #         start_year = start_date[:-4]
-    #         start_month = start_date[-4:-2]
-    #         start_day = start_date[-2:]
-    #         start_date = f"{start_year} 年 {start_month} 月 {start_day} 日"
-
-    #     # 將結訓日期的值拆分成年月日
-    #     if end_date and len(end_date) >= 6:
-    #         end_year = end_date[:-4]
-    #         end_month = end_date[-4:-2]
-    #         end_day = end_date[-2:]
-    #         end_date = f"{end_year} 年 {end_month} 月 {end_day} 日"
-
-
-    #     html_content = template.render(
-    #         students=data,
-    #         class_name=class_name,
-    #         training_type_name=training_type_name,
-    #         term=term,
-    #         batch=batch,
-    #         start_date=start_date,
-    #         end_date=end_date,
-    #         learner_permit_date=learner_permit_date
-    #     )
-
-
-    #     temp_html_path = os.path.join(base_dir, "print", "temp_m2.html")
-    #     with open(temp_html_path, 'w', encoding='utf-8') as f:
-    #         f.write(html_content)
-
-    #     webbrowser.open_new_tab(f'file://{temp_html_path}')
-
-    #     # 等待瀏覽器加載
-    #     time.sleep(3) 
-    #     # 每個按鍵之間延遲0.1秒
-    #     pyautogui.hotkey('ctrl', 'p', interval=0.1)
-    #     # 等待打印窗口出現
-    #     time.sleep(2)
-    #     # 模擬鍵盤操作確認打印 (Enter)
-    #     pyautogui.press('enter')
-
-    #     # 删除临时文件
-    #     time.sleep(1)  # 等待打印完成
-    #     os.remove(temp_html_path)
 
     # 按鈕
     add_btn(m2_retraining_roster_creation, text='加入M2補訓', command=save_student_data).grid(row=12, column=1, sticky='wen', padx=(10, 0), pady=(20, 0))

@@ -17,16 +17,11 @@ from .written_exam_roster import written_exam_roster
 
 def menu_list(menu , content):
     buttons = [] # 創建一個空列表來存儲按鈕對象
-
-    # logo_label = menu_logo(menu, load_image)
-    # logo_label.grid(row=0, column=0, sticky='nsew', pady=(30,0))
-
     
     # 年度期別新增
     btn1 = menu_btn(
         menu,
         '年度期別計畫',
-        # menu_icon_path = "annual_plan_term.png",
         command = lambda: annual_plan_term(content))
     btn1.grid(row=1, column=0)
     buttons.append(btn1)
@@ -35,7 +30,6 @@ def menu_list(menu , content):
     btn2 = menu_btn(
         menu,
         '學員資料作業',
-        # menu_icon_path = "student_all.png",
         command = lambda: student_all(content))
     btn2.grid(row=2, column=0)
     buttons.append(btn2)
@@ -44,7 +38,6 @@ def menu_list(menu , content):
     btn3 = menu_btn(
         menu,
         '學照統一送件',
-        # menu_icon_path = "learner_license_submission.png",
         command = lambda: learner_license_submission(content))
     btn3.grid(row=3, column=0)
     buttons.append(btn3)
@@ -53,7 +46,6 @@ def menu_list(menu , content):
     btn4 = menu_btn(
         menu,
         '學照日期登錄',
-        # menu_icon_path = "learner_license_date_registration.png",
         command = lambda: learner_license_date_registration(content))
     btn4.grid(row=4, column=0)
     buttons.append(btn4)
@@ -62,7 +54,6 @@ def menu_list(menu , content):
     btn5 = menu_btn(
         menu,
         '開訓名冊作業',
-        # menu_icon_path = "opening_training_roster.png",
         command = lambda: opening_training_roster(content))
     btn5.grid(row=5, column=0)
     buttons.append(btn5)
@@ -71,7 +62,6 @@ def menu_list(menu , content):
     btn6 = menu_btn(
         menu,
         'M2  補訓名冊',
-        # menu_icon_path = "m2_retraining_roster_creation.png",
         command = lambda: m2_retraining_roster_creation(content))
     btn6.grid(row=6, column=0)
     buttons.append(btn6)
@@ -80,7 +70,6 @@ def menu_list(menu , content):
     btn7 = menu_btn(
         menu,
         '結訓名冊作業',
-        # menu_icon_path = "closing_training_roster.png",
         command = lambda: closing_training_roster(content))
     btn7.grid(row=7, column=0)
     buttons.append(btn7)
@@ -89,7 +78,6 @@ def menu_list(menu , content):
     btn8 = menu_btn(
         menu,
         '場考清冊作業',
-        # menu_icon_path = "driving_test_roster.png",
         command = lambda: driving_test_roster(content))
     btn8.grid(row=8, column=0)
     buttons.append(btn8)
@@ -98,7 +86,6 @@ def menu_list(menu , content):
     btn9 = menu_btn(
         menu,
         '道考清冊作業',
-        # menu_icon_path = "road_test_roster.png",
         command = lambda: road_test_roster(content))
     btn9.grid(row=9, column=0)
     buttons.append(btn9)
@@ -107,7 +94,6 @@ def menu_list(menu , content):
     btn10 = menu_btn(
         menu,
         '筆試清冊作業',
-        # menu_icon_path = "written_exam_roster.png",
         command = lambda: written_exam_roster(content))
     btn10.grid(row=10, column=0)
     buttons.append(btn10)
@@ -116,7 +102,6 @@ def menu_list(menu , content):
     btn11 = menu_btn(
         menu,
         '教練資料作業',
-        # menu_icon_path = "instructor.png",
         command = lambda: instructor_all(content))
     btn11.grid(row=11, column=0)
     buttons.append(btn11)
