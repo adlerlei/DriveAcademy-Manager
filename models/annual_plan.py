@@ -33,7 +33,7 @@ def fetch_and_populate_treeview(treeview):
     c = conn.cursor()
 
     # 執行 SQL 查詢
-    c.execute("SELECT rowid, * FROM annual_plan")
+    c.execute("SELECT rowid, * FROM annual_plan ORDER BY rowid DESC")
     results = c.fetchall()
 
     # 清除 Treeview 中的所有數據
