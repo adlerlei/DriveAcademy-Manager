@@ -46,7 +46,7 @@ def get_instructor_data():
 def get_term_data():
     conn = sqlite3.connect(database_path)
     cursor = conn.cursor()
-    cursor.execute("SELECT DISTINCT term FROM annual_plan")
+    cursor.execute("SELECT DISTINCT term FROM annual_plan ORDER BY term DESC")   
     term_data = cursor.fetchall()
 
     conn.close()
