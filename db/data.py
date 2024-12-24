@@ -1,10 +1,10 @@
 import sqlite3
 import csv
 
+
 conn = sqlite3.connect('driving_school.db')
 c = conn.cursor()
 
-# Create table
 sql_script = """
 -- 創建期別新增資料表
 CREATE TABLE IF NOT EXISTS annual_plan (
@@ -104,7 +104,7 @@ for statement in sql_script.split(';'):
         c.execute(statement)
 
 # 寫入資料庫
-# 開啟CSV檔案並讀取內容
+# 讀取 郵遞區號 CSV檔案並讀取內容
 with open('addcsv.csv', 'r') as csvfile:
     reader = csv.reader(csvfile)
     # 跳過第一行標題
@@ -118,6 +118,74 @@ with open('addcsv.csv', 'r') as csvfile:
         # 插入資料到address_data資料表
         c.execute("INSERT INTO address_data (city, zip_code) VALUES (?, ?)", (city, zip_code))
 
+# 讀取 CTM3-28 年度計劃表 CSV 檔案并将資料寫入資料庫
+with open('annual-plan.csv', 'r', encoding='utf-8') as csvfile:
+    reader = csv.DictReader(csvfile)
+    
+    # 獲取 CSV 檔案的標題信息
+    csv_headers = reader.fieldnames
+    
+    for row in reader:
+        # 構建 INSERT 語句和參數列表
+        columns = []
+        values = []
+        for header in csv_headers:
+            if header in row and row[header]:  # 檢查欄位是否存在且不为空
+                columns.append(header)
+                values.append(row[header])
+
+        if columns:  # 確保有資料需要寫入
+            sql = f"""
+                INSERT INTO annual_plan ({', '.join(columns)})
+                VALUES ({', '.join(['?'] * len(columns))})
+            """
+            c.execute(sql, values)
+
+# 讀取 CTM3-28 教練清冊 CSV 檔案並將資料寫入資料庫
+with open('instructor.csv', 'r', encoding='utf-8') as csvfile:
+    reader = csv.DictReader(csvfile)
+
+    # 獲取 csv 檔案的標題信息
+    csv_headers = reader.fieldnames
+
+    for row in reader:
+        # 構建 INSERT 語句和參數列表
+        columns = []
+        values = []
+        for header in csv_headers:
+            if header in row and row[header]: # 檢查欄位是否存在且不為空
+                columns.append(header)
+                values.append(row[header])
+
+        if columns:
+            sql = f"""
+            INSERT INTO instructor ({', '.join(columns)})
+            VALUES ({', '.join(['?'] * len(columns))})
+        """
+        c.execute(sql, values)
+
+# 讀取 學員基本資料 CSV 檔案並將資料寫入資料庫
+with open('student.csv', 'r', encoding='utf-8') as csvfile:
+    reader = csv.DictReader(csvfile)
+
+    # 獲取 csv 檔案的標題信息
+    csv_headers = reader.fieldnames
+
+    for row in reader:
+        # 構建 INSERT 語句和參數列表
+        columns = []
+        values = []
+        for header in csv_headers:
+            if header in row and row[header]: # 檢查欄位是否存在且不為空
+                columns.append(header)
+                values.append(row[header])
+
+        if columns:
+            sql = f"""
+            INSERT INTO student ({', '.join(columns)})
+            VALUES ({', '.join(['?'] * len(columns))})
+        """
+        c.execute(sql, values)
 
 # 提交資料庫
 conn.commit()

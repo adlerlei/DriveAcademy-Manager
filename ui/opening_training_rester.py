@@ -1,10 +1,17 @@
 # 開訓名冊作業 介面
-# 對應資料庫邏輯介面 models/training.py
 from utils.widget import *
 from utils.config import * 
 from models.training import *
+from models.annual_plan import annual_plan_data
 import customtkinter as ctk
 from tkinter import messagebox
+import webbrowser
+import pyautogui
+import time
+import os
+from jinja2 import Environment, FileSystemLoader
+import webbrowser
+import time
 
 # 檢測學員資料庫 id 欄位來判定是否修改或新增
 current_student_id = None
@@ -108,7 +115,7 @@ def opening_training_roster(content):
     r_address = display_entry_value(opening_training_roster)
     r_address.grid(row=7, column=2, columnspan=2, sticky='wen',padx=10)
     
-    # 來源 下拉選單 ################################################
+    # 來源 下拉選單 ################################################ 
     exam_codes = ['A','B','C','G','Z']
     exam_names = ['新考','晉考','換考','吊扣註銷重考','臨時駕駛執照']
     # 使用 zip 函數生成字典來填充 exam_code
@@ -133,7 +140,7 @@ def opening_training_roster(content):
     def on_exam_name_changed(select_name, exam_code, exam_dict):
         select_code = exam_dict.get(select_name, "")
         exam_code.set(select_code)
-    # 來源 下拉選單 END ##############################################
+    # 來源 下拉選單 ################################################
 
     # 手自排 下拉選單
     transmission_type_codes = ['M','A','S']
@@ -254,6 +261,7 @@ def opening_training_roster(content):
     # 邏輯功能 - 搜尋學員資料並顯示在 entry 
     def populate_student_data(identifier, value):
         global current_student_id
+<<<<<<< HEAD
         # 監聽學員編號輸入欄位如果為空，清除學員資料
         if value == '':
             keep_entries = [register_term] # 保留名冊號碼
@@ -383,6 +391,40 @@ def opening_training_roster(content):
         student_number.configure(state='normal')
         student_name.configure(state='normal')
         national_id_no.configure(state='normal')
+=======
+        student_data = get_student_data(identifier, value)
+        if student_data:
+            current_student_id = student_data[0]
+            
+            def set_entry(entry_widget, data_index, readonly=False):
+                entry_widget.configure(state='normal')
+                entry_widget.delete(0, ctk.END)
+                entry_widget.insert(0, str(student_data[data_index]) if student_data[data_index] is not None else '')
+                if readonly:
+                    entry_widget.configure(state='readonly')
+
+            set_entry(student_number, 5)
+            set_entry(student_name, 6)
+            set_entry(national_id_no, 10)
+            set_entry(birth_date, 9, readonly=True)
+            set_entry(learner_permit_date, 26)
+            set_entry(register_number, 34)
+            register_term.set(str(student_data[35]) if student_data[35] is not None else '')
+            exam_code.set(str(student_data[29]) if student_data[29] is not None else '')
+            exam_name.set(str(student_data[30]) if student_data[30] is not None else '')
+            transmission_type_code.set(str(student_data[31]) if student_data[31] is not None else '')
+            transmission_type_name.set(str(student_data[32]) if student_data[32] is not None else '')
+            instructor_number.set(str(student_data[14]) if student_data[14] is not None else '')
+            instructor_name.set(str(student_data[15]) if student_data[15] is not None else '')
+            set_entry(gender, 16, readonly=True)
+            set_entry(batch, 7, readonly=True)
+            set_entry(register_batch, 8, readonly=True)
+            set_entry(training_type_code, 3, readonly=True)
+            set_entry(training_type_name, 4, readonly=True)
+            set_entry(r_address_zip_code, 19, readonly=True)
+            set_entry(r_address_city, 20, readonly=True)
+            set_entry(r_address, 21, readonly=True)
+>>>>>>> li
 
 
     # 獲取輸入欄位信息
@@ -414,6 +456,14 @@ def opening_training_roster(content):
             'id': current_student_id
         }
 
+        # 格式化 learner_permit_date 日期
+        formatted_learner_permit_date = student_data['learner_permit_date']
+        if formatted_learner_permit_date and len(formatted_learner_permit_date) >= 6:
+            year = formatted_learner_permit_date[:-4]
+            month = formatted_learner_permit_date[-4:-2]
+            day = formatted_learner_permit_date[-2:]
+            formatted_learner_permit_date = f"{year} / {month} / {day}"
+
 
         required_fields = [ 
             'exam_code',
@@ -429,7 +479,7 @@ def opening_training_roster(content):
             if not student_data[field]:
                 messagebox.showwarning('提示', f'{validation_fields[field]} 欄位不能為空！')
                 return
-            
+
         if current_student_id is None:
             messagebox.showwarning('提示', '請先搜尋學員資料！')
             return
@@ -450,12 +500,129 @@ def opening_training_roster(content):
             student_data['national_id_no'],
             student_data['r_address_zip_code'],
             student_data['r_address_city_road'],
-            student_data['learner_permit_date'],
+            formatted_learner_permit_date,  # 使用格式化後的日期
             student_data['training_type_code']
         ))
 
 
+    # 獲取輸入欄位中需要顯示在列印頁面上的信息:
+    def get_treeview_data():
+        data = []
+        for item in data_list.get_children():
+            values = data_list.item(item)['values']
+            # 獲取原始日期字符串
+            birth_date = str(values[8]) if values[8] is not None else ''
+      
+            # 轉換日期格式
+            if birth_date and len(birth_date) >= 6:  # 允許年份位數變化
+                # 從後往前取值，因為月日固定是最後4位
+                day = birth_date[-2:]  # 最後2位是日
+                month = birth_date[-4:-2]  # 倒數第3-4位是月
+                year = birth_date[:-4]  # 剩下的都是年
+                
+                # 驗證月份和日期的有效性
+                if month.isdigit() and day.isdigit() and 1 <= int(month) <= 12 and 1 <= int(day) <= 31:
+                    # 正確的日期格式，不需要輸出
+                    pass
+                else:
+                    year, month, day = '-', '-', '-'
+            else:
+                year, month, day = '-', '-', '-'
+
+
+            data.append({
+                'register_number': values[0], # 名冊號碼
+                'student_name': values[3], # 學員姓名
+                'gender': values[7], # 性別
+                'birth_year': year, # 生日-年
+                'birth_month': month, # 生日-月
+                'birth_day': day, # 生日-日
+                'national_id_no': values[9], # 身分證字號
+                'r_address_city_road': values[11], # 地址
+                'learner_permit_date': values[12], # 學照登錄日期
+            })
+        return data
+
+    # 列印函式
+    def print_html_report(for_dmv=True):
+        base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        template_dir = os.path.join(base_dir, "print")
+        env = Environment(loader=FileSystemLoader(template_dir))
+
+        # 根據 for_dmv 的值選擇不的列印模板
+        if for_dmv:
+            template = env.get_template("opening_training_rester.html")
+        else:
+            template = env.get_template("opening_training_rester_駕訓班公告.html")
+
+        data = get_treeview_data()
+        if not data:
+            messagebox.showwarning("警告", "沒有數據可以打印")
+            return
+        elif not for_dmv:
+            for item in data:
+                item['national_id_no'] = '0000'
+
+        # 讀取年度計畫表資料信息
+        results = annual_plan_data()
+
+        # 獲取 annual_plan 資料表的 training_type_name, term, batch, start_date, end_date 數據
+        class_name = "佑名駕訓班"  # 请替换为实际的班名
+        training_type_name = results[0][6] # 訓練班別名稱
+        term = results[0][2] # 期別
+        batch = results[0][4] # 梯次
+        start_date = results[0][7] # 開訓日期
+        end_date = results[0][8] # 結訓日期
+
+        # 將開訓日期的值拆分成年月日
+        if start_date and len(start_date) >= 6:
+            start_year = start_date[:-4]
+            start_month = start_date[-4:-2]
+            start_day = start_date[-2:]
+            start_date = f"{start_year} 年 {start_month} 月 {start_day} 日"
+
+        # 將結訓日期的值拆分成年月日
+        if end_date and len(end_date) >= 6:
+            end_year = end_date[:-4]
+            end_month = end_date[-4:-2]
+            end_day = end_date[-2:]
+            end_date = f"{end_year} 年 {end_month} 月 {end_day} 日"
+
+
+        html_content = template.render(
+            students=data,
+            class_name=class_name,
+            training_type_name=training_type_name,
+            term=term,
+            batch=batch,
+            start_date=start_date,
+            end_date=end_date,
+            learner_permit_date=learner_permit_date
+        )
+
+
+        temp_html_path = os.path.join(base_dir, "print", "temp_opening_training_rester.html")
+        with open(temp_html_path, 'w', encoding='utf-8') as f:
+            f.write(html_content)
+
+        webbrowser.open_new_tab(f'file://{temp_html_path}')
+
+        # 等待瀏覽器加載
+        time.sleep(3)
+        # 模擬鍵盤操作觸發打印 (Ctrl+P)
+        pyautogui.hotkey('ctrl', 'p', interval=0.1)
+        # 等待打印窗口出現
+        time.sleep(2)
+        # 模擬鍵盤操作確認打印 (Enter)
+        pyautogui.press('enter')
+
+        # 删除临时文件
+        time.sleep(1)  # 等待打印完成
+        os.remove(temp_html_path)
+
+
     # 按鈕
     btn(opening_training_roster, text='加入開訓名冊', command=save_student_data).grid(row=11, column=2, sticky='wen', padx=(10, 0))
-    print_btn(opening_training_roster, text='列印開訓名冊', command=None).grid(row=11, column=3, sticky='wen', padx=10)
-    export_btn(opening_training_roster, text='匯出文件', command=lambda: export_selected_data(data_list)).grid(row=12, column=0, columnspan=4, sticky='wen', pady=(20,0), padx=10)
+    print_btn(opening_training_roster, text='列印開訓名冊(駕訓班用)', command=lambda: print_html_report(for_dmv=False)).grid(row=12, column=0, columnspan=2, sticky='wen', padx=(10,0), pady=10)
+    print_btn(opening_training_roster, text='列印開訓名冊(監理站用)', command=lambda: print_html_report(for_dmv=True)).grid(row=12, column=2, columnspan=2, sticky='wen', padx=10, pady=10)
+    export_btn(opening_training_roster, text='匯出文件', command=lambda: export_selected_data(data_list)).grid(row=11, column=3, sticky='wen', padx=10)

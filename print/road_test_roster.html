@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="zh-TW">
+    <head>
+        <meta charset="UTF-8" />
+        <title>道考清冊列印(監理所用)</title>
+        <link rel="stylesheet" href="bulma/css/bulma.min.css" />
+    </head>
+    <body>
+        <div class="container is-fluid">
+            <!-- 標題部分保持不變 -->
+            <div class="columns is-flex is-align-items-flex-end mb-0">
+                <div class="is-2 column has-text-left is-size-6 has-text-weight-bold">交通部公路 局</div>
+                <div class="is-6 column has-text-left is-size-6 has-text-weight-bold">
+                    監理所(站)汽車駕駛人考驗記錄清冊
+                </div>
+                <div class="is-2 column has-text-right is-size-7">班名：佑名駕訓班</div>
+                <div class="is-2 column has-text-right is-size-7">考驗別：{{ exam_type }}</div>
+            </div>
+            <div class="columns is-align-items-flex-end">
+                <div class="column has-text-left is-size-7">期別：{{ period }}</div>
+                <div class="column has-text-right is-size-7">道考日期：{{ exam_date }}</div>
+            </div>
+        </div>
+        <div class="column">
+            {% if students %}
+            {% set students_per_page = 40 %}
+            {% set pages = (students|length + students_per_page - 1) // students_per_page %}
+            
+            {% for page in range(pages) %}
+            <table class="table is-bordered is-striped is-fullwidth is-size-7">
+                <thead>
+                    <tr>
+                        {% for i in range(2) %}
+                            <th>序號</th>
+                            <th>姓名</th>
+                            <th>出生日期</th>
+                            <th>筆試</th>
+                            <th>場考</th>
+                            <th>道考</th>
+                            <th>身份證字號</th>
+                            <th>備註</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% macro render_student(student) %}
+                        <td>{{ student.driving_test_number }}</td>
+                        <td>{{ student.student_name }}</td>
+                        <td>{{ student.birth_date }}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>{{ student.national_id_no }}</td>
+                        <td>{{ student.register_number }}</td>
+                    {% endmacro %}
+
+                    {% set start_index = page * students_per_page %}
+                    {% set end_index = start_index + students_per_page %}
+                    {% set page_students = students[start_index:end_index] %}
+                    {% set left_limit = 20 %}
+                    {% set rows = [page_students|length, 20]|min %}
+                    
+                    {% for i in range(rows) %}
+                        <tr>
+                            {# 左側表格 #}
+                            {{ render_student(page_students[i]) }}
+
+                            {# 右側表格 #}
+                            {% set right_index = i + left_limit %}
+                            {% if right_index < page_students|length %}
+                                {{ render_student(page_students[right_index]) }}
+                            {% else %}
+                                {% for _ in range(7) %}<td></td>{% endfor %}
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            
+            {% if not loop.last %}
+            <div style="page-break-after: always;"></div>
+            {% endif %}
+            
+            {% endfor %}
+            {% else %}
+            <p>沒有可顯示的數據。</p>
+            {% endif %}
+            <!-- 下方表格保持不變 -->
+            <table class="table is-bordered is-striped is-fullwidth is-size-7">
+                <thead>
+                    <tr>
+                        <th colspan="2" class="has-text-centered">報名審核</th>
+                        <th colspan="6" class="has-text-centered">筆試</th>
+                        <th colspan="6" class="has-text-centered">路試</th>
+                        <th colspan="2" class="has-text-centered">發照</th>
+                        <th rowspan="2" class="has-text-centered is-vcentered">課長</th>
+                    </tr>
+                    <tr>
+                        <th>人數</th>
+                        <th>審核員</th>
+                        <th>應考人數</th>
+                        <th>及格人數</th>
+                        <th>不及格人數</th>
+                        <th>缺考人數</th>
+                        <th>主考</th>
+                        <th>監考</th>
+                        <th>應考人數</th>
+                        <th>及格人數</th>
+                        <th>不及格人數</th>
+                        <th>缺考人數</th>
+                        <th>主考</th>
+                        <th>監考</th>
+                        <th>張數</th>
+                        <th>人員</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>

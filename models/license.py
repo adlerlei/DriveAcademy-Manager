@@ -1,5 +1,4 @@
 # 學照日期送件，登錄 功能邏輯介面
-# 對應計面 ui/learner_license_date_registration.py , learner_license_submission.py
 import sqlite3
 import os
 from tkinter import messagebox
@@ -33,14 +32,12 @@ def update_student_data(data, uid):
             WHERE id = :id
         ''', data)
         
-        # messagebox.showinfo('訊息', '學照登錄完成！')
     elif uid == 0:
         cursor.execute('''
             UPDATE student SET
                 submission_date = :submission_date
             WHERE id = :id
         ''', data)
-        # messagebox.showinfo('訊息', '學照送件完成！')
 
     conn.commit()
     conn.close()
@@ -72,9 +69,7 @@ def generate_csv_filename(submission_date):
 
 # 匯出 txt 文件按鈕觸發.
 def export_selected_data(treeview, submission_date_entry):
-    # print("submission_date_entry:", submission_date_entry)
     file_date_name = submission_date_entry.get()
-    # print("file_date_name:", file_date_name)
     # 獲取所選行
     # selected_items = treeview.selection()
     selected_items = treeview.get_children() # 直接取得所有行
@@ -101,7 +96,6 @@ def export_selected_data(treeview, submission_date_entry):
         student_name = re.sub(r'/','',student_name)
         r_address_zip_code = re.sub(r'/','',r_address_zip_code)
         r_address = re.sub(r'/','',r_address)
-        # mobile_phone = re.sub(r'/','',mobile_phone)
         email = re.sub(r'/','',email)
 
         # 確保手機號碼保留前導0

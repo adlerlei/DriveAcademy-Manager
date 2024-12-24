@@ -1,11 +1,9 @@
 # 開訓結訓名冊 功能邏輯介面
-# 對應介面 ui/opening_training_rester.py , closing_training_roster.py
 import sqlite3
 import os
-# import csv
 from tkinter import messagebox
 from tkinter import filedialog
-import re
+
 
 # 資料庫路徑
 database_path = os.path.join(os.path.dirname(__file__), '..', 'db', 'driving_school.db')
@@ -48,7 +46,7 @@ def get_instructor_data():
 def get_term_data():
     conn = sqlite3.connect(database_path)
     cursor = conn.cursor()
-    cursor.execute("SELECT DISTINCT term FROM annual_plan")
+    cursor.execute("SELECT DISTINCT term FROM annual_plan ORDER BY term DESC")   
     term_data = cursor.fetchall()
 
     conn.close()
@@ -60,7 +58,7 @@ def get_term_data():
     return term_list
 
 
-# 根據指定的條件查詢學員資料
+# 根據指定的條件查詢學員資料 
 def get_student_data(identifier, value):
     conn = sqlite3.connect(database_path)
     cursor = conn.cursor()
@@ -158,16 +156,12 @@ def export_selected_data(treeview):
                 break
         register_number = str(item_values[0])  # 獲取名冊號碼
 
-        # 移除這一行，因為我們現在需要完整的 register_number
-        # register_number = register_number[:-3]  # 移除最後三個字符 001 ~ xxx
-
         exam_code = str(item_values[4])  # 獲取來源類別編號
         transmission_type_code = str(item_values[5])  # 獲取手自排類別編號
         instructor_number = str(item_values[6]).zfill(3) # 獲取教練編號
         training_type_code = ""
         if len(item_values) > 13:
             training_type_code = str(item_values[13])  # 獲取訓練班別代號
-        # student_term_class_code = str(item_values[45])
 
         # 獲取教練身分證號碼和出生日期
         conn = sqlite3.connect(database_path)

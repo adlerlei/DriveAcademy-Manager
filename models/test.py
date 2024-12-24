@@ -1,5 +1,4 @@
 # 筆試，場考，道考 功能邏輯介面
-# 對應介面 ui/road_test_roster.py , written_exam_roster.py , driving_test_roster.py
 import sqlite3
 import os
 import csv
@@ -135,7 +134,6 @@ def export_driving_test_data(database_path, student_ids):  # 修改此行，新�
 
                 writer.writerow([final_register_number, row[1], row[2], row[3], row[4], row[5], row[6]])
 
-        # messagebox.showinfo("成功", f"文件已成功匯出至 {file_path}")
         messagebox.showinfo("成功", "文件已成功匯出")
 
     except Exception as e:

@@ -1,5 +1,4 @@
 # 學照統一送件 介面
-# 該介面需匯出 txt 文件，其餘介面需要匯出皆為 csv 文件
 from utils.widget import *
 from utils.config import *
 from models.license import *
@@ -140,6 +139,7 @@ def learner_license_submission(content):
     # 搜尋學員資料庫並且在 entry 顯示學員資料
     def populate_student_data(identifier, value):
         global current_student_id
+<<<<<<< HEAD
         # 監聽學員編號輸入欄位如果為空，清除學員資料
         if value == '':
             clear_entries_and_comboboxes(learner_license_submission)
@@ -202,6 +202,70 @@ def learner_license_submission(content):
             else:
                 # 如果没有查询到学生资料,则重置 current_student_id
                 current_student_id = None
+=======
+        student_data = get_student_data(identifier, value)
+
+        # 如果没有找到数据，直接返回
+        if not student_data:
+            return
+        
+        if student_data:
+            # 獲取學員資料庫 id 序列
+            current_student_id = student_data[0]
+
+            # 學員編號
+            student_number.delete(0, ctk.END)
+            student_number.insert(0, str(student_data[5]) if student_data[5] else '')
+
+            # 學員姓名
+            student_name.delete(0, ctk.END)
+            student_name.insert(0, str(student_data[6]) if student_data[6] else '')
+
+            # 身分證號
+            national_id_no.delete(0, ctk.END)
+            national_id_no.insert(0, str(student_data[10]) if student_data[10] else '')
+
+            # 聯絡手機
+            mobile_phone.delete(0, ctk.END)
+            mobile_phone.insert(0, str(student_data[11]) if student_data[11] else '')
+
+            # 出生日期
+            birth_date.configure(state='normal')
+            birth_date.delete(0, ctk.END)
+            birth_date.insert(0, str(student_data[9]) if student_data[9] else '')
+            birth_date.configure(state='readonly')
+
+            # E-mail
+            email.configure(state='normal')
+            email.delete(0, ctk.END)
+            email.insert(0, str(student_data[17]) if student_data[17] else '')
+            email.configure(state='readonly')
+
+            # 備註
+            remarks.configure(state='normal')
+            remarks.delete(0, ctk.END)
+            remarks.insert(0, str(student_data[18]) if student_data[18] else '')
+            remarks.configure(state='readonly')
+
+            # 戶籍地址 郵遞區號
+            r_address_zip_code.configure(state='normal')
+            r_address_zip_code.delete(0, ctk.END)
+            r_address_zip_code.insert(0, str(student_data[19]) if student_data[19] else '')
+            r_address_zip_code.configure(state='readonly')
+
+            # 戶籍地址 縣市區域
+            r_address_city.configure(state='normal')
+            r_address_city.delete(0, ctk.END)
+            r_address_city.insert(0, str(student_data[20]) if student_data[20] else '')
+            r_address_city.configure(state='readonly')
+
+            # 戶籍地址 地址
+            r_address.configure(state='normal')
+            r_address.delete(0, ctk.END)
+            r_address.insert(0, str(student_data[21]) if student_data[21] else '')
+            r_address.configure(state='readonly')
+>>>>>>> li
+
 
     # 獲取輸入欄位信息
     def save_student_data():
@@ -240,7 +304,6 @@ def learner_license_submission(content):
         keep_entries = [submission_date]
         # 清空但保留特定 entry
         clear_entries_and_comboboxes(learner_license_submission, keep_entries)
-        # clear_entries_and_comboboxes 函式結束 ################
 
 
         # 讀取 save_student_data 函式中的 key , 將新登錄的學員資料添加到 Treeview 中

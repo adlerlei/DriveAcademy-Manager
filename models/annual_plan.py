@@ -1,5 +1,4 @@
 # 年度期別計畫 功能邏輯介面
-# 對應介面 ui/annual_plan_term.py
 import sqlite3
 import os
 from tkinter import messagebox
@@ -34,7 +33,7 @@ def fetch_and_populate_treeview(treeview):
     c = conn.cursor()
 
     # 執行 SQL 查詢
-    c.execute("SELECT rowid, * FROM annual_plan")
+    c.execute("SELECT rowid, * FROM annual_plan ORDER BY rowid DESC")
     results = c.fetchall()
 
     # 清除 Treeview 中的所有數據
@@ -116,6 +115,10 @@ def delete_btn_click(data_list):
         # 抓取 資料庫 term '期別' 來尋找該資料行 id
         record_id = data_list.item(selected[0], 'values')[2] 
 
+        if not record_id: #檢查 record_id 是否為空
+            messagebox.showwarning("警告", "查無資料！")
+            return
+
         conn = sqlite3.connect(database_path)
         c = conn.cursor()
 
@@ -126,3 +129,5 @@ def delete_btn_click(data_list):
         # 刪除 treeview 資料列表中的資料
         data_list.delete(selected)
         conn.close()
+    else:
+        messagebox.showwarning("警告", "請先選擇要刪除的行！")

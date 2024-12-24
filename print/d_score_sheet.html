@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="bulma/css/bulma.min.css">
+    <title>場考清冊 - 成績記錄表</title>
+    <style>
+        @media print {
+            .page {
+                page-break-after: always;
+
+                box-sizing: border-box;
+            }
+            .page:last-child {
+                page-break-after: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    {% for student in students %}
+    <div class="page">
+        <!-- 場考日期、時段、組別 -->
+        <div class="columns has-text-weight-bold is-size-5" style="margin-top:70px;">
+            <div class="column">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                場考日期：{{ exam_date }}
+                &nbsp;&nbsp;
+                {{ period }}
+                &nbsp;&nbsp;
+                第 {{ group }} 組
+            </div>
+        </div>
+        <!-- 編號和姓名 -->
+        <div class="columns has-text-weight-bold is-size-5">
+            <div class="column">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                編號：{{ student.driving_test_number }}
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                姓名：{{ student.student_name }}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+</body>
+</html>

@@ -1,5 +1,4 @@
-# 筆試清冊作業 介面
-# 對應資料庫邏輯介面 models/test.py
+# 筆試清冊作業 介面 
 from utils.widget import *
 from utils.config import *
 from models.test import *
@@ -171,75 +170,58 @@ def written_exam_roster(content):
     # 邏輯功能 - 搜尋學員資料並顯示在 entry
     def populate_student_data(identifier, value):
         global current_student_id, is_searching
+        
         if not is_searching:
             return
         student_data = get_student_data(identifier, value)
-        if student_data:
-            # 獲取學員資料庫 id 序列
-            current_student_id = student_data[0]
-            # 學員編號
-            student_number.delete(0, ctk.END)
-            student_number.insert(0, student_data[5])
-            # 學員姓名
-            student_name.delete(0, ctk.END)
-            student_name.insert(0, student_data[6])
-            # 名冊號碼
-            if student_data[34] is not None:
-                register_number.delete(0, ctk.END)
-                register_number.insert(0, student_data[34])
-            else:
-                register_number.delete(0, ctk.END)
-                register_number.insert(0, '')
-            # 身分證號碼    
-            national_id_no.delete(0, ctk.END)
-            national_id_no.insert(0, student_data[10])
-            # 出生日期
-            birth_date.configure(state='normal')
-            birth_date.delete(0, ctk.END)
-            birth_date.insert(0, student_data[9])
-            birth_date.configure(state='readonly')
-            # 訓練班別代號  
-            training_type_code.configure(state='normal')
-            training_type_code.delete(0, ctk.END)
-            training_type_code.insert(0, student_data[3])
-            training_type_code.configure(state='readonly')
-            # 訓練班別名稱
-            training_type_name.configure(state='normal')
-            training_type_name.delete(0, ctk.END)
-            training_type_name.insert(0, student_data[4])
-            training_type_name.configure(state='readonly')
-            # 期別
-            if student_data[35] is not None:
-                register_term.delete(0, ctk.END)
-                register_term.insert(0, student_data[35])
-            else:
-                register_term.delete(0, ctk.END)
-                register_term.insert(0, '')
-            # 梯次
-            batch.configure(state='normal')
-            batch.delete(0, ctk.END)
-            batch.insert(0, student_data[7])
-            batch.configure(state='readonly')
-            # 筆試日期
-            # if student_data[36] is not None:
-            #     written_exam_date.delete(0, ctk.END)
-            #     written_exam_date.insert(0, student_data[36])
-            # 場次
-            # driving_test_session.configure(state='normal')
-            # driving_test_session.delete(0, ctk.END)
-            # driving_test_session.insert(0, student_data[42])
-            # 號碼
-            # driving_test_number.configure(state='normal')
-            # driving_test_number.delete(0, ctk.END)
-            # driving_test_number.insert(0, student_data[41])
-            # driving_test_number.configure(state='readonly')
-            # 代碼
-            # if student_data[43] is not None:
-            #     driving_test_code.insert(0, student_data[43])
-            # else:
-            #     driving_test_code.insert(0, '')
-            # driving_test_code.configure(state='readonly')
-            
+
+        if student_data is None:
+            messagebox.showwarning('提示', "未找到學員資料")
+            return
+
+        # 获取学员资料库 id 序列
+        current_student_id = student_data[0]
+
+        # 学员姓名
+        student_name.delete(0, ctk.END)
+        if student_data[6]:
+            student_name.insert(0, str(student_data[6]))
+
+        # 名册号码
+        register_number.delete(0, ctk.END)
+        if student_data[34]:
+            register_number.insert(0, str(student_data[34]))
+
+        # 身份证号码    
+        national_id_no.delete(0, ctk.END)
+        if student_data[10]:
+            national_id_no.insert(0, str(student_data[10]))
+
+        # 出生日期
+        birth_date.configure(state='normal')
+        birth_date.delete(0, ctk.END)
+        if student_data[9]:
+            birth_date.insert(0, str(student_data[9]))
+        birth_date.configure(state='readonly')
+
+        # 训练班别代号  
+        training_type_code.configure(state='normal')
+        training_type_code.delete(0, ctk.END)
+        if student_data[3]:
+            training_type_code.insert(0, str(student_data[3]))
+        training_type_code.configure(state='readonly')
+        
+        # 训练班别名称
+        training_type_name.configure(state='normal')
+        training_type_name.delete(0, ctk.END)
+        if student_data[4]:
+            training_type_name.insert(0, str(student_data[4]))
+        training_type_name.configure(state='readonly')
+
+        # 期别
+        register_term.delete(0, ctk.END)
+        if student_data[35]:
+            register_term.insert(0, str(student_data[35]))
 
     # 獲取輸入欄位信息 
     def save_student_data():
@@ -311,10 +293,10 @@ def written_exam_roster(content):
             values = data_list.item(item)['values']
             data.append({
                 'driving_test_number': values[0],
-                'student_name': values[1],
-                'birth_date': values[2],
-                'national_id_no': values[3],
-                'register_number': values[4],
+                'register_number': values[1],
+                'student_name': values[4],
+                'birth_date': values[6],
+                'national_id_no': values[5],
             })
         return data
 
@@ -365,7 +347,7 @@ def written_exam_roster(content):
         # 等待瀏覽器加載
         time.sleep(3)
         # 模擬鍵盤操作觸發打印 (Ctrl+P)
-        pyautogui.hotkey('ctrl', 'p')
+        pyautogui.hotkey('ctrl', 'p', interval=0.1)
         # 等待打印窗口出現
         time.sleep(2)
         # 模擬鍵盤操作確認打印 (Enter)

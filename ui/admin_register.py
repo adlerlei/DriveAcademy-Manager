@@ -1,5 +1,4 @@
 # 管理員註冊 介面
-# 對應資料庫邏輯介面 models/admin.py 
 from tkinter import messagebox
 from utils.config import *
 from utils.widget import *
@@ -48,7 +47,6 @@ def admin_register(menu, content):
             return
         else:
             # 檢查通過調用函式寫入資料庫
-            # register_insert_data(content, username_value, password_value)
             register_insert_data(menu, content, username_value, password_value)
     
 
