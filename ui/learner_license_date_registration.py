@@ -168,74 +168,6 @@ def learner_license_date_registration(content):
     # 搜尋學員資料庫並且在 entry 顯示學員資料
     def populate_student_data(identifier, value):
         global current_student_id
-<<<<<<< HEAD
-        # 監聽學員編號輸入欄位如果為空，清除學員資料
-        if value == '':
-            clear_entries_and_comboboxes(learner_license_date_registration)
-            current_student_id = None
-        else:
-            student_data = get_student_data(identifier, value)
-            if student_data:
-                current_student_id = student_data[0]
-          
-                # 保存當前觸發搜索的字段值
-                current_field_value = value
-          
-                # 填充數據
-                student_number.delete(0, ctk.END)
-                student_number.insert(0, student_data[5])
-                student_name.delete(0, ctk.END)
-                student_name.insert(0, student_data[6])
-                license_type_code.configure(state='normal')
-                license_type_code.delete(0, ctk.END)
-                license_type_code.insert(0, student_data[1])
-                license_type_code.configure(state='readonly')
-                license_type_name.configure(state='normal')
-                license_type_name.delete(0, ctk.END)
-                license_type_name.insert(0, student_data[2])
-                license_type_name.configure(state='readonly')
-                national_id_no.delete(0, ctk.END)
-                national_id_no.insert(0, student_data[10])
-                mobile_phone.delete(0, ctk.END)
-                mobile_phone.insert(0, student_data[11])
-                birth_date.configure(state='normal')
-                birth_date.delete(0, ctk.END)
-                birth_date.insert(0, student_data[9])
-                birth_date.configure(state='readonly')
-                remarks.configure(state='normal')
-                remarks.delete(0, ctk.END)
-                remarks.insert(0, student_data[18])
-                remarks.configure(state='readonly')
-                r_address_zip_code.configure(state='normal')
-                r_address_zip_code.delete(0, ctk.END)
-                r_address_zip_code.insert(0, student_data[19])
-                r_address_zip_code.configure(state='readonly')
-                r_address_city.configure(state='normal')
-                r_address_city.delete(0, ctk.END)
-                r_address_city.insert(0, student_data[20])
-                r_address_city.configure(state='readonly')
-                r_address.configure(state='normal')
-                r_address.delete(0, ctk.END)
-                r_address.insert(0, student_data[21])
-                r_address.configure(state='readonly')
-
-                # 恢復當前觸發搜索的字段值
-                if identifier == 'student_number':
-                    student_number.delete(0, ctk.END)
-                    student_number.insert(0, current_field_value)
-                elif identifier == 'student_name':
-                    student_name.delete(0, ctk.END)
-                    student_name.insert(0, current_field_value)
-                elif identifier == 'national_id_no':
-                    national_id_no.delete(0, ctk.END)
-                    national_id_no.insert(0, current_field_value)
-                elif identifier == 'mobile_phone':
-                    mobile_phone.delete(0, ctk.END)
-                    mobile_phone.insert(0, current_field_value)
-            else:
-                # 如果沒有查詢到學生資料，則重置 current_student_id
-                current_student_id = None
-=======
         student_data = get_student_data(identifier, value)
         # 如果没有找到数据，直接返回
         if not student_data:
@@ -304,7 +236,6 @@ def learner_license_date_registration(content):
             r_address.delete(0, ctk.END)
             r_address.insert(0, str(student_data[21]) if student_data[21] else '')
             r_address.configure(state='readonly')
->>>>>>> li
 
 
     # 獲取輸入欄位信息

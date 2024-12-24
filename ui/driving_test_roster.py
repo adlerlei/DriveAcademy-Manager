@@ -5,18 +5,12 @@ from models.test import *
 from models.annual_plan import annual_plan_data
 import customtkinter as ctk
 from tkinter import messagebox
-<<<<<<< HEAD
- 
-# 檢測學員資料庫 id 欄位來判定是否修改或新增
-current_student_id = None
-=======
 import webbrowser
 import pyautogui
 import time
 import os
 from jinja2 import Environment, FileSystemLoader
 
->>>>>>> li
 
 current_student_id = None # 檢測學員資料庫 id 欄位來判定是否修改或新增
 current_driving_test_number = 0 # 考試號碼監聽

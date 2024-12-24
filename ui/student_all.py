@@ -229,59 +229,6 @@ def student_all(content):
     creation_date.grid(row=17, column=1, sticky='wen', padx=(10,0))
 
 
-<<<<<<< HEAD
-    # 學員資料顯示在輸入欄位上 
-    def populate_student_data(identifier, value):
-        global is_editing, current_student_id
-        # 監聽學員編號輸入欄位如果為空，清除學員資料
-        if value == '':
-            clear_entries_and_comboboxes(student_all)
-            is_editing = False
-            current_student_id = None
-        else:
-            student_data = get_student_data(identifier, value)
-            if student_data:
-                is_editing = True
-                current_student_id = student_data[0]
-          
-                # 保存当前触发搜索的字段值
-                current_field_value = value
-          
-                # 填充数据
-                training_type_code.set(student_data[3])
-                training_type_name.set(student_data[4])
-                license_type_code.set(student_data[1])
-                license_type_name.set(student_data[2])
-                student_number.delete(0, ctk.END)
-                student_number.insert(0, student_data[5])
-                batch.set(student_data[7])
-                student_name.delete(0, ctk.END)
-                student_name.insert(0, student_data[6])
-                national_id_no.delete(0, ctk.END)
-                national_id_no.insert(0, student_data[10])
-                birth_date.delete(0, ctk.END)
-                birth_date.insert(0, student_data[9])
-                mobile_phone.delete(0, ctk.END)
-                mobile_phone.insert(0, student_data[11])
-                r_address_zip_code.set(student_data[19])
-                r_address_city.set(student_data[20])
-                r_address.delete(0, ctk.END)
-                r_address.insert(0, student_data[21])
-                home_phone.delete(0, ctk.END)
-                home_phone.insert(0, student_data[12])
-                gender.set(student_data[16])
-                education.set(student_data[13])
-                instructor_number.set(student_data[14])
-                instructor_name.set(student_data[15])
-                email.delete(0, ctk.END)
-                email.insert(0, student_data[17])
-                remarks.delete(0, ctk.END)
-                remarks.insert(0, student_data[18])
-                m_address_zip_code.set(student_data[22])
-                m_address_city.set(student_data[23])
-                m_address.delete(0, ctk.END)
-                m_address.insert(0, student_data[24])
-=======
     # 學員資料顯示在輸入欄位
     def check_and_populate(identifier, value):
         global is_searching
@@ -464,7 +411,6 @@ def student_all(content):
         else:
             learner_permit_date.delete(0, ctk.END)
         learner_permit_date.configure(state='readonly')
->>>>>>> li
 
         # 學照號碼
         learner_permit_number.configure(state='normal')
@@ -475,32 +421,6 @@ def student_all(content):
             learner_permit_date.delete(0, ctk.END)
         learner_permit_number.configure(state='readonly')
 
-<<<<<<< HEAD
-                # 學照號碼
-                learner_permit_number.configure(state='normal')
-                learner_permit_number.delete(0, ctk.END)
-                if student_data[27]:
-                    learner_permit_number.insert(0, student_data[27])
-                else:
-                    learner_permit_number.insert(0, '')
-                learner_permit_number.configure(state='readonly')
-
-                # 是否退訓 
-                dropout.configure(state='normal')
-                dropout.delete(0, ctk.END)
-                if student_data[33]:
-                    dropout.insert(0, student_data[33])
-                else:
-                    dropout.insert(0, '')
-                dropout.configure(state='readonly')
-
-                # 名冊號碼
-                register_number.configure(state='normal')
-                register_number.delete(0, ctk.END)
-                if student_data[34]:
-                    register_number.insert(0, student_data[34])
-                register_number.configure(state='readonly')
-=======
         # 是否退训
         dropout.configure(state='normal')
         if student_data[33]:
@@ -518,7 +438,6 @@ def student_all(content):
         else:
             register_number.delete(0, ctk.END)
         register_number.configure(state='readonly')
->>>>>>> li
 
         # 路试日期
         road_test_date.configure(state='normal')
@@ -529,31 +448,6 @@ def student_all(content):
             road_test_date.delete(0, ctk.END)
         road_test_date.configure(state='readonly')
 
-<<<<<<< HEAD
-                # 建檔日期
-                creation_date.configure(state='normal')
-                creation_date.delete(0, ctk.END)
-                creation_date.insert(0, student_data[46])
-                creation_date.configure(state='readonly')
-
-                # 恢复当前触发搜索的字段值
-                if identifier == 'student_number':
-                    student_number.delete(0, ctk.END)
-                    student_number.insert(0, current_field_value)
-                elif identifier == 'student_name':
-                    student_name.delete(0, ctk.END)
-                    student_name.insert(0, current_field_value)
-                elif identifier == 'national_id_no':
-                    national_id_no.delete(0, ctk.END)
-                    national_id_no.insert(0, current_field_value)
-                elif identifier == 'mobile_phone':
-                    mobile_phone.delete(0, ctk.END)
-                    mobile_phone.insert(0, current_field_value)
-            else:
-                # 如果没有查询到学生资料,则重置 is_editing 和 current_student_id
-                is_editing = False
-                current_student_id = None    
-=======
         # 建档日期
         creation_date.configure(state='normal')
         if len(student_data) > 45 and student_data[45]:
@@ -562,7 +456,6 @@ def student_all(content):
         else:
             creation_date.delete(0, ctk.END)
         creation_date.configure(state='readonly')
->>>>>>> li
 
 
     # 獲取輸入欄位信息
